@@ -23,6 +23,7 @@
     "@unocss/preset-icons": "^0.56.1",
     "@unocss/preset-uno": "^0.56.1",
     "@vitejs/plugin-react": "^4.0.3",
+    "axios": "^1.5.0",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
