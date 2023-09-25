@@ -2,6 +2,7 @@
 
 ## 项目结构(暂时)
 
+```md
 ── README.md
 ├── app
 │   └── low-code-backend      # nest 后端
@@ -32,3 +33,4 @@
 ├── tsconfig.node.json
 ├── unocss.config.ts
 └── vite.config.ts
+```
