@@ -1,8 +1,8 @@
 import { createHashRouter } from 'react-router-dom'
-import App from '../App'
+import BaseHomeLayout from '@/layout/BaseHomeLayout'
 export const router = createHashRouter([
 	{
 		path: '/',
-		element: <App />,
+		element: <BaseHomeLayout />,
 	},
 ])

@@ -26,17 +26,10 @@ export default function HomeLayout() {
 			>
 				低代码平台
 			</Header>
-			<Layout
-				className={classNames(
-					styled.siderHeight
-				)}
-			>
+			<Layout className={classNames(styled.siderHeight)}>
 				<Sider
-					className={classNames(
-						'color-black',
-						'mr-2rem',
-						'w-250px'
-					)}
+					width={300}
+					className={classNames('color-black', 'mr-2rem')}
 					style={{
 						backgroundColor:
 							LayoutColor.leftSiderBackground,
@@ -48,11 +41,8 @@ export default function HomeLayout() {
 					<Canvas />
 				</Content>
 				<Sider
-					className={classNames(
-						'color-black',
-						'ml-2rem',
-						'w-340px'
-					)}
+					width={300}
+					className={classNames('color-black', 'ml-2rem')}
 					style={{
 						backgroundColor:
 							LayoutColor.rightSiderBackground,
