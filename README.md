@@ -1,27 +1,34 @@
-# React + TypeScript + Vite
+# 多智协创平台(MultiMind Collaborative Platform)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 项目结构(暂时)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+── README.md
+├── app
+│   └── low-code-backend      # nest 后端
+├── index.html
+├── package.json
+├── packages                  # monorepo 架构
+│   ├── components            # 低代码 组件
+│   ├── core                  # 核心流程
+│   ├── customized            # 可定制模块
+│   ├── renderer-core         # 核心渲染器
+│   └── server                # 客户端、服务端 交互
+├── pnpm-lock.yaml
+├── public
+│   └── vite.svg
+├── src
+│   ├── App.tsx
+│   ├── __tests__             # 测试文件
+│   ├── api
+│   ├── assets                # 静态资源
+│   ├── components            # 组件
+│   ├── index.css
+│   ├── layout                # 布局文件
+│   ├── main.tsx
+│   ├── router                # 路由
+│   ├── shared                # 工具库
+│   └── vite-env.d.ts
+├── tsconfig.json
+├── tsconfig.node.json
+├── unocss.config.ts
+└── vite.config.ts
