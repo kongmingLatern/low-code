@@ -13,8 +13,6 @@ export class Canvas {
 	}
 
 	getCanvas() {
-		console.log(this.canvas)
-
 		return { ...this.canvas }
 	}
 
