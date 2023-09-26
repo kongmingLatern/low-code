@@ -26,7 +26,7 @@ export default function LeftSider() {
 					<Row gutter={[16, 16]}>
 						{arr.map(i => (
 							<Col span={12} key={i.key}>
-								<Box type={i.type}>{i.value}</Box>
+								<Box type={i.type} value={i.value} />
 							</Col>
 						))}
 					</Row>
