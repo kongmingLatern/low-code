@@ -4,13 +4,13 @@ import { useRef } from 'react'
 import { useDrop } from 'ahooks'
 import { useCanvasData } from '@/hooks/useCanvas'
 import { RenderAdapter } from '@packages/renderer-core'
-import { useAutoAnimate } from '@formkit/auto-animate/react'
+// import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Canvas() {
 	const dropRef = useRef(null)
 
 	const { style, element } = useCanvasData()
-	const [parent] = useAutoAnimate()
+	// const [parent] = useAutoAnimate()
 
 	const renderAdapter = new RenderAdapter()
 
@@ -44,7 +44,7 @@ export default function Canvas() {
 				height: style.height,
 			}}
 		>
-			<ul ref={parent}>
+			<ul>
 				{element.map(i => (
 					<li key={i.key}>
 						{renderAdapter.handler(
