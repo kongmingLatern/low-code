@@ -3,11 +3,16 @@ import styled from './canvas.module.scss'
 import { useRef } from 'react'
 import { useDrop } from 'ahooks'
 import { useCanvasData } from '@/hooks/useCanvas'
+import { RenderAdapter } from '@packages/renderer-core'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Canvas() {
 	const dropRef = useRef(null)
 
 	const { style, element } = useCanvasData()
+	const [parent] = useAutoAnimate()
+
+	const renderAdapter = new RenderAdapter()
 
 	useDrop(dropRef, {
 		onText: (text, e) => {
@@ -39,9 +44,15 @@ export default function Canvas() {
 				height: style.height,
 			}}
 		>
-			<ul>
+			<ul ref={parent}>
 				{element.map(i => (
-					<li key={i.key}>{i.value}</li>
+					<li key={i.key}>
+						{renderAdapter.handler(
+							i.type,
+							i.value,
+							i.props
+						)}
+					</li>
 				))}
 			</ul>
 		</div>
