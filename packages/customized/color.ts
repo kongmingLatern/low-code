@@ -6,5 +6,4 @@ export const ColorTheme = {
 export const LayoutColor = {
 	leftSiderBackground: 'white',
 	rightSiderBackground: 'white',
-
 }
