@@ -32,8 +32,14 @@ export class Canvas {
 
 	setCanvas(_canvas) {
 		Object.assign(this.canvas, _canvas)
+		this.update()
+	}
 
-		// TODO: Update Canvas
+	setStyle(style: Record<string, any>) {
+		Object.assign(this.canvas.style, {
+			...this.canvas.style,
+			...style,
+		})
 		this.update()
 	}
 
@@ -54,6 +60,7 @@ export class Canvas {
 			addElement: this.addElement,
 			getCanvas: this.getCanvas,
 			setCanvas: this.setCanvas,
+			setStyle: this.setStyle,
 			subscribe: this.subscribe,
 		}
 		return obj

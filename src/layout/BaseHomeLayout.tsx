@@ -11,6 +11,7 @@ import LeftSider from '@/components/Sider/Left'
 import { useCanvas } from '@/hooks/useCanvas'
 import { CanvasContext } from '@/store/context'
 import { useEffect, useReducer } from 'react'
+import ContentHeader from '@/components/Header'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -56,7 +57,23 @@ export default function HomeLayout() {
 						<LeftSider />
 					</Sider>
 					{/* 画布区 */}
-					<Content className={classNames('flex-center')}>
+					<Content
+						className={classNames(
+							'flex',
+							'items-center',
+							'flex-col'
+						)}
+					>
+						<Header
+							className={classNames(
+								'w-full',
+								'bg-white',
+								'mb-1rem',
+								'flex-center'
+							)}
+						>
+							<ContentHeader />
+						</Header>
 						<Canvas />
 					</Content>
 					{/* 右侧操作栏 */}
