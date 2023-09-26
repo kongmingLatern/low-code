@@ -1,6 +1,6 @@
 import { CanvasConfig } from '@packages/customized'
 import classNames from 'classnames'
-import styled from '@/assets/canvas.module.scss'
+import styled from './canvas.module.scss'
 
 export default function Canvas() {
 	return (

@@ -6,6 +6,7 @@ import {
 import { Layout } from 'antd'
 import classNames from 'classnames'
 import styled from './index.module.scss'
+import LeftSider from '@/components/Sider/Left'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -35,7 +36,7 @@ export default function HomeLayout() {
 							LayoutColor.leftSiderBackground,
 					}}
 				>
-					物料区
+					<LeftSider />
 				</Sider>
 				<Content className={classNames('flex-center')}>
 					<Canvas />
