@@ -3,10 +3,8 @@ import { Canvas } from '@packages/customized'
 import { useContext, useRef } from 'react'
 
 export function useCanvas(canvas?) {
-	const canvasRef = useRef<{
-		getCanvas: () => { [x: string]: any }
-		setCanvas: (_canvas: any) => void
-	}>()
+	const canvasRef =
+		useRef<ReturnType<Canvas['getPublic']>>()
 
 	if (!canvasRef.current) {
 		if (canvas) {
@@ -16,7 +14,12 @@ export function useCanvas(canvas?) {
 			canvasRef.current = canvas
 		}
 	}
-	return canvasRef.current
+	return canvasRef.current!
+}
+
+export function useCanvasContext() {
+	const canvas = useContext(CanvasContext)
+	return canvas
 }
 
 export function useCanvasData() {

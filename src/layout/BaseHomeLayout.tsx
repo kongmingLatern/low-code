@@ -10,6 +10,7 @@ import styled from './index.module.scss'
 import LeftSider from '@/components/Sider/Left'
 import { useCanvas } from '@/hooks/useCanvas'
 import { CanvasContext } from '@/store/context'
+import { useEffect, useReducer } from 'react'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -23,6 +24,16 @@ const { Header, Sider, Content } = Layout
 
 export default function HomeLayout() {
 	const canvas = useCanvas()
+
+	const [, forceUpdate] = useReducer(x => x + 1, 0)
+
+	useEffect(() => {
+		const unsubscribe = canvas.subscribe(() => {
+			forceUpdate()
+		})
+		return () => unsubscribe() as any
+	}, [canvas])
+
 	return (
 		<CanvasContext.Provider value={canvas!}>
 			<Layout>

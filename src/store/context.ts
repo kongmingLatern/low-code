@@ -1,8 +1,6 @@
+import { Canvas } from '@packages/customized'
 import { createContext } from 'react'
 
 export const CanvasContext = createContext(
-	{} as {
-		getCanvas: () => { [x: string]: any }
-		setCanvas: (_canvas: any) => void
-	}
+	{} as ReturnType<Canvas['getPublic']>
 )

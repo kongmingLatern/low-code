@@ -7,8 +7,7 @@ import { useCanvasData } from '@/hooks/useCanvas'
 export default function Canvas() {
 	const dropRef = useRef(null)
 
-	const canvas = useCanvasData()
-	console.log('canvas', canvas)
+	const { style, element } = useCanvasData()
 
 	useDrop(dropRef, {
 		onText: (text, e) => {
@@ -35,10 +34,16 @@ export default function Canvas() {
 			ref={dropRef}
 			className={classNames(styled.coverCanvas)}
 			style={{
-				backgroundColor: canvas.background,
-				width: canvas.width,
-				height: canvas.height,
+				backgroundColor: style.background,
+				width: style.width,
+				height: style.height,
 			}}
-		></div>
+		>
+			<ul>
+				{element.map(i => (
+					<li key={i.key}>{i.value}</li>
+				))}
+			</ul>
+		</div>
 	)
 }

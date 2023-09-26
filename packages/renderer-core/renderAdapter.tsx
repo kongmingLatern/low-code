@@ -7,8 +7,9 @@ type ComponentType = 'Antd'
 export class RenderAdapter {
 	private type: ELEMENT_TYPE
 	private value: any
-	private component_type: ComponentType
 	private props: Record<string, any> = {}
+	// NOTE: 组件库类型,默认为 antd
+	private component_type: ComponentType
 
 	constructor(
 		_type: ELEMENT_TYPE = ELEMENT_TYPE.TEXT,
