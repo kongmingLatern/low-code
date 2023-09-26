@@ -1,13 +1,15 @@
 import { Col, Row, Tabs } from 'antd'
-import Box from '../Box'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useState } from 'react'
-import { getContent } from '@/shared'
+import { TABKEY, getContent } from '@/shared'
 import { LeftSiderTab } from '@packages/customized'
+import Box from '@/components/Box'
 
 export default function LeftSider() {
 	const [isExpanded] = useState(true)
-	const [activeKey, setActiveKey] = useState('1')
+	const [activeKey, setActiveKey] = useState<string>(
+		TABKEY.TEXT as string
+	)
 	const [parent] = useAutoAnimate()
 
 	const onChange = (activeKey: string) => {
@@ -16,14 +18,15 @@ export default function LeftSider() {
 
 	const getChildrenByKey = () => {
 		const arr = getContent(activeKey)
+		console.log('arr', arr)
 
 		return (
 			<div ref={parent} className="mt-1rem pr-24px">
 				{isExpanded && (
 					<Row gutter={[16, 16]}>
 						{arr.map(i => (
-							<Col span={12} key={i}>
-								<Box>{i}</Box>
+							<Col span={12} key={i.key}>
+								<Box type={i.type}>{i.value}</Box>
 							</Col>
 						))}
 					</Row>
@@ -44,7 +47,7 @@ export default function LeftSider() {
 		<>
 			<Tabs
 				className="mt-1rem"
-				defaultActiveKey="文本"
+				defaultActiveKey={TABKEY.TEXT}
 				tabPosition={'left'}
 				style={{ height: 'calc(100vh - 80px)' }}
 				items={items}

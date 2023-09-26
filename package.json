@@ -37,6 +37,7 @@
     "socket.io-client": "^4.7.2",
     "typescript": "^5.0.2",
     "unocss": "^0.56.1",
+    "uuid": "^9.0.1",
     "vite": "^4.4.5",
     "vitest": "^0.34.5"
   }

@@ -79,6 +79,9 @@ devDependencies:
   unocss:
     specifier: ^0.56.1
     version: 0.56.1(postcss@8.4.30)(vite@4.4.5)
+  uuid:
+    specifier: ^9.0.1
+    version: 9.0.1
   vite:
     specifier: ^4.4.5
     version: 4.4.5(@types/node@20.6.3)(sass@1.68.0)
@@ -3784,6 +3787,11 @@ packages:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
       punycode: 2.3.0
+    dev: true
+
+  /uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    hasBin: true
     dev: true
 
   /vite-node@0.34.5(@types/node@20.6.3)(sass@1.68.0):
