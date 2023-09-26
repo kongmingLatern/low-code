@@ -1,48 +1,82 @@
-import { useCanvasContext } from '@/hooks'
-import { Form, Input } from 'antd'
+import { useCanvasContext, useCanvasData } from '@/hooks'
+import {
+	Button,
+	Col,
+	Form,
+	Input,
+	InputNumber,
+	Row,
+} from 'antd'
+import { useState } from 'react'
 
 export default function ContentHeader() {
-	const [form] = Form.useForm()
-
 	const canvas = useCanvasContext()
+	const { style } = useCanvasData()
 
-	const onFinish = (values: any) => {
-		console.log('Finish:', values)
-	}
+	const [width, setWidth] = useState<number>(style.width)
+	const [height, setHeight] = useState<number>(style.height)
 
 	const handleBlur = (key: 'width' | 'height', e) => {
 		const { value } = e.target
-		if (key === 'width') {
+		if (key === 'width' && value && value > 0) {
 			canvas.setStyle({
 				width: value + 'px',
 			})
-		} else if (key === 'height') {
+			setWidth(value)
+		} else if (key === 'height' && value && value > 0) {
 			canvas.setStyle({
 				height: value + 'px',
 			})
+			setHeight(value)
 		}
 	}
 
-	return (
-		<Form
-			form={form}
-			name="horizontal_login"
-			layout="inline"
-			onFinish={onFinish}
-		>
-			<Form.Item name="width" label="画布宽度">
-				<Input
-					placeholder="请输入画布宽度"
-					onBlur={e => handleBlur('width', e)}
-				/>
-			</Form.Item>
+	const reset = () => {
+		canvas.setStyle({
+			width: 600,
+			height: 800,
+		})
+		setWidth(600)
+		setHeight(800)
+	}
 
-			<Form.Item name="height" label="画布高度">
-				<Input
-					placeholder="请输入画布高度"
-					onBlur={e => handleBlur('height', e)}
+	return (
+		<Row>
+			<Col span={10} className="text-center">
+				<span>画布宽度: </span>{' '}
+				<InputNumber
+					className="w-auto"
+					placeholder="请输入画布宽度"
+					min={1}
+					value={width}
+					onBlur={e => handleBlur('width', e)}
+					onKeyDown={e => {
+						if (e.keyCode === 13) {
+							handleBlur('width', e)
+						}
+					}}
 				/>
-			</Form.Item>
-		</Form>
+			</Col>
+
+			<Col span={10} className="text-center">
+				<span>画布高度: </span>{' '}
+				<InputNumber
+					className="w-auto"
+					placeholder="请输入画布高度"
+					min={1}
+					value={height}
+					onBlur={e => handleBlur('height', e)}
+					onKeyDown={e => {
+						if (e.keyCode === 13) {
+							handleBlur('height', e)
+						}
+					}}
+				/>
+			</Col>
+
+			<Col span={4} className="text-center">
+				<Button onClick={() => reset()}>重置</Button>
+			</Col>
+		</Row>
 	)
 }

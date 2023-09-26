@@ -68,8 +68,7 @@ export default function HomeLayout() {
 							className={classNames(
 								'w-full',
 								'bg-white',
-								'mb-1rem',
-								'flex-center'
+								'mb-1rem'
 							)}
 						>
 							<ContentHeader />
