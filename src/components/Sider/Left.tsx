@@ -3,6 +3,7 @@ import Box from '../Box'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useState } from 'react'
 import { getContent } from '@/shared'
+import { LeftSiderTab } from '@packages/customized'
 
 export default function LeftSider() {
 	const [isExpanded] = useState(true)
@@ -17,9 +18,9 @@ export default function LeftSider() {
 		const arr = getContent(activeKey)
 
 		return (
-			<div ref={parent} className="mt-1rem">
+			<div ref={parent} className="mt-1rem pr-24px">
 				{isExpanded && (
-					<Row>
+					<Row gutter={[16, 16]}>
 						{arr.map(i => (
 							<Col span={12} key={i}>
 								<Box>{i}</Box>
@@ -31,7 +32,7 @@ export default function LeftSider() {
 		)
 	}
 
-	const items = ['文本', '图片'].map(i => {
+	const items = LeftSiderTab.map(i => {
 		return {
 			label: i,
 			key: i,

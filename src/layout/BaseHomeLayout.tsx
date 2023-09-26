@@ -2,6 +2,7 @@ import Canvas from '@/components/Canvas'
 import {
 	ColorTheme,
 	LayoutColor,
+	SiderConfig,
 } from '@packages/customized'
 import { Layout } from 'antd'
 import classNames from 'classnames'
@@ -29,7 +30,7 @@ export default function HomeLayout() {
 			</Header>
 			<Layout className={classNames(styled.siderHeight)}>
 				<Sider
-					width={300}
+					width={SiderConfig.LeftWidth}
 					className={classNames('color-black', 'mr-2rem')}
 					style={{
 						backgroundColor:
@@ -42,7 +43,7 @@ export default function HomeLayout() {
 					<Canvas />
 				</Content>
 				<Sider
-					width={300}
+					width={SiderConfig.RightWidth}
 					className={classNames('color-black', 'ml-2rem')}
 					style={{
 						backgroundColor:
