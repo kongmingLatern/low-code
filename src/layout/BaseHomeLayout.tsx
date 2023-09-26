@@ -24,7 +24,7 @@ const { Header, Sider, Content } = Layout
 export default function HomeLayout() {
 	const canvas = useCanvas()
 	return (
-		<CanvasContext.Provider value={canvas}>
+		<CanvasContext.Provider value={canvas!}>
 			<Layout>
 				<Header
 					className="text-20px font-semibold"
@@ -33,6 +33,7 @@ export default function HomeLayout() {
 					低代码平台
 				</Header>
 				<Layout className={classNames(styled.siderHeight)}>
+					{/* 左侧操作栏 */}
 					<Sider
 						width={SiderConfig.LeftWidth}
 						className={classNames('color-black', 'mr-2rem')}
@@ -43,9 +44,11 @@ export default function HomeLayout() {
 					>
 						<LeftSider />
 					</Sider>
+					{/* 画布区 */}
 					<Content className={classNames('flex-center')}>
 						<Canvas />
 					</Content>
+					{/* 右侧操作栏 */}
 					<Sider
 						width={SiderConfig.RightWidth}
 						className={classNames('color-black', 'ml-2rem')}

@@ -6,13 +6,15 @@ export const CanvasConfig = {
 }
 
 export class Canvas {
-	private canvas: Record<string, any>
+	canvas: Record<string, any>
 
-	constructor(_canvas?: Record<string, any>) {
-		this.canvas = _canvas || CanvasConfig
+	constructor(_canvas: Record<string, any> = CanvasConfig) {
+		this.canvas = _canvas
 	}
 
 	getCanvas() {
+		console.log(this.canvas)
+
 		return { ...this.canvas }
 	}
 
@@ -21,9 +23,10 @@ export class Canvas {
 	}
 
 	getPublic() {
-		return {
+		const obj = {
 			getCanvas: this.getCanvas,
 			setCanvas: this.setCanvas,
 		}
+		return obj
 	}
 }

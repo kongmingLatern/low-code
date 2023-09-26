@@ -18,7 +18,6 @@ export default function LeftSider() {
 
 	const getChildrenByKey = () => {
 		const arr = getContent(activeKey)
-		console.log('arr', arr)
 
 		return (
 			<div ref={parent} className="mt-1rem pr-24px">
