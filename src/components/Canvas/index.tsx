@@ -1,11 +1,11 @@
-import { CanvasConfig } from '@packages/customized'
 import classNames from 'classnames'
 import styled from './canvas.module.scss'
 import { useRef } from 'react'
 import { useDrop } from 'ahooks'
 
-export default function Canvas() {
+export default function Canvas(props) {
 	const dropRef = useRef(null)
+	const { canvas } = props.canvas
 
 	useDrop(dropRef, {
 		onText: (text, e) => {
@@ -21,7 +21,8 @@ export default function Canvas() {
 			alert(`uri: ${uri} dropped`)
 		},
 		onDom: (content: string, e) => {
-			alert(`custom: ${content} dropped, ${e}`)
+			// alert(`custom: ${content} dropped, ${e}`)
+			console.log('onDom', content, e)
 		},
 	})
 
@@ -31,9 +32,9 @@ export default function Canvas() {
 			ref={dropRef}
 			className={classNames(styled.coverCanvas)}
 			style={{
-				backgroundColor: CanvasConfig.background,
-				width: CanvasConfig.width,
-				height: CanvasConfig.height,
+				backgroundColor: canvas.background,
+				width: canvas.width,
+				height: canvas.height,
 			}}
 		></div>
 	)

@@ -4,7 +4,7 @@ import { Image, Typography } from 'antd'
 type ComponentType = 'Antd'
 
 // 适配层, 通过 type 对 value 进行处理
-export class Adapter {
+export class RenderAdapter {
 	private type: ELEMENT_TYPE
 	private value: any
 	private component_type: ComponentType

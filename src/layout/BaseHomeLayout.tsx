@@ -8,6 +8,7 @@ import { Layout } from 'antd'
 import classNames from 'classnames'
 import styled from './index.module.scss'
 import LeftSider from '@/components/Sider/Left'
+import { useCanvas } from '@/hooks/useCanvas'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -20,6 +21,7 @@ const headerStyle: React.CSSProperties = {
 const { Header, Sider, Content } = Layout
 
 export default function HomeLayout() {
+	const canvas = useCanvas()
 	return (
 		<Layout>
 			<Header
@@ -40,7 +42,7 @@ export default function HomeLayout() {
 					<LeftSider />
 				</Sider>
 				<Content className={classNames('flex-center')}>
-					<Canvas />
+					<Canvas canvas={canvas} />
 				</Content>
 				<Sider
 					width={SiderConfig.RightWidth}
