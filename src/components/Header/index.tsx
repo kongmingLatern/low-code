@@ -1,12 +1,5 @@
 import { useCanvasContext, useCanvasData } from '@/hooks'
-import {
-	Button,
-	Col,
-	Form,
-	Input,
-	InputNumber,
-	Row,
-} from 'antd'
+import { Button, Col, InputNumber, Row } from 'antd'
 import { useState } from 'react'
 
 export default function ContentHeader() {
@@ -42,7 +35,7 @@ export default function ContentHeader() {
 
 	return (
 		<Row>
-			<Col span={10} className="text-center">
+			<Col span={10} className="text-center text-nowrap">
 				<span>画布宽度: </span>{' '}
 				<InputNumber
 					className="w-auto"
@@ -58,7 +51,7 @@ export default function ContentHeader() {
 				/>
 			</Col>
 
-			<Col span={10} className="text-center">
+			<Col span={10} className="text-center text-nowrap">
 				<span>画布高度: </span>{' '}
 				<InputNumber
 					className="w-auto"
