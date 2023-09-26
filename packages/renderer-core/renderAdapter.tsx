@@ -5,48 +5,46 @@ type ComponentType = 'Antd'
 
 // 适配层, 通过 type 对 value 进行处理
 export class RenderAdapter {
-	private type?: ELEMENT_TYPE = ELEMENT_TYPE.TEXT
-	private value?: any
-	private props?: Record<string, any> = {}
+	private type: ELEMENT_TYPE = ELEMENT_TYPE.TEXT
+	private value: any
+	private props: Record<string, any> = {}
 	// NOTE: 组件库类型,默认为 antd
-	private component_type?: ComponentType = 'Antd'
+	private componentType: ComponentType = 'Antd'
 
 	constructor(
-		_type?: ELEMENT_TYPE,
-		_value?: any,
-		_props?: Record<string, any>,
-		_component_type?: ComponentType
+		type?: ELEMENT_TYPE,
+		value?: any,
+		props?: Record<string, any>,
+		componentType?: ComponentType
 	) {
-		this.type = _type
-		this.value = _value
-		this.props = _props
-		this.component_type = _component_type
+		if (type !== undefined) this.type = type
+		if (value !== undefined) this.value = value
+		if (props !== undefined) this.props = props
+		if (componentType !== undefined)
+			this.componentType = componentType
 	}
 
-	private textHandler(value?, props?, component_type?) {
-		switch (component_type || this.component_type) {
+	private textHandler() {
+		const { componentType } = this
+		switch (componentType) {
 			case 'Antd':
 				return (
-					<Typography.Text {...(props || this.props)}>
-						{value || this.value}
+					<Typography.Text {...this.props}>
+						{this.value}
 					</Typography.Text>
 				)
 			default:
-				return <span>{value || this.value}</span>
+				return <span>{this.value}</span>
 		}
 	}
 
-	private imgHandler(value?, props?, component_type?) {
-		switch (component_type || this.component_type) {
+	private imgHandler() {
+		const { componentType } = this
+		switch (componentType) {
 			case 'Antd':
-				return (
-					<Image
-						src={value || this.value}
-						{...(props || this.props)}
-					></Image>
-				)
+				return <Image src={this.value} {...this.props} />
 			default:
-				return <img src={value || this.value} />
+				return <img src={this.value} />
 		}
 	}
 
@@ -55,17 +53,18 @@ export class RenderAdapter {
 		type?: ELEMENT_TYPE,
 		value?: any,
 		props?: Record<string, any>,
-		component_type: ComponentType = 'Antd'
+		componentType: ComponentType = 'Antd'
 	) {
-		switch (type || this.type) {
+		if (type !== undefined) this.type = type
+		if (value !== undefined) this.value = value
+		if (props !== undefined) this.props = props
+		this.componentType = componentType
+
+		switch (this.type) {
 			case ELEMENT_TYPE.TEXT:
-				return this.textHandler(
-					value,
-					props,
-					component_type
-				)
+				return this.textHandler()
 			case ELEMENT_TYPE.IMAGE:
-				return this.imgHandler(value, props, component_type)
+				return this.imgHandler()
 			default:
 				throw new Error('未处理的类型' + this.type)
 		}
