@@ -9,6 +9,7 @@ import classNames from 'classnames'
 import styled from './index.module.scss'
 import LeftSider from '@/components/Sider/Left'
 import { useCanvas } from '@/hooks/useCanvas'
+import { CanvasContext } from '@/store/context'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -23,39 +24,41 @@ const { Header, Sider, Content } = Layout
 export default function HomeLayout() {
 	const canvas = useCanvas()
 	return (
-		<Layout>
-			<Header
-				className="text-20px font-semibold"
-				style={headerStyle}
-			>
-				低代码平台
-			</Header>
-			<Layout className={classNames(styled.siderHeight)}>
-				<Sider
-					width={SiderConfig.LeftWidth}
-					className={classNames('color-black', 'mr-2rem')}
-					style={{
-						backgroundColor:
-							LayoutColor.leftSiderBackground,
-					}}
+		<CanvasContext.Provider value={canvas}>
+			<Layout>
+				<Header
+					className="text-20px font-semibold"
+					style={headerStyle}
 				>
-					<LeftSider />
-				</Sider>
-				<Content className={classNames('flex-center')}>
-					<Canvas canvas={canvas} />
-				</Content>
-				<Sider
-					width={SiderConfig.RightWidth}
-					className={classNames('color-black', 'ml-2rem')}
-					style={{
-						backgroundColor:
-							LayoutColor.rightSiderBackground,
-					}}
-				>
-					编辑区
-				</Sider>
+					低代码平台
+				</Header>
+				<Layout className={classNames(styled.siderHeight)}>
+					<Sider
+						width={SiderConfig.LeftWidth}
+						className={classNames('color-black', 'mr-2rem')}
+						style={{
+							backgroundColor:
+								LayoutColor.leftSiderBackground,
+						}}
+					>
+						<LeftSider />
+					</Sider>
+					<Content className={classNames('flex-center')}>
+						<Canvas />
+					</Content>
+					<Sider
+						width={SiderConfig.RightWidth}
+						className={classNames('color-black', 'ml-2rem')}
+						style={{
+							backgroundColor:
+								LayoutColor.rightSiderBackground,
+						}}
+					>
+						编辑区
+					</Sider>
+				</Layout>
+				{/* <Footer style={footerStyle}>Footer</Footer> */}
 			</Layout>
-			{/* <Footer style={footerStyle}>Footer</Footer> */}
-		</Layout>
+		</CanvasContext.Provider>
 	)
 }

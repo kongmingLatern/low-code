@@ -1,11 +1,12 @@
 import classNames from 'classnames'
 import styled from './canvas.module.scss'
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { useDrop } from 'ahooks'
+import { CanvasContext } from '@/store/context'
 
-export default function Canvas(props) {
+export default function Canvas() {
 	const dropRef = useRef(null)
-	const { canvas } = props.canvas
+	const { canvas } = useContext(CanvasContext)
 
 	useDrop(dropRef, {
 		onText: (text, e) => {
