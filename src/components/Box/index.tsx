@@ -62,6 +62,10 @@ export default function Box(props) {
 				{/* 这里最好做一个适配层,能够兼容各种组件库 */}
 				{renderAdapter.handler({
 					img: {
+						style: {
+							width: '100%',
+							height: '100%',
+						},
 						preview: false,
 					},
 				})}
