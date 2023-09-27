@@ -2,13 +2,17 @@ import classNames from 'classnames'
 import styled from './canvas.module.scss'
 import { useRef } from 'react'
 import { useDrop } from 'ahooks'
-import { useCanvasData } from '@/hooks/useCanvas'
+import {
+	useCanvasContext,
+	useCanvasData,
+} from '@/hooks/useCanvas'
 import Element from '../Element'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Canvas() {
 	const dropRef = useRef(null)
 
+	const canvas = useCanvasContext()
 	const { style, element } = useCanvasData()
 	// const [parent] = useAutoAnimate()
 
@@ -43,9 +47,14 @@ export default function Canvas() {
 			}}
 		>
 			<ul>
-				{element.map(i => (
+				{element.map((i, index) => (
 					<li key={i.key}>
-						<Element element={i} />
+						<Element
+							element={i}
+							isSelected={
+								canvas.getSelectedIndex() === index
+							}
+						/>
 					</li>
 				))}
 			</ul>
