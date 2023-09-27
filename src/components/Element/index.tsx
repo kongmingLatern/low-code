@@ -15,6 +15,7 @@ export default function Element(props) {
 
 	useDrag({}, dragRef, {
 		onDragStart: e => {
+			setSelected()
 			const startX = e.pageX
 			const startY = e.pageY
 			e.dataTransfer.setData('text', startX + ',' + startY)
@@ -46,8 +47,12 @@ export default function Element(props) {
 	}
 
 	return (
-		<span ref={dragRef} onClick={setSelected}>
+		<div
+			className="absolute"
+			ref={dragRef}
+			onClick={setSelected}
+		>
 			<ElementChildren />
-		</span>
+		</div>
 	)
 }

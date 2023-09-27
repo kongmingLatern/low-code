@@ -33,21 +33,20 @@ export default function Canvas() {
 			const [startX, startY] = e!.dataTransfer
 				.getData('text')
 				.split(',')
-			console.log('start', startX)
-			console.log('start', startY)
 
 			const endX = e!.pageX
 			const endY = e!.pageY
 
 			const selectedElement = canvas.getSelectedElement()
-			console.log('endX', endX)
-			console.log('endY', endY)
+
+			const disX = endX - Number(startX)
+			const disY = endY - Number(startY)
 
 			const { top, left } = selectedElement.style
 
 			canvas.updateSelectedElement({
-				top: top + (endX - Number(startX)),
-				left: left + (endY - Number(startY)),
+				top: top + disY,
+				left: left + disX,
 			})
 		},
 	})
@@ -63,19 +62,14 @@ export default function Canvas() {
 				height: style.height,
 			}}
 		>
-			<ul>
-				{element.map((i, index) => (
-					<li key={i.key}>
-						<Element
-							index={index}
-							element={i}
-							isSelected={
-								canvas.getSelectedIndex() === index
-							}
-						/>
-					</li>
-				))}
-			</ul>
+			{element.map((i, index) => (
+				<Element
+					key={i + index}
+					index={index}
+					element={i}
+					isSelected={canvas.getSelectedIndex() === index}
+				/>
+			))}
 		</div>
 	)
 }
