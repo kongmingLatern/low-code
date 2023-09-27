@@ -79,7 +79,6 @@ export class Canvas {
 
 	updateSelectedElement(newStyle = {}) {
 		const selectedElement = this.getSelectedElement()
-		console.log(selectedElement, newStyle)
 		Object.assign(
 			this.canvas.element[this.selectedIndex || 0],
 			{

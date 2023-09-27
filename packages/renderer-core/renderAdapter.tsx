@@ -24,12 +24,12 @@ export class RenderAdapter {
 			this.componentType = componentType
 	}
 
-	private textHandler() {
+	private textHandler(options = {}) {
 		const { componentType } = this
 		switch (componentType) {
 			case 'Antd':
 				return (
-					<Typography.Text style={this.props}>
+					<Typography.Text style={this.props} {...options}>
 						{this.value}
 					</Typography.Text>
 				)
@@ -38,23 +38,38 @@ export class RenderAdapter {
 		}
 	}
 
-	private imgHandler() {
+	private imgHandler(options = {}) {
 		const { componentType } = this
 		switch (componentType) {
 			case 'Antd':
-				return <Image src={this.value} style={this.props} />
+				return (
+					<Image
+						src={this.value}
+						className="min-w-[400px]"
+						style={this.props}
+						{...options}
+					/>
+				)
 			default:
 				return <img src={this.value} />
 		}
 	}
 
 	// 对外暴露一个接口,该接口即对type做对应的适配
-	handler() {
+	handler(
+		options = {
+			text: {},
+			img: {},
+		} as Partial<{
+			text: Record<string, any>
+			img: Record<string, any>
+		}>
+	) {
 		switch (this.type) {
 			case ELEMENT_TYPE.TEXT:
-				return this.textHandler()
+				return this.textHandler(options.text)
 			case ELEMENT_TYPE.IMAGE:
-				return this.imgHandler()
+				return this.imgHandler(options.img)
 			default:
 				throw new Error('未处理的类型' + this.type)
 		}

@@ -29,7 +29,11 @@ export default function Element(props) {
 	)
 
 	const child = React.Children.only(
-		renderAdapter.handler()
+		renderAdapter.handler({
+			img: {
+				preview: true,
+			},
+		})
 	) as React.ReactElement<any>
 
 	const ElementChildren = () =>
