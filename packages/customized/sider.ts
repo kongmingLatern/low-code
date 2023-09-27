@@ -19,8 +19,8 @@ export function getContent(key: string) {
 					style: {
 						top: 0,
 						left: 0,
-						width: 50,
-						height: 50,
+						width: 'auto',
+						height: 'auto',
 					},
 				},
 				{
@@ -30,8 +30,8 @@ export function getContent(key: string) {
 					style: {
 						top: 0,
 						left: 0,
-						width: 200,
-						height: 200,
+						width: 'auto',
+						height: 'auto',
 					},
 				},
 				{
@@ -41,8 +41,8 @@ export function getContent(key: string) {
 					style: {
 						top: 0,
 						left: 0,
-						width: 200,
-						height: 200,
+						width: 'auto',
+						height: 'auto',
 					},
 				},
 			]

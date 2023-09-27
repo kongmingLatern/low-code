@@ -53,12 +53,14 @@ export default function Canvas() {
 						left: endX - left,
 						width:
 							typeof width === 'string' &&
-							!width.includes('%')
+							!width.includes('%') &&
+							!width.includes('auto')
 								? Number(width)
 								: width,
 						height:
 							typeof height === 'string' &&
-							!width.includes('%')
+							!width.includes('%') &&
+							!height.includes('auto')
 								? Number(height)
 								: height,
 					},
@@ -79,16 +81,15 @@ export default function Canvas() {
 		},
 	})
 
-	function removeSelected() {
-		canvas.setSelectedIndex(-1)
-	}
+	// function removeSelected() {
+	// 	canvas.setSelectedIndex(-1)
+	// }
 
 	return (
 		<div
 			id="canvas"
 			ref={dropRef}
 			className={classNames(styled.coverCanvas, 'relative')}
-			onClick={() => removeSelected()}
 			style={{
 				backgroundColor: style.background,
 				width: style.width,
