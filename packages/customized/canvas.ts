@@ -43,6 +43,11 @@ export class Canvas {
 		this.update()
 	}
 
+	clearCanvas() {
+		this.canvas.element = []
+		this.update()
+	}
+
 	update() {
 		this.listeners.forEach(listener => listener())
 	}
@@ -62,6 +67,7 @@ export class Canvas {
 			setCanvas: this.setCanvas,
 			setStyle: this.setStyle,
 			subscribe: this.subscribe,
+			clearCanvas: this.clearCanvas,
 		}
 		return obj
 	}

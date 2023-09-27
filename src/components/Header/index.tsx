@@ -1,5 +1,5 @@
 import { useCanvasContext, useCanvasData } from '@/hooks'
-import { Button, Col, InputNumber, Row } from 'antd'
+import { Button, Col, InputNumber, Row, Space } from 'antd'
 import { useState } from 'react'
 
 export default function ContentHeader() {
@@ -31,6 +31,10 @@ export default function ContentHeader() {
 		})
 		setWidth(600)
 		setHeight(800)
+	}
+
+	const clearCanvas = () => {
+		canvas.clearCanvas()
 	}
 
 	return (
@@ -68,7 +72,12 @@ export default function ContentHeader() {
 			</Col>
 
 			<Col span={4} className="text-center">
-				<Button onClick={() => reset()}>重置</Button>
+				<Space>
+					<Button onClick={() => reset()}>重置尺寸</Button>
+					<Button onClick={() => clearCanvas()}>
+						清空画布
+					</Button>
+				</Space>
 			</Col>
 		</Row>
 	)
