@@ -6,8 +6,12 @@ import { useDrag } from 'ahooks'
 import { useCanvasContext } from '@/hooks'
 
 export default function Box(props) {
-	const { type, value, data, ...rest } = props
-	const renderAdapter = new RenderAdapter(type, value, rest)
+	const { type, value, data, style } = props
+	const renderAdapter = new RenderAdapter(
+		type,
+		value,
+		style
+	)
 
 	const dragRef = useRef(null)
 	const [, setDragging] = useState(false)
@@ -24,10 +28,11 @@ export default function Box(props) {
 	})
 
 	function addToCanvas() {
+		console.log(style)
 		canvas.addElement({
 			type,
 			value,
-			...rest,
+			style,
 		})
 
 		console.log('add', canvas)

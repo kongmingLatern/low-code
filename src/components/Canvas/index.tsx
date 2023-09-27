@@ -29,9 +29,26 @@ export default function Canvas() {
 			console.log(e)
 			alert(`uri: ${uri} dropped`)
 		},
-		onDom: (content: string, e) => {
-			// alert(`custom: ${content} dropped, ${e}`)
-			console.log('onDom', content, e)
+		onDom: (_: string, e) => {
+			const [startX, startY] = e!.dataTransfer
+				.getData('text')
+				.split(',')
+			console.log('start', startX)
+			console.log('start', startY)
+
+			const endX = e!.pageX
+			const endY = e!.pageY
+
+			const selectedElement = canvas.getSelectedElement()
+			console.log('endX', endX)
+			console.log('endY', endY)
+
+			const { top, left } = selectedElement.style
+
+			canvas.updateSelectedElement({
+				top: top + (endX - Number(startX)),
+				left: left + (endY - Number(startY)),
+			})
 		},
 	})
 
@@ -39,7 +56,7 @@ export default function Canvas() {
 		<div
 			id="canvas"
 			ref={dropRef}
-			className={classNames(styled.coverCanvas)}
+			className={classNames(styled.coverCanvas, 'relative')}
 			style={{
 				backgroundColor: style.background,
 				width: style.width,
@@ -50,6 +67,7 @@ export default function Canvas() {
 				{element.map((i, index) => (
 					<li key={i.key}>
 						<Element
+							index={index}
 							element={i}
 							isSelected={
 								canvas.getSelectedIndex() === index

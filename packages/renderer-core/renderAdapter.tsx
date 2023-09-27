@@ -29,7 +29,7 @@ export class RenderAdapter {
 		switch (componentType) {
 			case 'Antd':
 				return (
-					<Typography.Text {...this.props}>
+					<Typography.Text style={this.props}>
 						{this.value}
 					</Typography.Text>
 				)
@@ -42,7 +42,7 @@ export class RenderAdapter {
 		const { componentType } = this
 		switch (componentType) {
 			case 'Antd':
-				return <Image src={this.value} {...this.props} />
+				return <Image src={this.value} style={this.props} />
 			default:
 				return <img src={this.value} />
 		}
@@ -50,11 +50,6 @@ export class RenderAdapter {
 
 	// 对外暴露一个接口,该接口即对type做对应的适配
 	handler() {
-		// if (type !== undefined) this.type = type
-		// if (value !== undefined) this.value = value
-		// if (props !== undefined) this.props = props
-		// this.componentType = componentType
-
 		switch (this.type) {
 			case ELEMENT_TYPE.TEXT:
 				return this.textHandler()

@@ -43,10 +43,7 @@ export class Canvas {
 	}
 
 	getSelectedElement() {
-		if (this.selectedIndex) {
-			return this.canvas.element[this.selectedIndex]
-		}
-		return {}
+		return this.canvas.element[this.selectedIndex!]
 	}
 
 	setSelectedIndex(index) {
@@ -80,8 +77,9 @@ export class Canvas {
 		this.listeners.forEach(listener => listener())
 	}
 
-	updateSelectedElement(newStyle = {}, value?) {
+	updateSelectedElement(newStyle = {}) {
 		const selectedElement = this.getSelectedElement()
+		console.log(selectedElement, newStyle)
 		Object.assign(
 			this.canvas.element[this.selectedIndex || 0],
 			{
@@ -89,7 +87,6 @@ export class Canvas {
 					...(selectedElement.style || {}),
 					...newStyle,
 				},
-				value,
 			}
 		)
 		this.update()
@@ -109,6 +106,7 @@ export class Canvas {
 			getCanvas: this.getCanvas,
 			getSelectedIndex: this.getSelectedIndex,
 			setSelectedIndex: this.setSelectedIndex,
+			getSelectedElement: this.getSelectedElement,
 			setCanvas: this.setCanvas,
 			setStyle: this.setStyle,
 			subscribe: this.subscribe,
