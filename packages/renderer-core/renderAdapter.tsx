@@ -49,16 +49,11 @@ export class RenderAdapter {
 	}
 
 	// 对外暴露一个接口,该接口即对type做对应的适配
-	handler(
-		type?: ELEMENT_TYPE,
-		value?: any,
-		props?: Record<string, any>,
-		componentType: ComponentType = 'Antd'
-	) {
-		if (type !== undefined) this.type = type
-		if (value !== undefined) this.value = value
-		if (props !== undefined) this.props = props
-		this.componentType = componentType
+	handler() {
+		// if (type !== undefined) this.type = type
+		// if (value !== undefined) this.value = value
+		// if (props !== undefined) this.props = props
+		// this.componentType = componentType
 
 		switch (this.type) {
 			case ELEMENT_TYPE.TEXT:
