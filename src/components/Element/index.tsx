@@ -36,14 +36,6 @@ export default function Element(props) {
 		})
 	) as React.ReactElement<any>
 
-	console.log(
-		renderAdapter.handler({
-			img: {
-				preview: true,
-			},
-		})
-	)
-
 	const ElementChildren = () =>
 		React.cloneElement(child, {
 			...child.props,
@@ -67,6 +59,20 @@ export default function Element(props) {
 			onClick={setSelected}
 		>
 			<ElementChildren />
+			{isSelected && (
+				<>
+					<i className="bg-blue-300 circle absolute top-0 left-0 w-8px h-8px"></i>
+					<i className="bg-blue-300 circle absolute top-0 left-[50%] w-8px h-8px translate-x-[-50%]"></i>
+					<i className="bg-blue-300 circle absolute top-0 left-[100%] w-8px h-8px translate-x-[-100%]"></i>
+
+					<i className="bg-blue-300 circle absolute top-[50%] left-0 w-8px h-8px translate-y-[-50%]"></i>
+					<i className="bg-blue-300 circle absolute top-[50%] left-[100%] w-8px h-8px translate-x-[-100%] translate-y-[-50%]"></i>
+					<i className="bg-blue-300 circle absolute top-[100%] left-0 w-8px h-8px translate-y-[-100%]"></i>
+
+					<i className="bg-blue-300 circle absolute top-[100%] left-[50%] w-8px h-8px translate-x-[-50%] translate-y-[-100%]"></i>
+					<i className="bg-blue-300 circle absolute top-[100%] left-[100%] w-8px h-8px translate-x-[-100%] translate-y-[-100%]"></i>
+				</>
+			)}
 		</div>
 	)
 }
