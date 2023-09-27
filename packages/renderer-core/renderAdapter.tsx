@@ -38,14 +38,14 @@ export class RenderAdapter {
 		}
 	}
 
-	private imgHandler(options = {}) {
+	private imgHandler(options = {} as any) {
 		const { componentType } = this
 		switch (componentType) {
 			case 'Antd':
 				return (
 					<Image
 						src={this.value}
-						className="min-w-[400px]"
+						// className="min-w-[400px] min-h-[200px]"
 						style={this.props}
 						{...options}
 					/>

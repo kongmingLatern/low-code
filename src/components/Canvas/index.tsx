@@ -41,12 +41,9 @@ export default function Canvas() {
 
 			if (flag.length > 0) {
 				const [type, value, width, height] = flag
-				console.log(flag)
 
 				const { top, left } =
 					dropRef.current!.getBoundingClientRect()
-
-				console.log(width, height)
 
 				canvas.addElement({
 					type,
@@ -54,8 +51,16 @@ export default function Canvas() {
 					style: {
 						top: endY - top,
 						left: endX - left,
-						width: Number(width),
-						height: Number(height),
+						width:
+							typeof width === 'string' &&
+							!width.includes('%')
+								? Number(width)
+								: width,
+						height:
+							typeof height === 'string' &&
+							!width.includes('%')
+								? Number(height)
+								: height,
 					},
 				})
 				return

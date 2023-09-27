@@ -1,8 +1,11 @@
 import { Col, Row, Tabs } from 'antd'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useState } from 'react'
-import { TABKEY, getContent } from '@/shared'
-import { LeftSiderTab } from '@packages/customized'
+import { TABKEY } from '@/shared'
+import {
+	LeftSiderTab,
+	getContent,
+} from '@packages/customized'
 import Box from '@/components/Box'
 
 export default function LeftSider() {
