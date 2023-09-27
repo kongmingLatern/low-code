@@ -40,6 +40,26 @@ export default function Canvas() {
 			const disY = endY - Number(startY)
 
 			if (flag.length > 0) {
+				initDragElement()
+				return
+			}
+
+			updateSelectedPosition()
+
+			function updateSelectedPosition() {
+				const selectedElement = canvas.getSelectedElement()
+
+				if (selectedElement && selectedElement.style) {
+					const { top, left } = selectedElement.style
+
+					canvas.updateSelectedElement({
+						top: top + disY,
+						left: left + disX,
+					})
+				}
+			}
+
+			function initDragElement() {
 				const [type, value, width, height] = flag
 
 				const { top, left } =
@@ -64,18 +84,6 @@ export default function Canvas() {
 								? Number(height)
 								: height,
 					},
-				})
-				return
-			}
-
-			const selectedElement = canvas.getSelectedElement()
-
-			if (selectedElement && selectedElement.style) {
-				const { top, left } = selectedElement.style
-
-				canvas.updateSelectedElement({
-					top: top + disY,
-					left: left + disX,
 				})
 			}
 		},

@@ -60,6 +60,18 @@ export function getContent(key: string) {
 						height: 100,
 					},
 				},
+				{
+					key: uuid(),
+					type: ELEMENT_TYPE.IMAGE,
+					value:
+						'https://img95.699pic.com/photo/40250/3909.jpg_wh300.jpg',
+					style: {
+						top: 0,
+						left: 0,
+						width: 200,
+						height: 100,
+					},
+				},
 			]
 		default:
 			return []
