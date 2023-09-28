@@ -35,7 +35,7 @@ export default function FormRender(
 
 		if (!isCanvas()) {
 			// NOTE: 如果不是画布,那么元素上一个 value属性代表该元素的值
-			result['text'] = elementData.value
+			result['value'] = elementData.value
 		}
 
 		return result
@@ -49,7 +49,7 @@ export default function FormRender(
 		if (isCanvas()) {
 			canvas.updateCanvasStyle({ [name]: value })
 		} else {
-			if (type === 'text') {
+			if (isTextContent()) {
 				canvas.updateSelectedElement(
 					{
 						[name]: value,
@@ -61,6 +61,10 @@ export default function FormRender(
 			canvas.updateSelectedElement({
 				[name]: value,
 			})
+		}
+
+		function isTextContent() {
+			return type === 'text'
 		}
 	}
 

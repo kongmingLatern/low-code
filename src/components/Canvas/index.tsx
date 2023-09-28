@@ -60,7 +60,12 @@ export default function Canvas() {
 			}
 
 			function initDragElement() {
-				const [type, value, width, height] = flag
+				const [type, value] = flag
+				const obj = e!.dataTransfer.getData(
+					'application/json'
+				)
+
+				const { width, height } = JSON.parse(obj)
 
 				const { top, left } =
 					dropRef.current!.getBoundingClientRect()
@@ -69,6 +74,7 @@ export default function Canvas() {
 					type,
 					value,
 					style: {
+						...JSON.parse(obj),
 						top: endY - top,
 						left: endX - left,
 						width:
@@ -99,11 +105,7 @@ export default function Canvas() {
 			ref={dropRef}
 			className={classNames(styled.coverCanvas, 'relative')}
 			onClick={removeSelected}
-			style={{
-				backgroundColor: style.background,
-				width: style.width,
-				height: style.height,
-			}}
+			style={{ ...style }}
 		>
 			{element.map((i, index) => (
 				<Element

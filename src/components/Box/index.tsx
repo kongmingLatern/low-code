@@ -20,7 +20,6 @@ export default function Box(props) {
 		onDragStart: e => {
 			const startX = e.pageX
 			const startY = e.pageY
-			console.log(value)
 			e.dataTransfer.setData(
 				'text',
 				startX +
@@ -29,12 +28,10 @@ export default function Box(props) {
 					',' +
 					type +
 					',' +
-					value +
-					',' +
-					style.width +
-					',' +
-					style.height
+					value
 			)
+
+			e.dataTransfer.setData('application/json', JSON.stringify(style));
 		},
 	})
 

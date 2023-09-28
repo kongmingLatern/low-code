@@ -82,6 +82,7 @@ export class Canvas {
 		value = this.getSelectedElement().value
 	) {
 		const selectedElement = this.getSelectedElement()
+
 		Object.assign(
 			this.canvas.element[this.selectedIndex || 0],
 			{
