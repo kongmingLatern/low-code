@@ -12,6 +12,7 @@ import { useCanvas } from '@/hooks/useCanvas'
 import { CanvasContext } from '@/store/context'
 import { useEffect, useReducer } from 'react'
 import ContentHeader from '@/components/Header'
+import RightSider from '@/components/Sider/Right'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -84,7 +85,7 @@ export default function HomeLayout() {
 								LayoutColor.rightSiderBackground,
 						}}
 					>
-						编辑区
+						<RightSider />
 					</Sider>
 				</Layout>
 				{/* <Footer style={footerStyle}>Footer</Footer> */}

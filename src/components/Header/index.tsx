@@ -1,13 +1,22 @@
 import { useCanvasContext, useCanvasData } from '@/hooks'
 import { Button, Col, InputNumber, Row, Space } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function ContentHeader() {
 	const canvas = useCanvasContext()
-	const { style } = useCanvasData()
+	const canvasData = useCanvasData()
 
-	const [width, setWidth] = useState<number>(style.width)
-	const [height, setHeight] = useState<number>(style.height)
+	const [width, setWidth] = useState<number>(
+		canvasData.style.width
+	)
+	const [height, setHeight] = useState<number>(
+		canvasData.style.height
+	)
+
+	useEffect(() => {
+		setWidth(canvasData.style.width)
+		setHeight(canvasData.style.height)
+	}, [canvasData])
 
 	const handleBlur = (key: 'width' | 'height', e) => {
 		const { value } = e.target
