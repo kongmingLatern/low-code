@@ -89,15 +89,16 @@ export default function Canvas() {
 		},
 	})
 
-	// function removeSelected() {
-	// 	canvas.setSelectedIndex(-1)
-	// }
+	function removeSelected() {
+		canvas.setSelectedIndex(-1)
+	}
 
 	return (
 		<div
 			id="canvas"
 			ref={dropRef}
 			className={classNames(styled.coverCanvas, 'relative')}
+			onClick={removeSelected}
 			style={{
 				backgroundColor: style.background,
 				width: style.width,

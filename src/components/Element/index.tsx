@@ -31,6 +31,10 @@ export default function Element(props) {
 		renderAdapter.handler({
 			img: {
 				preview: true,
+				onClick: e => {
+					e.stopPropagation()
+					setSelected()
+				},
 			},
 		})
 	) as React.ReactElement<any>
