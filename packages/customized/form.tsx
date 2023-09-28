@@ -1,28 +1,62 @@
 import { useCanvasContext } from '@/hooks'
-import { ColorPicker, Form, InputNumber } from 'antd'
+import {
+	ColorPicker,
+	Form,
+	InputNumber,
+	Select,
+} from 'antd'
+import { useState } from 'react'
 
-export default function FormRender(props) {
-	const canvas = useCanvasContext()
-	const { elementData = canvas.getCanvas(), items } = props
-
-	const handleChange = (name, value) => {
-		canvas.updateCanvasStyle({ [name]: value })
-	}
-
+export default function FormRender(
+	props: Partial<{
+		elementData: Record<string, any>
+		items: Array<Record<string, any>>
+	}>
+) {
 	const initialValues = () => {
 		const { style } = elementData
-		const res = {}
+		const result = {}
 
 		for (const key in style) {
 			if (
 				Object.prototype.hasOwnProperty.call(style, key)
 			) {
 				const value = style[key]
-				res[key] = value
+				result[key] = value
 			}
 		}
-		return res
+		return result
 	}
+
+	const canvas = useCanvasContext()
+	const { elementData = canvas.getCanvas(), items } = props
+	const [res] = useState(initialValues())
+
+	const handleChange = (name, value) => {
+		if (isCanvas()) {
+			canvas.updateCanvasStyle({ [name]: value })
+		} else {
+			canvas.updateSelectedElement({
+				[name]: value,
+			})
+		}
+
+		function isCanvas() {
+			return Object.prototype.hasOwnProperty.call(
+				elementData,
+				'element'
+			)
+		}
+	}
+
+	// useEffect(() => {
+	// 	console.log(elementData.style)
+	// 	setRes(elementData.style)
+
+	// 	// setRes({
+	// 	// 	...elementData.style,
+	// 	// })
+	// }, [elementData])
 
 	const renderItem = item => {
 		switch (item.type) {
@@ -34,13 +68,20 @@ export default function FormRender(props) {
 						onChange={e => handleChange(item.name, e)}
 					/>
 				)
+			case 'select':
+				return (
+					<Select
+						onChange={e => handleChange(item.name, e)}
+						options={item.options}
+					/>
+				)
 			case 'color':
 				return (
 					<ColorPicker
 						className="w-full"
 						showText
 						onChange={(_, hex) =>
-							handleChange('background', hex)
+							handleChange(item.name, hex)
 						}
 					/>
 				)
@@ -50,9 +91,9 @@ export default function FormRender(props) {
 	return (
 		<Form
 			className="flex-center flex-col mt-1rem"
-			initialValues={initialValues()}
+			initialValues={res}
 		>
-			{items.map(item => {
+			{items!.map(item => {
 				return (
 					<Form.Item
 						key={item.name}

@@ -4,7 +4,7 @@ import EditorCanvas from '../Editor/Canvas'
 
 export default function RightSider() {
 	const canvas = useCanvasContext()
-	const hasElement = canvas.getSelectedElement()
+	const element = canvas.getSelectedElement()
 
-	return hasElement ? <EditorElement /> : <EditorCanvas />
+	return element ? <EditorElement element={element} /> : <EditorCanvas />
 }

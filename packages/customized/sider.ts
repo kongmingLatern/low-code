@@ -21,6 +21,9 @@ export function getContent(key: string) {
 						left: 0,
 						width: 'auto',
 						height: 'auto',
+						fontWeight: '400',
+						fontSize: 20,
+						color: 'black',
 					},
 				},
 				{
@@ -32,6 +35,9 @@ export function getContent(key: string) {
 						left: 0,
 						width: 'auto',
 						height: 'auto',
+						fontWeight: '700',
+						fontSize: 12,
+						color: 'black',
 					},
 				},
 				{
@@ -43,6 +49,9 @@ export function getContent(key: string) {
 						left: 0,
 						width: 'auto',
 						height: 'auto',
+						fontWeight: '200',
+						fontSize: 23,
+						color: 'black',
 					},
 				},
 			]

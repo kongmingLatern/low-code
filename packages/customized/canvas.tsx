@@ -1,13 +1,12 @@
 import { v4 as uuid } from 'uuid'
-import FormRender from './form'
 // TODO: 这里可以自由定制画布大小
-const CanvasConfig = {
+export const CanvasConfig = {
 	element: [],
 
 	style: {
 		width: 600,
 		height: 800,
-		background: '#fff',
+		backgroundColor: '#fff',
 	},
 }
 
@@ -118,36 +117,13 @@ export class Canvas {
 			setCanvas: this.setCanvas,
 			setStyle: this.setStyle,
 			subscribe: this.subscribe,
+			update: this.update,
 			clearCanvas: this.clearCanvas,
 			updateSelectedElement: this.updateSelectedElement,
 			updateCanvasStyle: this.updateCanvasStyle,
 		}
 		return obj
 	}
-}
-
-export function CanvasForm() {
-	const formItems = [
-		{
-			type: 'number',
-			name: 'width',
-			label: '画布宽度(px)',
-			placeholder: '请输入画布宽度(px)',
-		},
-		{
-			type: 'number',
-			name: 'height',
-			label: '画布高度(px)',
-			placeholder: '请输入画布高度(px)',
-		},
-		{
-			type: 'color',
-			name: 'background',
-			label: '画层背景色',
-		},
-	]
-
-	return <FormRender items={formItems} />
 }
 
 function isEqual(selectedIndex, index) {

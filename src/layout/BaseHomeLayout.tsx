@@ -11,7 +11,6 @@ import LeftSider from '@/components/Sider/Left'
 import { useCanvas } from '@/hooks/useCanvas'
 import { CanvasContext } from '@/store/context'
 import { useEffect, useReducer } from 'react'
-import ContentHeader from '@/components/Header'
 import RightSider from '@/components/Sider/Right'
 
 const headerStyle: React.CSSProperties = {
@@ -62,18 +61,19 @@ export default function HomeLayout() {
 						className={classNames(
 							'flex',
 							'items-center',
-							'flex-col'
+							'flex-col',
+							'mt-1rem'
 						)}
 					>
-						<Header
+						{/* <Header
 							className={classNames(
 								'w-full',
 								'bg-white',
 								'mb-1rem'
 							)}
-						>
-							<ContentHeader />
-						</Header>
+						> */}
+						{/* <ContentHeader /> */}
+						{/* </Header> */}
 						<Canvas />
 					</Content>
 					{/* 右侧操作栏 */}
@@ -85,6 +85,9 @@ export default function HomeLayout() {
 								LayoutColor.rightSiderBackground,
 						}}
 					>
+						<Header className="color-white text-center font-20px bg-blue-500 font-semibold">
+							编辑区
+						</Header>
 						<RightSider />
 					</Sider>
 				</Layout>

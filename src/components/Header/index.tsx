@@ -22,12 +22,12 @@ export default function ContentHeader() {
 		const { value } = e.target
 		if (key === 'width' && value && value > 0) {
 			canvas.setStyle({
-				width: value + 'px',
+				width: Number(value),
 			})
 			setWidth(value)
 		} else if (key === 'height' && value && value > 0) {
 			canvas.setStyle({
-				height: value + 'px',
+				height: Number(value),
 			})
 			setHeight(value)
 		}
