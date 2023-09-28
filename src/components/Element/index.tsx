@@ -15,7 +15,7 @@ export default function Element(props) {
 
 	useDrag({}, dragRef, {
 		onDragStart: e => {
-			setSelected()
+			setSelected(e)
 			const startX = e.pageX
 			const startY = e.pageY
 			e.dataTransfer.setData('text', startX + ',' + startY)
@@ -33,7 +33,7 @@ export default function Element(props) {
 				preview: true,
 				onClick: e => {
 					e.stopPropagation()
-					setSelected()
+					canvas.setSelectedIndex(index)
 				},
 			},
 		})
@@ -51,7 +51,8 @@ export default function Element(props) {
 			style: { ...child.props.style },
 		})
 
-	function setSelected() {
+	function setSelected(e) {
+		e.stopPropagation()
 		canvas.setSelectedIndex(index)
 	}
 
