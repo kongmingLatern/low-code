@@ -91,6 +91,14 @@ export class Canvas {
 		this.update()
 	}
 
+	updateCanvasStyle(newStyle = {}) {
+		Object.assign(this.canvas.style, {
+			...this.canvas.style,
+			...newStyle,
+		})
+		this.update()
+	}
+
 	subscribe(listener) {
 		this.listeners.push(listener)
 		return () =>
@@ -111,6 +119,7 @@ export class Canvas {
 			subscribe: this.subscribe,
 			clearCanvas: this.clearCanvas,
 			updateSelectedElement: this.updateSelectedElement,
+			updateCanvasStyle: this.updateCanvasStyle,
 		}
 		return obj
 	}
