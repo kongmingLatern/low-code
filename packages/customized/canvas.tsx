@@ -77,7 +77,10 @@ export class Canvas {
 		this.listeners.forEach(listener => listener())
 	}
 
-	updateSelectedElement(newStyle = {}) {
+	updateSelectedElement(
+		newStyle = {},
+		value = this.getSelectedElement().value
+	) {
 		const selectedElement = this.getSelectedElement()
 		Object.assign(
 			this.canvas.element[this.selectedIndex || 0],
@@ -86,8 +89,10 @@ export class Canvas {
 					...(selectedElement.style || {}),
 					...newStyle,
 				},
+				value,
 			}
 		)
+
 		this.update()
 	}
 

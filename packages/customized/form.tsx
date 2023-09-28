@@ -2,6 +2,7 @@ import { useCanvasContext } from '@/hooks'
 import {
 	ColorPicker,
 	Form,
+	Input,
 	InputNumber,
 	Select,
 } from 'antd'
@@ -13,6 +14,12 @@ export default function FormRender(
 		items: Array<Record<string, any>>
 	}>
 ) {
+	function isCanvas() {
+		return Object.prototype.hasOwnProperty.call(
+			elementData,
+			'element'
+		)
+	}
 	const initialValues = () => {
 		const { style } = elementData
 		const result = {}
@@ -25,6 +32,12 @@ export default function FormRender(
 				result[key] = value
 			}
 		}
+
+		if (!isCanvas()) {
+			// NOTE: 如果不是画布,那么元素上一个 value属性代表该元素的值
+			result['text'] = elementData.value
+		}
+
 		return result
 	}
 
@@ -32,20 +45,22 @@ export default function FormRender(
 	const { elementData = canvas.getCanvas(), items } = props
 	const [res] = useState(initialValues())
 
-	const handleChange = (name, value) => {
+	const handleChange = (name, value, type?) => {
 		if (isCanvas()) {
 			canvas.updateCanvasStyle({ [name]: value })
 		} else {
+			if (type === 'text') {
+				canvas.updateSelectedElement(
+					{
+						[name]: value,
+					},
+					value
+				)
+				return
+			}
 			canvas.updateSelectedElement({
 				[name]: value,
 			})
-		}
-
-		function isCanvas() {
-			return Object.prototype.hasOwnProperty.call(
-				elementData,
-				'element'
-			)
 		}
 	}
 
@@ -60,6 +75,20 @@ export default function FormRender(
 
 	const renderItem = item => {
 		switch (item.type) {
+			case 'text':
+				return (
+					<Input
+						className="w-full"
+						placeholder={item.placeholder}
+						onChange={e =>
+							handleChange(
+								item.name,
+								e.target.value,
+								'text'
+							)
+						}
+					/>
+				)
 			case 'number':
 				return (
 					<InputNumber

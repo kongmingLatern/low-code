@@ -3,6 +3,11 @@ import FormRender from '@packages/customized/form'
 export default function EditorElement({ element }) {
 	const formItems = [
 		{
+			type: 'text',
+			name: 'value',
+			label: '文本内容',
+		},
+		{
 			type: 'number',
 			name: 'width',
 			label: '元素宽度(px)',
@@ -23,7 +28,7 @@ export default function EditorElement({ element }) {
 		{
 			type: 'select',
 			name: 'fontWeight',
-			label: '元素粗细(px)',
+			label: '元素粗细',
 			placeholder: '请选择元素粗细',
 			options: [
 				{

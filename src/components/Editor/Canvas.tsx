@@ -16,7 +16,7 @@ export default function EditorCanvas() {
 		},
 		{
 			type: 'color',
-			name: 'background',
+			name: 'backgroundColor',
 			label: '画层背景色',
 		},
 	]
