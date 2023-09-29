@@ -54,7 +54,6 @@ export default function Element(props) {
 	function setSelected(e) {
 		e.stopPropagation()
 		canvas.setSelectedIndex(index)
-		//TODO: 这里还需要同步右侧的编辑栏
 	}
 
 	return (
