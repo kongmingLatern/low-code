@@ -116,16 +116,11 @@ export default function FormRender(
 		}
 	}
 
-	const onValuesChange = e => {
-		console.log(e)
-	}
-
 	return (
 		<Form
 			className="flex-center flex-col mt-1rem"
 			form={form}
 			initialValues={res}
-			onValuesChange={onValuesChange}
 		>
 			{items!.map(item => {
 				return (
