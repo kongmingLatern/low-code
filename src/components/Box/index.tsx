@@ -22,16 +22,14 @@ export default function Box(props) {
 			const startY = e.pageY
 			e.dataTransfer.setData(
 				'text',
-				startX +
-					',' +
-					startY +
-					',' +
-					type +
-					',' +
-					value
+				startX + ',' + startY + ',' + type + ',' + value
 			)
 
-			e.dataTransfer.setData('application/json', JSON.stringify(style));
+			e.dataTransfer.setData(
+				'application/json',
+				JSON.stringify(style)
+			)
+			// TODO: 向ws服务端发起锁的通知
 		},
 	})
 
