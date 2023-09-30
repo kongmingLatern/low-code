@@ -70,7 +70,7 @@ export default function FormRender(
 	}
 	useEffect(() => {
 		form.setFieldsValue(initialValues(elementData))
-	}, [form, initialValues, elementData, elementData.style])
+	}, [form, elementData, elementData.style])
 
 	const renderItem = item => {
 		switch (item.type) {
