@@ -21,11 +21,13 @@ export function connect() {
 	})
 }
 
-export function sendMessage() {
+export function sendJoinMessage(element) {
 	socket.emit(
 		'onJoin',
 		{
-			value: '一串连接信息',
+			uid: '当前用户的uid',
+			// 当前所点击的元素
+			element,
 		},
 		(e: any) => {
 			console.log(e)

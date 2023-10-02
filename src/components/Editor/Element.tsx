@@ -1,20 +1,21 @@
 import { ELEMENT_TYPE } from '@/shared'
 import FormRender from '@packages/customized/form'
 
-type FormType = 'text' | 'number' | 'select' | 'color'
+type FormItemType = 'text' | 'number' | 'select' | 'color'
 
-interface FormItems {
-	type: FormType
+interface FormItem {
+	type: FormItemType
 	name: string
 	label: string
 	placeholder?: string
-	options?: Array<{ value: string; label: string }>
+	options?: {
+		value: string
+		label: string
+	}[]
 }
 
 export default function EditorElement({ element }) {
-	// TODO: 根据 element 的 type 进行设置表单
-	// TODO: TS Type
-	let formItems: FormItems[] = []
+	let formItems: FormItem[] = []
 
 	switch (element.type) {
 		case ELEMENT_TYPE.TEXT:

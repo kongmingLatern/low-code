@@ -6,7 +6,7 @@ import {
 	InputNumber,
 	Select,
 } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function FormRender(
 	props: Partial<{
@@ -20,8 +20,8 @@ export default function FormRender(
 			'element'
 		)
 	}
-	const initialValues = () => {
-		const { style } = elementData
+	const initialValues = (data?) => {
+		const { style } = data || elementData
 		const result = {}
 
 		for (const key in style) {
@@ -40,6 +40,7 @@ export default function FormRender(
 
 		return result
 	}
+	const [form] = Form.useForm()
 
 	const canvas = useCanvasContext()
 	const { elementData = canvas.getCanvas(), items } = props
@@ -67,15 +68,9 @@ export default function FormRender(
 			return type === 'text'
 		}
 	}
-
-	// useEffect(() => {
-	// 	console.log(elementData.style)
-	// 	setRes(elementData.style)
-
-	// 	// setRes({
-	// 	// 	...elementData.style,
-	// 	// })
-	// }, [elementData])
+	useEffect(() => {
+		form.setFieldsValue(initialValues(elementData))
+	}, [form, elementData, elementData.style])
 
 	const renderItem = item => {
 		switch (item.type) {
@@ -124,6 +119,7 @@ export default function FormRender(
 	return (
 		<Form
 			className="flex-center flex-col mt-1rem"
+			form={form}
 			initialValues={res}
 		>
 			{items!.map(item => {
