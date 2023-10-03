@@ -29,7 +29,6 @@ export default function Box(props) {
 				'application/json',
 				JSON.stringify(style)
 			)
-			// TODO: 向ws服务端发起锁的通知
 		},
 	})
 
