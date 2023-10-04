@@ -7,6 +7,7 @@ import {
 	useCanvasData,
 } from '@/hooks/useCanvas'
 import Element from '../Element'
+import { sendJoinMessage } from '@packages/server'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Canvas() {
@@ -41,10 +42,14 @@ export default function Canvas() {
 
 			if (flag.length > 0) {
 				initDragElement()
+				sendJoinMessage(e!.target)
 				return
 			}
 
 			updateSelectedPosition()
+
+			// TODO: 向ws服务端发起锁的通知
+			sendJoinMessage(e!.target)
 
 			function updateSelectedPosition() {
 				const selectedElement = canvas.getSelectedElement()
