@@ -23,8 +23,16 @@ export function connect() {
 connect()
 
 export function sendJoinMessage(element) {
-	console.log(socket, element)
+	console.log(element)
 	socket.emit('onJoin', {
+		uid: '当前用户的uid',
+	})
+}
+
+export function sendActiveElementInfo(element) {
+	console.log(element)
+	// TODO: 广播到其他用户, 禁用 element
+	socket.emit('onActive', {
 		uid: '当前用户的uid',
 	})
 }
