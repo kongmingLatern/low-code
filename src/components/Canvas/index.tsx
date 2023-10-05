@@ -42,6 +42,7 @@ export default function Canvas() {
 
 			if (flag.length > 0) {
 				initDragElement()
+				// NOTE: 用户直接从左侧拖拽到画布上时触发
 				sendJoinMessage(e!.target)
 				return
 			}
@@ -49,7 +50,8 @@ export default function Canvas() {
 			updateSelectedPosition()
 
 			// TODO: 向ws服务端发起锁的通知
-			sendJoinMessage(e!.target)
+			// NOTE: 用户在画布上拖拽时触发
+			console.log('not flag')
 
 			function updateSelectedPosition() {
 				const selectedElement = canvas.getSelectedElement()
@@ -61,6 +63,10 @@ export default function Canvas() {
 						top: top + disY,
 						left: left + disX,
 					})
+
+					// TODO: 这里可以把selectElement的数据结构改变
+					// e.g. 加一个 editBy: ['uidA', 'uidB']
+					sendJoinMessage(selectedElement)
 				}
 			}
 
