@@ -14,7 +14,7 @@
 │ ├── customized # 可定制模块
 │ ├── renderer-core # 核心渲染器
 │ └── server # 客户端、服务端 交互
-├── pnpm-lock.yaml
+├── pnpm-lock.yaml # pnpm lock
 ├── public
 │ └── vite.svg
 ├── src
