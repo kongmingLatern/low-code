@@ -7,7 +7,7 @@ import {
 	useCanvasData,
 } from '@/hooks/useCanvas'
 import Element from '../Element'
-import { sendJoinMessage } from '@packages/server'
+import { sendActiveElementInfo } from '@packages/server'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Canvas() {
@@ -43,7 +43,8 @@ export default function Canvas() {
 			if (flag.length > 0) {
 				initDragElement()
 				// NOTE: 用户直接从左侧拖拽到画布上时触发
-				sendJoinMessage(e!.target)
+				// sendActiveElementInfo(selectedElement)
+				// sendJoinMessage(e!.target)
 				return
 			}
 
@@ -66,7 +67,7 @@ export default function Canvas() {
 
 					// TODO: 这里可以把selectElement的数据结构改变
 					// e.g. 加一个 editBy: ['uidA', 'uidB']
-					sendJoinMessage(selectedElement)
+					sendActiveElementInfo(selectedElement)
 				}
 			}
 
