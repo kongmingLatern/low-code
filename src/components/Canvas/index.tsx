@@ -7,7 +7,6 @@ import {
 	useCanvasData,
 } from '@/hooks/useCanvas'
 import Element from '../Element'
-import { sendActiveElementInfo } from '@packages/server'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Canvas() {
@@ -67,7 +66,7 @@ export default function Canvas() {
 
 					// TODO: 这里可以把selectElement的数据结构改变
 					// e.g. 加一个 editBy: ['uidA', 'uidB']
-					sendActiveElementInfo(selectedElement)
+					// sendActiveElementInfo(selectedElement)
 				}
 			}
 

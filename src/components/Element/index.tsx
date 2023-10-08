@@ -48,12 +48,14 @@ export default function Element(props) {
 				isSelected && styled.selected
 			),
 			'data-key': key,
+			onClick: () => {
+				sendActiveElementInfo(dragRef.current)
+			},
 			// style: { ...child.props.style, position: 'absolute' },
 			style: { ...child.props.style },
 		})
 
 	function setSelected(e) {
-		console.log('selected', e)
 		e.stopPropagation()
 		canvas.setSelectedIndex(index)
 		// TODO: 向ws服务端发起锁的通知
