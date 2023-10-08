@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import { useDrag } from 'ahooks'
 import React from 'react'
 import { useCanvasContext } from '@/hooks'
-import { sendJoinMessage } from '@packages/server'
+import { sendActiveElementInfo } from '@packages/server'
 
 export default function Element(props) {
 	const { key, type, value, style } = props.element
@@ -53,10 +53,11 @@ export default function Element(props) {
 		})
 
 	function setSelected(e) {
+		console.log('selected', e)
 		e.stopPropagation()
 		canvas.setSelectedIndex(index)
 		// TODO: 向ws服务端发起锁的通知
-		sendJoinMessage(e!.target)
+		sendActiveElementInfo(e!.target)
 	}
 
 	return (
