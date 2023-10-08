@@ -23,4 +23,14 @@ export class GatewayGateway {
     client.emit('join', body);
     console.log('body', body);
   }
+
+  @SubscribeMessage('onActive')
+  handleEditElement(
+    @MessageBody() body: any,
+    @ConnectedSocket() client: Socket,
+  ) {
+    // 这里会广播给其他的客户端
+    client.broadcast.emit('active', body);
+    console.log('body', body);
+  }
 }
