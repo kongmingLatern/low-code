@@ -1,3 +1,4 @@
+import { http } from '@/api'
 import { v4 as uuid } from 'uuid'
 // TODO: 这里可以自由定制画布大小
 export const CanvasConfig = {
@@ -73,8 +74,10 @@ export class Canvas {
 		this.update()
 	}
 
-	update() {
+	async update() {
 		this.listeners.forEach(listener => listener())
+		// TODO: 更新画布
+		await http.post('/redis/setCanvas', this.canvas)
 	}
 
 	updateSelectedElement(
