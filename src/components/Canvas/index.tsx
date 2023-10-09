@@ -1,19 +1,20 @@
 import classNames from 'classnames'
 import styled from './canvas.module.scss'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDrop } from 'ahooks'
 import {
 	useCanvasContext,
 	useCanvasData,
 } from '@/hooks/useCanvas'
 import Element from '../Element'
+import { socket } from '@packages/server'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Canvas() {
 	const dropRef = useRef<HTMLDivElement>(null)
 
 	const canvas = useCanvasContext()
-	const { style, element } = useCanvasData()
+	const { element, style } = useCanvasData()
 
 	// const [parent] = useAutoAnimate()
 
@@ -106,6 +107,14 @@ export default function Canvas() {
 		},
 	})
 
+	useEffect(() => {
+		socket.on('canvasUpdate', ({ data }) => {
+			console.log('canvasUpdate', data)
+			canvas.setCanvas(data, false)
+			console.log('canvasUpdate', canvas)
+		})
+	}, [canvas])
+
 	function removeSelected() {
 		canvas.setSelectedIndex(-1)
 	}
@@ -118,7 +127,7 @@ export default function Canvas() {
 			onClick={removeSelected}
 			style={{ ...style }}
 		>
-			{element.map((i, index) => (
+			{canvas.getCanvas().element.map((i, index) => (
 				<Element
 					key={i + index}
 					index={index}

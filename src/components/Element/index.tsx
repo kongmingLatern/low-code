@@ -48,8 +48,8 @@ export default function Element(props) {
 				isSelected && styled.selected
 			),
 			'data-key': key,
-			onClick: () => {
-				sendActiveElementInfo(dragRef.current)
+			onClick: e => {
+				setSelected(e)
 			},
 			// style: { ...child.props.style, position: 'absolute' },
 			style: { ...child.props.style },
@@ -59,7 +59,7 @@ export default function Element(props) {
 		e.stopPropagation()
 		canvas.setSelectedIndex(index)
 		// TODO: 向ws服务端发起锁的通知
-		sendActiveElementInfo(e!.target)
+		sendActiveElementInfo(dragRef.current)
 	}
 
 	return (
@@ -67,7 +67,7 @@ export default function Element(props) {
 			className="absolute"
 			style={{ ...child.props.style }}
 			ref={dragRef}
-			onClick={setSelected}
+			// onClick={setSelected}
 		>
 			<ElementChildren />
 			{isSelected && <CircleList canvas={canvas} />}

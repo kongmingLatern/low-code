@@ -1,4 +1,5 @@
-import { http } from '@/api'
+import { get, http } from '@/api'
+import { sendCanvasUpdate } from '@packages/server'
 import { v4 as uuid } from 'uuid'
 // TODO: 这里可以自由定制画布大小
 export const CanvasConfig = {
@@ -36,6 +37,7 @@ export class Canvas {
 	}
 
 	getCanvas() {
+		// 更新画布
 		return { ...this.canvas }
 	}
 
@@ -56,9 +58,10 @@ export class Canvas {
 		this.update()
 	}
 
-	setCanvas(_canvas) {
+	setCanvas(_canvas, shouldSend = true) {
 		Object.assign(this.canvas, _canvas)
-		this.update()
+		http.post('/redis/setCanvas', this.canvas)
+		this.update(shouldSend)
 	}
 
 	setStyle(style: Record<string, any>) {
@@ -74,10 +77,15 @@ export class Canvas {
 		this.update()
 	}
 
-	async update() {
-		this.listeners.forEach(listener => listener())
+	async update(shouldSend = true) {
 		// TODO: 更新画布
-		await http.post('/redis/setCanvas', this.canvas)
+		// await http.post('/redis/setCanvas', this.canvas)
+		// // 并获取到redis里的画布信息
+		// this.canvas = await getCanvasData()
+		if (shouldSend) {
+			sendCanvasUpdate(this.canvas)
+		}
+		this.listeners.forEach(listener => listener())
 	}
 
 	updateSelectedElement(

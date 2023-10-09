@@ -1,7 +1,7 @@
 import { message } from 'antd'
 import { io } from 'socket.io-client'
 
-let socket
+export let socket
 
 const url = 'http://localhost:3000'
 function createSocket() {
@@ -28,16 +28,13 @@ export function connect() {
 
 connect()
 
-export function sendJoinMessage(element) {
-	console.log(element)
+export function sendJoinMessage(element?) {
 	socket.emit('onJoin', {
 		uid: '当前用户的uid',
 	})
 }
 
-export function sendActiveElementInfo(element) {
-	console.log(element)
-
+export function sendActiveElementInfo(element?) {
 	// TODO: 广播到其他用户, 禁用 element
 	socket.emit('onActive', {
 		uid: '当前用户的uid 13123',
@@ -46,7 +43,7 @@ export function sendActiveElementInfo(element) {
 
 export function sendCanvasUpdate(data) {
 	// NOTE: 更新redis,并广播到用户
-	socket.emit('canvasUpdate', {
+	socket.emit('onCanvasUpdate', {
 		data,
 	})
 }
