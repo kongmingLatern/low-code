@@ -43,3 +43,10 @@ export function sendActiveElementInfo(element) {
 		uid: '当前用户的uid 13123',
 	})
 }
+
+export function sendCanvasUpdate(data) {
+	// NOTE: 更新redis,并广播到用户
+	socket.emit('canvasUpdate', {
+		data,
+	})
+}
