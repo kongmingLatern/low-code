@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { RedisClientType } from 'redis';
+import { R } from 'src/entities/R';
 
 @Injectable()
 export class RedisService {
@@ -10,7 +11,12 @@ export class RedisService {
     return await this.redisClient.get(key);
   }
   async getCanvas() {
-    return await this.redisClient.get('canvas');
+    const element = (await this.redisClient.hGet('canvas', 'element')) || null;
+    const style = (await this.redisClient.hGet('canvas', 'style')) || null;
+    return new R(200, {
+      element: JSON.parse(element),
+      style: JSON.parse(style),
+    });
   }
 
   async removeKey(key) {
