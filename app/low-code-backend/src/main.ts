@@ -9,6 +9,9 @@ async function createWebSocketServer() {
 
 async function createHttpServer() {
   const http = await NestFactory.create(AppModule);
+  http.enableCors({
+    origin: true,
+  });
   await http.listen(3333);
 }
 
