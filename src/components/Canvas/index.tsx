@@ -2,10 +2,7 @@ import classNames from 'classnames'
 import styled from './canvas.module.scss'
 import { useEffect, useRef } from 'react'
 import { useDrop } from 'ahooks'
-import {
-	useCanvasContext,
-	useCanvasData,
-} from '@/hooks/useCanvas'
+import { useCanvasContext } from '@/hooks/useCanvas'
 import Element from '../Element'
 import { socket } from '@packages/server'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
@@ -14,7 +11,6 @@ export default function Canvas() {
 	const dropRef = useRef<HTMLDivElement>(null)
 
 	const canvas = useCanvasContext()
-	const { element, style } = useCanvasData()
 
 	// const [parent] = useAutoAnimate()
 
@@ -125,7 +121,7 @@ export default function Canvas() {
 			ref={dropRef}
 			className={classNames(styled.coverCanvas, 'relative')}
 			onClick={removeSelected}
-			style={{ ...style }}
+			style={{ ...canvas.getCanvas().style }}
 		>
 			{canvas.getCanvas().element.map((i, index) => (
 				<Element
