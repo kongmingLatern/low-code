@@ -12,6 +12,7 @@ import { useCanvas } from '@/hooks/useCanvas'
 import { CanvasContext } from '@/store/context'
 import { useEffect, useReducer } from 'react'
 import RightSider from '@/components/Sider/Right'
+import { sendJoinMessage } from '@packages/server'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -34,6 +35,10 @@ export default function HomeLayout() {
 		})
 		return () => unsubscribe() as any
 	}, [canvas])
+
+	useEffect(() => {
+		sendJoinMessage()
+	}, [])
 
 	return (
 		<CanvasContext.Provider value={canvas!}>
