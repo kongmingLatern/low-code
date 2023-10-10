@@ -27,12 +27,6 @@ export class GatewayGateway {
     @ConnectedSocket() client: Socket,
   ) {
     const { data } = await this.redisService.getCanvas();
-    // const res = {
-    //   element: JSON.parse(data.element),
-    //   style: JSON.parse(data.style),
-    // };
-    // console.log(res);
-
     client.emit('join', data);
   }
 
@@ -52,8 +46,8 @@ export class GatewayGateway {
   ) {
     // 设置信息
     this.redisService.setCanvas({
-      element: JSON.stringify(body.data.element),
-      style: JSON.stringify(body.data.style),
+      element: body.data.element,
+      style: body.data.style,
     });
     client.broadcast.emit('canvasUpdate', body);
   }
