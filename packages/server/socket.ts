@@ -16,10 +16,6 @@ export function connect() {
 		console.log('open')
 	})
 
-	socket.on('join', data => {
-		console.log('join', data)
-	})
-
 	socket.on('active', data => {
 		message.success('用户A正在操作元素A')
 		console.log('userActiveElement', data)
@@ -28,13 +24,15 @@ export function connect() {
 
 connect()
 
-export function sendJoinMessage(element?) {
+export function sendJoinMessage() {
+	console.log('send')
+
 	socket.emit('onJoin', {
 		uid: '当前用户的uid',
 	})
 }
 
-export function sendActiveElementInfo(element?) {
+export function sendActiveElementInfo() {
 	// TODO: 广播到其他用户, 禁用 element
 	socket.emit('onActive', {
 		uid: '当前用户的uid 13123',

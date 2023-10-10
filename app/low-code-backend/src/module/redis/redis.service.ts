@@ -14,8 +14,8 @@ export class RedisService {
     const element = (await this.redisClient.hGet('canvas', 'element')) || null;
     const style = (await this.redisClient.hGet('canvas', 'style')) || null;
     return new R(200, {
-      element: JSON.parse(element),
-      style: JSON.parse(style),
+      element,
+      style,
     });
   }
 

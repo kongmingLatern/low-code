@@ -22,12 +22,18 @@ export class GatewayGateway {
   ) {}
 
   @SubscribeMessage('onJoin')
-  handleConnectMessage(
+  async handleConnectMessage(
     @MessageBody() body: any,
     @ConnectedSocket() client: Socket,
   ) {
-    client.emit('join', body);
-    console.log('body', body);
+    const { data } = await this.redisService.getCanvas();
+    // const res = {
+    //   element: JSON.parse(data.element),
+    //   style: JSON.parse(data.style),
+    // };
+    // console.log(res);
+
+    client.emit('join', data);
   }
 
   @SubscribeMessage('onActive')
