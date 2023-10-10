@@ -104,10 +104,25 @@ export default function Canvas() {
 	})
 
 	useEffect(() => {
+		socket.on('join', data => {
+			// TODO: 选择哪块画布
+			console.log('join', data)
+			canvas.setCanvas(
+				{
+					element: Array.isArray(data.element)
+						? data.element
+						: JSON.parse(data.element),
+					style:
+						typeof data.style === 'object'
+							? data.style
+							: JSON.parse(data.style),
+				},
+				false
+			)
+		})
 		socket.on('canvasUpdate', ({ data }) => {
 			console.log('canvasUpdate', data)
 			canvas.setCanvas(data, false)
-			console.log('canvasUpdate', canvas)
 		})
 	}, [canvas])
 
