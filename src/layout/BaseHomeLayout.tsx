@@ -13,12 +13,20 @@ import { CanvasContext } from '@/store/context'
 import { useEffect, useReducer } from 'react'
 import RightSider from '@/components/Sider/Right'
 import { sendJoinMessage } from '@packages/server'
+import { Footer } from 'antd/es/layout/layout'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
 	color: 'white',
 	height: '80px',
 	paddingInline: 50,
+	lineHeight: '80px',
+	backgroundColor: ColorTheme.black,
+}
+const footerStyle: React.CSSProperties = {
+	textAlign: 'center',
+	color: 'white',
+	height: '80px',
 	lineHeight: '80px',
 	backgroundColor: ColorTheme.black,
 }
@@ -96,7 +104,7 @@ export default function HomeLayout() {
 						<RightSider />
 					</Sider>
 				</Layout>
-				{/* <Footer style={footerStyle}>Footer</Footer> */}
+				<Footer className='p-0' style={footerStyle}>Footer</Footer>
 			</Layout>
 		</CanvasContext.Provider>
 	)

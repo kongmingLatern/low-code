@@ -56,7 +56,8 @@ export default function LeftSider() {
 				className="mt-1rem"
 				defaultActiveKey={TABKEY.TEXT}
 				tabPosition={'left'}
-				style={{ height: 'calc(100vh - 80px)' }}
+				style={{ height: '100%' }}
+				// style={{ height: 'calc(100vh - 80px)' }}
 				items={items}
 				onChange={onChange}
 			/>
