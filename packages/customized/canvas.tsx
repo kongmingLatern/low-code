@@ -61,10 +61,10 @@ export class Canvas {
 	}
 
 	removeEditorToSelctedElement(editor) {
-		if (this.selectedIndex !== -1) {
+		if (this.selectedIndex && this.selectedIndex !== -1) {
 			const editorBy = this.canvas.element[
 				this.selectedIndex!
-			].editorBy.filter(i => i !== editor)
+			]?.editorBy?.filter(i => i !== editor)
 
 			this.canvas.element[this.selectedIndex!].editorBy =
 				editorBy
