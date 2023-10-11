@@ -16,4 +16,12 @@ export const router = createBrowserRouter([
 			</LoginCover>
 		),
 	},
+	{
+		path: '/register',
+		element: (
+			<LoginCover split={3} cover={2}>
+				<Login />
+			</LoginCover>
+		),
+	},
 ])
