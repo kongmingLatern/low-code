@@ -6,7 +6,7 @@ import { useDrag } from 'ahooks'
 import { useCanvasContext } from '@/hooks'
 
 export default function Box(props) {
-	const { type, value, data, style } = props
+	const { type, value, data, style, editorBy } = props
 	const renderAdapter = new RenderAdapter(
 		type,
 		value,
@@ -20,9 +20,22 @@ export default function Box(props) {
 		onDragStart: e => {
 			const startX = e.pageX
 			const startY = e.pageY
+
 			e.dataTransfer.setData(
 				'text',
-				startX + ',' + startY + ',' + type + ',' + value
+				startX +
+					',' +
+					startY +
+					',' +
+					type +
+					',' +
+					value +
+					',' +
+					JSON.stringify(editorBy)
+			)
+			e.dataTransfer.setData(
+				'array',
+				JSON.stringify(editorBy)
 			)
 
 			e.dataTransfer.setData(
@@ -37,8 +50,8 @@ export default function Box(props) {
 			type,
 			value,
 			style,
+			editorBy,
 		})
-
 		console.log('add', canvas)
 	}
 

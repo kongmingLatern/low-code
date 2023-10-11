@@ -154,8 +154,10 @@ function CircleList(props): React.ReactNode {
 	}
 	return (
 		<ul onMouseDown={handleMouseDown}>
-			<li className="absolute top-[-60%] left-0 text-14px color-white bg-blue-400 p-1">
-				{editorBy.map(i => i)}
+			<li className="absolute top-[-60%] left-0 text-14px color-white bg-blue-400 p-1 text-truncate">
+				{editorBy.length > 0
+					? editorBy.join(', ') + '正在编辑'
+					: ''}
 			</li>
 			<li
 				className="bg-blue-600 circle absolute top-0 left-0 w-5px h-5px"

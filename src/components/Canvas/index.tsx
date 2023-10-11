@@ -31,6 +31,7 @@ export default function Canvas() {
 			const [startX, startY, ...flag] = e!.dataTransfer
 				.getData('text')
 				.split(',')
+			const editorBy = e!.dataTransfer.getData('array')
 			const endX = e!.pageX
 			const endY = e!.pageY
 			const disX = endX - Number(startX)
@@ -69,7 +70,8 @@ export default function Canvas() {
 
 			function initDragElement() {
 				// NOTE: addElement
-				const [type, value, editorBy] = flag
+				const [type, value] = flag
+
 				const obj = e!.dataTransfer.getData(
 					'application/json'
 				)
