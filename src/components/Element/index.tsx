@@ -87,7 +87,7 @@ export default function Element(props) {
 			message.error(
 				`当前元素正在由 ${editorBy.join(',')} 进行修改`
 			)
-			canvas.removeEditorToSelctedElement(333)
+			// canvas.removeEditorToSelctedElement(333)
 			// 不允许选中
 			canvas.setSelectedIndex(-1)
 		}

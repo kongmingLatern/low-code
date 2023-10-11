@@ -101,6 +101,7 @@ export default function Canvas() {
 								? Number(height)
 								: height,
 					},
+					// TODO: 这里的 editorBy 需要传递 uid
 					editorBy: JSON.parse(editorBy),
 				})
 			}
