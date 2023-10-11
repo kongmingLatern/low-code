@@ -40,19 +40,6 @@ const App: React.FC = () => {
 		console.log('Received values of form: ', values)
 	}
 
-	const prefixSelector = (
-		<Form.Item
-			name="prefix"
-			noStyle
-			className="color-white"
-		>
-			<Select style={{ width: 70, color: 'white' }}>
-				<Option value="86">+86</Option>
-				<Option value="87">+87</Option>
-			</Select>
-		</Form.Item>
-	)
-
 	return (
 		<Form
 			className="max-w-[500px] min-w-[400px] absolute-center box-content bg-#290e5b"
