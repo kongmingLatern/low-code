@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-	Button,
-	Checkbox,
-	Form,
-	Input,
-	Typography,
-} from 'antd'
+import { Button, Form, Input, Typography } from 'antd'
 import { Icon } from '@iconify/react'
+import { Link } from 'react-router-dom'
 
 const { Title } = Typography
 
@@ -18,7 +13,11 @@ const App: React.FC = () => {
 	return (
 		<Form
 			name="normal_login"
-			className="max-w-[500px] min-w-[400px] absolute-center left-[70%]"
+			className="max-w-[500px] min-w-[400px] absolute-center box-content bg-#290e5b"
+			style={{
+				borderRadius: '20px',
+				padding: '50px 50px 10px',
+			}}
 			initialValues={{ remember: true }}
 			onFinish={onFinish}
 		>
@@ -58,31 +57,18 @@ const App: React.FC = () => {
 					placeholder="Password"
 				/>
 			</Form.Item>
-			<Form.Item>
-				<Form.Item
-					name="remember"
-					valuePropName="checked"
-					noStyle
-				>
-					<Checkbox className="color-white">
-						Remember me
-					</Checkbox>
-				</Form.Item>
 
-				<a className="login-form-forgot" href="">
-					Forgot password
-				</a>
+			<Form.Item className="color-white">
+				没有帐号? 去 <Link to={'/register'}>注册</Link>
 			</Form.Item>
-
-			<Form.Item>
+			<Form.Item className="text-right">
 				<Button
 					type="primary"
 					htmlType="submit"
 					className="login-form-button"
 				>
-					Log in
-				</Button>
-				Or <a href="">register now!</a>
+					登陆
+				</Button>{' '}
 			</Form.Item>
 		</Form>
 	)

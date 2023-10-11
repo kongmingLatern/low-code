@@ -1,8 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import BaseHomeLayout from '@/layout/BaseHomeLayout'
 import Login from '@/module/Login/pages/Login'
-import styled from '@/assets/image.module.scss'
-import classNames from 'classnames'
+import LoginCover from '@/components/common/Cover'
 
 export const router = createBrowserRouter([
 	{
@@ -12,15 +11,9 @@ export const router = createBrowserRouter([
 	{
 		path: '/login',
 		element: (
-			<div
-				className={classNames(
-					'w-full',
-					'h-100vh',
-					styled.loginCover
-				)}
-			>
+			<LoginCover>
 				<Login />
-			</div>
+			</LoginCover>
 		),
 	},
 ])
