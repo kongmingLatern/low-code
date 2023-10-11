@@ -68,7 +68,8 @@ export default function Canvas() {
 			}
 
 			function initDragElement() {
-				const [type, value] = flag
+				// NOTE: addElement
+				const [type, value, editorBy] = flag
 				const obj = e!.dataTransfer.getData(
 					'application/json'
 				)
@@ -98,6 +99,7 @@ export default function Canvas() {
 								? Number(height)
 								: height,
 					},
+					editorBy: JSON.parse(editorBy),
 				})
 			}
 		},

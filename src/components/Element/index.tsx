@@ -8,7 +8,8 @@ import { useCanvasContext } from '@/hooks'
 import { sendActiveElementInfo } from '@packages/server'
 
 export default function Element(props) {
-	const { key, type, value, style } = props.element
+	const { key, type, value, style, editorBy } =
+		props.element
 
 	const { index, isSelected } = props
 	const dragRef = useRef(null)
@@ -58,8 +59,12 @@ export default function Element(props) {
 	function setSelected(e) {
 		e.stopPropagation()
 		canvas.setSelectedIndex(index)
+		// 1. 判断元素是否已经有人正在修改
+		const currentElement = canvas.getSelectedElement()
+		console.log(currentElement)
 		// TODO: 向ws服务端发起锁的通知
-		sendActiveElementInfo(dragRef.current)
+		sendActiveElementInfo()
+		// sendActiveElementInfo(dragRef.current)
 	}
 
 	return (
@@ -70,12 +75,14 @@ export default function Element(props) {
 			// onClick={setSelected}
 		>
 			<ElementChildren />
-			{isSelected && <CircleList canvas={canvas} />}
+			{isSelected && (
+				<CircleList canvas={canvas} editorBy={editorBy} />
+			)}
 		</div>
 	)
 }
 function CircleList(props): React.ReactNode {
-	const { canvas } = props
+	const { canvas, editorBy } = props
 
 	const handleMouseDown = e => {
 		const direction = e.target.dataset.direction
@@ -147,6 +154,9 @@ function CircleList(props): React.ReactNode {
 	}
 	return (
 		<ul onMouseDown={handleMouseDown}>
+			<li className="absolute top-[-60%] left-0 text-14px color-white bg-blue-400 p-1">
+				{editorBy.map(i => i)}
+			</li>
 			<li
 				className="bg-blue-600 circle absolute top-0 left-0 w-5px h-5px"
 				data-direction="top, left"

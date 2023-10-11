@@ -25,6 +25,7 @@ export function getContent(key: string) {
 						fontSize: 20,
 						color: 'black',
 					},
+					editorBy: ['123'],
 				},
 				{
 					key: uuid(),
@@ -39,6 +40,7 @@ export function getContent(key: string) {
 						fontSize: 12,
 						color: 'black',
 					},
+					editorBy: [],
 				},
 				{
 					key: uuid(),
@@ -53,6 +55,7 @@ export function getContent(key: string) {
 						fontSize: 23,
 						color: 'black',
 					},
+					editorBy: [],
 				},
 			]
 		case TABKEY.IMAGE:
@@ -68,6 +71,7 @@ export function getContent(key: string) {
 						width: 200,
 						height: 100,
 					},
+					editorBy: [],
 				},
 				{
 					key: uuid(),
@@ -80,6 +84,7 @@ export function getContent(key: string) {
 						width: 200,
 						height: 100,
 					},
+					editorBy: [],
 				},
 			]
 		default:

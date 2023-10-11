@@ -32,6 +32,7 @@ export default function LeftSider() {
 									type={i.type}
 									value={i.value}
 									style={i.style}
+									editorBy={i.editorBy}
 								/>
 							</Col>
 						))}
