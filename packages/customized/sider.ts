@@ -25,7 +25,7 @@ export function getContent(key: string) {
 						fontSize: 20,
 						color: 'black',
 					},
-					editorBy: ['123'],
+					editorBy: ['123', '444'],
 				},
 				{
 					key: uuid(),

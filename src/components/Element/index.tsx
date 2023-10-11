@@ -6,6 +6,7 @@ import { useDrag } from 'ahooks'
 import React from 'react'
 import { useCanvasContext } from '@/hooks'
 import { sendActiveElementInfo } from '@packages/server'
+import { message } from 'antd'
 
 export default function Element(props) {
 	const { key, type, value, style, editorBy } =
@@ -14,6 +15,7 @@ export default function Element(props) {
 	const { index, isSelected } = props
 	const dragRef = useRef(null)
 	const canvas = useCanvasContext()
+	const currentIndex = useRef(null)
 
 	useDrag({}, dragRef, {
 		onDragStart: e => {
@@ -58,10 +60,38 @@ export default function Element(props) {
 
 	function setSelected(e) {
 		e.stopPropagation()
+		// 清空当前画布上所有 编辑者为 333 的
+		canvas.removeAllEditor(333)
 		canvas.setSelectedIndex(index)
+		const element = canvas.getSelectedElement()
+
+		console.log('setSelected', element)
+
 		// 1. 判断元素是否已经有人正在修改
-		const currentElement = canvas.getSelectedElement()
-		console.log(currentElement)
+
+		if (element.editorBy.length === 0) {
+			// 无人在修改
+
+			// 1. 添加uid至editor中
+			// 2. 获取当前画布信息
+			// 3. 发送 emit 信息
+			// 4. canvas/index.tsx 中需要接收消息,广播给其他用户
+			canvas.setEditorToSelctedElement(333)
+			currentIndex.current = index
+		} else {
+			if (element.editorBy.includes(333)) {
+				// 用户选中元素后,可能会直接拖动,这里可以直接放行
+				return
+			}
+			// 有人在修改
+			message.error(
+				`当前元素正在由 ${editorBy.join(',')} 进行修改`
+			)
+			canvas.removeEditorToSelctedElement(333)
+			// 不允许选中
+			canvas.setSelectedIndex(-1)
+		}
+
 		// TODO: 向ws服务端发起锁的通知
 		sendActiveElementInfo()
 		// sendActiveElementInfo(dragRef.current)
@@ -75,14 +105,17 @@ export default function Element(props) {
 			// onClick={setSelected}
 		>
 			<ElementChildren />
-			{isSelected && (
-				<CircleList canvas={canvas} editorBy={editorBy} />
-			)}
+			{editorBy.length > 0 ? (
+				<i className="absolute top-[-100%] left-0 text-14px color-white bg-blue-400 p-1 text-truncate">
+					{editorBy.join(', ') + '正在编辑'}
+				</i>
+			) : null}
+			{isSelected && <CircleList canvas={canvas} />}
 		</div>
 	)
 }
 function CircleList(props): React.ReactNode {
-	const { canvas, editorBy } = props
+	const { canvas } = props
 
 	const handleMouseDown = e => {
 		const direction = e.target.dataset.direction
@@ -154,11 +187,6 @@ function CircleList(props): React.ReactNode {
 	}
 	return (
 		<ul onMouseDown={handleMouseDown}>
-			<li className="absolute top-[-60%] left-0 text-14px color-white bg-blue-400 p-1 text-truncate">
-				{editorBy.length > 0
-					? editorBy.join(', ') + '正在编辑'
-					: ''}
-			</li>
 			<li
 				className="bg-blue-600 circle absolute top-0 left-0 w-5px h-5px"
 				data-direction="top, left"

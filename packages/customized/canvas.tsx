@@ -1,4 +1,4 @@
-import { get, http } from '@/api'
+import { http } from '@/api'
 import { sendCanvasUpdate } from '@packages/server'
 import { v4 as uuid } from 'uuid'
 // TODO: 这里可以自由定制画布大小
@@ -47,6 +47,47 @@ export class Canvas {
 
 	getSelectedElement() {
 		return this.canvas.element[this.selectedIndex!]
+	}
+
+	setEditorToSelctedElement(editor) {
+		console.log(
+			'--',
+			this.canvas.element[this.selectedIndex!]
+		)
+		this.canvas.element[this.selectedIndex!].editorBy.push(
+			editor
+		)
+		this.update()
+	}
+
+	removeEditorToSelctedElement(editor) {
+		if (this.selectedIndex !== -1) {
+			const editorBy = this.canvas.element[
+				this.selectedIndex!
+			].editorBy.filter(i => i !== editor)
+
+			this.canvas.element[this.selectedIndex!].editorBy =
+				editorBy
+
+			this.update()
+		}
+	}
+
+	removeAllEditor(editor) {
+		if (this.selectedIndex !== -1) {
+			this.canvas.element = this.canvas.element.map(
+				item => {
+					return {
+						...item,
+						editorBy: item.editorBy.filter(
+							i => i !== editor
+						),
+					}
+				}
+			)
+			console.log(this.canvas.element)
+			this.update()
+		}
 	}
 
 	setSelectedIndex(index) {
@@ -133,6 +174,11 @@ export class Canvas {
 			getSelectedElement: this.getSelectedElement,
 			setCanvas: this.setCanvas,
 			setStyle: this.setStyle,
+			setEditorToSelctedElement:
+				this.setEditorToSelctedElement,
+			removeEditorToSelctedElement:
+				this.removeEditorToSelctedElement,
+			removeAllEditor: this.removeAllEditor,
 			subscribe: this.subscribe,
 			update: this.update,
 			clearCanvas: this.clearCanvas,
