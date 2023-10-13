@@ -34,6 +34,8 @@ export class RedisService {
     // TODO: 这里的canvas也需要更新当前的画布定义 id
     await this.redisClient.hSet('canvas', 'element', JSON.stringify(element));
     await this.redisClient.hSet('canvas', 'style', JSON.stringify(style));
-    return 'success';
+    return new R(200, {
+      msg: 'success',
+    });
   }
 }
