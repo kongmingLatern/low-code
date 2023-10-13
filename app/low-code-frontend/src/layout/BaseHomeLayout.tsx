@@ -1,19 +1,18 @@
-import Canvas from '@/components/Canvas'
 import {
 	ColorTheme,
 	LayoutColor,
 	SiderConfig,
 } from '@packages/customized'
 import { Layout } from 'antd'
-import classNames from 'classnames'
-import styled from './index.module.scss'
-import LeftSider from '@/components/Sider/Left'
 import { useCanvas } from '@/hooks/useCanvas'
 import { CanvasContext } from '@/store/context'
 import { useEffect, useReducer } from 'react'
-import RightSider from '@/components/Sider/Right'
 import { sendJoinMessage } from '@packages/server'
-import { Footer } from 'antd/es/layout/layout'
+import Canvas from '@/components/Canvas'
+import LeftSider from '@/components/Sider/Left'
+import RightSider from '@/components/Sider/Right'
+import classNames from 'classnames'
+import styled from './index.module.scss'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -30,7 +29,7 @@ const footerStyle: React.CSSProperties = {
 	lineHeight: '80px',
 	backgroundColor: ColorTheme.black,
 }
-const { Header, Sider, Content } = Layout
+const { Header, Sider, Content, Footer } = Layout
 
 export default function HomeLayout() {
 	const canvas = useCanvas()
@@ -104,7 +103,9 @@ export default function HomeLayout() {
 						<RightSider />
 					</Sider>
 				</Layout>
-				<Footer className='p-0' style={footerStyle}>Footer</Footer>
+				<Footer className="p-0" style={footerStyle}>
+					Footer
+				</Footer>
 			</Layout>
 		</CanvasContext.Provider>
 	)
