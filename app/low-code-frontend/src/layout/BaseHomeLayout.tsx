@@ -1,112 +1,72 @@
-import {
-	ColorTheme,
-	LayoutColor,
-	SiderConfig,
-} from '@packages/customized'
-import { Layout } from 'antd'
-import { useCanvas } from '@/hooks/useCanvas'
-import { CanvasContext } from '@/store/context'
-import { useEffect, useReducer } from 'react'
-import { sendJoinMessage } from '@packages/server'
-import Canvas from '@/components/Canvas'
-import LeftSider from '@/components/Sider/Left'
-import RightSider from '@/components/Sider/Right'
-import classNames from 'classnames'
-import styled from './index.module.scss'
+import React, { useState } from 'react'
+import { Layout, Menu, Button, theme } from 'antd'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
-const headerStyle: React.CSSProperties = {
-	textAlign: 'center',
-	color: 'white',
-	height: '80px',
-	paddingInline: 50,
-	lineHeight: '80px',
-	backgroundColor: ColorTheme.black,
-}
-const footerStyle: React.CSSProperties = {
-	textAlign: 'center',
-	color: 'white',
-	height: '80px',
-	lineHeight: '80px',
-	backgroundColor: ColorTheme.black,
-}
-const { Header, Sider, Content, Footer } = Layout
+const { Header, Sider, Content } = Layout
 
-export default function HomeLayout() {
-	const canvas = useCanvas()
+const App: React.FC<{
+	layoutCfg: Record<string, any>
+}> = props => {
+	const { menuCfg } = props.layoutCfg
 
-	const [, forceUpdate] = useReducer(x => x + 1, 0)
-
-	useEffect(() => {
-		const unsubscribe = canvas.subscribe(() => {
-			forceUpdate()
-		})
-		return () => unsubscribe() as any
-	}, [canvas])
-
-	useEffect(() => {
-		sendJoinMessage()
-	}, [])
+	const [collapsed, setCollapsed] = useState(false)
+	const {
+		token: { colorBgContainer },
+	} = theme.useToken()
 
 	return (
-		<CanvasContext.Provider value={canvas!}>
+		<Layout>
+			<Sider
+				className="h-100vh"
+				trigger={null}
+				collapsible
+				collapsed={collapsed}
+			>
+				<div className="demo-logo-vertical" />
+				<Menu
+					theme="dark"
+					mode="inline"
+					defaultSelectedKeys={['1']}
+					items={menuCfg.itemList}
+				/>
+			</Sider>
 			<Layout>
 				<Header
-					className="text-20px font-semibold"
-					style={headerStyle}
+					style={{
+						padding: 0,
+						background: colorBgContainer,
+					}}
 				>
-					低代码平台
+					<Button
+						type="text"
+						icon={
+							collapsed ? (
+								<Icon icon={'pajamas:collapse-right'} />
+							) : (
+								<Icon icon={'pajamas:collapse-left'} />
+							)
+						}
+						onClick={() => setCollapsed(!collapsed)}
+						style={{
+							fontSize: '16px',
+							width: 64,
+							height: 64,
+						}}
+					/>
 				</Header>
-				<Layout className={classNames(styled.siderHeight)}>
-					{/* 左侧操作栏 */}
-					<Sider
-						width={SiderConfig.LeftWidth}
-						className={classNames('color-black', 'mr-2rem')}
-						style={{
-							backgroundColor:
-								LayoutColor.leftSiderBackground,
-						}}
-					>
-						<LeftSider />
-					</Sider>
-					{/* 画布区 */}
-					<Content
-						className={classNames(
-							'flex',
-							'items-center',
-							'flex-col',
-							'mt-1rem'
-						)}
-					>
-						{/* <Header
-							className={classNames(
-								'w-full',
-								'bg-white',
-								'mb-1rem'
-							)}
-						> */}
-						{/* <ContentHeader /> */}
-						{/* </Header> */}
-						<Canvas />
-					</Content>
-					{/* 右侧操作栏 */}
-					<Sider
-						width={SiderConfig.RightWidth}
-						className={classNames('color-black', 'ml-2rem')}
-						style={{
-							backgroundColor:
-								LayoutColor.rightSiderBackground,
-						}}
-					>
-						<Header className="color-white text-center font-20px bg-blue-500 font-semibold">
-							编辑区
-						</Header>
-						<RightSider />
-					</Sider>
-				</Layout>
-				<Footer className="p-0" style={footerStyle}>
-					Footer
-				</Footer>
+				<Content
+					style={{
+						margin: '24px 16px',
+						padding: 24,
+						minHeight: 280,
+						background: colorBgContainer,
+					}}
+				>
+					Content
+				</Content>
 			</Layout>
-		</CanvasContext.Provider>
+		</Layout>
 	)
 }
+
+export default App
