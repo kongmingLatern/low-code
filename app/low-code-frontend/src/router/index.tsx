@@ -9,11 +9,11 @@ import Home from '@/module/Home/pages/Home'
 export const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <BaseHomeLayout />,
+		element: <Home />,
 	},
 	{
 		path: '/home',
-		element: <Home />,
+		element: <BaseHomeLayout />,
 	},
 	{
 		path: '/login',

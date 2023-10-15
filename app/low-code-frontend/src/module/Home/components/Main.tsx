@@ -9,7 +9,7 @@ interface ContentProps {}
 const Content: FunctionComponent<ContentProps> = () => {
 	return (
 		<div
-			className="w-full h-60vh flex-center flex-col color-white"
+			className="w-full h-100vh flex-center flex-col color-white"
 			style={{
 				background: '#1677ff',
 			}}
