@@ -7,7 +7,7 @@ import {
 	Select,
 	Typography,
 } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const { Option } = Select
 
@@ -35,6 +35,7 @@ const { Title } = Typography
 
 const App: React.FC = () => {
 	const [form] = Form.useForm()
+	const navigate = useNavigate()
 
 	const onFinish = (values: any) => {
 		console.log('Received values of form: ', values)
@@ -182,7 +183,11 @@ const App: React.FC = () => {
 				className="text-right"
 				{...tailFormItemLayout}
 			>
-				<Button type="primary" htmlType="submit">
+				<Button
+					type="primary"
+					htmlType="submit"
+					onClick={() => navigate('/login')}
+				>
 					注册
 				</Button>
 			</Form.Item>

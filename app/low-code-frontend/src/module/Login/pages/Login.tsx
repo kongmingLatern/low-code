@@ -33,13 +33,13 @@ const App: React.FC = () => {
 				rules={[
 					{
 						required: true,
-						message: 'Please input your Username!',
+						message: '请输入用户名',
 					},
 				]}
 			>
 				<Input
 					prefix={<Icon icon="mdi:user" />}
-					placeholder="Username"
+					placeholder="用户名"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -47,14 +47,14 @@ const App: React.FC = () => {
 				rules={[
 					{
 						required: true,
-						message: 'Please input your Password!',
+						message: '请输入密码',
 					},
 				]}
 			>
 				<Input
 					prefix={<Icon icon="mdi:password" />}
 					type="password"
-					placeholder="Password"
+					placeholder="密码"
 				/>
 			</Form.Item>
 

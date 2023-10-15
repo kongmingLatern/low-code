@@ -2,8 +2,10 @@ import { Icon } from '@iconify/react'
 import { ColorTheme } from '@packages/customized'
 import { Row, Col, Button, Space } from 'antd'
 import classNames from 'classnames'
+import { useNavigate } from 'react-router-dom'
 
 export default function Header() {
+	const navigate = useNavigate()
 	return (
 		<Row
 			className={classNames('px-1rem', 'overflow-hidden')}
@@ -19,9 +21,16 @@ export default function Header() {
 				</span>
 			</Col>
 			<Col span={8} offset={8}>
-				<Space className='flex-center'>
-					<Button ghost>登陆</Button>
-					<Button ghost>注册</Button>
+				<Space className="flex-center">
+					<Button ghost onClick={() => navigate('/login')}>
+						登陆
+					</Button>
+					<Button
+						ghost
+						onClick={() => navigate('/register')}
+					>
+						注册
+					</Button>
 				</Space>
 				{/* <span className="flex-center">
 					<Icon icon="fad:logo-fl" width={60} height={60} />
