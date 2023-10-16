@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Layout, Menu, Button, theme } from 'antd'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Layout, Menu, theme, Col, Row } from 'antd'
+import Box from '@/module/Home/components/Box'
+import { Outlet } from 'react-router-dom'
 
 const { Header, Sider, Content } = Layout
 
@@ -33,10 +34,24 @@ const App: React.FC<{
 			<Layout>
 				<Header
 					style={{
-						padding: 0,
+						padding: '0 24px',
 						background: colorBgContainer,
 					}}
-				></Header>
+				>
+					<Row>
+						<Col span={8}>全部</Col>
+						<Col span={8} offset={8}>
+							<Box
+								icon={{
+									src: 'mdi:user',
+									width: '30',
+									height: '30',
+								}}
+								content="用户名A"
+							/>
+						</Col>
+					</Row>
+				</Header>
 				<Content
 					style={{
 						margin: '24px 16px',
@@ -45,7 +60,7 @@ const App: React.FC<{
 						background: colorBgContainer,
 					}}
 				>
-					Content
+					<Outlet />
 				</Content>
 			</Layout>
 		</Layout>

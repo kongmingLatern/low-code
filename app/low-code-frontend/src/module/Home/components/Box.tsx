@@ -3,9 +3,9 @@ import { FunctionComponent } from 'react'
 
 interface BoxProps {
 	icon?: {
-		src: string
-		width: number
-		height: number
+		src?: string
+		width?: number
+		height?: number
 	}
 	content?: string
 	fontSize?: string
