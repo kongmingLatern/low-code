@@ -18,9 +18,9 @@ const App: React.FC<{
 		<Layout>
 			<Sider
 				className="h-100vh"
-				trigger={null}
 				collapsible
 				collapsed={collapsed}
+				onCollapse={value => setCollapsed(value)}
 			>
 				<div className="demo-logo-vertical" />
 				<Menu
@@ -36,24 +36,7 @@ const App: React.FC<{
 						padding: 0,
 						background: colorBgContainer,
 					}}
-				>
-					<Button
-						type="text"
-						icon={
-							collapsed ? (
-								<Icon icon={'pajamas:collapse-right'} />
-							) : (
-								<Icon icon={'pajamas:collapse-left'} />
-							)
-						}
-						onClick={() => setCollapsed(!collapsed)}
-						style={{
-							fontSize: '16px',
-							width: 64,
-							height: 64,
-						}}
-					/>
-				</Header>
+				></Header>
 				<Content
 					style={{
 						margin: '24px 16px',
