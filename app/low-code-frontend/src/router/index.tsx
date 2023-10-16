@@ -16,6 +16,7 @@ export const router = createBrowserRouter([
 	{
 		path: '/home',
 		element: <BaseHomeLayout layoutCfg={layoutCfg} />,
+		children: layoutCfg.children,
 	},
 	{
 		path: '/canvas',

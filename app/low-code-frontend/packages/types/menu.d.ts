@@ -1,3 +1,4 @@
+import { RouteObject } from 'react-router-dom'
 export interface LayoutProps {
 	menuCfg: {
 		itemList: {
@@ -6,4 +7,5 @@ export interface LayoutProps {
 			label: string
 		}[]
 	}
+	children?: RouteObject[]
 }

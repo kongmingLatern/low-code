@@ -4,11 +4,11 @@ import { FunctionComponent } from 'react'
 interface BoxProps {
 	icon?: {
 		src?: string
-		width?: number
-		height?: number
+		width?: number | string
+		height?: number | string
 	}
-	content?: string
-	fontSize?: string
+	content?: any
+	fontSize?: string | number
 }
 
 const Box: FunctionComponent<BoxProps> = props => {

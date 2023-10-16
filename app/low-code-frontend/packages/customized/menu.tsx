@@ -26,4 +26,10 @@ export const layoutCfg: LayoutProps = {
 			},
 		],
 	},
+	children: [
+		{
+			path: 'all',
+			element: <div>all</div>,
+		},
+	],
 }
