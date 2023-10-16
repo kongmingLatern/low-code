@@ -41,8 +41,8 @@ const App: React.FC<{
 					selectedKeys={[selectedMenu]}
 					onClick={e => {
 						localStorage.setItem('menu_key', e.key)
-						const path = menuCfg.handleClick(e)
 						setSelectedMenu(e.key)
+						const path = menuCfg.handleClick(e)
 						navigate(path)
 					}}
 				/>
