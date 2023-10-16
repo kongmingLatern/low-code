@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout, Menu, theme, Col, Row } from 'antd'
 import Box from '@/module/Home/components/Box'
 import { Outlet, useNavigate } from 'react-router-dom'
@@ -9,12 +9,21 @@ const App: React.FC<{
 	layoutCfg: Record<string, any>
 }> = props => {
 	const { menuCfg } = props.layoutCfg
+	const [selectedMenu, setSelectedMenu] = useState('')
 	const navigate = useNavigate()
 
 	const [collapsed, setCollapsed] = useState(false)
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
+
+	useEffect(() => {
+		const key = localStorage.getItem('menu_key')
+		if (key) {
+			setSelectedMenu(key)
+			navigate(`/home/${key}`)
+		}
+	}, [navigate])
 
 	return (
 		<Layout>
@@ -28,11 +37,12 @@ const App: React.FC<{
 				<Menu
 					theme="dark"
 					mode="inline"
-					defaultSelectedKeys={['1']}
 					items={menuCfg.itemList}
+					selectedKeys={[selectedMenu]}
 					onClick={e => {
+						localStorage.setItem('menu_key', e.key)
 						const path = menuCfg.handleClick(e)
-						console.log('path', path)
+						setSelectedMenu(e.key)
 						navigate(path)
 					}}
 				/>
