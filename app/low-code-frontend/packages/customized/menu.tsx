@@ -25,11 +25,26 @@ export const layoutCfg: LayoutProps = {
 				label: '未开始',
 			},
 		],
+		handleClick: e => {
+			return `/home/${e.key}`
+		},
 	},
 	children: [
 		{
 			path: 'all',
 			element: <div>all</div>,
+		},
+		{
+			path: 'finish',
+			element: <div>finish</div>,
+		},
+		{
+			path: 'doing',
+			element: <div>doing</div>,
+		},
+		{
+			path: 'will',
+			element: <div>will</div>,
 		},
 	],
 }

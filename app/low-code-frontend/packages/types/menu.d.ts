@@ -6,6 +6,12 @@ export interface LayoutProps {
 			icon: React.ReactNode
 			label: string
 		}[]
+		handleClick: (e: {
+			item
+			key
+			keyPath
+			domEvent
+		}) => any
 	}
 	children?: RouteObject[]
 }

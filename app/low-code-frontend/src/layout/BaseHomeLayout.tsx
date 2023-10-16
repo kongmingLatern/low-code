@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Menu, theme, Col, Row } from 'antd'
 import Box from '@/module/Home/components/Box'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const { Header, Sider, Content } = Layout
 
@@ -9,6 +9,7 @@ const App: React.FC<{
 	layoutCfg: Record<string, any>
 }> = props => {
 	const { menuCfg } = props.layoutCfg
+	const navigate = useNavigate()
 
 	const [collapsed, setCollapsed] = useState(false)
 	const {
@@ -29,6 +30,11 @@ const App: React.FC<{
 					mode="inline"
 					defaultSelectedKeys={['1']}
 					items={menuCfg.itemList}
+					onClick={e => {
+						const path = menuCfg.handleClick(e)
+						console.log('path', path)
+						navigate(path)
+					}}
 				/>
 			</Sider>
 			<Layout>
