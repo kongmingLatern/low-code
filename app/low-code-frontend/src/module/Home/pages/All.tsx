@@ -7,7 +7,7 @@ interface AllProps {}
 const All: FunctionComponent<AllProps> = () => {
 	return (
 		<RowItem gutter={16} count={4}>
-			<Card content={<div>123</div>} />
+			<Card cardContent={<div>123</div>} />
 		</RowItem>
 	)
 }

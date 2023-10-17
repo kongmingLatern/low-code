@@ -2,17 +2,20 @@ import { Card, CardProps } from 'antd'
 import { FunctionComponent } from 'react'
 
 const CardComponent: FunctionComponent<
-	CardProps
+	CardProps & {
+		cardContent: any
+	}
 > = props => {
 	const {
 		title = '卡片标题',
-		content,
+		cardContent,
 		children,
 		bordered,
+		...rest
 	} = props
 	return (
-		<Card title={title} bordered={bordered}>
-			{children || content}
+		<Card title={title} bordered={bordered} {...rest}>
+			{children || cardContent}
 		</Card>
 	)
 }
