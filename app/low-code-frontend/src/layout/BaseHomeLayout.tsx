@@ -55,7 +55,7 @@ const App: React.FC<{
 					}}
 				>
 					<Row>
-						<Col span={8}>全部</Col>
+						<Col span={8} className='text-18px'>全部</Col>
 						<Col span={8} offset={8}>
 							<Box
 								icon={{
