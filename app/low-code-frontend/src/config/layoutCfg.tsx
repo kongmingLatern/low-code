@@ -1,3 +1,4 @@
+import All from '@/module/Home/pages/All'
 import { Icon } from '@iconify/react'
 import { LayoutProps } from '@packages/types/menu'
 
@@ -32,7 +33,7 @@ export const layoutCfg: LayoutProps = {
 	children: [
 		{
 			path: 'all',
-			element: <div>all</div>,
+			element: <All />,
 		},
 		{
 			path: 'finish',
