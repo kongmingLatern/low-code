@@ -5,6 +5,7 @@ import { Input, Typography } from 'antd'
 import { SearchProps } from 'antd/es/input'
 import Flex from '@/components/common/Flex'
 import Box from '@/module/Index/components/Box'
+import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
 
@@ -12,6 +13,7 @@ interface AllProps {}
 const { Title, Text } = Typography
 
 const All: FunctionComponent<AllProps> = () => {
+	const navigate = useNavigate()
 	const card = (
 		<Card
 			hoverable
@@ -37,6 +39,9 @@ const All: FunctionComponent<AllProps> = () => {
 					<Text>text</Text>
 				</>
 			}
+			onClick={() => {
+				navigate('/canvas')
+			}}
 		/>
 	)
 
