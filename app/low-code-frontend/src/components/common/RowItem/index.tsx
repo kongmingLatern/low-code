@@ -18,7 +18,7 @@ declare const RowJustify: readonly [
 ]
 
 interface RowItemProps {
-	gutter: Gutter
+	gutter: number | number[]
 	count: number
 	list: any[]
 	children: React.ReactNode

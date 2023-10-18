@@ -28,7 +28,7 @@ const App: React.FC<{
 	return (
 		<Layout>
 			<Sider
-				className="h-100vh"
+				// className="h-100vh"
 				collapsible
 				collapsed={collapsed}
 				onCollapse={value => setCollapsed(value)}

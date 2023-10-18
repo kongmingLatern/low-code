@@ -12,6 +12,7 @@ interface AllProps {}
 const All: FunctionComponent<AllProps> = () => {
 	const card = (
 		<Card
+			hoverable
 			title="拉123拉"
 			cover={
 				<img
@@ -39,9 +40,9 @@ const All: FunctionComponent<AllProps> = () => {
 				/>
 			</Flex>
 			<RowItem
-				gutter={16}
+				gutter={[24, 16]}
 				list={new Array(14).fill(card)}
-				justify='center'
+				justify="center"
 			></RowItem>
 		</>
 	)
