@@ -7,9 +7,9 @@ import Flex from '@/components/common/Flex'
 
 const { Search } = Input
 
-interface AllProps {}
+interface FinishProps {}
 
-const All: FunctionComponent<AllProps> = () => {
+const Finish: FunctionComponent<FinishProps> = () => {
 	const onSearch: SearchProps['onSearch'] = (
 		value,
 		_e,
@@ -25,10 +25,10 @@ const All: FunctionComponent<AllProps> = () => {
 					enterButton
 				/>
 			</Flex>
-			<RowItem gutter={16} count={4}>
+			<RowItem gutter={16} count={2}>
 				<Card
-					title="拉拉"
-					cardContent={<div>123</div>}
+					title="已完成"
+					cardContent={<div>Project Name</div>}
 					cover={
 						<img
 							alt="example"
@@ -41,4 +41,4 @@ const All: FunctionComponent<AllProps> = () => {
 	)
 }
 
-export default All
+export default Finish

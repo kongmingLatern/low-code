@@ -30,12 +30,13 @@ const Flex: FunctionComponent<FlexProps> = props => {
 	return (
 		<div
 			className="flex"
-			{...rest}
 			style={{
 				justifyContent: justify,
 				alignItems: align,
 				flexWrap: wrap ? 'wrap' : 'nowrap',
+				marginBottom: '1rem',
 			}}
+			{...rest}
 		>
 			{children}
 		</div>

@@ -1,4 +1,7 @@
 import All from '@/module/Home/pages/All'
+import Doing from '@/module/Home/pages/Doing'
+import Finish from '@/module/Home/pages/Finish'
+import Will from '@/module/Home/pages/Will'
 import { Icon } from '@iconify/react'
 import { LayoutProps } from '@packages/types/menu'
 
@@ -37,15 +40,15 @@ export const layoutCfg: LayoutProps = {
 		},
 		{
 			path: 'finish',
-			element: <div>finish</div>,
+			element: <Finish />,
 		},
 		{
 			path: 'doing',
-			element: <div>doing</div>,
+			element: <Doing />,
 		},
 		{
 			path: 'will',
-			element: <div>will</div>,
+			element: <Will />,
 		},
 	],
 }
