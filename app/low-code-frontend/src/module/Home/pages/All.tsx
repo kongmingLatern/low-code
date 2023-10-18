@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import RowItem from '@/components/common/RowItem'
 import { Input } from 'antd'
 import { SearchProps } from 'antd/es/input'
-import Flex from '@/components/Flex'
+import Flex from '@/components/common/Flex'
 
 const { Search } = Input
 
