@@ -1,26 +1,42 @@
 import { FunctionComponent } from 'react'
 import Card from '../components/Card'
 import RowItem from '@/components/common/RowItem'
-import { Input } from 'antd'
+import { Input, Typography } from 'antd'
 import { SearchProps } from 'antd/es/input'
 import Flex from '@/components/common/Flex'
+import Box from '@/module/Index/components/Box'
 
 const { Search } = Input
 
 interface AllProps {}
+const { Title, Text } = Typography
 
 const All: FunctionComponent<AllProps> = () => {
 	const card = (
 		<Card
 			hoverable
-			title="拉123拉"
 			cover={
 				<img
 					alt="example"
 					src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
 				/>
 			}
-			cardContent={<div>123</div>}
+			cardContent={
+				<>
+					<Title level={4}>Card Title</Title>
+					<Flex
+						className="text-14px font-semibold"
+						justify="end"
+					>
+						<Box
+							showIcon={false}
+							content={'2023-10-23'}
+							fontSize={12}
+						/>
+					</Flex>
+					<Text>text</Text>
+				</>
+			}
 		/>
 	)
 

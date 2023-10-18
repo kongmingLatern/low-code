@@ -38,9 +38,9 @@ const RowItem: FunctionComponent<
 	} = props
 	return (
 		<Row gutter={gutter} justify={justify} align={align}>
-			{list?.map(i => {
+			{list?.map((i, index) => {
 				return (
-					<Col key={i.key} span={24 / count}>
+					<Col key={i + index} span={24 / count}>
 						{i}
 					</Col>
 				)

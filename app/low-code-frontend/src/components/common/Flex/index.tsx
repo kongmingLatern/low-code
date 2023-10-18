@@ -29,8 +29,8 @@ const Flex: FunctionComponent<FlexProps> = props => {
 	} = props
 	return (
 		<div
-			className="flex"
 			style={{
+				display: 'flex',
 				justifyContent: justify,
 				alignItems: align,
 				flexWrap: wrap ? 'wrap' : 'nowrap',

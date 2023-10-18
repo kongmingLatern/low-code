@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { FunctionComponent } from 'react'
 
 interface BoxProps {
+	showIcon?: boolean
 	icon?: {
 		src?: string
 		width?: number | string
@@ -12,14 +13,16 @@ interface BoxProps {
 }
 
 const Box: FunctionComponent<BoxProps> = props => {
-	const { icon, content, fontSize } = props
+	const { showIcon = true, icon, content, fontSize } = props
 	return (
 		<span className="flex-center">
-			<Icon
-				icon={icon?.src || 'fad:logo-fl'}
-				width={icon?.width || 60}
-				height={icon?.width || 60}
-			/>
+			{showIcon && (
+				<Icon
+					icon={icon?.src || 'fad:logo-fl'}
+					width={icon?.width || 60}
+					height={icon?.width || 60}
+				/>
+			)}
 			<span style={{ fontSize: fontSize || '16px' }}>
 				{content ? content : '用户名'}
 			</span>
