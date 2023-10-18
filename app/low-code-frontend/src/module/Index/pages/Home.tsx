@@ -16,7 +16,7 @@ const Home: FunctionComponent<HomeProps> = () => {
 		height: '80px',
 		lineHeight: '80px',
 		backgroundColor: ColorTheme.black,
-		fontSize: '20px'
+		fontSize: '20px',
 	}
 	return (
 		<>

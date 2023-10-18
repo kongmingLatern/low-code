@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Layout, Menu, theme, Col, Row } from 'antd'
-import Box from '@/module/Home/components/Box'
+import Box from '@/module/Index/components/Box'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 const { Header, Sider, Content } = Layout
@@ -55,7 +55,9 @@ const App: React.FC<{
 					}}
 				>
 					<Row>
-						<Col span={8} className='text-18px'>全部</Col>
+						<Col span={8} className="text-18px">
+							全部
+						</Col>
 						<Col span={8} offset={8}>
 							<Box
 								icon={{

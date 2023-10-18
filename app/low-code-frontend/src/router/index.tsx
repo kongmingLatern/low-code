@@ -5,7 +5,7 @@ import LoginCover from '@/components/common/Cover'
 
 import Login from '@/module/Login/pages/Login'
 import Register from '@/module/Login/pages/Register'
-import Home from '@/module/Home/pages/Home'
+import Home from '@/module/Index/pages/Home'
 import { layoutCfg } from '@/config/layoutCfg'
 
 export const router = createBrowserRouter([

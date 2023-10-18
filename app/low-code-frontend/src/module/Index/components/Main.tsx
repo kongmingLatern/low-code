@@ -23,7 +23,9 @@ const Content: FunctionComponent<ContentProps> = () => {
 				content="多智协创平台"
 				fontSize="48px"
 			/>
-			<Title style={{color: 'white'}}>第一个多人协作的低代码平台</Title>
+			<Title style={{ color: 'white' }}>
+				第一个多人协作的低代码平台
+			</Title>
 
 			<Button
 				type="default"
