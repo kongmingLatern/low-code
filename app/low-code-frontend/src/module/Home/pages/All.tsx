@@ -10,6 +10,19 @@ const { Search } = Input
 interface AllProps {}
 
 const All: FunctionComponent<AllProps> = () => {
+	const card = (
+		<Card
+			title="拉123拉"
+			cover={
+				<img
+					alt="example"
+					src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+				/>
+			}
+			cardContent={<div>123</div>}
+		/>
+	)
+
 	const onSearch: SearchProps['onSearch'] = (
 		value,
 		_e,
@@ -25,18 +38,11 @@ const All: FunctionComponent<AllProps> = () => {
 					enterButton
 				/>
 			</Flex>
-			<RowItem gutter={16} count={4}>
-				<Card
-					title="拉拉"
-					cardContent={<div>123</div>}
-					cover={
-						<img
-							alt="example"
-							src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-						/>
-					}
-				/>
-			</RowItem>
+			<RowItem
+				gutter={16}
+				list={new Array(14).fill(card)}
+				justify='center'
+			></RowItem>
 		</>
 	)
 }

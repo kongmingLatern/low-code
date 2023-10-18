@@ -25,18 +25,21 @@ const Finish: FunctionComponent<FinishProps> = () => {
 					enterButton
 				/>
 			</Flex>
-			<RowItem gutter={16} count={2}>
-				<Card
-					title="已完成"
-					cardContent={<div>Project Name</div>}
-					cover={
-						<img
-							alt="example"
-							src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-						/>
-					}
-				/>
-			</RowItem>
+			<RowItem
+				gutter={16}
+				list={[
+					<Card
+						title="拉拉"
+						cover={
+							<img
+								alt="example"
+								src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+							/>
+						}
+						cardContent={<div>123</div>}
+					/>,
+				]}
+			></RowItem>
 		</>
 	)
 }
