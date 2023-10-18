@@ -13,7 +13,7 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
     "ahooks": "^3.7.8",
-    "antd": "^5.9.3",
+    "antd": "^5.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
