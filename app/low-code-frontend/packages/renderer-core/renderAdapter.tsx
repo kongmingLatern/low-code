@@ -26,10 +26,11 @@ export class RenderAdapter {
 
 	private textHandler(options = {}) {
 		const { componentType } = this
+
 		switch (componentType) {
 			case 'Antd':
 				return (
-					<Typography.Text style={this.props} {...options}>
+					<Typography.Text {...options} {...this.props}>
 						{this.value}
 					</Typography.Text>
 				)
@@ -46,7 +47,8 @@ export class RenderAdapter {
 					<Image
 						src={this.value}
 						// className="min-w-[400px] min-h-[200px]"
-						style={this.props}
+						// style={this.props}
+						{...this.props}
 						{...options}
 					/>
 				)
