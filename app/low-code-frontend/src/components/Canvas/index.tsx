@@ -152,6 +152,7 @@ export default function Canvas() {
 					index={index}
 					element={i}
 					isSelected={canvas.getSelectedIndex() === index}
+					{...i}
 				/>
 			))}
 		</div>

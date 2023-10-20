@@ -9,7 +9,7 @@ import { sendActiveElementInfo } from '@packages/server'
 import { message } from 'antd'
 
 export default function Element(props) {
-	const { key, type, value, style, editorBy } =
+	const { key, type, value, style, editorBy, ...rest } =
 		props.element
 
 	const { index, isSelected } = props
@@ -25,11 +25,10 @@ export default function Element(props) {
 			e.dataTransfer.setData('text', startX + ',' + startY)
 		},
 	})
-	const renderAdapter = new RenderAdapter(
-		type,
-		value,
-		style
-	)
+	const renderAdapter = new RenderAdapter(type, value, {
+		style,
+		...rest,
+	})
 
 	const child = React.Children.only(
 		renderAdapter.handler({
@@ -56,6 +55,7 @@ export default function Element(props) {
 			},
 			// style: { ...child.props.style, position: 'absolute' },
 			style: { ...child.props.style },
+			...child.props,
 		})
 
 	function setSelected(e) {

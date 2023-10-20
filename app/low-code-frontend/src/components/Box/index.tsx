@@ -6,12 +6,13 @@ import { useDrag } from 'ahooks'
 import { useCanvasContext } from '@/hooks'
 
 export default function Box(props) {
-	const { type, value, data, style, editorBy } = props
-	const renderAdapter = new RenderAdapter(
-		type,
-		value,
-		style
-	)
+	const { type, value, data, style, editorBy, ...rest } =
+		props
+
+	const renderAdapter = new RenderAdapter(type, value, {
+		style,
+		...rest,
+	})
 
 	const dragRef = useRef(null)
 	const canvas = useCanvasContext()
@@ -51,6 +52,7 @@ export default function Box(props) {
 			value,
 			style,
 			editorBy,
+			...rest,
 		})
 		console.log('add', canvas)
 	}
@@ -63,7 +65,9 @@ export default function Box(props) {
 				styled.border
 			)}
 			ref={dragRef}
-			onClick={() => addToCanvas()}
+			onClick={() => {
+				addToCanvas()
+			}}
 		>
 			<span className="overflow-hidden text-20px font-semibold h-80px lh-80px">
 				{/* 这里最好做一个适配层,能够兼容各种组件库 */}
