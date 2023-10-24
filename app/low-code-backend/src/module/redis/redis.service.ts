@@ -28,6 +28,7 @@ export class RedisService {
   }
 
   async setCanvas(obj) {
+    // TODO: 获取到画布id
     const { element, style } = obj;
     console.log('element', element);
     console.log('style', style);

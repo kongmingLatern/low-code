@@ -26,6 +26,7 @@ export class GatewayGateway {
     @MessageBody() body: any,
     @ConnectedSocket() client: Socket,
   ) {
+    // TODO: 获取画布id
     const { data } = await this.redisService.getCanvas();
     client.emit('join', data);
   }

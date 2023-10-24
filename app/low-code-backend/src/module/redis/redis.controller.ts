@@ -11,6 +11,7 @@ export class RedisController {
   }
   @Get('/getCanvas')
   async getCanvas() {
+    // TODO: 获取画布id
     return await this.redisService.getCanvas();
   }
 
