@@ -1,13 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom'
 import BaseCanvasLayout from '@/layout/BaseCanvasLayout'
 import BaseHomeLayout from '@/layout/BaseHomeLayout'
+import CanvasHomeLayout from '@/layout/CanvasHomeLayout'
 import LoginCover from '@/components/common/Cover'
 
 import Login from '@/module/Login/pages/Login'
 import Register from '@/module/Login/pages/Register'
 import Home from '@/module/Index/pages/Home'
-import { layoutCfg } from '@/config/layoutCfg'
-import CanvasHomeLayout from '@/layout/CanvasHomeLayout'
+
+import { canvasLayoutCfg, homeLayoutCfg } from '@/config'
 
 export const router = createBrowserRouter([
 	{
@@ -16,12 +17,15 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/home',
-		element: <BaseHomeLayout layoutCfg={layoutCfg} />,
-		children: layoutCfg.children,
+		element: <BaseHomeLayout layoutCfg={homeLayoutCfg} />,
+		children: homeLayoutCfg.children,
 	},
 	{
 		path: '/canvasConfig',
-		element: <CanvasHomeLayout />,
+		element: (
+			<CanvasHomeLayout layoutCfg={canvasLayoutCfg} />
+		),
+		children: canvasLayoutCfg.children,
 	},
 	{
 		path: '/canvas',

@@ -1,12 +1,29 @@
-import React from 'react'
-import { Breadcrumb, Layout, Menu, theme } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Layout, Menu, theme } from 'antd'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const { Header, Content, Footer } = Layout
 
-const App: React.FC = () => {
+interface LayoutProps {
+	layoutCfg: Record<string, any>
+}
+
+const App: React.FC<LayoutProps> = props => {
+	const { layoutCfg } = props
+	const { menuCfg } = layoutCfg
+	const [selectedMenu, setSelectedMenu] = useState('')
+	const navigate = useNavigate()
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
+
+	useEffect(() => {
+		const key = localStorage.getItem('canvas_menu_key')
+		if (key) {
+			setSelectedMenu(key)
+			navigate(`/canvasConfig/${key}`)
+		}
+	}, [navigate])
 
 	return (
 		<Layout className="layout">
@@ -17,33 +34,31 @@ const App: React.FC = () => {
 				<Menu
 					theme="dark"
 					mode="horizontal"
-					defaultSelectedKeys={['2']}
-					items={new Array(15)
-						.fill(null)
-						.map((_, index) => {
-							const key = index + 1
-							return {
-								key,
-								label: `nav ${key}`,
-							}
-						})}
+					selectedKeys={[selectedMenu]}
+					onClick={e => {
+						localStorage.setItem('canvas_menu_key', e.key)
+						setSelectedMenu(e.key)
+						const path = menuCfg.handleClick(e)
+						navigate(path)
+					}}
+					items={menuCfg.itemList}
 				/>
 			</Header>
 			<Content style={{ padding: '0 50px' }}>
-				<Breadcrumb style={{ margin: '16px 0' }}>
+				{/* <Breadcrumb style={{ margin: '16px 0' }}>
 					<Breadcrumb.Item>Home</Breadcrumb.Item>
 					<Breadcrumb.Item>List</Breadcrumb.Item>
 					<Breadcrumb.Item>App</Breadcrumb.Item>
-				</Breadcrumb>
+				</Breadcrumb> */}
 				<div
 					className="site-layout-content"
 					style={{ background: colorBgContainer }}
 				>
-					Content
+					<Outlet />
 				</div>
 			</Content>
 			<Footer style={{ textAlign: 'center' }}>
-				Ant Design ©2023 Created by Ant UED
+				&copy; 2023 凤之兮原
 			</Footer>
 		</Layout>
 	)
