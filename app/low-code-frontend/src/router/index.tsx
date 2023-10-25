@@ -7,6 +7,7 @@ import Login from '@/module/Login/pages/Login'
 import Register from '@/module/Login/pages/Register'
 import Home from '@/module/Index/pages/Home'
 import { layoutCfg } from '@/config/layoutCfg'
+import CanvasHomeLayout from '@/layout/CanvasHomeLayout'
 
 export const router = createBrowserRouter([
 	{
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
 		path: '/home',
 		element: <BaseHomeLayout layoutCfg={layoutCfg} />,
 		children: layoutCfg.children,
+	},
+	{
+		path: '/canvasConfig',
+		element: <CanvasHomeLayout />,
 	},
 	{
 		path: '/canvas',

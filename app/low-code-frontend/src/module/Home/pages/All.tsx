@@ -40,7 +40,7 @@ const All: FunctionComponent<AllProps> = () => {
 				</>
 			}
 			onClick={() => {
-				navigate('/canvas')
+				navigate('/canvasConfig')
 			}}
 		/>
 	)
