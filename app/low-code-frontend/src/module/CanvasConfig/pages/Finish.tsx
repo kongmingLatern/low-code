@@ -1,16 +1,15 @@
 import DataTable from '@/components/DataTable'
 import { Tag, Space } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+interface DataType {
+	key: string
+	name: string
+	age: number
+	address: string
+	tags: string[]
+}
 
 export function Finish() {
-	interface DataType {
-		key: string
-		name: string
-		age: number
-		address: string
-		tags: string[]
-	}
-
 	const columns: ColumnsType<DataType> = [
 		{
 			title: 'Name',
@@ -84,5 +83,5 @@ export function Finish() {
 			tags: ['cool', 'teacher'],
 		},
 	]
-	return <DataTable columns={columns} data={data} />
+	return <DataTable columns={columns} dataSource={data} />
 }
