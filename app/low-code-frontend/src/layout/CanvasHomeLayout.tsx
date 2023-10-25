@@ -52,7 +52,10 @@ const App: React.FC<LayoutProps> = props => {
 				</Breadcrumb> */}
 				<div
 					className="site-layout-content"
-					style={{ background: colorBgContainer }}
+					style={{
+						margin: '16px 0 ',
+						background: colorBgContainer,
+					}}
 				>
 					<Outlet />
 				</div>

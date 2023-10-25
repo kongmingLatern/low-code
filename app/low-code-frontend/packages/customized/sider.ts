@@ -64,7 +64,7 @@ export function getContent(key: string) {
 					key: uuid(),
 					type: ELEMENT_TYPE.IMAGE,
 					value:
-						'https://img95.699pic.com/photo/40250/6610.jpg_wh300.jpg',
+						'https://pic.mac89.com/pic/202011/26140204_a7bad86bb7.jpeg',
 					style: {
 						top: 0,
 						left: 0,
