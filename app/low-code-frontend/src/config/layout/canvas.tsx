@@ -1,5 +1,5 @@
 import All from '@/module/CanvasConfig/pages/All'
-import Finish from '@/module/Home/pages/Finish'
+import { Finish } from '@/module/CanvasConfig/pages/Finish'
 import { Icon } from '@iconify/react'
 
 export const canvasLayoutCfg = {
