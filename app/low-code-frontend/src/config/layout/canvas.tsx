@@ -1,4 +1,4 @@
-import All from '@/module/CanvasConfig/pages/All'
+import Person from '@/module/CanvasConfig/pages/Person'
 import { Finish } from '@/module/CanvasConfig/pages/Finish'
 import { Icon } from '@iconify/react'
 
@@ -6,7 +6,7 @@ export const canvasLayoutCfg = {
 	menuCfg: {
 		itemList: [
 			{
-				key: 'all',
+				key: 'person',
 				icon: <Icon icon={'mdi:user'} />,
 				label: '项目人员',
 			},
@@ -27,8 +27,8 @@ export const canvasLayoutCfg = {
 	},
 	children: [
 		{
-			path: 'all',
-			element: <All />,
+			path: 'person',
+			element: <Person />,
 		},
 		{
 			path: 'finish',

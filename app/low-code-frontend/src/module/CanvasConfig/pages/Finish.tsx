@@ -1,4 +1,5 @@
-import DataTable from '@/components/DataTable'
+import DataTable from '@/components/common/DataTable'
+import { formatYMD } from '@/shared'
 import { Tag, Space } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 interface DataType {
@@ -6,29 +7,35 @@ interface DataType {
 	name: string
 	age: number
 	address: string
+	date: string
 	tags: string[]
 }
 
 export function Finish() {
 	const columns: ColumnsType<DataType> = [
 		{
-			title: 'Name',
+			title: '协作人员',
 			dataIndex: 'name',
 			key: 'name',
 			render: text => <a>{text}</a>,
 		},
 		{
-			title: 'Age',
+			title: '分配画布',
 			dataIndex: 'age',
 			key: 'age',
 		},
 		{
-			title: 'Address',
+			title: '权限',
 			dataIndex: 'address',
 			key: 'address',
 		},
 		{
-			title: 'Tags',
+			title: '加入日期',
+			dataIndex: 'date',
+			key: 'date',
+		},
+		{
+			title: '画布状态',
 			key: 'tags',
 			dataIndex: 'tags',
 			render: (_, { tags }) => (
@@ -66,6 +73,7 @@ export function Finish() {
 			name: 'John Brown',
 			age: 32,
 			address: 'New York No. 1 Lake Park',
+			date: formatYMD(new Date()),
 			tags: ['nice', 'developer'],
 		},
 		{
@@ -73,6 +81,7 @@ export function Finish() {
 			name: 'Jim Green',
 			age: 42,
 			address: 'London No. 1 Lake Park',
+			date: formatYMD(new Date()),
 			tags: ['loser'],
 		},
 		{
@@ -80,6 +89,7 @@ export function Finish() {
 			name: 'Joe Black',
 			age: 32,
 			address: 'Sydney No. 1 Lake Park',
+			date: formatYMD(new Date()),
 			tags: ['cool', 'teacher'],
 		},
 	]

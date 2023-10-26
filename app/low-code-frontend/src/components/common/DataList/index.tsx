@@ -84,7 +84,7 @@ const App: React.FC = () => {
 			dataSource={list}
 			style={{
 				minHeight: '300px',
-        padding: '14px'
+				padding: '14px',
 			}}
 			renderItem={item => (
 				<List.Item
