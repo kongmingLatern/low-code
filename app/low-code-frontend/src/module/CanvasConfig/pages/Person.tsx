@@ -1,6 +1,6 @@
 import DataTable from '@/components/common/DataTable'
 import { formatYMD } from '@/shared'
-import { Tag, Space } from 'antd'
+import { Button, Space } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 interface DataType {
 	key: string
@@ -17,29 +17,34 @@ export default function Person() {
 			title: '协作人员',
 			dataIndex: 'name',
 			key: 'name',
+			align: 'center',
 		},
 		{
 			title: '分配画布',
 			dataIndex: 'age',
 			key: 'age',
+			align: 'center',
 		},
 		{
 			title: '权限',
 			dataIndex: 'auth',
 			key: 'auth',
+			align: 'center',
 		},
 		{
 			title: '加入日期',
 			dataIndex: 'date',
 			key: 'date',
+			align: 'center',
 		},
 		{
-			title: 'Action',
+			title: '操作',
 			key: 'action',
-			render: (_, record) => (
+			align: 'center',
+			render: () => (
 				<Space size="middle">
-					<a>Invite {record.name}</a>
-					<a>Delete</a>
+					<Button type="primary">修改</Button>
+					<Button danger>删除</Button>
 				</Space>
 			),
 		},

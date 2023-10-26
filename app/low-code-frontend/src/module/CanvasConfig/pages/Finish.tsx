@@ -16,22 +16,26 @@ export function Finish() {
 			title: '画布名称',
 			dataIndex: 'canvas_name',
 			key: 'canvas_name',
+			align: 'center',
 		},
 		{
 			title: '创建时间',
 			dataIndex: 'create_time',
 			key: 'create_time',
+			align: 'center',
 		},
 		{
 			title: '协作人数',
 			dataIndex: 'num',
 			key: 'num',
+			align: 'center',
 		},
 
 		{
 			title: '画布状态',
 			key: 'tags',
 			dataIndex: 'tags',
+			align: 'center',
 			render: (_, { tags }) => (
 				<>
 					{tags.map(tag => {
@@ -53,6 +57,7 @@ export function Finish() {
 		{
 			title: '操作',
 			key: 'action',
+			align: 'center',
 			render: () => (
 				<Space size="middle">
 					<Button type="link">进入画布</Button>
