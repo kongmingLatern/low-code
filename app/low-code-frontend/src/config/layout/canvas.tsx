@@ -8,12 +8,17 @@ export const canvasLayoutCfg = {
 			{
 				key: 'all',
 				icon: <Icon icon={'mdi:user'} />,
-				label: '全部',
+				label: '项目人员',
 			},
 			{
 				key: 'finish',
-				icon: <Icon icon={'fa:ellipsis-h'} />,
-				label: '已完成',
+				icon: <Icon icon={'mdi:canvas'} />,
+				label: '项目画布',
+			},
+			{
+				key: 'manage',
+				icon: <Icon icon={'uil:edit'} />,
+				label: '项目管理',
 			},
 		],
 		handleClick: e => {
@@ -27,6 +32,10 @@ export const canvasLayoutCfg = {
 		},
 		{
 			path: 'finish',
+			element: <Finish />,
+		},
+		{
+			path: 'manage',
 			element: <Finish />,
 		},
 	],
