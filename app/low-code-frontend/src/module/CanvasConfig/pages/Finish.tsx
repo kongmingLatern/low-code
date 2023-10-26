@@ -1,39 +1,33 @@
 import DataTable from '@/components/common/DataTable'
 import { formatYMD } from '@/shared'
-import { Tag, Space } from 'antd'
+import { Button, Space, Tag } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 interface DataType {
 	key: string
-	name: string
-	age: number
-	address: string
-	date: string
+	canvas_name: string
+	num: number
+	create_time: string
 	tags: string[]
 }
 
 export function Finish() {
 	const columns: ColumnsType<DataType> = [
 		{
-			title: '协作人员',
-			dataIndex: 'name',
-			key: 'name',
-			render: text => <a>{text}</a>,
+			title: '画布名称',
+			dataIndex: 'canvas_name',
+			key: 'canvas_name',
 		},
 		{
-			title: '分配画布',
-			dataIndex: 'age',
-			key: 'age',
+			title: '创建时间',
+			dataIndex: 'create_time',
+			key: 'create_time',
 		},
 		{
-			title: '权限',
-			dataIndex: 'address',
-			key: 'address',
+			title: '协作人数',
+			dataIndex: 'num',
+			key: 'num',
 		},
-		{
-			title: '加入日期',
-			dataIndex: 'date',
-			key: 'date',
-		},
+
 		{
 			title: '画布状态',
 			key: 'tags',
@@ -41,11 +35,12 @@ export function Finish() {
 			render: (_, { tags }) => (
 				<>
 					{tags.map(tag => {
-						let color =
-							tag.length > 5 ? 'geekblue' : 'green'
-						if (tag === 'loser') {
-							color = 'volcano'
-						}
+						const color =
+							tag === '完成'
+								? 'geekblue'
+								: tag === '进行中'
+								? 'green'
+								: 'red'
 						return (
 							<Tag color={color} key={tag}>
 								{tag.toUpperCase()}
@@ -56,12 +51,13 @@ export function Finish() {
 			),
 		},
 		{
-			title: 'Action',
+			title: '操作',
 			key: 'action',
-			render: (_, record) => (
+			render: () => (
 				<Space size="middle">
-					<a>Invite {record.name}</a>
-					<a>Delete</a>
+					<Button type="link">进入画布</Button>
+					<Button type="primary">修改</Button>
+					<Button danger>删除</Button>
 				</Space>
 			),
 		},
@@ -70,27 +66,24 @@ export function Finish() {
 	const data: DataType[] = [
 		{
 			key: '1',
-			name: 'John Brown',
-			age: 32,
-			address: 'New York No. 1 Lake Park',
-			date: formatYMD(new Date()),
-			tags: ['nice', 'developer'],
+			canvas_name: 'John Brown',
+			num: 1,
+			create_time: formatYMD(new Date()),
+			tags: ['已完成'],
 		},
 		{
 			key: '2',
-			name: 'Jim Green',
-			age: 42,
-			address: 'London No. 1 Lake Park',
-			date: formatYMD(new Date()),
-			tags: ['loser'],
+			canvas_name: 'Jim Green',
+			num: 2,
+			create_time: formatYMD(new Date()),
+			tags: ['进行中'],
 		},
 		{
 			key: '3',
-			name: 'Joe Black',
-			age: 32,
-			address: 'Sydney No. 1 Lake Park',
-			date: formatYMD(new Date()),
-			tags: ['cool', 'teacher'],
+			canvas_name: 'Joe Black',
+			num: 23,
+			create_time: formatYMD(new Date()),
+			tags: ['未开始'],
 		},
 	]
 	return <DataTable columns={columns} dataSource={data} />
