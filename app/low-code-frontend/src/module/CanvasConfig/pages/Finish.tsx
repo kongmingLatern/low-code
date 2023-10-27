@@ -2,6 +2,7 @@ import DataTable from '@/components/common/DataTable'
 import { formatYMD } from '@/shared'
 import { Button, Space, Tag } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import { useNavigate } from 'react-router-dom'
 interface DataType {
 	key: string
 	canvas_name: string
@@ -11,6 +12,7 @@ interface DataType {
 }
 
 export default function Finish() {
+	const navigate = useNavigate()
 	const columns: ColumnsType<DataType> = [
 		{
 			title: '画布名称',
@@ -60,7 +62,12 @@ export default function Finish() {
 			align: 'center',
 			render: () => (
 				<Space size="middle">
-					<Button type="link">进入画布</Button>
+					<Button
+						type="link"
+						onClick={() => navigate('/canvas')}
+					>
+						进入画布
+					</Button>
 					<Button type="primary">修改</Button>
 					<Button danger>删除</Button>
 				</Space>
@@ -91,5 +98,6 @@ export default function Finish() {
 			tags: ['未开始'],
 		},
 	]
+
 	return <DataTable columns={columns} dataSource={data} />
 }

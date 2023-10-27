@@ -32,6 +32,7 @@ const App: React.FC<LayoutProps> = props => {
 			>
 				<div className="demo-logo" />
 				<Menu
+					className="w-full"
 					theme="dark"
 					mode="horizontal"
 					selectedKeys={[selectedMenu]}
