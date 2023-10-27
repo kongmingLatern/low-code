@@ -10,7 +10,7 @@ interface DataType {
 	tags: string[]
 }
 
-export default function Finish() {
+export default function Manage() {
 	const columns: ColumnsType<DataType> = [
 		{
 			title: '画布名称',

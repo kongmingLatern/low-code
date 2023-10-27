@@ -1,6 +1,7 @@
-import Person from '@/module/CanvasConfig/pages/Person'
-import { Finish } from '@/module/CanvasConfig/pages/Finish'
 import { Icon } from '@iconify/react'
+import Person from '@/module/CanvasConfig/pages/Person'
+import Finish from '@/module/CanvasConfig/pages/Finish'
+import Manage from '@/module/CanvasConfig/pages/Manage'
 
 export const canvasLayoutCfg = {
 	menuCfg: {
@@ -36,7 +37,7 @@ export const canvasLayoutCfg = {
 		},
 		{
 			path: 'manage',
-			element: <Finish />,
+			element: <Manage />,
 		},
 	],
 }
