@@ -1,6 +1,8 @@
 import React from 'react'
-import { Badge, Descriptions } from 'antd'
+import { Typography, Badge, Descriptions } from 'antd'
 import type { DescriptionsProps } from 'antd'
+
+const { Paragraph } = Typography
 
 const items: DescriptionsProps['items'] = [
 	{
@@ -15,6 +17,12 @@ const items: DescriptionsProps['items'] = [
 		span: 3,
 	},
 	{
+		key: '2',
+		label: '项目邀请码',
+		children: <Paragraph copyable>513123</Paragraph>,
+		span: 3,
+	},
+	{
 		key: '7',
 		label: '项目人员数',
 		children: 13,
@@ -23,6 +31,7 @@ const items: DescriptionsProps['items'] = [
 		key: '8',
 		label: '画布数量',
 		children: 13,
+		span: 3,
 	},
 	{
 		key: '4',
@@ -41,11 +50,6 @@ const items: DescriptionsProps['items'] = [
 		label: '项目状态',
 		children: <Badge status="processing" text="进行中" />,
 		span: 3,
-	},
-	{
-		key: '2',
-		label: '项目邀请码',
-		children: '513123',
 	},
 ]
 
