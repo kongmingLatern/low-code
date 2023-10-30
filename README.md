@@ -10,7 +10,7 @@
 ── README.md
 ├── app
 │ └── low-code-backend # nest 后端
-│ └── low-code-backend # nest 后端
+│ └── low-code-frontend # React 前端
 ├── index.html
 ├── package.json
 ├── packages # monorepo 架构
