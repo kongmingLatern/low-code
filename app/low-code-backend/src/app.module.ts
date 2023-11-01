@@ -3,8 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -18,14 +16,13 @@ import { User } from './user/entities/user.entity';
       database: 'low-code',
       synchronize: true,
       logging: true,
-      entities: [User],
+      entities: [],
       poolSize: 10,
       connectorPackage: 'mysql2',
       extra: {
         authPlugin: 'sha256_password',
       },
     }),
-    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
