@@ -16,8 +16,8 @@ async function connectToRedis() {
 
   client.on('error', (err) => {
     // 当发生错误时，启动定时器以每隔3秒重连
-    console.error(`Redis error: ${err.message}`);
     if (!isConnected) {
+      console.error(`Redis error: ${err.message}`);
       reconnectTimer = setTimeout(() => {
         connectToRedis();
       }, 3000);
