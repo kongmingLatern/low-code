@@ -32,6 +32,8 @@ const footerStyle: React.CSSProperties = {
 const { Header, Sider, Content, Footer } = Layout
 
 export default function HomeLayout() {
+	// TODO: 获取 canvas_id => 可以通过获取路由的参数 => /canvas/123123123
+
 	const canvas = useCanvas()
 
 	const [, forceUpdate] = useReducer(x => x + 1, 0)
@@ -44,6 +46,7 @@ export default function HomeLayout() {
 	}, [canvas])
 
 	useEffect(() => {
+		// TODO: 传递 canvas_id, uid
 		sendJoinMessage()
 	}, [])
 

@@ -45,7 +45,9 @@ const App: React.FC<LayoutProps> = props => {
 					items={menuCfg.itemList}
 				/>
 			</Header>
-			<Content style={{ padding: '0 50px' }}>
+			<Content
+				style={{ padding: '0 50px', minHeight: '800px' }}
+			>
 				{/* <Breadcrumb style={{ margin: '16px 0' }}>
 					<Breadcrumb.Item>Home</Breadcrumb.Item>
 					<Breadcrumb.Item>List</Breadcrumb.Item>
@@ -61,7 +63,15 @@ const App: React.FC<LayoutProps> = props => {
 					<Outlet />
 				</div>
 			</Content>
-			<Footer style={{ textAlign: 'center' }}>
+			<Footer
+				style={{
+					color: 'white',
+					textAlign: 'center',
+					background: '#001529',
+					height: '100px',
+					lineHeight: '52px',
+				}}
+			>
 				&copy; 2023 凤之兮原
 			</Footer>
 		</Layout>

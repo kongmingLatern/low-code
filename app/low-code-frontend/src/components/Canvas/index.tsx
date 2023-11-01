@@ -6,6 +6,7 @@ import { useCanvasContext } from '@/hooks/useCanvas'
 import Element from '../Element'
 import { socket } from '@packages/server'
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
+// connect()
 
 export default function Canvas() {
 	const dropRef = useRef<HTMLDivElement>(null)
