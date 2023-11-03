@@ -65,7 +65,7 @@ const App: React.FC<ModalButtonType> = props => {
 				onCancel={handleCancel}
 				{...rest}
 			>
-				{form && (
+				{form && formItem && (
 					<Form
 						className="mt-1.5rem"
 						name="basic"
@@ -73,12 +73,11 @@ const App: React.FC<ModalButtonType> = props => {
 						onFinishFailed={handleCancel}
 						autoComplete="off"
 					>
-						{formItem &&
-							formItem.map(i => (
-								<Form.Item {...i.props} key={i}>
-									{handleTypeInput(i.type)}
-								</Form.Item>
-							))}
+						{formItem.map((i, index) => (
+							<Form.Item {...i.props} key={index}>
+								{handleTypeInput(i.type)}
+							</Form.Item>
+						))}
 
 						<Form.Item className="text-right">
 							<Button type="primary" htmlType="submit">
@@ -87,7 +86,7 @@ const App: React.FC<ModalButtonType> = props => {
 						</Form.Item>
 					</Form>
 				)}
-				{content}
+				{!form && content}
 			</Modal>
 		</>
 	)
