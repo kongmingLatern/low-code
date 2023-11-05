@@ -1,7 +1,7 @@
 import DataTable from '@/components/common/DataTable'
 import ModalButton from '@/components/common/ModalButton'
 import { formatYMD } from '@/shared'
-import { Button, Form, Input, Space, Tag } from 'antd'
+import { Button, Space, Tag } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useNavigate } from 'react-router-dom'
 interface DataType {
@@ -11,51 +11,6 @@ interface DataType {
 	create_time: string
 	tags: string[]
 }
-
-// const FormItem = (
-// 	<Form
-// 		name="basic"
-// 		labelCol={{ span: 6 }}
-// 		wrapperCol={{ span: 16 }}
-// 		style={{ maxWidth: 600 }}
-// 		initialValues={{ remember: true }}
-// 		onFinish={onFinish}
-// 		onFinishFailed={onFinishFailed}
-// 		autoComplete="off"
-// 	>
-// 		<Form.Item<FieldType>
-// 			label="Username"
-// 			name="username"
-// 			rules={[
-// 				{
-// 					required: true,
-// 					message: 'Please input your username!',
-// 				},
-// 			]}
-// 		>
-// 			<Input />
-// 		</Form.Item>
-
-// 		<Form.Item<FieldType>
-// 			label="Password"
-// 			name="password"
-// 			rules={[
-// 				{
-// 					required: true,
-// 					message: 'Please input your password!',
-// 				},
-// 			]}
-// 		>
-// 			<Input.Password />
-// 		</Form.Item>
-
-// 		<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-// 			<Button type="primary" htmlType="submit">
-// 				提交
-// 			</Button>
-// 		</Form.Item>
-// 	</Form>
-// )
 
 export default function Finish() {
 	const navigate = useNavigate()
