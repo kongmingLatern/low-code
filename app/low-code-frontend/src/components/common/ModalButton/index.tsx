@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Modal } from 'antd'
+import {
+	Button,
+	Form,
+	Input,
+	Modal,
+	ModalProps,
+} from 'antd'
 import { BaseButtonProps } from 'antd/es/button/button'
 
 interface ModalButtonType {
@@ -14,7 +20,9 @@ interface ModalButtonType {
 	onCancel?: (...args) => void
 }
 
-const App: React.FC<ModalButtonType> = props => {
+const App: React.FC<
+	ModalButtonType & ModalProps
+> = props => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const {
