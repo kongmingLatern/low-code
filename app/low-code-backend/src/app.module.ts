@@ -17,7 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
       logging: true,
       entities: [],
-      poolSize: 10,
+      poolSize: 100,
       connectorPackage: 'mysql2',
       extra: {
         authPlugin: 'sha256_password',
