@@ -33,7 +33,6 @@ export default function Finish() {
 			key: 'num',
 			align: 'center',
 		},
-
 		{
 			title: '画布状态',
 			key: 'tags',
@@ -83,6 +82,19 @@ export default function Finish() {
 											required: true,
 											message:
 												'Please input your username!',
+										},
+									],
+								},
+							},
+							{
+								type: 'input',
+								props: {
+									label: '密码',
+									name: 'password',
+									rules: [
+										{
+											required: true,
+											message: '请输入密码',
 										},
 									],
 								},
