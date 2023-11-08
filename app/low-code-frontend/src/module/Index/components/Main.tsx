@@ -19,7 +19,9 @@ const Content: FunctionComponent<ContentProps> = () => {
 					src: 'fad:logo-fl',
 					width: 90,
 					height: 90,
+					color: 'white'
 				}}
+				color='white'
 				content="多智协创平台"
 				fontSize="48px"
 			/>
