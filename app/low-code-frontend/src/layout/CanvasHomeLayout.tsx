@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, Menu, theme } from 'antd'
+import { Layout, Menu, Space, theme } from 'antd'
 import { Outlet, useNavigate } from 'react-router-dom'
+import Box from '@/module/Index/components/Box'
 
 const { Header, Content, Footer } = Layout
 
@@ -30,20 +31,32 @@ const App: React.FC<LayoutProps> = props => {
 			<Header
 				style={{ display: 'flex', alignItems: 'center' }}
 			>
-				<div className="demo-logo" />
-				<Menu
-					className="w-full"
-					theme="dark"
-					mode="horizontal"
-					selectedKeys={[selectedMenu]}
-					onClick={e => {
-						localStorage.setItem('canvas_menu_key', e.key)
-						setSelectedMenu(e.key)
-						const path = menuCfg.handleClick(e)
-						navigate(path)
-					}}
-					items={menuCfg.itemList}
-				/>
+				<Space>
+					<Box
+						icon={{
+							src: 'fad:logo-fl',
+							color: 'white',
+						}}
+						content="多智协创平台"
+						fontSize="24px"
+						color="white"
+						whitSpace="nowrap"
+						marginRight="1rem"
+					/>
+					<Menu
+						className="w-full"
+						theme="dark"
+						mode="horizontal"
+						selectedKeys={[selectedMenu]}
+						onClick={e => {
+							localStorage.setItem('canvas_menu_key', e.key)
+							setSelectedMenu(e.key)
+							const path = menuCfg.handleClick(e)
+							navigate(path)
+						}}
+						items={menuCfg.itemList}
+					/>
+				</Space>
 			</Header>
 			<Content
 				style={{ padding: '0 50px', minHeight: '800px' }}
