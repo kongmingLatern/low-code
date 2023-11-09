@@ -18,6 +18,7 @@ export class Canvas {
 	selectedIndex: number | null
 
 	constructor(_canvas: Record<string, any> = CanvasConfig) {
+		// TODO: 这里才是要根据当前画布的id获取到对应画布的配置信息
 		this.canvas = _canvas
 		this.listeners = []
 		this.selectedIndex = null
