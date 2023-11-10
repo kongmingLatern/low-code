@@ -13,6 +13,7 @@ import LeftSider from '@/components/Sider/Left'
 import RightSider from '@/components/Sider/Right'
 import classNames from 'classnames'
 import styled from './index.module.scss'
+import { useSearchParams } from 'react-router-dom'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -36,6 +37,9 @@ export default function HomeLayout() {
 
 	const canvas = useCanvas()
 
+	const [searchParams] = useSearchParams()
+	const canvasId = searchParams.get('id')
+
 	const [, forceUpdate] = useReducer(x => x + 1, 0)
 
 	useEffect(() => {
@@ -47,8 +51,8 @@ export default function HomeLayout() {
 
 	useEffect(() => {
 		// TODO: 传递 canvas_id, uid
-		sendJoinMessage()
-	}, [])
+		sendJoinMessage(canvasId)
+	}, [canvasId])
 
 	return (
 		<CanvasContext.Provider value={canvas!}>

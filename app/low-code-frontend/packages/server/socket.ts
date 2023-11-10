@@ -24,11 +24,12 @@ export function connect() {
 
 connect()
 
-export function sendJoinMessage() {
-	console.log('send')
+export function sendJoinMessage(canvasId) {
+	console.log('ws:sendJoinMessage')
 
 	socket.emit('onJoin', {
 		uid: '当前用户的uid',
+		canvasId,
 	})
 }
 

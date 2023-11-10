@@ -27,7 +27,8 @@ export class GatewayGateway {
     @ConnectedSocket() client: Socket,
   ) {
     // TODO: 获取画布id
-    const { data } = await this.redisService.getCanvas();
+    const { canvasId } = body
+    const { data } = await this.redisService.getCanvas(canvasId);
     client.emit('join', data);
   }
 

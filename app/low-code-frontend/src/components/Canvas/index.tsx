@@ -112,7 +112,8 @@ export default function Canvas() {
 	useEffect(() => {
 		socket.on('join', data => {
 			// TODO: 选择哪块画布
-			console.log('join', data)
+			const { canvasId } = data
+			console.log('join', canvasId)
 			canvas.setCanvas(
 				{
 					element: Array.isArray(data.element)
