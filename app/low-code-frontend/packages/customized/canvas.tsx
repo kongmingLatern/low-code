@@ -105,6 +105,7 @@ export class Canvas {
 
 	setCanvas(_canvas, shouldSend = true) {
 		Object.assign(this.canvas, _canvas)
+		// TODO: 获取到当前画布的canvas_id 传递过去,相当于在redis中创建(或更新)
 		http.post('/redis/setCanvas', this.canvas)
 		this.update(shouldSend)
 	}
