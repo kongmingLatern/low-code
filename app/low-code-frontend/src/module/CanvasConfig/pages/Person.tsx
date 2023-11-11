@@ -1,6 +1,8 @@
 import DataTable from '@/components/common/DataTable'
+import DeleteButton from '@/components/common/DeleteButton'
+import ModalButton from '@/components/common/ModalButton'
 import { formatYMD } from '@/shared'
-import { Button, Space } from 'antd'
+import { Space } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 interface DataType {
 	key: string
@@ -43,8 +45,49 @@ export default function Person() {
 			align: 'center',
 			render: () => (
 				<Space size="middle">
-					<Button type="primary">修改</Button>
-					<Button danger>删除</Button>
+					<ModalButton
+						title="修改"
+						form
+						formItem={[
+							{
+								type: 'input',
+								props: {
+									label: '用户名',
+									name: 'username',
+									rules: [
+										{
+											required: true,
+											message:
+												'Please input your username!',
+										},
+									],
+								},
+							},
+							{
+								type: 'input',
+								props: {
+									label: '密码',
+									name: 'password',
+									rules: [
+										{
+											required: true,
+											message: '请输入密码',
+										},
+									],
+								},
+							},
+						]}
+						onOk={e => {
+							console.log('ok', e)
+						}}
+						onCancel={e => {
+							console.log('cancel', e)
+						}}
+						footer={null}
+					>
+						修改信息
+					</ModalButton>
+					<DeleteButton />
 				</Space>
 			),
 		},

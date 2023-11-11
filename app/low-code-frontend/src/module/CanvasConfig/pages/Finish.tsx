@@ -1,4 +1,5 @@
 import DataTable from '@/components/common/DataTable'
+import DeleteButton from '@/components/common/DeleteButton'
 import ModalButton from '@/components/common/ModalButton'
 import { formatYMD } from '@/shared'
 import { Button, Space, Tag } from 'antd'
@@ -110,7 +111,7 @@ export default function Finish() {
 					>
 						修改
 					</ModalButton>
-					<Button danger>删除</Button>
+					<DeleteButton />
 				</Space>
 			),
 		},
