@@ -10,10 +10,10 @@ export class RedisService {
   async getValue(key) {
     return await this.redisClient.get(key);
   }
-  async getCanvas(canvasId?) {
+  async getCanvas(canvasId = 'canvas') {
     // TODO: 这里要根据对应的canvasId获取到对应的画布信息
-    const element = (await this.redisClient.hGet('canvas', 'element')) || [];
-    const style = (await this.redisClient.hGet('canvas', 'style')) || {
+    const element = (await this.redisClient.hGet(canvasId, 'element')) || [];
+    const style = (await this.redisClient.hGet(canvasId, 'style')) || {
       width: 600,
       height: 800,
       backgroundColor: '#fff',
