@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
 @Entity()
 export class Project {
   @PrimaryGeneratedColumn('uuid')
@@ -21,4 +22,10 @@ export class Project {
 
   @Column()
   library_id: string;
+
+  @Column()
+  create_time: Date;
+
+  @Column()
+  update_time: Date;
 }
