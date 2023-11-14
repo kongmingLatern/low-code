@@ -5,6 +5,11 @@ import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
 import { UserModule } from './user/user.module';
+import { ProjectModule } from './project/project.module';
+import { CanvasModule } from './canvas/canvas.module';
+import { LibraryModule } from './library/library.module';
+import { ComponentModule } from './component/component.module';
+import { AttributeModule } from './attribute/attribute.module';
 
 @Module({
   imports: [
@@ -26,6 +31,11 @@ import { UserModule } from './user/user.module';
       },
     }),
     UserModule,
+    ProjectModule,
+    CanvasModule,
+    LibraryModule,
+    ComponentModule,
+    AttributeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
