@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './module/user/user.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         authPlugin: 'sha256_password',
       },
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
