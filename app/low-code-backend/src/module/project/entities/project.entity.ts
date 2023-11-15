@@ -1,7 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Library } from 'src/module/library/entities/library.entity';
+import { User } from 'src/module/user/entities/user.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Project {
+export class Project extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   project_id: string;
 
@@ -15,12 +25,10 @@ export class Project {
   project_status: '已完成' | '进行中' | '未开始';
 
   @Column()
-  project_code: string | number;
+  project_code: string;
 
-  @Column()
-  updateBy: string;
-
-  @Column()
+  @JoinTable()
+  @OneToOne(() => Library, (lib) => lib.library_id)
   library_id: string;
 
   @Column()
@@ -28,4 +36,8 @@ export class Project {
 
   @Column()
   update_time: Date;
+
+  @JoinTable()
+  @ManyToOne(() => User, (user) => user.uid)
+  uid: string[];
 }

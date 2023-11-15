@@ -1,7 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Component } from 'src/module/component/entities/component.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Attribute {
+export class Attribute extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   attribute_id: string;
 
@@ -11,6 +19,7 @@ export class Attribute {
   @Column()
   attribut_value: string;
 
-  @Column()
-  component_id: string;
+  @JoinTable()
+  @ManyToOne(() => Component, (com) => com.component_id)
+  component_id: string[];
 }

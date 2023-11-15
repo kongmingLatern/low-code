@@ -1,7 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Library } from 'src/module/library/entities/library.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Component {
+export class Component extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   component_id: string;
 
@@ -11,6 +19,7 @@ export class Component {
   @Column()
   component_name: string;
 
-  @Column()
-  library_id: string;
+  @JoinTable()
+  @ManyToOne(() => Library, (lib) => lib.library_id)
+  library_id: string[];
 }
