@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Project } from 'src/module/project/entities/project.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Canvas {
@@ -19,4 +20,8 @@ export class Canvas {
 
   @Column()
   update_time: Date;
+
+  @Column()
+  @ManyToOne(() => Project, (project) => project.project_id)
+  project_id: string;
 }
