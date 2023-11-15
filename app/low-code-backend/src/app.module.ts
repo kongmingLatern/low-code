@@ -1,16 +1,20 @@
-import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AttributeModule } from './module/attribute/attribute.module';
+import { CanvasModule } from './module/canvas/canvas.module';
+import { ComponentModule } from './module/component/component.module';
+import { LibraryModule } from './module/library/library.module';
+import { Module } from '@nestjs/common';
+import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
-import { UserModule } from './user/user.module';
-import { ProjectModule } from './project/project.module';
-import { CanvasModule } from './canvas/canvas.module';
-import { LibraryModule } from './library/library.module';
-import { ComponentModule } from './component/component.module';
-import { AttributeModule } from './attribute/attribute.module';
-
+import { Project } from './module/project/entities/project.entity';
+import { Canvas } from './module/canvas/entities/canvas.entity';
+import { Library } from './module/library/entities/library.entity';
+import { Component } from './module/component/entities/component.entity';
+import { Attribute } from './module/attribute/entities/attribute.entity';
+import { User } from './module/user/entities/user.entity';
 @Module({
   imports: [
     RedisModule,
@@ -23,9 +27,10 @@ import { AttributeModule } from './attribute/attribute.module';
       database: 'low-code',
       synchronize: true,
       logging: true,
-      entities: [],
+      entities: [User, Project, Canvas, Library, Component, Attribute],
       poolSize: 100,
       connectorPackage: 'mysql2',
+      // autoLoadEntities: true,
       extra: {
         authPlugin: 'sha256_password',
       },

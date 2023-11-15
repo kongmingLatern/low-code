@@ -50,7 +50,7 @@ export default function Canvas() {
 
 			// TODO: 向ws服务端发起锁的通知
 			// NOTE: 用户在画布上拖拽时触发
-			console.log('not flag')
+			console.log('not initDragElement')
 
 			function updateSelectedPosition() {
 				const selectedElement = canvas.getSelectedElement()
