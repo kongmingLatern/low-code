@@ -27,10 +27,9 @@ import { User } from './module/user/entities/user.entity';
       database: 'low-code',
       synchronize: true,
       logging: true,
-      entities: [User, Project, Canvas, Library, Component, Attribute],
       poolSize: 100,
       connectorPackage: 'mysql2',
-      // autoLoadEntities: true,
+      autoLoadEntities: true,
       extra: {
         authPlugin: 'sha256_password',
       },
