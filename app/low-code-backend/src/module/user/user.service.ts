@@ -20,24 +20,24 @@ export class UserService {
   }
 
   async findAll() {
-    // return await this.userRepository.find();
+    return await this.userRepository.find(User);
   }
 
   async findOne(uid: string) {
-    // const found = await this.userRepository.findOne({
-    //   where: { uid },
-    // });
-    // if (!found) {
-    //   throw new NotFoundException(`User with uid ${uid} is not found!`);
-    // }
-    // return found;
+    const found = await this.userRepository.findOne(User, {
+      where: { uid },
+    });
+    if (!found) {
+      throw new NotFoundException(`User with uid ${uid} is not found!`);
+    }
+    return found;
   }
 
   async update(uid: string, updateUserDto: UpdateUserDto) {
-    // return await this.userRepository.update(uid, updateUserDto);
+    return await this.userRepository.update(User, uid, updateUserDto);
   }
 
-  // async remove(uid: string) {
-  //   return await this.userRepository.remove(uid);
-  // }
+  async delete(uid: string) {
+    return await this.userRepository.delete(User, uid);
+  }
 }
