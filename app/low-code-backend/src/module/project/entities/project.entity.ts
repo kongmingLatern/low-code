@@ -1,17 +1,14 @@
-import { Library } from 'src/module/library/entities/library.entity';
 import { User } from 'src/module/user/entities/user.entity';
 import {
-  BaseEntity,
   Column,
   Entity,
-  JoinTable,
+  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
-export class Project extends BaseEntity {
+export class Project {
   @PrimaryGeneratedColumn('uuid')
   project_id: string;
 
@@ -27,17 +24,14 @@ export class Project extends BaseEntity {
   @Column()
   project_code: string;
 
-  @JoinTable()
-  @OneToOne(() => Library, (lib) => lib.library_id)
-  library_id: string;
-
   @Column()
   create_time: Date;
 
   @Column()
   update_time: Date;
-
-  @JoinTable()
+  @JoinColumn({
+    name: 'uid',
+  })
   @ManyToOne(() => User, (user) => user.uid)
   uid: string[];
 }
