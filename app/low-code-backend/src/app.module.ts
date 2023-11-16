@@ -9,12 +9,7 @@ import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
-import { Project } from './module/project/entities/project.entity';
-import { Canvas } from './module/canvas/entities/canvas.entity';
-import { Library } from './module/library/entities/library.entity';
-import { Component } from './module/component/entities/component.entity';
-import { Attribute } from './module/attribute/entities/attribute.entity';
-import { User } from './module/user/entities/user.entity';
+
 @Module({
   imports: [
     RedisModule,
