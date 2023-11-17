@@ -25,9 +25,14 @@ export class ProjectController {
     return this.projectService.findAll();
   }
 
+  @Get(':uid')
+  findOneByUid(@Param('uid') uid: string) {
+    return this.projectService.findAllByUid(uid);
+  }
+
   @Get(':project_id')
-  findOne(@Param('project_id') project_id: string) {
-    return this.projectService.findOne(project_id);
+  findOneByProjectId(@Param('project_id') project_id: string) {
+    return this.projectService.findOneByProjectId(project_id);
   }
 
   @Put(':project_id')

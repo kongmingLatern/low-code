@@ -25,7 +25,15 @@ export class ProjectService {
     return await this.projectRepository.find(Project);
   }
 
-  async findOne(project_id: string) {
+  async findAllByUid(uid: string) {
+    return await this.projectRepository.find(Project, {
+      where: {
+        uid,
+      },
+    });
+  }
+
+  async findOneByProjectId(project_id: string) {
     return await this.projectRepository.findOne(Project, {
       where: {
         project_id,
