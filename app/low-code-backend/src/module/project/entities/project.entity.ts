@@ -29,6 +29,7 @@ export class Project {
 
   @Column()
   update_time: Date;
+
   @JoinColumn({
     name: 'uid',
   })
