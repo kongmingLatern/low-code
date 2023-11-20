@@ -20,6 +20,11 @@ export class ProjectController {
     return this.projectService.create(createProjectDto);
   }
 
+  @Post('/join')
+  joinProject(@Body() body) {
+    return this.projectService.joinProject(body);
+  }
+
   @Get()
   findAll() {
     return this.projectService.findAll();

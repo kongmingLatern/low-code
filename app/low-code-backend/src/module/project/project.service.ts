@@ -27,6 +27,19 @@ export class ProjectService {
     return await this.projectRepository.save(Project, project);
   }
 
+  // BUG: 这里加入的时候,会修改之前创建者的uid
+  async joinProject(body: Record<string, any>) {
+    const { uid, project_id } = body;
+    const user = await this.userService.findOne(uid);
+    const resultProject = await this.findOneByProjectId(project_id);
+    console.log(resultProject);
+    const project: CreateProjectDto = {
+      ...resultProject,
+      users: [...resultProject.users, user],
+    };
+    return await this.projectRepository.save(Project, project);
+  }
+
   async findAll() {
     return await this.projectRepository.find(Project);
   }
