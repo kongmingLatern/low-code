@@ -17,5 +17,5 @@ export class CreateProjectDto {
 
   users: User[];
 
-  uid: string;
+  createBy: string;
 }

@@ -43,5 +43,5 @@ export class Project {
   // uid: string[];
 
   @Column()
-  uid: string;
+  createBy: string;
 }

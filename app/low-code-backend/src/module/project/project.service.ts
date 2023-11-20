@@ -15,8 +15,8 @@ export class ProjectService {
   private userService: UserService;
 
   async create(createProjectDto: CreateProjectDto) {
-    const { uid } = createProjectDto;
-    const user = await this.userService.findOne(uid);
+    const { createBy } = createProjectDto;
+    const user = await this.userService.findOne(createBy);
     const project: CreateProjectDto = {
       ...createProjectDto,
       project_id: v4(),
@@ -38,16 +38,37 @@ export class ProjectService {
     return await this.projectRepository.save(Project, project);
   }
 
+  async getUserByProjectId(project_id: string) {
+    return await this.projectRepository.find(Project, {
+      relations: ['users'],
+      where: {
+        project_id,
+      },
+    });
+  }
+
   async findAll() {
     return await this.projectRepository.find(Project);
   }
 
   async findAllByUid(uid: string) {
-    return await this.projectRepository.find(Project, {
+    const user = await this.userService.findOne(uid);
+    const res = await this.projectRepository.find(Project, {
+      relations: ['users'],
       where: {
-        uid,
+        users: user,
       },
     });
+    return res;
+    // return res.map((i) => {
+    //   return {
+    //     project_id: i.project_id,
+    //     project_name: i.project_name,
+    //     project_description: i.project_description,
+    //     project_status: i.project_status,
+    //     project_code: i.project_code,
+    //   };
+    // });
   }
 
   async findOneByProjectId(project_id: string, isRelation: boolean = false) {
