@@ -1,22 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { v4 } from 'uuid';
 import { Project } from './entities/project.entity';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class ProjectService {
   @InjectEntityManager()
   private projectRepository: EntityManager;
+  @Inject()
+  private userService: UserService;
 
   async create(createProjectDto: CreateProjectDto) {
-    const project = {
+    const { uid } = createProjectDto;
+    const user = await this.userService.findOne(uid);
+    const project: CreateProjectDto = {
       ...createProjectDto,
       project_id: v4(),
       create_time: new Date(),
       update_time: new Date(),
+      users: [user],
     };
     return await this.projectRepository.save(Project, project);
   }

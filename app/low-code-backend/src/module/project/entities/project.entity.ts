@@ -2,8 +2,8 @@ import { User } from 'src/module/user/entities/user.entity';
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -30,9 +30,18 @@ export class Project {
   @Column()
   update_time: Date;
 
-  @JoinColumn({
-    name: 'uid',
+  @JoinTable({
+    name: 'project_user',
   })
-  @ManyToOne(() => User, (user) => user.uid)
-  uid: string[];
+  @ManyToMany(() => User)
+  users: User[];
+
+  // @JoinColumn({
+  //   name: 'uid',
+  // })
+  // @ManyToOne(() => User, (user) => user.uid)
+  // uid: string[];
+
+  @Column()
+  uid: string;
 }

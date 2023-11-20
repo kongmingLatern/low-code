@@ -1,3 +1,5 @@
+import { User } from 'src/module/user/entities/user.entity';
+
 export class CreateProjectDto {
   project_id: string;
 
@@ -13,5 +15,7 @@ export class CreateProjectDto {
 
   update_time: Date;
 
-  uid: string[];
+  users: User[];
+
+  uid: string;
 }
