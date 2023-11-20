@@ -41,6 +41,11 @@ export class ProjectController {
     return this.projectService.findAllByUid(uid);
   }
 
+  @Get('/getUser/:project_id')
+  getUserByProjectId(@Param('project_id') project_id: string) {
+    return this.projectService.getUserByProjectId(project_id);
+  }
+
   @Put(':project_id')
   update(
     @Param('project_id') project_id: string,
