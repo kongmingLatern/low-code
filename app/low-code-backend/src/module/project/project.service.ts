@@ -27,12 +27,10 @@ export class ProjectService {
     return await this.projectRepository.save(Project, project);
   }
 
-  // BUG: 这里加入的时候,会修改之前创建者的uid
   async joinProject(body: Record<string, any>) {
     const { uid, project_id } = body;
     const user = await this.userService.findOne(uid);
-    const resultProject = await this.findOneByProjectId(project_id);
-    console.log(resultProject);
+    const resultProject = await this.findOneByProjectId(project_id, true);
     const project: CreateProjectDto = {
       ...resultProject,
       users: [...resultProject.users, user],
@@ -52,8 +50,10 @@ export class ProjectService {
     });
   }
 
-  async findOneByProjectId(project_id: string) {
+  async findOneByProjectId(project_id: string, isRelation: boolean = false) {
+    const relation = isRelation ? ['users'] : [];
     return await this.projectRepository.findOne(Project, {
+      relations: relation,
       where: {
         project_id,
       },
