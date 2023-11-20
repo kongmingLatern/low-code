@@ -25,15 +25,15 @@ export class ProjectController {
     return this.projectService.findAll();
   }
 
-  @Get(':uid')
-  findOneByUid(@Param('uid') uid: string) {
-    return this.projectService.findAllByUid(uid);
-  }
-
   @Get(':project_id')
   findOneByProjectId(@Param('project_id') project_id: string) {
     console.log('project_id', project_id);
     return this.projectService.findOneByProjectId(project_id);
+  }
+
+  @Get('/uid/:uid')
+  findOneByUid(@Param('uid') uid: string) {
+    return this.projectService.findAllByUid(uid);
   }
 
   @Put(':project_id')
