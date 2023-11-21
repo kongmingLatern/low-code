@@ -15,29 +15,32 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
-  @Post()
+  // NOTE: Finish
+  @Post('/create')
   create(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.create(createProjectDto);
   }
 
+  // NOTE: Finish
   @Post('/join')
   joinProject(@Body() body) {
     return this.projectService.joinProject(body);
   }
 
+  // NOTE: Finish
   @Get()
   findAll() {
     return this.projectService.findAll();
   }
 
-  @Get(':project_id')
+  @Get('getProject/:project_id')
   findOneByProjectId(@Param('project_id') project_id: string) {
-    console.log('project_id', project_id);
     return this.projectService.findOneByProjectId(project_id);
   }
 
-  @Get('/uid/:uid')
-  findOneByUid(@Param('uid') uid: string) {
+  // NOTE: Finish
+  @Get('/getAllProject/:uid')
+  findAllByUid(@Param('uid') uid: string) {
     return this.projectService.findAllByUid(uid);
   }
 
@@ -46,15 +49,13 @@ export class ProjectController {
     return this.projectService.getUserByProjectId(project_id);
   }
 
-  @Put(':project_id')
-  update(
-    @Param('project_id') project_id: string,
-    @Body() updateProjectDto: UpdateProjectDto,
-  ) {
+  @Put('/updateProject')
+  update(@Body() updateProjectDto: UpdateProjectDto) {
+    const { project_id } = updateProjectDto;
     return this.projectService.update(project_id, updateProjectDto);
   }
 
-  @Delete(':project_id')
+  @Delete('/deleteProject/:project_id')
   remove(@Param('project_id') project_id: string) {
     return this.projectService.remove(project_id);
   }
