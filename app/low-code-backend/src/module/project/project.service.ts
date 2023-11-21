@@ -28,23 +28,50 @@ export class ProjectService {
   }
 
   async joinProject(body: Record<string, any>) {
-    const { uid, project_id } = body;
-    const user = await this.userService.findOne(uid);
-    const resultProject = await this.findOneByProjectId(project_id, true);
-    const project: CreateProjectDto = {
-      ...resultProject,
-      users: [...resultProject.users, user],
-    };
-    return await this.projectRepository.save(Project, project);
+    const { uid, project_id, project_code } = body;
+
+    if (isUsingProjectCode()) {
+      // 通过项目的邀请码进入的
+      const user = await this.userService.findOne(uid);
+      const resultProject = await this.findOneByProjectCode(project_code, true);
+      const project: CreateProjectDto = {
+        ...resultProject,
+        users: [...resultProject.users, user],
+      };
+      return await this.projectRepository.save(Project, project);
+    }
+
+    let uidList = uid;
+    if (typeof uid === 'string') {
+      uidList = [uid];
+    }
+
+    uidList.forEach(async (uid) => {
+      const user = await this.userService.findOne(uid);
+      const resultProject = await this.findOneByProjectId(project_id, true);
+      const project: CreateProjectDto = {
+        ...resultProject,
+        users: [...resultProject.users, user],
+      };
+      await this.projectRepository.save(Project, project);
+    });
+    return 'success';
+
+    function isUsingProjectCode() {
+      return project_code && typeof uid === 'string';
+    }
   }
 
   async getUserByProjectId(project_id: string) {
-    return await this.projectRepository.find(Project, {
-      relations: ['users'],
+    const res = await this.projectRepository.findOne(Project, {
       where: {
         project_id,
       },
     });
+
+    const { username } = await this.userService.findOne(res.createBy);
+
+    return { ...res, username };
   }
 
   async findAll() {
@@ -77,6 +104,19 @@ export class ProjectService {
       relations: relation,
       where: {
         project_id,
+      },
+    });
+  }
+
+  async findOneByProjectCode(
+    project_code: string,
+    isRelation: boolean = false,
+  ) {
+    const relation = isRelation ? ['users'] : [];
+    return await this.projectRepository.findOne(Project, {
+      relations: relation,
+      where: {
+        project_code,
       },
     });
   }
