@@ -35,7 +35,7 @@ export class ProjectController {
 
   @Get('getProject/:project_id')
   findOneByProjectId(@Param('project_id') project_id: string) {
-    return this.projectService.findOneByProjectId(project_id);
+    return this.projectService.findOneByProjectId(project_id, true);
   }
 
   // NOTE: Finish
