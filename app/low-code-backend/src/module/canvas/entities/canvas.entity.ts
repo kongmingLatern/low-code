@@ -1,15 +1,8 @@
 import { Project } from 'src/module/project/entities/project.entity';
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  JoinTable,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Canvas extends BaseEntity {
+export class Canvas {
   @PrimaryGeneratedColumn('uuid')
   canvas_id: string;
 
@@ -28,7 +21,6 @@ export class Canvas extends BaseEntity {
   @Column()
   update_time: Date;
 
-  @JoinTable()
-  @ManyToOne(() => Project, (project) => project.project_id)
-  project_id: string;
+  @ManyToOne(() => Project)
+  project: Project;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCanvaDto } from './dto/create-canva.dto';
-import { UpdateCanvaDto } from './dto/update-canva.dto';
+import { CreateCanvaDto } from './dto/create-canvas.dto';
+import { UpdateCanvaDto } from './dto/update-canvas.dto';
 
 @Injectable()
 export class CanvasService {

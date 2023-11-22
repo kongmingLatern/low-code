@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CanvasService } from './canvas.service';
-import { CreateCanvaDto } from './dto/create-canva.dto';
-import { UpdateCanvaDto } from './dto/update-canva.dto';
+import { CreateCanvaDto } from './dto/create-canvas.dto';
+import { UpdateCanvaDto } from './dto/update-canvas.dto';
 
 @Controller('canvas')
 export class CanvasController {
