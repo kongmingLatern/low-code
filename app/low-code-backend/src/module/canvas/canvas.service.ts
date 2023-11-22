@@ -42,6 +42,24 @@ export class CanvasService {
     return res ?? 'NOT FOUND!';
   }
 
+  // TODO: 这里需要对数据进行选取
+  async findByProjectId(project_id: string) {
+    const project = await this.projectService.findOneByProjectId(project_id);
+    return await this.canvasRepository.find(Canvas, {
+      select: {
+        canvas_id: true,
+        canvas_name: true,
+        canvas_status: true,
+        create_time: true,
+        update_time: true,
+      },
+      where: {
+        project,
+      },
+      relations: ['project'],
+    });
+  }
+
   update(id: number, updateCanvaDto: UpdateCanvasDto) {
     return `This action updates a #${id} canva`;
   }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CanvasService } from './canvas.service';
 import { CreateCanvasDto } from './dto/create-canvas.dto';
@@ -23,6 +24,11 @@ export class CanvasController {
   @Get()
   findAll() {
     return this.canvasService.findAll();
+  }
+
+  @Get('/getCanvas')
+  findOneByProjectId(@Query('project_id') project_id: string) {
+    return this.canvasService.findByProjectId(project_id)
   }
 
   @Get('/getCanvas/:canvas_id')
