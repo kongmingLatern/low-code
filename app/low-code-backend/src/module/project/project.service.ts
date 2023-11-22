@@ -68,10 +68,18 @@ export class ProjectService {
         project_id,
       },
     });
-
-    const { username } = await this.userService.findOne(res.createBy);
-
-    return { ...res, username };
+    if (res) {
+      const { uid, username } = await this.userService.findOne(res.createBy);
+      return {
+        ...res,
+        refMap: {
+          uid,
+          username,
+        },
+      };
+    } else {
+      return [];
+    }
   }
 
   async findAll() {
