@@ -1,11 +1,29 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCanvaDto } from './dto/create-canvas.dto';
-import { UpdateCanvaDto } from './dto/update-canvas.dto';
+import { v4 } from 'uuid';
+import { ProjectService } from './../project/project.service';
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateCanvasDto, Status } from './dto/create-canvas.dto';
+import { UpdateCanvasDto } from './dto/update-canvas.dto';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
+import { Canvas } from './entities/canvas.entity';
 
 @Injectable()
 export class CanvasService {
-  create(createCanvaDto: CreateCanvaDto) {
-    return 'This action adds a new canva';
+  @InjectEntityManager()
+  private canvasRepository: EntityManager;
+
+  @Inject()
+  private projectService: ProjectService;
+
+  async create(createCanvasDto: CreateCanvasDto) {
+    const canvas: CreateCanvasDto = {
+      ...createCanvasDto,
+      canvas_id: v4(),
+      canvas_status: Status.NOTSTART,
+      create_time: new Date(),
+      update_time: new Date(),
+    };
+    return await this.canvasRepository.save(Canvas, canvas);
   }
 
   findAll() {
@@ -16,7 +34,7 @@ export class CanvasService {
     return `This action returns a #${id} canva`;
   }
 
-  update(id: number, updateCanvaDto: UpdateCanvaDto) {
+  update(id: number, updateCanvaDto: UpdateCanvasDto) {
     return `This action updates a #${id} canva`;
   }
 
