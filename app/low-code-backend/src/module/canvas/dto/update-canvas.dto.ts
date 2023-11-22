@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateCanvaDto } from './create-canvas.dto';
+import { CreateCanvasDto } from './create-canvas.dto';
 
-export class UpdateCanvaDto extends PartialType(CreateCanvaDto) {}
+export class UpdateCanvasDto extends PartialType(CreateCanvasDto) {}

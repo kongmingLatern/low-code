@@ -8,15 +8,15 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CanvasService } from './canvas.service';
-import { CreateCanvaDto } from './dto/create-canvas.dto';
-import { UpdateCanvaDto } from './dto/update-canvas.dto';
+import { CreateCanvasDto } from './dto/create-canvas.dto';
+import { UpdateCanvasDto } from './dto/update-canvas.dto';
 
 @Controller('canvas')
 export class CanvasController {
   constructor(private readonly canvasService: CanvasService) {}
 
-  @Post()
-  create(@Body() createCanvaDto: CreateCanvaDto) {
+  @Post('/create')
+  create(@Body() createCanvaDto: CreateCanvasDto) {
     return this.canvasService.create(createCanvaDto);
   }
 
@@ -31,7 +31,7 @@ export class CanvasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCanvaDto: UpdateCanvaDto) {
+  update(@Param('id') id: string, @Body() updateCanvaDto: UpdateCanvasDto) {
     return this.canvasService.update(+id, updateCanvaDto);
   }
 

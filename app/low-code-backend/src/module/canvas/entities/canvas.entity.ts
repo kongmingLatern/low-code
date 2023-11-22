@@ -1,5 +1,11 @@
 import { Project } from 'src/module/project/entities/project.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Canvas {
@@ -21,6 +27,9 @@ export class Canvas {
   @Column()
   update_time: Date;
 
+  @JoinColumn({
+    name: 'project_id',
+  })
   @ManyToOne(() => Project)
   project: Project;
 }

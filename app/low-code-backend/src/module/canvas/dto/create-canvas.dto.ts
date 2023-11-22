@@ -1,10 +1,12 @@
-export interface Status {
-  FINISH: '已完成';
-  DOING: '进行中';
-  NOTSTART: '未开始';
+import { Project } from 'src/module/project/entities/project.entity';
+
+export const enum Status {
+  FINISH = '已完成',
+  DOING = '进行中',
+  NOTSTART = '未开始',
 }
 
-export class CreateCanvaDto {
+export class CreateCanvasDto {
   canvas_id: string;
 
   canvas_name: string;
@@ -17,5 +19,5 @@ export class CreateCanvaDto {
 
   update_time: Date;
 
-  project_id: string;
+  project: Project;
 }
