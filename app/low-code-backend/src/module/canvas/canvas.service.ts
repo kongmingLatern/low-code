@@ -26,12 +26,20 @@ export class CanvasService {
     return await this.canvasRepository.save(Canvas, canvas);
   }
 
-  findAll() {
-    return `This action returns all canvas`;
+  async findAll() {
+    return await this.canvasRepository.find(Canvas, {
+      relations: ['project'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} canva`;
+  async findOne(canvas_id: string) {
+    const res = await this.canvasRepository.findOne(Canvas, {
+      where: {
+        canvas_id,
+      },
+      relations: ['project'],
+    });
+    return res ?? 'NOT FOUND!';
   }
 
   update(id: number, updateCanvaDto: UpdateCanvasDto) {

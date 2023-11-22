@@ -25,9 +25,9 @@ export class CanvasController {
     return this.canvasService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.canvasService.findOne(+id);
+  @Get('/getCanvas/:canvas_id')
+  findOne(@Param('canvas_id') canvas_id: string) {
+    return this.canvasService.findOne(canvas_id);
   }
 
   @Patch(':id')
