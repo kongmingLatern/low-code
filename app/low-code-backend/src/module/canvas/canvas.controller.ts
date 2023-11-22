@@ -27,8 +27,8 @@ export class CanvasController {
   }
 
   @Get('/getCanvas')
-  findOneByProjectId(@Query('project_id') project_id: string) {
-    return this.canvasService.findByProjectId(project_id)
+  findByProjectId(@Query('project_id') project_id: string) {
+    return this.canvasService.findByProjectId(project_id);
   }
 
   @Get('/getCanvas/:canvas_id')
