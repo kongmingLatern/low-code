@@ -20,6 +20,7 @@ export class ProjectService {
     const project: CreateProjectDto = {
       ...createProjectDto,
       project_id: v4(),
+      project_code: String(Math.floor(Math.random() * 100000 + 1000)),
       create_time: new Date(),
       update_time: new Date(),
       users: [user],

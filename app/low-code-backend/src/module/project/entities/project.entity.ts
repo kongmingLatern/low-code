@@ -21,7 +21,11 @@ export class Project {
   @Column()
   project_status: '已完成' | '进行中' | '未开始';
 
-  @Column()
+  @Column({
+    unique: true,
+    nullable: false,
+    comment: '邀请码',
+  })
   project_code: string;
 
   @Column()
@@ -35,12 +39,6 @@ export class Project {
   })
   @ManyToMany(() => User)
   users: User[];
-
-  // @JoinColumn({
-  //   name: 'uid',
-  // })
-  // @ManyToOne(() => User, (user) => user.uid)
-  // uid: string[];
 
   @Column()
   createBy: string;
