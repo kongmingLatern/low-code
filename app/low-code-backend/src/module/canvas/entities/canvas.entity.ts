@@ -1,10 +1,12 @@
 import { Project } from 'src/module/project/entities/project.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -21,10 +23,14 @@ export class Canvas {
   @Column()
   canvas_status: '已完成' | '进行中' | '未开始';
 
-  @Column()
+  @CreateDateColumn({
+    comment: '创建时间',
+  })
   create_time: Date;
 
-  @Column()
+  @UpdateDateColumn({
+    comment: '上次更新时间',
+  })
   update_time: Date;
 
   @JoinColumn({
