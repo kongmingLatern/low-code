@@ -6,6 +6,7 @@ import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
 import { CanvasModule } from './module/canvas/canvas.module';
+import { AuthModule } from './module/auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CanvasModule } from './module/canvas/canvas.module';
     ProjectModule,
     CanvasModule,
     RedisModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
