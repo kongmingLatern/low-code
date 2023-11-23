@@ -5,11 +5,13 @@ import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
+import { CanvasModule } from './module/canvas/canvas.module';
 
 @Module({
   imports: [
     UserModule,
     ProjectModule,
+    CanvasModule,
     RedisModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
