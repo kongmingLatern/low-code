@@ -1,12 +1,12 @@
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './module/auth/auth.module';
+import { CanvasModule } from './module/canvas/canvas.module';
 import { Module } from '@nestjs/common';
 import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
-import { CanvasModule } from './module/canvas/canvas.module';
-import { AuthModule } from './module/auth/auth.module';
 
 @Module({
   imports: [
