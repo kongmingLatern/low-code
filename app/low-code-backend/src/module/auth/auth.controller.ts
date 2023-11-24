@@ -1,5 +1,5 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { Body, Controller, Post, Res, ValidationPipe } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { Response } from 'express';
@@ -17,7 +17,7 @@ export class AuthController {
   }
 
   @Post('register')
-  async signUp(@Body() user: RegisterDto) {
+  async signUp(@Body(ValidationPipe) user: RegisterDto) {
     return await this.authService.signUp(user);
   }
 }
