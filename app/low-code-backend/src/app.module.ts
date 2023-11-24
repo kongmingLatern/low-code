@@ -2,6 +2,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './module/auth/auth.module';
 import { CanvasModule } from './module/canvas/canvas.module';
+import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
 import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
@@ -25,6 +26,11 @@ import { UserModule } from './module/user/user.module';
       synchronize: true,
       logging: true,
       autoLoadEntities: true,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: 'mowind',
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   controllers: [AppController],

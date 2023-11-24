@@ -1,18 +1,32 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import * as md5 from 'md5';
+
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
+
+import { EntityManager } from 'typeorm';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { Response } from 'express';
 import { User } from '../user/entities/user.entity';
-import * as md5 from 'md5';
 
 @Injectable()
 export class AuthService {
-  @InjectEntityManager()
-  private userRepository: EntityManager;
   private logger = new Logger();
 
-  async signIn(user: LoginDto) {
+  @InjectEntityManager()
+  private userRepository: EntityManager;
+
+  @Inject(JwtService)
+  private jwtService: JwtService;
+
+  async signIn(user: LoginDto, res: Response) {
     const { username, password } = user;
     const foundUser = await this.userRepository.findOneBy(User, {
       username,
@@ -21,6 +35,13 @@ export class AuthService {
     if (!foundUser) {
       throw new HttpException('登陆失败', HttpStatus.OK);
     } else {
+      const token = await this.jwtService.signAsync({
+        user: {
+          id: foundUser.uid,
+          username: foundUser.username,
+        },
+      });
+      res.setHeader('token', token);
       return '登陆成功';
     }
   }
