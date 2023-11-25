@@ -10,7 +10,7 @@ export class AuthController {
 
   @Post('login')
   async signIn(
-    @Body() user: LoginDto,
+    @Body(ValidationPipe) user: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     return await this.authService.signIn(user, res);

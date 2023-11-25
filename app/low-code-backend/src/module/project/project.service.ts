@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
+
 import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
-import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
-import { v4 } from 'uuid';
+import { InjectEntityManager } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
+import { UpdateProjectDto } from './dto/update-project.dto';
 import { UserService } from '../user/user.service';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class ProjectService {
@@ -21,8 +22,6 @@ export class ProjectService {
       ...createProjectDto,
       project_id: v4(),
       project_code: String(Math.floor(Math.random() * 100000 + 1000)),
-      create_time: new Date(),
-      update_time: new Date(),
       users: [user],
     };
     return await this.projectRepository.save(Project, project);
@@ -133,7 +132,6 @@ export class ProjectService {
   async update(project_id: string, updateProjectDto: UpdateProjectDto) {
     return await this.projectRepository.update(Project, project_id, {
       ...updateProjectDto,
-      update_time: new Date(),
     });
   }
 

@@ -1,6 +1,6 @@
-import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { GatewayModule } from './module/gateway/gateway.module';
+import { NestFactory } from '@nestjs/core';
 
 async function createWebSocketServer() {
   const app = await NestFactory.create(GatewayModule);
