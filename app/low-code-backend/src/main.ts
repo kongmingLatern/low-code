@@ -1,6 +1,7 @@
 import { AppModule } from './app.module';
 import { GatewayModule } from './module/gateway/gateway.module';
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 
 async function createWebSocketServer() {
   const app = await NestFactory.create(GatewayModule);
@@ -8,11 +9,12 @@ async function createWebSocketServer() {
 }
 
 async function createHttpServer() {
-  const http = await NestFactory.create(AppModule);
-  http.enableCors({
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
     origin: true,
   });
-  await http.listen(3333);
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(3333);
 }
 
 createWebSocketServer();
