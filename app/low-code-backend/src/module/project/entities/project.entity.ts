@@ -1,4 +1,3 @@
-import { User } from 'src/module/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { User } from 'src/module/user/entities/user.entity';
 
 @Entity()
 export class Project {
@@ -39,6 +40,7 @@ export class Project {
     comment: '上次更新时间',
   })
   update_time: Date;
+
   @JoinTable({
     name: 'project_user',
   })

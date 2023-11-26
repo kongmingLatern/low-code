@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
 import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
+import { RoleModule } from './module/role/role.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
 
@@ -32,6 +33,7 @@ import { UserModule } from './module/user/user.module';
       secret: 'mowind',
       signOptions: { expiresIn: '7d' },
     }),
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
