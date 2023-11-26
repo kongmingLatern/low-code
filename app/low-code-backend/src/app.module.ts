@@ -4,6 +4,7 @@ import { AuthModule } from './module/auth/auth.module';
 import { CanvasModule } from './module/canvas/canvas.module';
 import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
+import { PermissionModule } from './module/permission/permission.module';
 import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
 import { RoleModule } from './module/role/role.module';
@@ -17,6 +18,8 @@ import { UserModule } from './module/user/user.module';
     CanvasModule,
     RedisModule,
     AuthModule,
+    RoleModule,
+    PermissionModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -33,7 +36,6 @@ import { UserModule } from './module/user/user.module';
       secret: 'mowind',
       signOptions: { expiresIn: '7d' },
     }),
-    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
