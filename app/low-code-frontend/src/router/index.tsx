@@ -1,14 +1,13 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { canvasLayoutCfg, homeLayoutCfg } from '@/config'
+
 import BaseCanvasLayout from '@/layout/BaseCanvasLayout'
 import BaseHomeLayout from '@/layout/BaseHomeLayout'
 import CanvasHomeLayout from '@/layout/CanvasHomeLayout'
-import LoginCover from '@/components/common/Cover'
-
-import Login from '@/module/Login/pages/Login'
-import Register from '@/module/Login/pages/Register'
 import Home from '@/module/Index/pages/Home'
-
-import { canvasLayoutCfg, homeLayoutCfg } from '@/config'
+import Login from '@/module/Login/pages/Login'
+import LoginCover from '@/components/common/Cover'
+import Register from '@/module/Login/pages/Register'
+import { createBrowserRouter } from 'react-router-dom'
 
 export const router = createBrowserRouter([
 	{
@@ -28,7 +27,7 @@ export const router = createBrowserRouter([
 		children: canvasLayoutCfg.children,
 	},
 	{
-		path: '/canvas',
+		path: '/canvas/:id',
 		element: <BaseCanvasLayout />,
 	},
 	{
