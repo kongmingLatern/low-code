@@ -1,12 +1,15 @@
+import { Button, Space, Tag } from 'antd'
+
+import { ColumnsType } from 'antd/es/table'
 import DataTable from '@/components/common/DataTable'
 import DeleteButton from '@/components/common/DeleteButton'
 import ModalButton from '@/components/common/ModalButton'
 import { formatYMD } from '@/shared'
-import { Button, Space, Tag } from 'antd'
-import { ColumnsType } from 'antd/es/table'
 import { useNavigate } from 'react-router-dom'
+
 interface DataType {
 	key: string
+	canvas_id: string
 	canvas_name: string
 	num: number
 	create_time: string
@@ -16,6 +19,12 @@ interface DataType {
 export default function Finish() {
 	const navigate = useNavigate()
 	const columns: ColumnsType<DataType> = [
+		{
+			title: '画布id',
+			dataIndex: 'canvas_id',
+			key: 'canvas_id',
+			align: 'center',
+		},
 		{
 			title: '画布名称',
 			dataIndex: 'canvas_name',
@@ -61,11 +70,13 @@ export default function Finish() {
 			title: '操作',
 			key: 'action',
 			align: 'center',
-			render: () => (
+			render: (_, record: DataType) => (
 				<Space size="middle">
 					<Button
 						type="link"
-						onClick={() => navigate('/canvas')}
+						onClick={() =>
+							navigate('/canvas/' + record.canvas_id)
+						}
 					>
 						进入画布
 					</Button>
@@ -120,6 +131,7 @@ export default function Finish() {
 	const data: DataType[] = [
 		{
 			key: '1',
+			canvas_id: '1',
 			canvas_name: 'John Brown',
 			num: 1,
 			create_time: formatYMD(new Date()),
@@ -127,6 +139,7 @@ export default function Finish() {
 		},
 		{
 			key: '2',
+			canvas_id: '2',
 			canvas_name: 'Jim Green',
 			num: 2,
 			create_time: formatYMD(new Date()),
@@ -134,6 +147,7 @@ export default function Finish() {
 		},
 		{
 			key: '3',
+			canvas_id: '3',
 			canvas_name: 'Joe Black',
 			num: 23,
 			create_time: formatYMD(new Date()),
