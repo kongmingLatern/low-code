@@ -3,17 +3,18 @@ import {
 	LayoutColor,
 	SiderConfig,
 } from '@packages/customized'
-import { Layout } from 'antd'
-import { useCanvas } from '@/hooks/useCanvas'
-import { CanvasContext } from '@/store/context'
 import { useEffect, useReducer } from 'react'
-import { sendJoinMessage } from '@packages/server'
+
 import Canvas from '@/components/Canvas'
+import { CanvasContext } from '@/store/context'
+import { Layout } from 'antd'
 import LeftSider from '@/components/Sider/Left'
 import RightSider from '@/components/Sider/Right'
 import classNames from 'classnames'
+import { sendJoinMessage } from '@packages/server'
 import styled from './index.module.scss'
-import { useSearchParams } from 'react-router-dom'
+import { useCanvas } from '@/hooks/useCanvas'
+import { useParams } from 'react-router-dom'
 
 const headerStyle: React.CSSProperties = {
 	textAlign: 'center',
@@ -37,8 +38,7 @@ export default function HomeLayout() {
 
 	const canvas = useCanvas()
 
-	const [searchParams] = useSearchParams()
-	const canvasId = searchParams.get('id')
+	const params = useParams()
 
 	const [, forceUpdate] = useReducer(x => x + 1, 0)
 
@@ -51,8 +51,8 @@ export default function HomeLayout() {
 
 	useEffect(() => {
 		// TODO: 传递 canvas_id, uid
-		sendJoinMessage(canvasId)
-	}, [canvasId])
+		sendJoinMessage(params.id)
+	}, [params.id])
 
 	return (
 		<CanvasContext.Provider value={canvas!}>

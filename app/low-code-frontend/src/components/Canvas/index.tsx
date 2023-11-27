@@ -1,10 +1,12 @@
-import classNames from 'classnames'
-import styled from './canvas.module.scss'
-import { useEffect, useRef } from 'react'
-import { useDrop } from 'ahooks'
-import { useCanvasContext } from '@/hooks/useCanvas'
+import { useEffect, useRef, useState } from 'react'
+
 import Element from '../Element'
+import classNames from 'classnames'
 import { socket } from '@packages/server'
+import styled from './canvas.module.scss'
+import { useCanvasContext } from '@/hooks/useCanvas'
+import { useDrop } from 'ahooks'
+
 // import { useAutoAnimate } from '@formkit/auto-animate/react'
 // connect()
 
@@ -12,6 +14,7 @@ export default function Canvas() {
 	const dropRef = useRef<HTMLDivElement>(null)
 
 	const canvas = useCanvasContext()
+	const [id, setId] = useState(0)
 
 	// const [parent] = useAutoAnimate()
 
@@ -111,11 +114,13 @@ export default function Canvas() {
 
 	useEffect(() => {
 		socket.on('join', data => {
-			// TODO: 选择哪块画布
+			console.log('data', data)
 			const { canvasId } = data
+			setId(canvasId)
 			console.log('join', canvasId)
 			canvas.setCanvas(
 				{
+					canvasId,
 					element: Array.isArray(data.element)
 						? data.element
 						: JSON.parse(data.element),
@@ -129,9 +134,11 @@ export default function Canvas() {
 		})
 		socket.on('canvasUpdate', ({ data }) => {
 			console.log('canvasUpdate', data)
-			canvas.setCanvas(data, false)
+			if (data.canvasId === id) {
+				canvas.setCanvas(data, false)
+			}
 		})
-	}, [canvas])
+	}, [canvas, id])
 
 	function removeSelected() {
 		// NOTE: 这里的333要替换成当前的uid

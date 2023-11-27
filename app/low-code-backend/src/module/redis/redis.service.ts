@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RedisClientType } from 'redis';
+
 import { R } from 'src/entities/R';
+import { RedisClientType } from 'redis';
 
 @Injectable()
 export class RedisService {
@@ -10,15 +11,26 @@ export class RedisService {
   async getValue(key) {
     return await this.redisClient.get(key);
   }
-  async getCanvas(canvasId = 'canvas') {
+  async getCanvas(canvasId?) {
+    console.log('getCanvas', canvasId);
+
     // TODO: 这里要根据对应的canvasId获取到对应的画布信息
-    const element = (await this.redisClient.hGet(canvasId, 'element')) || [];
-    const style = (await this.redisClient.hGet(canvasId, 'style')) || {
+    const element =
+      (await this.redisClient.hGet(`canvas_${canvasId}`, 'element')) || [];
+    const style = (await this.redisClient.hGet(
+      `canvas_${canvasId}`,
+      'style',
+    )) || {
       width: 600,
       height: 800,
       backgroundColor: '#fff',
     };
+    const keys = await this.redisClient.keys('*');
+    if (!keys.includes(`canvas_${canvasId}`)) {
+      await this.setCanvas({ canvasId, element, style });
+    }
     return new R(200, {
+      canvasId,
       element,
       style,
     });
@@ -29,13 +41,20 @@ export class RedisService {
   }
 
   async setCanvas(obj) {
-    // TODO: 获取到画布id
-    const { element, style } = obj;
-    console.log('element', element);
-    console.log('style', style);
-    // TODO: 这里的canvas也需要更新当前的画布定义 id
-    await this.redisClient.hSet('canvas', 'element', JSON.stringify(element));
-    await this.redisClient.hSet('canvas', 'style', JSON.stringify(style));
+    const { canvasId, element, style } = obj;
+    console.log('setCanvas', obj);
+
+    await this.redisClient.hSet(
+      `canvas_${canvasId}`,
+      'element',
+      JSON.stringify(element),
+    );
+    await this.redisClient.hSet(
+      `canvas_${canvasId}`,
+      'style',
+      JSON.stringify(style),
+    );
+
     return new R(200, {
       msg: 'success',
     });

@@ -1,5 +1,5 @@
-import { message } from 'antd'
 import { io } from 'socket.io-client'
+import { message } from 'antd'
 
 export let socket
 
@@ -25,7 +25,7 @@ export function connect() {
 connect()
 
 export function sendJoinMessage(canvasId) {
-	console.log('ws:sendJoinMessage')
+	console.log('ws:sendJoinMessage', canvasId)
 
 	socket.emit('onJoin', {
 		uid: '当前用户的uid',
@@ -41,6 +41,7 @@ export function sendActiveElementInfo() {
 }
 
 export function sendCanvasUpdate(data) {
+	console.log('sendUpdate', data)
 	// NOTE: 更新redis,并广播到用户
 	socket.emit('onCanvasUpdate', {
 		data,

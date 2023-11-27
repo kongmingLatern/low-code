@@ -48,6 +48,7 @@ export class GatewayGateway {
   ) {
     // 设置信息
     this.redisService.setCanvas({
+      canvasId: body.data.canvasId,
       element: body.data.element,
       style: body.data.style,
     });
