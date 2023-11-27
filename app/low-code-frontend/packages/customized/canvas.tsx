@@ -105,7 +105,6 @@ export class Canvas {
 
 	setCanvas(_canvas, shouldSend = true) {
 		Object.assign(this.canvas, _canvas)
-		// TODO: 获取到当前画布的canvas_id 传递过去,相当于在redis中创建(或更新)
 		http.post('/redis/setCanvas', this.canvas)
 		this.update(shouldSend)
 	}
@@ -124,10 +123,6 @@ export class Canvas {
 	}
 
 	async update(shouldSend = true) {
-		// TODO: 更新画布
-		// await http.post('/redis/setCanvas', this.canvas)
-		// // 并获取到redis里的画布信息
-		// this.canvas = await getCanvasData()
 		if (shouldSend) {
 			sendCanvasUpdate(this.canvas)
 		}

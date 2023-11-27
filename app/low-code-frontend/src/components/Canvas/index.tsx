@@ -1,8 +1,8 @@
+import { sendLeaveRoom, socket } from '@packages/server'
 import { useEffect, useRef, useState } from 'react'
 
 import Element from '../Element'
 import classNames from 'classnames'
-import { socket } from '@packages/server'
 import styled from './canvas.module.scss'
 import { useCanvasContext } from '@/hooks/useCanvas'
 import { useDrop } from 'ahooks'
@@ -14,7 +14,7 @@ export default function Canvas() {
 	const dropRef = useRef<HTMLDivElement>(null)
 
 	const canvas = useCanvasContext()
-	const [id, setId] = useState(0)
+	const [id, setId] = useState('')
 
 	// const [parent] = useAutoAnimate()
 
@@ -138,6 +138,11 @@ export default function Canvas() {
 				canvas.setCanvas(data, false)
 			}
 		})
+		return () => {
+			if (id) {
+				sendLeaveRoom(id)
+			}
+		}
 	}, [canvas, id])
 
 	function removeSelected() {

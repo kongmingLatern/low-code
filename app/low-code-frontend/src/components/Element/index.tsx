@@ -1,12 +1,12 @@
+import React from 'react'
 import { RenderAdapter } from '@packages/renderer-core'
 import classNames from 'classnames'
-import styled from './element.module.scss'
-import { useRef } from 'react'
-import { useDrag } from 'ahooks'
-import React from 'react'
-import { useCanvasContext } from '@/hooks'
-import { sendActiveElementInfo } from '@packages/server'
 import { message } from 'antd'
+import { sendActiveElementInfo } from '@packages/server'
+import styled from './element.module.scss'
+import { useCanvasContext } from '@/hooks'
+import { useDrag } from 'ahooks'
+import { useRef } from 'react'
 
 export default function Element(props) {
 	const { key, type, value, style, editorBy, ...rest } =
@@ -65,7 +65,7 @@ export default function Element(props) {
 		canvas.setSelectedIndex(index)
 		const element = canvas.getSelectedElement()
 
-		console.log('setSelected', element)
+		console.log('setSelected', canvas.getCanvas())
 
 		// 1. 判断元素是否已经有人正在修改
 
@@ -93,7 +93,7 @@ export default function Element(props) {
 		}
 
 		// TODO: 向ws服务端发起锁的通知
-		sendActiveElementInfo()
+		sendActiveElementInfo(canvas.getCanvas().canvasId)
 		// sendActiveElementInfo(dragRef.current)
 	}
 
