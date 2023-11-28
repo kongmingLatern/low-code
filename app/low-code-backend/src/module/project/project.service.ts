@@ -1,10 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 
 import { CreateProjectDto } from './dto/create-project.dto';
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
+import { ROLE } from 'src/utils/const';
+import { RoleService } from '../role/role.service';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UserProjectRole } from 'src/joinTable/user_project_role/entities/user_project_role.entity';
+import { UserProjectRoleService } from 'src/joinTable/user_project_role/user_project_role.service';
 import { UserService } from '../user/user.service';
 import { v4 } from 'uuid';
 
@@ -14,17 +18,33 @@ export class ProjectService {
   private projectRepository: EntityManager;
   @Inject()
   private userService: UserService;
+  @Inject()
+  private roleService: RoleService;
+  @Inject()
+  private userProjectRoleService: UserProjectRoleService;
 
   async create(createProjectDto: CreateProjectDto) {
     const { createBy } = createProjectDto;
-    const user = await this.userService.findOne(createBy);
     const project: CreateProjectDto = {
       ...createProjectDto,
       project_id: v4(),
       project_code: String(Math.floor(Math.random() * 100000 + 1000)),
-      users: [user],
     };
-    return await this.projectRepository.save(Project, project);
+    const { uid } = await this.userService.findOne(createBy);
+    const { project_id } = project;
+    const userProjectRole = new UserProjectRole(
+      uid,
+      project_id,
+      ROLE.PROJECT_MANAGER,
+    );
+
+    try {
+      await this.projectRepository.save(Project, project);
+      await this.userProjectRoleService.add(userProjectRole);
+    } catch (e) {
+      throw new HttpException('添加失败', e);
+    }
+    return 'success';
   }
 
   async joinProject(body: Record<string, any>) {
@@ -32,13 +52,12 @@ export class ProjectService {
 
     if (isUsingProjectCode()) {
       // 通过项目的邀请码进入的
-      const user = await this.userService.findOne(uid);
-      const resultProject = await this.findOneByProjectCode(project_code, true);
-      const project: CreateProjectDto = {
-        ...resultProject,
-        users: [...resultProject.users, user],
-      };
-      return await this.projectRepository.save(Project, project);
+      const resultProject = await this.findOneByProjectCode(project_code);
+      await this.projectRepository.save(Project, resultProject);
+      await this.userProjectRoleService.add(
+        new UserProjectRole(uid, project_id, ROLE.COMMON),
+      );
+      return '邀请成功';
     }
 
     let uidList = uid;
@@ -47,15 +66,13 @@ export class ProjectService {
     }
 
     uidList.forEach(async (uid) => {
-      const user = await this.userService.findOne(uid);
-      const resultProject = await this.findOneByProjectId(project_id, true);
-      const project: CreateProjectDto = {
-        ...resultProject,
-        users: [...resultProject.users, user],
-      };
+      const project = await this.findOneByProjectId(project_id);
       await this.projectRepository.save(Project, project);
+      await this.userProjectRoleService.add(
+        new UserProjectRole(uid, project_id, ROLE.COMMON),
+      );
     });
-    return 'success';
+    return '邀请成功';
 
     function isUsingProjectCode() {
       return project_code && typeof uid === 'string';
@@ -86,43 +103,39 @@ export class ProjectService {
     return await this.projectRepository.find(Project);
   }
 
+  async getProjectByProjectIdList(projectList: Array<Record<string, any>>) {
+    return projectList.map(async (i) => {
+      return await this.projectRepository.findOne(Project, {
+        where: {
+          project_id: i.project_id,
+        },
+      });
+    });
+  }
+
   async findAllByUid(uid: string) {
     const user = await this.userService.findOne(uid);
-    const res = await this.projectRepository.find(Project, {
-      relations: ['users'],
-      where: {
-        users: user,
-      },
-    });
-    return res;
-    // return res.map((i) => {
-    //   return {
-    //     project_id: i.project_id,
-    //     project_name: i.project_name,
-    //     project_description: i.project_description,
-    //     project_status: i.project_status,
-    //     project_code: i.project_code,
-    //   };
-    // });
+    const res = await this.userProjectRoleService.findByUid(uid);
+    return {
+      ...user,
+      project: await Promise.all(await this.getProjectByProjectIdList(res)),
+    };
   }
 
-  async findOneByProjectId(project_id: string, isRelation: boolean = false) {
-    const relation = isRelation ? ['users'] : [];
-    return await this.projectRepository.findOne(Project, {
-      relations: relation,
+  async findOneByProjectId(params: { project_id: string; uid?: string }) {
+    const projectInfo = await this.projectRepository.findOne(Project, {
       where: {
-        project_id,
+        project_id: params.project_id,
       },
     });
+
+    return {
+      ...projectInfo,
+    };
   }
 
-  async findOneByProjectCode(
-    project_code: string,
-    isRelation: boolean = false,
-  ) {
-    const relation = isRelation ? ['users'] : [];
+  async findOneByProjectCode(project_code: string) {
     return await this.projectRepository.findOne(Project, {
-      relations: relation,
       where: {
         project_code,
       },

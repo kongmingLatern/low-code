@@ -1,14 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-
-import { User } from 'src/module/user/entities/user.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Project {
@@ -30,22 +20,6 @@ export class Project {
     comment: '邀请码',
   })
   project_code: string;
-
-  @CreateDateColumn({
-    comment: '创建时间',
-  })
-  create_time: Date;
-
-  @UpdateDateColumn({
-    comment: '上次更新时间',
-  })
-  update_time: Date;
-
-  @JoinTable({
-    name: 'project_user',
-  })
-  @ManyToMany(() => User)
-  users: User[];
 
   @Column()
   createBy: string;

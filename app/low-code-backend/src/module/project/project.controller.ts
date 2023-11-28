@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -35,7 +36,7 @@ export class ProjectController {
 
   @Get('getProject/:project_id')
   findOneByProjectId(@Param('project_id') project_id: string) {
-    return this.projectService.findOneByProjectId(project_id, true);
+    return this.projectService.findOneByProjectId({ project_id });
   }
 
   // NOTE: Finish
