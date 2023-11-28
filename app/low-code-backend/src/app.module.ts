@@ -10,6 +10,7 @@ import { RedisModule } from './module/redis/redis.module';
 import { RoleModule } from './module/role/role.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
+import { UserProjectRoleModule } from './joinTable/user_project_role/user_project_role.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserModule } from './module/user/user.module';
     AuthModule,
     RoleModule,
     PermissionModule,
+    UserProjectRoleModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
