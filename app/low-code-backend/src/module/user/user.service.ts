@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { InjectEntityManager } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
 import { EntityManager } from 'typeorm';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 import { v4 } from 'uuid';
 
 @Injectable()
