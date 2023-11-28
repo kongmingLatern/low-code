@@ -6,7 +6,6 @@ import {
   Param,
   Delete,
   Put,
-  Query,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
