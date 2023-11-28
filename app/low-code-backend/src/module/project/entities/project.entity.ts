@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Project {
@@ -20,6 +26,12 @@ export class Project {
     comment: '邀请码',
   })
   project_code: string;
+
+  @CreateDateColumn()
+  create_time: Date;
+
+  @UpdateDateColumn()
+  update_time: Date;
 
   @Column()
   createBy: string;
