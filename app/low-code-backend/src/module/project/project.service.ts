@@ -145,14 +145,19 @@ export class ProjectService {
       params.project_id,
       false,
     );
+    const userList = (await this.userProjectRoleService.findByOptions({
+      project_id: params.project_id,
+    })) as UserProjectRole[];
 
     return {
       ...projectInfo,
       canvas_num: canvas.length || 0,
+      user_num: userList.length,
       role: role?.name || undefined,
       refMap: {
         role,
         canvas,
+        users: userList,
       },
     };
   }
