@@ -108,11 +108,18 @@ export class ProjectService {
 
   async getProjectByProjectIdList(projectList: Array<Record<string, any>>) {
     return projectList.map(async (i) => {
-      return await this.projectRepository.findOne(Project, {
+      const result = await this.projectRepository.findOne(Project, {
         where: {
           project_id: i.project_id,
         },
       });
+      const role = await this.roleService.find(i.role_id);
+      return {
+        ...result,
+        refMap: {
+          role,
+        },
+      };
     });
   }
 
@@ -121,7 +128,7 @@ export class ProjectService {
     const res = await this.userProjectRoleService.findByUid(uid);
     return {
       ...user,
-      project: await Promise.all(await this.getProjectByProjectIdList(res)),
+      projects: await Promise.all(await this.getProjectByProjectIdList(res)),
     };
   }
 
