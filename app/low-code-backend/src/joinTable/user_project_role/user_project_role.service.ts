@@ -17,4 +17,11 @@ export class UserProjectRoleService {
       uid,
     });
   }
+
+  async deleteById(options) {
+    return await this.userProjectRoleRepository.delete(
+      UserProjectRole,
+      options,
+    );
+  }
 }
