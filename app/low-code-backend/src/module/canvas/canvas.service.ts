@@ -1,5 +1,5 @@
 import { CreateCanvasDto, Status } from './dto/create-canvas.dto';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 
 import { Canvas } from './entities/canvas.entity';
 import { EntityManager } from 'typeorm';
@@ -14,7 +14,7 @@ export class CanvasService {
   @InjectEntityManager()
   private canvasRepository: EntityManager;
 
-  @Inject()
+  @Inject(forwardRef(() => ProjectService))
   private projectService: ProjectService;
 
   async create(createCanvasDto: CreateCanvasDto) {
@@ -41,15 +41,20 @@ export class CanvasService {
   }
 
   // TODO: 这里需要对数据进行选取
-  async findByProjectId(project_id: string) {
-    const project = await this.projectService.findOneByProjectId({
-      project_id,
-    });
-    console.log('project', project);
-    return {
-      canvas: await this.canvasRepository.find(Canvas),
-      ...project,
-    };
+  async findByProjectId(project_id: string, shouldHasProject: boolean = true) {
+    if (shouldHasProject) {
+      const project = await this.projectService.findOneByProjectId({
+        project_id,
+      });
+      return {
+        canvas: await this.canvasRepository.find(Canvas),
+        ...project,
+      };
+    } else {
+      return {
+        canvas: await this.canvasRepository.find(Canvas),
+      };
+    }
   }
 
   async update(id: string, updateCanvaDto: UpdateCanvasDto) {

@@ -1,5 +1,6 @@
-import { HttpException, Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 
+import { CanvasService } from './../canvas/canvas.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
@@ -22,6 +23,8 @@ export class ProjectService {
   private roleService: RoleService;
   @Inject()
   private userProjectRoleService: UserProjectRoleService;
+  @Inject(forwardRef(() => CanvasService))
+  private canvasService: CanvasService;
 
   async create(createProjectDto: CreateProjectDto) {
     const { createBy } = createProjectDto;
@@ -138,11 +141,18 @@ export class ProjectService {
       },
     });
 
+    const { canvas } = await this.canvasService.findByProjectId(
+      params.project_id,
+      false,
+    );
+
     return {
       ...projectInfo,
+      canvas_num: canvas.length || 0,
       role: role?.name || undefined,
       refMap: {
         role,
+        canvas,
       },
     };
   }
