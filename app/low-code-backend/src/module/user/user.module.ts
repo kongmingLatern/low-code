@@ -1,3 +1,4 @@
+import { CanvasService } from '../canvas/canvas.service';
 import { Module } from '@nestjs/common';
 import { ProjectService } from '../project/project.service';
 import { RoleService } from '../role/role.service';
@@ -10,7 +11,13 @@ import { UserService } from './user.service';
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  providers: [UserService, ProjectService, RoleService, UserProjectRoleService],
+  providers: [
+    UserService,
+    ProjectService,
+    RoleService,
+    UserProjectRoleService,
+    CanvasService,
+  ],
   exports: [UserModule],
 })
 export class UserModule {}
