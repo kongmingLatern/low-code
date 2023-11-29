@@ -5,7 +5,6 @@ import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
 import { ROLE } from 'src/utils/const';
-import { RoleService } from '../role/role.service';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UserProjectRole } from 'src/joinTable/user_project_role/entities/user_project_role.entity';
 import { UserProjectRoleService } from 'src/joinTable/user_project_role/user_project_role.service';
@@ -18,8 +17,8 @@ export class ProjectService {
   private projectRepository: EntityManager;
   @Inject()
   private userService: UserService;
-  @Inject()
-  private roleService: RoleService;
+  // @Inject()
+  // private roleService: RoleService;
   @Inject()
   private userProjectRoleService: UserProjectRoleService;
 
@@ -149,6 +148,12 @@ export class ProjectService {
   }
 
   async remove(project_id: string) {
-    return await this.projectRepository.delete(Project, project_id);
+    try {
+      await this.projectRepository.delete(Project, project_id);
+      await this.userProjectRoleService.deleteAllByProjectId(project_id);
+    } catch (e) {
+      throw new HttpException('删除失败', e);
+    }
+    return '删除成功';
   }
 }

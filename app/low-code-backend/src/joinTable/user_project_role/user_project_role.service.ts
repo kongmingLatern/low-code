@@ -18,6 +18,23 @@ export class UserProjectRoleService {
     });
   }
 
+  async deleteAllByProjectId(project_id: string) {
+    const res = await this.userProjectRoleRepository.find(UserProjectRole, {
+      where: {
+        project_id,
+      },
+    });
+    return await Promise.all(
+      res.map(
+        async (i) =>
+          await this.userProjectRoleRepository.delete(UserProjectRole, {
+            uid: i.uid,
+            project_id: i.project_id,
+          }),
+      ),
+    );
+  }
+
   async deleteById(options) {
     return await this.userProjectRoleRepository.delete(
       UserProjectRole,
