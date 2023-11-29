@@ -1,5 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+import { ROLE } from 'src/utils/const';
+
 @Entity()
 export class UserProjectRole {
   @PrimaryGeneratedColumn('uuid')
@@ -9,7 +11,7 @@ export class UserProjectRole {
   project_id: string;
 
   @Column()
-  role_id: string;
+  role_id: ROLE;
 
   constructor(uid, project_id, role_id) {
     this.uid = uid;

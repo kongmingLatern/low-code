@@ -1,6 +1,7 @@
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
+import { ROLE } from 'src/utils/const';
 import { UserProjectRole } from './entities/user_project_role.entity';
 
 @Injectable()
@@ -53,6 +54,14 @@ export class UserProjectRoleService {
     return await this.userProjectRoleRepository.delete(
       UserProjectRole,
       options,
+    );
+  }
+
+  async changeRole({ project_id, uid }) {
+    return await this.userProjectRoleRepository.update(
+      UserProjectRole,
+      { project_id, uid },
+      { role_id: ROLE.CANVAS_MANAGER },
     );
   }
 }
