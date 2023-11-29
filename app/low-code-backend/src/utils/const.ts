@@ -6,3 +6,13 @@ export const enum ROLE {
   // 协作人员
   COMMON = 2,
 }
+
+export const initCanvasInfo = {
+  element: [],
+
+  style: {
+    width: 600,
+    height: 800,
+    backgroundColor: '#fff',
+  },
+};

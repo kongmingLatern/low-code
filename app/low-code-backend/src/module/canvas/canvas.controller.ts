@@ -3,10 +3,10 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Query,
+  Put,
 } from '@nestjs/common';
 import { CanvasService } from './canvas.service';
 import { CreateCanvasDto } from './dto/create-canvas.dto';
@@ -36,13 +36,13 @@ export class CanvasController {
     return this.canvasService.findOne(canvas_id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCanvaDto: UpdateCanvasDto) {
-    return this.canvasService.update(+id, updateCanvaDto);
+  @Put('/updateCanvas')
+  update(@Body() updateCanvaDto: UpdateCanvasDto) {
+    return this.canvasService.update(updateCanvaDto.canvas_id, updateCanvaDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.canvasService.remove(+id);
+  @Delete('/deleteCanvas/:canvas_id')
+  remove(@Param('canvas_id') canvas_id: string) {
+    return this.canvasService.remove(canvas_id);
   }
 }

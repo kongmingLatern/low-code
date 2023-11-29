@@ -1,10 +1,7 @@
-import { Project } from 'src/module/project/entities/project.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,6 +20,9 @@ export class Canvas {
   @Column()
   canvas_status: '已完成' | '进行中' | '未开始';
 
+  @Column()
+  canvas_info: string;
+
   @CreateDateColumn({
     comment: '创建时间',
   })
@@ -33,9 +33,6 @@ export class Canvas {
   })
   update_time: Date;
 
-  @JoinColumn({
-    name: 'project_id',
-  })
-  @ManyToOne(() => Project)
-  project: Project;
+  @Column()
+  project_id: string;
 }

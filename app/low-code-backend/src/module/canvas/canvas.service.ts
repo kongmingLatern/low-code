@@ -1,11 +1,13 @@
-import { v4 } from 'uuid';
-import { ProjectService } from './../project/project.service';
-import { Inject, Injectable } from '@nestjs/common';
 import { CreateCanvasDto, Status } from './dto/create-canvas.dto';
-import { UpdateCanvasDto } from './dto/update-canvas.dto';
-import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { Inject, Injectable } from '@nestjs/common';
+
 import { Canvas } from './entities/canvas.entity';
+import { EntityManager } from 'typeorm';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { ProjectService } from './../project/project.service';
+import { UpdateCanvasDto } from './dto/update-canvas.dto';
+import { initCanvasInfo } from 'src/utils/const';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class CanvasService {
@@ -20,16 +22,13 @@ export class CanvasService {
       ...createCanvasDto,
       canvas_id: v4(),
       canvas_status: Status.NOTSTART,
-      create_time: new Date(),
-      update_time: new Date(),
+      canvas_info: JSON.stringify(initCanvasInfo),
     };
     return await this.canvasRepository.save(Canvas, canvas);
   }
 
   async findAll() {
-    return await this.canvasRepository.find(Canvas, {
-      relations: ['project'],
-    });
+    return await this.canvasRepository.find(Canvas);
   }
 
   async findOne(canvas_id: string) {
@@ -37,34 +36,27 @@ export class CanvasService {
       where: {
         canvas_id,
       },
-      relations: ['project'],
     });
     return res ?? 'NOT FOUND!';
   }
 
   // TODO: 这里需要对数据进行选取
   async findByProjectId(project_id: string) {
-    const project = await this.projectService.findOneByProjectId(project_id);
-    return await this.canvasRepository.find(Canvas, {
-      select: {
-        canvas_id: true,
-        canvas_name: true,
-        canvas_status: true,
-        create_time: true,
-        update_time: true,
-      },
-      where: {
-        project,
-      },
-      relations: ['project'],
+    const project = await this.projectService.findOneByProjectId({
+      project_id,
     });
+    console.log('project', project);
+    return {
+      canvas: await this.canvasRepository.find(Canvas),
+      ...project,
+    };
   }
 
-  update(id: number, updateCanvaDto: UpdateCanvasDto) {
-    return `This action updates a #${id} canva`;
+  async update(id: string, updateCanvaDto: UpdateCanvasDto) {
+    return await this.canvasRepository.update(Canvas, id, updateCanvaDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} canva`;
+  async remove(id: string) {
+    return await this.canvasRepository.delete(Canvas, id);
   }
 }

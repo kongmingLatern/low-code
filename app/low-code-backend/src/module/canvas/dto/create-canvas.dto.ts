@@ -1,5 +1,3 @@
-import { Project } from 'src/module/project/entities/project.entity';
-
 export const enum Status {
   FINISH = '已完成',
   DOING = '进行中',
@@ -15,9 +13,9 @@ export class CreateCanvasDto {
 
   canvas_status: Status;
 
+  canvas_info: string;
+
   create_time: Date;
 
   update_time: Date;
-
-  project: Project;
 }
