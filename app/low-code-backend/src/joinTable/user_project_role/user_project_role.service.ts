@@ -13,9 +13,23 @@ export class UserProjectRoleService {
   }
 
   async findByUid(uid) {
-    return await this.userProjectRoleRepository.findBy(UserProjectRole, {
-      uid,
-    });
+    return (await this.findByOptions({ uid })) as UserProjectRole[];
+  }
+
+  async findByOptions(options) {
+    const { methods = 'all', ...rest } = options;
+    switch (methods) {
+      case 'all':
+        return await this.userProjectRoleRepository.findBy(UserProjectRole, {
+          ...options,
+        });
+      case 'one':
+        return await this.userProjectRoleRepository.findOne(UserProjectRole, {
+          where: {
+            ...rest,
+          },
+        });
+    }
   }
 
   async deleteAllByProjectId(project_id: string) {

@@ -9,7 +9,7 @@ export class RoleService {
   private roleRepository: EntityManager;
 
   async find(id?: number) {
-    return this.roleRepository.find(Role, {
+    return this.roleRepository.findOne(Role, {
       where: {
         id,
       },

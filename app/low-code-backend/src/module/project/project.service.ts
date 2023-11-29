@@ -5,6 +5,7 @@ import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
 import { ROLE } from 'src/utils/const';
+import { RoleService } from '../role/role.service';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UserProjectRole } from 'src/joinTable/user_project_role/entities/user_project_role.entity';
 import { UserProjectRoleService } from 'src/joinTable/user_project_role/user_project_role.service';
@@ -17,8 +18,8 @@ export class ProjectService {
   private projectRepository: EntityManager;
   @Inject()
   private userService: UserService;
-  // @Inject()
-  // private roleService: RoleService;
+  @Inject()
+  private roleService: RoleService;
   @Inject()
   private userProjectRoleService: UserProjectRoleService;
 
@@ -122,6 +123,15 @@ export class ProjectService {
   }
 
   async findOneByProjectId(params: { project_id: string; uid?: string }) {
+    let userRole, role;
+    if (params.uid) {
+      userRole = await this.userProjectRoleService.findByOptions({
+        methods: 'one',
+        project_id: params.project_id,
+        uid: params.uid,
+      });
+      role = await this.roleService.find(userRole.role_id);
+    }
     const projectInfo = await this.projectRepository.findOne(Project, {
       where: {
         project_id: params.project_id,
@@ -130,6 +140,10 @@ export class ProjectService {
 
     return {
       ...projectInfo,
+      role: role?.name || undefined,
+      refMap: {
+        role,
+      },
     };
   }
 
