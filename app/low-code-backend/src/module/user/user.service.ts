@@ -54,10 +54,10 @@ export class UserService {
 
   async delete(uid: string) {
     try {
-      const { project } = await this.projectService.findAllByUid(uid);
+      const { projects } = await this.projectService.findAllByUid(uid);
 
       await Promise.all(
-        project.map(async (p) => {
+        projects.map(async (p) => {
           const { project_id, createBy } = p;
           // 如果 createBy === uid,那么表示该项目是由该用户自己创建的,要去删掉对应的项目
           if (createBy === uid) {
