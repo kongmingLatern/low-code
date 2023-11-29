@@ -141,6 +141,8 @@ export class ProjectService {
       },
     });
 
+    const authName = await this.userService.findOne(projectInfo.createBy);
+
     const { canvas } = await this.canvasService.findByProjectId(
       params.project_id,
       false,
@@ -153,6 +155,7 @@ export class ProjectService {
       ...projectInfo,
       canvas_num: canvas.length || 0,
       user_num: userList.length,
+      createUserName: authName.username,
       role: role?.name || undefined,
       refMap: {
         role,

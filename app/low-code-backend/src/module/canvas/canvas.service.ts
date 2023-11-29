@@ -47,12 +47,29 @@ export class CanvasService {
         project_id,
       });
       return {
-        canvas: await this.canvasRepository.find(Canvas),
+        canvas: await this.canvasRepository.find(Canvas, {
+          select: {
+            canvas_id: true,
+            canvas_name: true,
+            canvas_description: true,
+            canvas_status: true,
+            create_time: true,
+            update_time: true,
+          },
+        }),
         ...project,
       };
     } else {
       return {
-        canvas: await this.canvasRepository.find(Canvas),
+        canvas: await this.canvasRepository.find(Canvas, {
+          select: {
+            canvas_name: true,
+            canvas_description: true,
+            canvas_status: true,
+            create_time: true,
+            update_time: true,
+          },
+        }),
       };
     }
   }
@@ -61,7 +78,5 @@ export class CanvasService {
     return await this.canvasRepository.update(Canvas, id, updateCanvaDto);
   }
 
-  async remove(id: string) {
-    return await this.canvasRepository.delete(Canvas, id);
-  }
+  async remove(id: string) {}
 }
