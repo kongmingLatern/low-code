@@ -1,6 +1,7 @@
-import { CanvasContext } from '@/store/context'
-import { Canvas } from '@packages/customized'
 import { useContext, useRef } from 'react'
+
+import { Canvas } from '@packages/customized'
+import { CanvasContext } from '@/store/context'
 
 export function useCanvas(canvas?) {
 	const canvasRef =
