@@ -41,10 +41,40 @@ export class UserCanvasProjectService {
     // 如果身份是1,说明是创建者,那么无需查此表,直接根据 project_id 查询全部画布即可.
     if (role_id === 1) {
       // NOTE: 创建者
-      return await this.canvasService.findByProjectId(project_id, false);
+      return (
+        await this.canvasService.findByProjectId(project_id, false)
+      ).canvas.map((i) => {
+        return {
+          ...i,
+          isEditable: 1,
+        };
+      });
     } else {
-      return await this.userCanvasProjectRepository.find(UserCanvasProject, {
-        where: { uid },
+      const res = await this.userCanvasProjectRepository.find(
+        UserCanvasProject,
+        {
+          where: { uid },
+        },
+      );
+      const canvasList = res.map((i) => i.canvas_id);
+      const allCanvas = await this.canvasService.findByProjectId(
+        project_id,
+        false,
+      );
+      return allCanvas.canvas.map((c) => {
+        // 如果不包含在可编辑的范围内,那么就给一个状态
+        // NOTE: isEditable(是否可编辑) 1 是 0 否
+        if (!canvasList.includes(c.canvas_id)) {
+          return {
+            ...c,
+            isEditable: 0,
+          };
+        } else {
+          return {
+            ...c,
+            isEditable: 1,
+          };
+        }
       });
     }
   }
