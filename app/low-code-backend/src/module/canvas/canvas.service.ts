@@ -68,6 +68,7 @@ export class CanvasService {
       return {
         canvas: await this.canvasRepository.find(Canvas, {
           select: {
+            canvas_id: true,
             canvas_name: true,
             canvas_description: true,
             canvas_status: true,
@@ -89,7 +90,15 @@ export class CanvasService {
 
   async allocation(allocationDto: AllocatinDto) {
     const { canvas_id } = allocationDto;
-    const { project_id } = await this.canvasRepository.findOne(Canvas, {
+    const { project_id } = await this.getProjectIdByCanvasId(canvas_id);
+    return await this.userCanvasProjectService.allocation({
+      ...allocationDto,
+      project_id,
+    });
+  }
+
+  async getProjectIdByCanvasId(canvas_id: string) {
+    return await this.canvasRepository.findOne(Canvas, {
       select: {
         project_id: true,
       },
@@ -97,9 +106,9 @@ export class CanvasService {
         canvas_id,
       },
     });
-    return await this.userCanvasProjectService.allocation({
-      ...allocationDto,
-      project_id,
-    });
+  }
+
+  async getCanvasByUid(uid: string, project_id: string) {
+    return await this.userCanvasProjectService.getCanvasByUid(uid, project_id);
   }
 }
