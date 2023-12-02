@@ -78,5 +78,11 @@ export class CanvasService {
     return await this.canvasRepository.update(Canvas, id, updateCanvaDto);
   }
 
-  async remove(id: string) {}
+  async remove(canvas_id: string) {
+    return await this.canvasRepository.delete(Canvas, canvas_id);
+  }
+
+  allocation(body: any) {
+    throw new Error('Method not implemented.');
+  }
 }

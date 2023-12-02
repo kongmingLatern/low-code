@@ -36,6 +36,11 @@ export class CanvasController {
     return this.canvasService.findOne(canvas_id);
   }
 
+  @Post('/allocation')
+  allocation(@Body() body) {
+    return this.canvasService.allocation(body);
+  }
+
   @Put('/updateCanvas')
   update(@Body() updateCanvaDto: UpdateCanvasDto) {
     return this.canvasService.update(updateCanvaDto.canvas_id, updateCanvaDto);
