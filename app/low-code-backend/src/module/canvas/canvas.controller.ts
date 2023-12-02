@@ -11,6 +11,7 @@ import {
 import { CanvasService } from './canvas.service';
 import { CreateCanvasDto } from './dto/create-canvas.dto';
 import { UpdateCanvasDto } from './dto/update-canvas.dto';
+import { AllocatinDto } from './dto/allocation-canvas.dto';
 
 @Controller('canvas')
 export class CanvasController {
@@ -37,8 +38,8 @@ export class CanvasController {
   }
 
   @Post('/allocation')
-  allocation(@Body() body) {
-    return this.canvasService.allocation(body);
+  allocation(@Body() allocationDto: AllocatinDto) {
+    return this.canvasService.allocation(allocationDto);
   }
 
   @Put('/updateCanvas')

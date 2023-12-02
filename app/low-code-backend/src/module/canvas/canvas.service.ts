@@ -1,11 +1,13 @@
 import { CreateCanvasDto, Status } from './dto/create-canvas.dto';
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 
+import { AllocatinDto } from './dto/allocation-canvas.dto';
 import { Canvas } from './entities/canvas.entity';
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { ProjectService } from './../project/project.service';
 import { UpdateCanvasDto } from './dto/update-canvas.dto';
+import { UserCanvasProjectService } from 'src/joinTable/user_canvas_project/user_canvas_project.service';
 import { initCanvasInfo } from 'src/utils/const';
 import { v4 } from 'uuid';
 
@@ -16,6 +18,9 @@ export class CanvasService {
 
   @Inject(forwardRef(() => ProjectService))
   private projectService: ProjectService;
+
+  @Inject()
+  private userCanvasProjectService: UserCanvasProjectService;
 
   async create(createCanvasDto: CreateCanvasDto) {
     const canvas: CreateCanvasDto = {
@@ -82,7 +87,19 @@ export class CanvasService {
     return await this.canvasRepository.delete(Canvas, canvas_id);
   }
 
-  allocation(body: any) {
-    throw new Error('Method not implemented.');
+  async allocation(allocationDto: AllocatinDto) {
+    const { canvas_id } = allocationDto;
+    const { project_id } = await this.canvasRepository.findOne(Canvas, {
+      select: {
+        project_id: true,
+      },
+      where: {
+        canvas_id,
+      },
+    });
+    return await this.userCanvasProjectService.allocation({
+      ...allocationDto,
+      project_id,
+    });
   }
 }

@@ -8,5 +8,6 @@ import { UserCanvasProjectService } from './user_canvas_project.service';
   imports: [TypeOrmModule.forFeature([UserCanvasProject])],
   controllers: [UserCanvasProjectController],
   providers: [UserCanvasProjectService],
+  exports: [UserCanvasProjectModule],
 })
 export class UserCanvasProjectModule {}
