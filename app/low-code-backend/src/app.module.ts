@@ -9,6 +9,7 @@ import { ProjectModule } from './module/project/project.module';
 import { RedisModule } from './module/redis/redis.module';
 import { RoleModule } from './module/role/role.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserCanvasProjectModule } from './joinTable/user_canvas_project/user_canvas_project.module';
 import { UserModule } from './module/user/user.module';
 import { UserProjectRoleModule } from './joinTable/user_project_role/user_project_role.module';
 
@@ -22,6 +23,7 @@ import { UserProjectRoleModule } from './joinTable/user_project_role/user_projec
     RoleModule,
     PermissionModule,
     UserProjectRoleModule,
+    UserCanvasProjectModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
