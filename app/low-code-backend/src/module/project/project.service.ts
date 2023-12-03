@@ -190,6 +190,7 @@ export class ProjectService {
     try {
       await this.projectRepository.delete(Project, project_id);
       await this.userProjectRoleService.deleteAllByProjectId(project_id);
+      await this.canvasService.deleteAllByProjectId(project_id);
     } catch (e) {
       throw new HttpException('删除失败', e);
     }
