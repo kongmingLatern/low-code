@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
 
 @Controller('project')
 export class ProjectController {
@@ -54,7 +53,7 @@ export class ProjectController {
   }
 
   @Put('/updateProject')
-  update(@Body() updateProjectDto: UpdateProjectDto) {
+  update(@Body() updateProjectDto) {
     const { project_id } = updateProjectDto;
     return this.projectService.update(project_id, updateProjectDto);
   }
