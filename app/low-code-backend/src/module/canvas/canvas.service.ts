@@ -61,6 +61,9 @@ export class CanvasService {
             create_time: true,
             update_time: true,
           },
+          where: {
+            project_id,
+          },
         }),
         ...project,
       };
@@ -74,6 +77,9 @@ export class CanvasService {
             canvas_status: true,
             create_time: true,
             update_time: true,
+          },
+          where: {
+            project_id,
           },
         }),
       };
@@ -110,5 +116,15 @@ export class CanvasService {
 
   async getCanvasByUid(uid: string, project_id: string) {
     return await this.userCanvasProjectService.getCanvasByUid(uid, project_id);
+  }
+
+  async deleteAllByProjectId(project_id: string) {
+    const records = (
+      await this.findByProjectId(project_id, false)
+    ).canvas.reduce((prev, cur) => {
+      prev.push(cur.canvas_id);
+      return prev;
+    }, []);
+    return await this.canvasRepository.delete(Canvas, records);
   }
 }
