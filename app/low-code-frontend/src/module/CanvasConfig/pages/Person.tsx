@@ -30,9 +30,8 @@ export default function Person() {
 			dataIndex: 'canvasList',
 			key: 'canvasList',
 			align: 'center',
-			render: (_, { canvasList }) => {
-				return (
-					canvasList &&
+			render: (_, { role_id, canvasList }) => {
+				return canvasList.length > 0 ? (
 					canvasList.map(i => {
 						return (
 							<Tag key={i} color={'pink'}>
@@ -40,6 +39,10 @@ export default function Person() {
 							</Tag>
 						)
 					})
+				) : role_id === 1 ? (
+					<Tag color="blue-inverse">无需分配</Tag>
+				) : (
+					<Tag color="#ff0000">暂无分配</Tag>
 				)
 			},
 		},
