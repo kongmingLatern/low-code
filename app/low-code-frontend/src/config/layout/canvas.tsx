@@ -1,7 +1,7 @@
-import { Icon } from '@iconify/react'
-import Person from '@/module/CanvasConfig/pages/Person'
 import Finish from '@/module/CanvasConfig/pages/Finish'
+import { Icon } from '@iconify/react'
 import Manage from '@/module/CanvasConfig/pages/Manage'
+import Person from '@/module/CanvasConfig/pages/Person'
 
 export const canvasLayoutCfg = {
 	menuCfg: {

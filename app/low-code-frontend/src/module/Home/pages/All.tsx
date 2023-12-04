@@ -61,7 +61,9 @@ const All: FunctionComponent<AllProps> = () => {
 					</>
 				}
 				onClick={() => {
-					navigate('/canvasConfig')
+					navigate(
+						`/canvasConfig/manage?project_id=${c.project_id}`
+					)
 				}}
 			/>
 		)

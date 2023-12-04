@@ -7,4 +7,5 @@ export const handlers = {
 	register: registerHandle,
 
 	getAllProjectByUid: projectHandler['uid'],
+	getProjectById: projectHandler['project_id'],
 }

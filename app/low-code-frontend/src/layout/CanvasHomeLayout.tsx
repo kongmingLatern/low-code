@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react'
 import { Layout, Menu, Space, theme } from 'antd'
-import { Outlet, useNavigate } from 'react-router-dom'
+import {
+	Outlet,
+	useNavigate,
+	useSearchParams,
+} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+
 import Box from '@/module/Index/components/Box'
 
 const { Header, Content, Footer } = Layout
@@ -14,17 +19,23 @@ const App: React.FC<LayoutProps> = props => {
 	const { menuCfg } = layoutCfg
 	const [selectedMenu, setSelectedMenu] = useState('')
 	const navigate = useNavigate()
+	const [searchParams] = useSearchParams()
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
 
 	useEffect(() => {
 		const key = localStorage.getItem('canvas_menu_key')
+
 		if (key) {
 			setSelectedMenu(key)
-			navigate(`/canvasConfig/${key}`)
+			navigate(
+				`/canvasConfig/${key}?project_id=${searchParams.get(
+					'project_id'
+				)}`
+			)
 		}
-	}, [navigate])
+	}, [navigate, searchParams])
 
 	return (
 		<Layout className="layout">
