@@ -1,10 +1,15 @@
+import { InfoType, handlers } from '@/shared'
 import { Layout, Menu, Space, theme } from 'antd'
 import {
 	Outlet,
 	useNavigate,
 	useSearchParams,
 } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
+import React, {
+	createContext,
+	useEffect,
+	useState,
+} from 'react'
 
 import Box from '@/module/Index/components/Box'
 
@@ -14,15 +19,18 @@ interface LayoutProps {
 	layoutCfg: Record<string, any>
 }
 
+export const InfoContext = createContext({} as InfoType)
+
 const App: React.FC<LayoutProps> = props => {
 	const { layoutCfg } = props
 	const { menuCfg } = layoutCfg
 	const [selectedMenu, setSelectedMenu] = useState('')
-	const navigate = useNavigate()
+	const [info, setInfo] = useState<InfoType>({} as InfoType)
 	const [searchParams] = useSearchParams()
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		const key = localStorage.getItem('canvas_menu_key')
@@ -36,6 +44,16 @@ const App: React.FC<LayoutProps> = props => {
 			)
 		}
 	}, [navigate, searchParams])
+
+	useEffect(() => {
+		async function getInfo() {
+			const res = await handlers.getProjectById(
+				searchParams.get('project_id')
+			)
+			setInfo(res.data)
+		}
+		getInfo()
+	}, [searchParams])
 
 	return (
 		<Layout className="layout">
@@ -88,7 +106,9 @@ const App: React.FC<LayoutProps> = props => {
 						background: colorBgContainer,
 					}}
 				>
-					<Outlet />
+					<InfoContext.Provider value={info}>
+						<Outlet />
+					</InfoContext.Provider>
 				</div>
 			</Content>
 			<Footer

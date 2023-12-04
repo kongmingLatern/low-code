@@ -9,3 +9,6 @@ export const handlers = {
 	getAllProjectByUid: projectHandler['uid'],
 	getProjectById: projectHandler['project_id'],
 }
+
+export * from './auth'
+export * from './project'

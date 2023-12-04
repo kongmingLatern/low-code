@@ -6,9 +6,24 @@ interface ProjectUidType {
 	message: string
 }
 
+export interface InfoType {
+	canvas_num: number
+	createBy: string
+	createUserName: string
+	create_time: Date
+	project_code: string
+	project_description: string
+	project_id: string
+	project_name: string
+	project_status: string
+	refMap: Record<string, any>
+	update_time: Date
+	user_num: number
+}
+
 interface ProjectIdType {
 	code: number
-	data: Record<string, any>
+	data: InfoType
 	message: string
 }
 

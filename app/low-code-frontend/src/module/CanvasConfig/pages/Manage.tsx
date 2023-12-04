@@ -1,26 +1,11 @@
 import { Badge, Descriptions, Typography } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { formatYMDHHmmss, handlers } from '@/shared'
+import { InfoType, formatYMDHHmmss } from '@/shared'
+import React, { useContext } from 'react'
 
 import type { DescriptionsProps } from 'antd'
-import { useSearchParams } from 'react-router-dom'
+import { InfoContext } from '@/layout/CanvasHomeLayout'
 
 const { Paragraph } = Typography
-
-interface InfoType {
-	canvas_num: number
-	createBy: string
-	createUserName: string
-	create_time: Date
-	project_code: string
-	project_description: string
-	project_id: string
-	project_name: string
-	project_status: string
-	refMap: Record<string, any>
-	update_time: Date
-	user_num: number
-}
 
 const getStatusText = (status: string) => {
 	switch (status) {
@@ -104,29 +89,12 @@ const items: (
 }
 
 const App: React.FC = () => {
-	const [info, setInfo] = useState<Partial<InfoType>>()
-	const [searchParams] = useSearchParams()
-
-	useEffect(() => {
-		async function getData() {
-			const res = await handlers.getProjectById(
-				searchParams.get('project_id')
-			)
-			setInfo(res.data)
-		}
-		getData()
-	}, [searchParams])
-
-	useEffect(() => {
-		console.log(info)
-	}, [info])
-
 	return (
 		<Descriptions
 			className="p-1.5rem"
 			title="项目信息"
 			bordered
-			items={items(info as InfoType)}
+			items={items(useContext(InfoContext) as InfoType)}
 		/>
 	)
 }
