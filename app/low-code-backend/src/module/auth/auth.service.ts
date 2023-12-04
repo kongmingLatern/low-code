@@ -14,6 +14,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { Response } from 'express';
+import { UnLoginException } from 'src/filters/unlogin.filter';
 import { User } from '../user/entities/user.entity';
 
 @Injectable()
@@ -33,7 +34,7 @@ export class AuthService {
       password: md5(password),
     });
     if (!foundUser) {
-      throw new HttpException('登陆失败', HttpStatus.OK);
+      throw new UnLoginException();
     } else {
       const token = await this.jwtService.signAsync({
         user: {
