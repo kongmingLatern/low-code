@@ -63,7 +63,11 @@ const App: React.FC<LayoutProps> = props => {
 							localStorage.setItem('canvas_menu_key', e.key)
 							setSelectedMenu(e.key)
 							const path = menuCfg.handleClick(e)
-							navigate(path)
+							navigate(
+								`${path}?project_id=${searchParams.get(
+									'project_id'
+								)}`
+							)
 						}}
 						items={menuCfg.itemList}
 					/>
