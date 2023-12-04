@@ -1,13 +1,18 @@
-import React from 'react'
 import { Button, Form, Input, Typography } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+
 import { Icon } from '@iconify/react'
-import { Link } from 'react-router-dom'
+import React from 'react'
+import { handlers } from '@/shared'
 
 const { Title } = Typography
 
 const App: React.FC = () => {
-	const onFinish = (values: any) => {
-		console.log('Received values of form: ', values)
+	const nagivate = useNavigate()
+	const onFinish = async (values: any) => {
+		await handlers
+			.login(values)
+			.then(() => nagivate('/home'))
 	}
 
 	return (

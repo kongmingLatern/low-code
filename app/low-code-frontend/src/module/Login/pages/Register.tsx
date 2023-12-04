@@ -1,4 +1,3 @@
-import React from 'react'
 import {
 	Button,
 	Checkbox,
@@ -8,6 +7,9 @@ import {
 	Typography,
 } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
+
+import React from 'react'
+import { handlers } from '@/shared'
 
 const { Option } = Select
 
@@ -37,8 +39,17 @@ const App: React.FC = () => {
 	const [form] = Form.useForm()
 	const navigate = useNavigate()
 
-	const onFinish = (values: any) => {
-		console.log('Received values of form: ', values)
+	const onFinish = async (values: any) => {
+		const { username, password, email, gender } = values
+		const res = {
+			username,
+			password,
+			email,
+			gender,
+		}
+		await handlers
+			.register(res)
+			.then(() => navigate('/login'))
 	}
 
 	return (
@@ -66,8 +77,8 @@ const App: React.FC = () => {
 			</Title>
 
 			<Form.Item
-				name="nickname"
-				label={<span className="color-white">昵称</span>}
+				name="username"
+				label={<span className="color-white">用户名</span>}
 				// tooltip="如何称呼你"
 				rules={[
 					{
@@ -183,11 +194,7 @@ const App: React.FC = () => {
 				className="text-right"
 				{...tailFormItemLayout}
 			>
-				<Button
-					type="primary"
-					htmlType="submit"
-					onClick={() => navigate('/login')}
-				>
+				<Button type="primary" htmlType="submit">
 					注册
 				</Button>
 			</Form.Item>
