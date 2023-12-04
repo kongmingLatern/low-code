@@ -43,7 +43,10 @@ export class AuthService {
         },
       });
       res.setHeader('token', token);
-      return '登陆成功';
+      return {
+        token,
+        message: '登陆成功',
+      };
     }
   }
 
@@ -51,7 +54,10 @@ export class AuthService {
     const { username, password } = user;
     const foundUser = await this.userRepository.findOneBy(User, { username });
     if (foundUser) {
-      throw new HttpException('该用户名已经存在,请重新输入', HttpStatus.OK);
+      throw new HttpException(
+        '该用户名已经存在,请重新输入',
+        HttpStatus.BAD_REQUEST,
+      );
     }
     const newUser = new User();
     newUser.username = username;
