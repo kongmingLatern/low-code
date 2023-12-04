@@ -45,6 +45,7 @@ export class AuthService {
       res.setHeader('token', token);
       return {
         token,
+        uid: foundUser.uid,
         message: '登陆成功',
       };
     }

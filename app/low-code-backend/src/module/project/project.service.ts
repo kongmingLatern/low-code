@@ -124,10 +124,10 @@ export class ProjectService {
   }
 
   async findAllByUid(uid: string) {
-    const user = await this.userService.findOne(uid);
+    // const user = await this.userService.findOne(uid);
     const res = await this.userProjectRoleService.findByUid(uid);
     return {
-      ...user,
+      // ...user,
       projects: await Promise.all(await this.getProjectByProjectIdList(res)),
     };
   }
