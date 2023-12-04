@@ -158,6 +158,33 @@ export class ProjectService {
       project_id: params.project_id,
     })) as UserProjectRole[];
 
+    const user = await Promise.all(
+      userList.map(async (i) => {
+        const r1 = await this.userService.findOne(i.uid, {
+          select: {
+            uid: true,
+            username: true,
+          },
+        });
+        const r2 = await this.roleService.find(i.role_id);
+
+        const r3 = await this.canvasService.getCanvasByUid(
+          params.uid,
+          params.project_id,
+        );
+        const canvasIdList = r3.reduce((prev, cur) => {
+          prev.push(cur.canvas_name);
+          return prev;
+        }, []);
+        return {
+          ...i,
+          ...r1,
+          ...r2,
+          canvasList: canvasIdList,
+        };
+      }),
+    );
+
     return {
       ...projectInfo,
       canvas_num: canvas.length || 0,
@@ -167,7 +194,7 @@ export class ProjectService {
       refMap: {
         role,
         canvas,
-        users: userList,
+        users: user,
       },
     };
   }

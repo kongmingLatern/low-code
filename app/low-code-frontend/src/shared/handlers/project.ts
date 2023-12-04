@@ -15,6 +15,17 @@ interface CanvasInfoType {
 	update_time: Date
 }
 
+interface UserInfoType {
+	uid: string
+	username: string
+	project_id: string
+	role_id: number
+	name: string
+	create_time: Date
+	update_time: Date
+	canvasList: string[]
+}
+
 export interface InfoType {
 	canvas_num: number
 	createBy: string
@@ -27,7 +38,7 @@ export interface InfoType {
 	project_status: string
 	refMap: {
 		canvas: Array<CanvasInfoType>
-		users: Array<Record<string, any>>
+		users: Array<UserInfoType>
 	}
 	update_time: Date
 	user_num: number

@@ -1,12 +1,27 @@
-import React from 'react'
 import { Table, TableProps } from 'antd'
 
-const App: React.FC<TableProps<any>> = props => {
-	const { columns, dataSource, ...rest } = props
+import React from 'react'
+
+interface TableEnhanceProps extends TableProps<any> {
+	primaryKey?: string
+}
+
+const App: React.FC<TableEnhanceProps> = props => {
+	const {
+		primaryKey = '',
+		columns,
+		dataSource,
+		...rest
+	} = props
 	return (
 		<Table
 			columns={columns}
-			dataSource={dataSource}
+			dataSource={dataSource?.map(i => {
+				return {
+					...i,
+					key: i[primaryKey],
+				}
+			})}
 			{...rest}
 		/>
 	)

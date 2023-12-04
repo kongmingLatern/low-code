@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 import { ROLE } from 'src/utils/const';
 
@@ -12,6 +18,12 @@ export class UserProjectRole {
 
   @Column()
   role_id: ROLE;
+
+  @CreateDateColumn()
+  create_time: Date;
+
+  @UpdateDateColumn()
+  update_time: Date;
 
   constructor(uid, project_id, role_id) {
     this.uid = uid;

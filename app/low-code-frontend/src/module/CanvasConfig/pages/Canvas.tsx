@@ -128,10 +128,9 @@ export default function Canvas() {
 	return (
 		list?.canvas && (
 			<DataTable
+				primaryKey="canvas_id"
 				columns={columns}
-				dataSource={list.canvas.map(i => {
-					return { ...i, key: i.canvas_id }
-				})}
+				dataSource={list.canvas}
 			/>
 		)
 	)

@@ -1,43 +1,61 @@
+import { InfoType, formatYMD } from '@/shared'
+import { Space, Tag } from 'antd'
+import { useContext, useEffect, useState } from 'react'
+
+import { ColumnsType } from 'antd/es/table'
 import DataTable from '@/components/common/DataTable'
 import DeleteButton from '@/components/common/DeleteButton'
+import { InfoContext } from '@/layout/CanvasHomeLayout'
 import ModalButton from '@/components/common/ModalButton'
-import { formatYMD } from '@/shared'
-import { Space } from 'antd'
-import { ColumnsType } from 'antd/es/table'
-interface DataType {
-	key: string
-	name: string
-	age: number
-	auth: string
-	date: string
-	tags: string[]
-}
 
 export default function Person() {
-	const columns: ColumnsType<DataType> = [
+	const info = useContext(InfoContext).refMap
+	const [list, setList] = useState(info)
+
+	useEffect(() => {
+		setList(info)
+	}, [info])
+
+	const columns: ColumnsType<
+		InfoType['refMap']['users'][number]
+	> = [
 		{
 			title: '协作人员',
+			dataIndex: 'username',
+			key: 'username',
+			align: 'center',
+		},
+		{
+			title: '分配画布',
+			dataIndex: 'canvasList',
+			key: 'canvasList',
+			align: 'center',
+			render: (_, { canvasList }) => {
+				return (
+					canvasList &&
+					canvasList.map(i => {
+						return (
+							<Tag key={i} color={'pink'}>
+								{i}
+							</Tag>
+						)
+					})
+				)
+			},
+		},
+		{
+			title: '权限角色',
 			dataIndex: 'name',
 			key: 'name',
 			align: 'center',
 		},
 		{
-			title: '分配画布',
-			dataIndex: 'age',
-			key: 'age',
-			align: 'center',
-		},
-		{
-			title: '权限',
-			dataIndex: 'auth',
-			key: 'auth',
-			align: 'center',
-		},
-		{
 			title: '加入日期',
-			dataIndex: 'date',
-			key: 'date',
+			dataIndex: 'create_time',
+			key: 'create_time',
 			align: 'center',
+			render: (_, { create_time }) =>
+				formatYMD(new Date(create_time)),
 		},
 		{
 			title: '操作',
@@ -93,31 +111,13 @@ export default function Person() {
 		},
 	]
 
-	const data: DataType[] = [
-		{
-			key: '1',
-			name: 'John Brown',
-			age: 32,
-			auth: '项目管理员',
-			date: formatYMD(new Date()),
-			tags: ['在线'],
-		},
-		{
-			key: '2',
-			name: 'Jim Green',
-			age: 42,
-			auth: '画布管理员',
-			date: formatYMD(new Date()),
-			tags: ['离线'],
-		},
-		{
-			key: '3',
-			name: 'Joe Black',
-			age: 32,
-			auth: '协作人员',
-			date: formatYMD(new Date()),
-			tags: ['cool', 'teacher'],
-		},
-	]
-	return <DataTable columns={columns} dataSource={data} />
+	return (
+		list?.users && (
+			<DataTable
+				primaryKey="uid"
+				columns={columns}
+				dataSource={list.users}
+			/>
+		)
+	)
 }

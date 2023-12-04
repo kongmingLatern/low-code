@@ -38,8 +38,9 @@ export class UserService {
     return await this.userRepository.find(User);
   }
 
-  async findOne(uid: string) {
+  async findOne(uid: string, options?) {
     const found = await this.userRepository.findOne(User, {
+      ...options,
       where: { uid },
     });
     if (!found) {
