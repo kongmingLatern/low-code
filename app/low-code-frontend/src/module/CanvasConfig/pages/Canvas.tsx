@@ -1,24 +1,26 @@
 import { Button, Space, Tag } from 'antd'
+import { InfoType, formatYMD } from '@/shared'
+import { useContext, useEffect, useState } from 'react'
 
 import { ColumnsType } from 'antd/es/table'
 import DataTable from '@/components/common/DataTable'
 import DeleteButton from '@/components/common/DeleteButton'
+import { InfoContext } from '@/layout/CanvasHomeLayout'
 import ModalButton from '@/components/common/ModalButton'
-import { formatYMD } from '@/shared'
 import { useNavigate } from 'react-router-dom'
 
-interface DataType {
-	key: string
-	canvas_id: string
-	canvas_name: string
-	num: number
-	create_time: string
-	tags: string[]
-}
-
-export default function Finish() {
+export default function Canvas() {
 	const navigate = useNavigate()
-	const columns: ColumnsType<DataType> = [
+	const info = useContext(InfoContext).refMap
+	const [list, setList] = useState(info)
+
+	useEffect(() => {
+		setList(info)
+	}, [info])
+
+	const columns: ColumnsType<
+		InfoType['refMap']['canvas'][number]
+	> = [
 		{
 			title: '画布id',
 			dataIndex: 'canvas_id',
@@ -36,41 +38,36 @@ export default function Finish() {
 			dataIndex: 'create_time',
 			key: 'create_time',
 			align: 'center',
-		},
-		{
-			title: '协作人数',
-			dataIndex: 'num',
-			key: 'num',
-			align: 'center',
+			render: (_, { create_time }) =>
+				formatYMD(new Date(create_time)),
 		},
 		{
 			title: '画布状态',
-			key: 'tags',
-			dataIndex: 'tags',
+			key: 'project_status',
+			dataIndex: 'project_status',
 			align: 'center',
-			render: (_, { tags }) => (
-				<>
-					{tags.map(tag => {
-						const color =
-							tag === '完成'
-								? 'geekblue'
-								: tag === '进行中'
-								? 'green'
-								: 'red'
-						return (
-							<Tag color={color} key={tag}>
-								{tag.toUpperCase()}
-							</Tag>
-						)
-					})}
-				</>
-			),
+			render: (_, { canvas_status }) => {
+				const color =
+					canvas_status === '已完成'
+						? '#87d068'
+						: canvas_status === '进行中'
+						? '#108ee9'
+						: 'purple'
+				return (
+					canvas_status && (
+						<Tag color={color}>{canvas_status}</Tag>
+					)
+				)
+			},
 		},
 		{
 			title: '操作',
 			key: 'action',
 			align: 'center',
-			render: (_, record: DataType) => (
+			render: (
+				_,
+				record: InfoType['refMap']['canvas'][number]
+			) => (
 				<Space size="middle">
 					<Button
 						type="link"
@@ -128,32 +125,14 @@ export default function Finish() {
 		},
 	]
 
-	const data: DataType[] = [
-		{
-			key: '1',
-			canvas_id: '1',
-			canvas_name: 'John Brown',
-			num: 1,
-			create_time: formatYMD(new Date()),
-			tags: ['已完成'],
-		},
-		{
-			key: '2',
-			canvas_id: '2',
-			canvas_name: 'Jim Green',
-			num: 2,
-			create_time: formatYMD(new Date()),
-			tags: ['进行中'],
-		},
-		{
-			key: '3',
-			canvas_id: '3',
-			canvas_name: 'Joe Black',
-			num: 23,
-			create_time: formatYMD(new Date()),
-			tags: ['未开始'],
-		},
-	]
-
-	return <DataTable columns={columns} dataSource={data} />
+	return (
+		list?.canvas && (
+			<DataTable
+				columns={columns}
+				dataSource={list.canvas.map(i => {
+					return { ...i, key: i.canvas_id }
+				})}
+			/>
+		)
+	)
 }

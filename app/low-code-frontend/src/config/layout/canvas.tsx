@@ -1,4 +1,4 @@
-import Finish from '@/module/CanvasConfig/pages/Finish'
+import Canvas from '@/module/CanvasConfig/pages/Canvas'
 import { Icon } from '@iconify/react'
 import Manage from '@/module/CanvasConfig/pages/Manage'
 import Person from '@/module/CanvasConfig/pages/Person'
@@ -17,7 +17,7 @@ export const canvasLayoutCfg = {
 				label: '项目人员',
 			},
 			{
-				key: 'finish',
+				key: 'canvas',
 				icon: <Icon icon={'mdi:canvas'} />,
 				label: '项目画布',
 			},
@@ -36,8 +36,8 @@ export const canvasLayoutCfg = {
 			element: <Person />,
 		},
 		{
-			path: 'finish',
-			element: <Finish />,
+			path: 'canvas',
+			element: <Canvas />,
 		},
 	],
 }

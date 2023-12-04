@@ -6,6 +6,15 @@ interface ProjectUidType {
 	message: string
 }
 
+interface CanvasInfoType {
+	canvas_id: string
+	canvas_name: string
+	canvas_status: string
+	canvas_description: string
+	create_time: Date
+	update_time: Date
+}
+
 export interface InfoType {
 	canvas_num: number
 	createBy: string
@@ -16,7 +25,10 @@ export interface InfoType {
 	project_id: string
 	project_name: string
 	project_status: string
-	refMap: Record<string, any>
+	refMap: {
+		canvas: Array<CanvasInfoType>
+		users: Array<Record<string, any>>
+	}
 	update_time: Date
 	user_num: number
 }
