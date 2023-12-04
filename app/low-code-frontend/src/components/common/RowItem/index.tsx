@@ -1,6 +1,7 @@
-import { Row, Col } from 'antd'
-import { Gutter } from 'antd/es/grid/row'
+import { Col, Row } from 'antd'
+
 import { FunctionComponent } from 'react'
+import { Gutter } from 'antd/es/grid/row'
 
 declare const RowAligns: readonly [
 	'top',
@@ -18,7 +19,8 @@ declare const RowJustify: readonly [
 ]
 
 interface RowItemProps {
-	gutter: number | number[]
+	// gutter: number | number[]
+	gutter: Gutter | [Gutter, Gutter]
 	count: number
 	list: any[]
 	children: React.ReactNode
@@ -36,6 +38,7 @@ const RowItem: FunctionComponent<
 		justify = 'start',
 		align = 'middle',
 	} = props
+
 	return (
 		<Row gutter={gutter} justify={justify} align={align}>
 			{list?.map((i, index) => {
