@@ -1,9 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { Layout, Menu, theme, Col, Row } from 'antd'
-import Box from '@/module/Index/components/Box'
+import { Col, Layout, Menu, Row, theme } from 'antd'
 import { Outlet, useNavigate } from 'react-router-dom'
+import React, {
+	createContext,
+	useEffect,
+	useState,
+} from 'react'
+
+import Box from '@/module/Index/components/Box'
+import { handlers } from '@/shared'
 
 const { Header, Sider, Content } = Layout
+export const CardContext = createContext([])
+
+// 创建一个提供器组件，用于包裹 Outlet
+const CardProvider = ({ children, value }) => {
+	return (
+		<CardContext.Provider value={value}>
+			{children}
+		</CardContext.Provider>
+	)
+}
 
 const App: React.FC<{
 	layoutCfg: Record<string, any>
@@ -11,6 +27,7 @@ const App: React.FC<{
 	const { menuCfg } = props.layoutCfg
 	const [selectedMenu, setSelectedMenu] = useState('')
 	const navigate = useNavigate()
+	const [cardList, setCardList] = useState<any[]>([])
 
 	const [collapsed, setCollapsed] = useState(false)
 	const {
@@ -24,6 +41,16 @@ const App: React.FC<{
 			navigate(`/home/${key}`)
 		}
 	}, [navigate])
+
+	useEffect(() => {
+		async function getData() {
+			const res = await handlers.getAllProjectByUid(
+				localStorage.getItem('uid') as string
+			)
+			setCardList(res.data.projects)
+		}
+		getData()
+	}, [])
 
 	return (
 		<Layout>
@@ -78,7 +105,9 @@ const App: React.FC<{
 						background: colorBgContainer,
 					}}
 				>
-					<Outlet />
+					<CardProvider value={cardList}>
+						<Outlet />
+					</CardProvider>
 				</Content>
 			</Layout>
 		</Layout>

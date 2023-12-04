@@ -13,8 +13,9 @@ export const loginHandler = async values => {
 		.then((res: LoginType) => {
 			if (res.code === 201) {
 				localStorage.setItem('token', res.data.token)
+				localStorage.setItem('uid', res.data.uid)
 				message.success('登陆成功')
-				return
+				return res
 			}
 			return Promise.reject('登陆失败')
 		})

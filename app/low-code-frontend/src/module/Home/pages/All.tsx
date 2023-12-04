@@ -1,10 +1,13 @@
-import { FunctionComponent } from 'react'
-import Card from '../components/Card'
-import RowItem from '@/components/common/RowItem'
+import { FunctionComponent, useContext } from 'react'
 import { Input, Typography } from 'antd'
-import { SearchProps } from 'antd/es/input'
-import Flex from '@/components/common/Flex'
+
 import Box from '@/module/Index/components/Box'
+import Card from '../components/Card'
+import { CardContext } from '@/layout/BaseHomeLayout'
+import Flex from '@/components/common/Flex'
+import RowItem from '@/components/common/RowItem'
+import { SearchProps } from 'antd/es/input'
+import { formatYMDHHmmss } from '@/shared'
 import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
@@ -12,38 +15,57 @@ const { Search } = Input
 interface AllProps {}
 const { Title, Text } = Typography
 
+interface CardProps {
+	project_name: string
+	createBy: string
+	create_time: Date
+	project_code: string
+	project_description: string
+	project_id: string
+	project_status: string
+	refMap: Record<string, any>
+	update_time: Date
+}
+
 const All: FunctionComponent<AllProps> = () => {
 	const navigate = useNavigate()
-	const card = (
-		<Card
-			hoverable
-			cover={
-				<img
-					alt="example"
-					src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-				/>
-			}
-			cardContent={
-				<>
-					<Title level={4}>Card Title</Title>
-					<Flex
-						className="text-14px font-semibold"
-						justify="end"
-					>
-						<Box
-							showIcon={false}
-							content={'2023-10-23'}
-							fontSize={12}
-						/>
-					</Flex>
-					<Text>text</Text>
-				</>
-			}
-			onClick={() => {
-				navigate('/canvasConfig')
-			}}
-		/>
-	)
+	const context = useContext(CardContext)
+	console.log('context', context)
+
+	const CardList = context.map((c: CardProps) => {
+		return (
+			<Card
+				hoverable
+				cover={
+					<img
+						alt="example"
+						src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+					/>
+				}
+				cardContent={
+					<>
+						<Title level={4}>{c.project_name}</Title>
+						<Flex
+							className="text-14px font-semibold"
+							justify="end"
+						>
+							<Box
+								showIcon={false}
+								content={`更新时间:${formatYMDHHmmss(
+									new Date(c.update_time)
+								)}`}
+								fontSize={12}
+							/>
+						</Flex>
+						<Text>{c.project_description}</Text>
+					</>
+				}
+				onClick={() => {
+					navigate('/canvasConfig')
+				}}
+			/>
+		)
+	})
 
 	const onSearch: SearchProps['onSearch'] = (
 		value,
@@ -62,7 +84,7 @@ const All: FunctionComponent<AllProps> = () => {
 			</Flex>
 			<RowItem
 				gutter={[24, 16]}
-				list={new Array(14).fill(card)}
+				list={CardList}
 				justify="center"
 			></RowItem>
 		</>
