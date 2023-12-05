@@ -1,14 +1,15 @@
-import { Button, Input, Space, Typography } from 'antd'
 import { FunctionComponent, useContext } from 'react'
+import { Input, Space, Typography } from 'antd'
+import { formatYMDHHmmss, handlers } from '@/shared'
 
 import Box from '@/module/Index/components/Box'
 import Card from '../components/Card'
 import { CardContext } from '@/layout/BaseHomeLayout'
 import Flex from '@/components/common/Flex'
+import ModalButton from '@/components/common/ModalButton'
 import RowItem from '@/components/common/RowItem'
 import { SearchProps } from 'antd/es/input'
 import StatusTag from '@/components/common/StatusTag'
-import { formatYMDHHmmss } from '@/shared'
 import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
@@ -16,7 +17,7 @@ const { Search } = Input
 interface AllProps {}
 const { Title, Text } = Typography
 
-interface CardProps {
+export interface CardProps {
 	project_name: string
 	createBy: string
 	create_time: Date
@@ -30,10 +31,10 @@ interface CardProps {
 
 const All: FunctionComponent<AllProps> = () => {
 	const navigate = useNavigate()
-	const context = useContext(CardContext)
-	console.log('context', context)
+	const { cardList, getData } = useContext(CardContext)
+	console.log('context', cardList)
 
-	const CardList = context.map((c: CardProps) => {
+	const CardList = cardList.map((c: CardProps) => {
 		return (
 			<Card
 				hoverable
@@ -93,7 +94,53 @@ const All: FunctionComponent<AllProps> = () => {
 						onSearch={onSearch}
 						enterButton
 					/>
-					<Button type="primary">新建项目</Button>
+					<ModalButton
+						title="新建项目"
+						form
+						formItem={[
+							{
+								type: 'input',
+								props: {
+									label: '项目名称',
+									name: 'project_name',
+									rules: [
+										{
+											required: true,
+											message: '请输入项目名称',
+										},
+									],
+								},
+							},
+							{
+								type: 'input',
+								props: {
+									label: '项目描述',
+									name: 'project_description',
+									rules: [
+										{
+											required: true,
+											message: '请输入项目描述',
+										},
+									],
+								},
+							},
+						]}
+						onOk={async e => {
+							const values = {
+								...e,
+								createBy: localStorage.getItem('uid'),
+							}
+							await handlers.createProject(values)
+							await getData()
+							// console.log('res', res)
+						}}
+						onCancel={e => {
+							console.log('cancel', e)
+						}}
+						footer={null}
+					>
+						新建项目
+					</ModalButton>
 				</Space>
 			</Flex>
 			<RowItem

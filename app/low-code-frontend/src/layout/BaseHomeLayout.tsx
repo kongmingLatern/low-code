@@ -14,10 +14,19 @@ import React, {
 } from 'react'
 
 import Box from '@/module/Index/components/Box'
+import { CardProps } from '@/module/Home/pages/All'
 import { handlers } from '@/shared'
 
 const { Header, Sider, Content } = Layout
-export const CardContext = createContext([])
+
+interface CardContextProps {
+	cardList: CardProps[]
+	getData: () => void
+}
+
+export const CardContext = createContext(
+	{} as CardContextProps
+)
 
 // 创建一个提供器组件，用于包裹 Outlet
 const CardProvider = ({ children, value }) => {
@@ -50,13 +59,14 @@ const App: React.FC<{
 		}
 	}, [navigate])
 
+	async function getData() {
+		const res = await handlers.getAllProjectByUid(
+			localStorage.getItem('uid') as string
+		)
+		setCardList(res.data.projects)
+	}
+
 	useEffect(() => {
-		async function getData() {
-			const res = await handlers.getAllProjectByUid(
-				localStorage.getItem('uid') as string
-			)
-			setCardList(res.data.projects)
-		}
 		getData()
 	}, [])
 
@@ -123,7 +133,7 @@ const App: React.FC<{
 						background: colorBgContainer,
 					}}
 				>
-					<CardProvider value={cardList}>
+					<CardProvider value={{ cardList, getData }}>
 						<Outlet />
 					</CardProvider>
 				</Content>
