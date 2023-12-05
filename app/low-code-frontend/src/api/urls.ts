@@ -1,6 +1,7 @@
 const modules = {
 	auth: '/auth',
 	project: '/project',
+	canvas: '/canvas',
 }
 export const urls = {
 	auth: {
@@ -11,5 +12,8 @@ export const urls = {
 		getAllProjectByUid: `${modules.project}/getAllProject`,
 		getProjectById: `${modules.project}/getProject`,
 		createProject: `${modules.project}/create`,
+	},
+	canvas: {
+		createCanvas: `${modules.canvas}/create`,
 	},
 }

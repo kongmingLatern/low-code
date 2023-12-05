@@ -9,7 +9,7 @@ import { InfoContext } from '@/layout/CanvasHomeLayout'
 import ModalButton from '@/components/common/ModalButton'
 
 export default function Person() {
-	const info = useContext(InfoContext).refMap
+	const info = useContext(InfoContext).info.refMap
 	const [list, setList] = useState(info)
 
 	useEffect(() => {

@@ -94,7 +94,9 @@ const App: React.FC = () => {
 			className="p-1.5rem"
 			title="项目信息"
 			bordered
-			items={items(useContext(InfoContext) as InfoType)}
+			items={items(
+				useContext(InfoContext).info as InfoType
+			)}
 		/>
 	)
 }

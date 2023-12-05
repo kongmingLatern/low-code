@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import React, {
 	createContext,
+	useCallback,
 	useEffect,
 	useState,
 } from 'react'
@@ -19,7 +20,12 @@ interface LayoutProps {
 	layoutCfg: Record<string, any>
 }
 
-export const InfoContext = createContext({} as InfoType)
+export const InfoContext = createContext(
+	{} as {
+		info: InfoType
+		getData: () => Promise<void>
+	}
+)
 
 const App: React.FC<LayoutProps> = props => {
 	const { layoutCfg } = props
@@ -31,6 +37,13 @@ const App: React.FC<LayoutProps> = props => {
 		token: { colorBgContainer },
 	} = theme.useToken()
 	const navigate = useNavigate()
+
+	const getData = useCallback(async () => {
+		const res = await handlers.getProjectById(
+			searchParams.get('project_id')
+		)
+		setInfo(res.data)
+	}, [searchParams])
 
 	useEffect(() => {
 		const key = localStorage.getItem('canvas_menu_key')
@@ -46,14 +59,8 @@ const App: React.FC<LayoutProps> = props => {
 	}, [navigate, searchParams])
 
 	useEffect(() => {
-		async function getInfo() {
-			const res = await handlers.getProjectById(
-				searchParams.get('project_id')
-			)
-			setInfo(res.data)
-		}
-		getInfo()
-	}, [searchParams])
+		getData()
+	}, [getData])
 
 	return (
 		<Layout className="layout">
@@ -106,7 +113,7 @@ const App: React.FC<LayoutProps> = props => {
 						background: colorBgContainer,
 					}}
 				>
-					<InfoContext.Provider value={info}>
+					<InfoContext.Provider value={{ info, getData }}>
 						<Outlet />
 					</InfoContext.Provider>
 				</div>

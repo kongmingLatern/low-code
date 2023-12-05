@@ -1,6 +1,10 @@
-import { Button, Input, Space, Tag } from 'antd'
-import { InfoType, formatYMD } from '@/shared'
+import { Button, Input, Space } from 'antd'
+import { InfoType, formatYMD, handlers } from '@/shared'
 import { useContext, useEffect, useState } from 'react'
+import {
+	useNavigate,
+	useSearchParams,
+} from 'react-router-dom'
 
 import { ColumnsType } from 'antd/es/table'
 import DataTable from '@/components/common/DataTable'
@@ -9,15 +13,16 @@ import Flex from '@/components/common/Flex'
 import { InfoContext } from '@/layout/CanvasHomeLayout'
 import ModalButton from '@/components/common/ModalButton'
 import { SearchProps } from 'antd/es/input'
-import { useNavigate } from 'react-router-dom'
+import StatusTag from '@/components/common/StatusTag'
 
 export default function Canvas() {
 	const navigate = useNavigate()
-	const info = useContext(InfoContext).refMap
-	const [list, setList] = useState(info)
+	const { info, getData } = useContext(InfoContext)
+	const [list, setList] = useState(info.refMap)
+	const [searchParams] = useSearchParams()
 
 	useEffect(() => {
-		setList(info)
+		setList(info.refMap)
 	}, [info])
 
 	const { Search } = Input
@@ -44,6 +49,12 @@ export default function Canvas() {
 			align: 'center',
 		},
 		{
+			title: '画布描述',
+			dataIndex: 'canvas_description',
+			key: 'canvas_description',
+			align: 'center',
+		},
+		{
 			title: '创建时间',
 			dataIndex: 'create_time',
 			key: 'create_time',
@@ -56,19 +67,11 @@ export default function Canvas() {
 			key: 'project_status',
 			dataIndex: 'project_status',
 			align: 'center',
-			render: (_, { canvas_status }) => {
-				const color =
-					canvas_status === '已完成'
-						? '#87d068'
-						: canvas_status === '进行中'
-						? '#108ee9'
-						: 'purple'
-				return (
-					canvas_status && (
-						<Tag color={color}>{canvas_status}</Tag>
-					)
-				)
-			},
+			render: (_, { canvas_status }) => (
+				<StatusTag status={canvas_status}>
+					{canvas_status}
+				</StatusTag>
+			),
 		},
 		{
 			title: '操作',
@@ -172,8 +175,13 @@ export default function Canvas() {
 								},
 							},
 						]}
-						onOk={e => {
-							console.log('ok', e)
+						onOk={async e => {
+							const values = {
+								...e,
+								project_id: searchParams.get('project_id'),
+							}
+							await handlers.createCanvas(values)
+							await getData()
 						}}
 						onCancel={e => {
 							console.log('cancel', e)

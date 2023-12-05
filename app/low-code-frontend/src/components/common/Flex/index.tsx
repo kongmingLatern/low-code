@@ -5,9 +5,9 @@ interface FlexProps {
 		| 'start'
 		| 'end'
 		| 'center'
-		| 'between'
-		| 'around'
-		| 'evenly'
+		| 'space-between'
+		| 'space-around'
+		| 'space-evenly'
 	align?:
 		| 'start'
 		| 'end'
@@ -16,6 +16,7 @@ interface FlexProps {
 		| 'stretch'
 	wrap?: boolean
 	className?: string
+	marginBottom?: string
 	children?: any
 }
 
@@ -24,6 +25,7 @@ const Flex: FunctionComponent<FlexProps> = props => {
 		justify = 'end',
 		align = 'center',
 		wrap = true,
+		marginBottom = '1rem',
 		children,
 		...rest
 	} = props
@@ -34,7 +36,7 @@ const Flex: FunctionComponent<FlexProps> = props => {
 				justifyContent: justify,
 				alignItems: align,
 				flexWrap: wrap ? 'wrap' : 'nowrap',
-				marginBottom: '1rem',
+				marginBottom,
 			}}
 			{...rest}
 		>
