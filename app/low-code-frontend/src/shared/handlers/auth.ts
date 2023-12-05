@@ -14,6 +14,7 @@ export const loginHandler = async values => {
 			if (res.code === 201) {
 				localStorage.setItem('token', res.data.token)
 				localStorage.setItem('uid', res.data.uid)
+				localStorage.setItem('nickname', res.data.nickname)
 				message.success('登陆成功')
 				return res
 			}
