@@ -1,12 +1,14 @@
-import { Button, Space, Tag } from 'antd'
+import { Button, Input, Space, Tag } from 'antd'
 import { InfoType, formatYMD } from '@/shared'
 import { useContext, useEffect, useState } from 'react'
 
 import { ColumnsType } from 'antd/es/table'
 import DataTable from '@/components/common/DataTable'
 import DeleteButton from '@/components/common/DeleteButton'
+import Flex from '@/components/common/Flex'
 import { InfoContext } from '@/layout/CanvasHomeLayout'
 import ModalButton from '@/components/common/ModalButton'
+import { SearchProps } from 'antd/es/input'
 import { useNavigate } from 'react-router-dom'
 
 export default function Canvas() {
@@ -17,6 +19,14 @@ export default function Canvas() {
 	useEffect(() => {
 		setList(info)
 	}, [info])
+
+	const { Search } = Input
+
+	const onSearch: SearchProps['onSearch'] = (
+		value,
+		_e,
+		info
+	) => console.log(info?.source, value)
 
 	const columns: ColumnsType<
 		InfoType['refMap']['canvas'][number]
@@ -126,12 +136,61 @@ export default function Canvas() {
 	]
 
 	return (
-		list?.canvas && (
-			<DataTable
-				primaryKey="canvas_id"
-				columns={columns}
-				dataSource={list.canvas}
-			/>
-		)
+		<>
+			<Flex
+				justify="space-between"
+				marginBottom="0"
+				className="p-1rem"
+			>
+				<div className="font-semibold text-20px">
+					工具栏
+				</div>
+
+				<Space>
+					<Search
+						className="w-250px"
+						placeholder="请输入要查询的画布名称"
+						onSearch={onSearch}
+						enterButton
+					/>
+					<ModalButton
+						title="画布创建"
+						form
+						formItem={[
+							{
+								type: 'input',
+								props: {
+									label: '画布名称',
+									name: 'canvas_name',
+								},
+							},
+							{
+								type: 'input',
+								props: {
+									label: '画布描述',
+									name: 'canvas_description',
+								},
+							},
+						]}
+						onOk={e => {
+							console.log('ok', e)
+						}}
+						onCancel={e => {
+							console.log('cancel', e)
+						}}
+						footer={null}
+					>
+						创建画布
+					</ModalButton>
+				</Space>
+			</Flex>
+			{list?.canvas && (
+				<DataTable
+					primaryKey="canvas_id"
+					columns={columns}
+					dataSource={list.canvas}
+				/>
+			)}
+		</>
 	)
 }
