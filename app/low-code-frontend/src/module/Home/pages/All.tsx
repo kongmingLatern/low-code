@@ -1,5 +1,5 @@
+import { Button, Input, Space, Typography } from 'antd'
 import { FunctionComponent, useContext } from 'react'
-import { Input, Typography } from 'antd'
 
 import Box from '@/module/Index/components/Box'
 import Card from '../components/Card'
@@ -7,6 +7,7 @@ import { CardContext } from '@/layout/BaseHomeLayout'
 import Flex from '@/components/common/Flex'
 import RowItem from '@/components/common/RowItem'
 import { SearchProps } from 'antd/es/input'
+import StatusTag from '@/components/common/StatusTag'
 import { formatYMDHHmmss } from '@/shared'
 import { useNavigate } from 'react-router-dom'
 
@@ -44,7 +45,15 @@ const All: FunctionComponent<AllProps> = () => {
 				}
 				cardContent={
 					<>
-						<Title level={4}>{c.project_name}</Title>
+						<Title
+							level={4}
+							className="items-center flex justify-between"
+						>
+							{c.project_name}
+							<StatusTag status={c.project_status}>
+								{c.project_status}
+							</StatusTag>
+						</Title>
 						<Flex
 							className="text-14px font-semibold"
 							justify="end"
@@ -77,12 +86,15 @@ const All: FunctionComponent<AllProps> = () => {
 	return (
 		<>
 			<Flex justify="end">
-				<Search
-					className="w-250px"
-					placeholder="请输入要查询的项目名称"
-					onSearch={onSearch}
-					enterButton
-				/>
+				<Space>
+					<Search
+						className="w-250px"
+						placeholder="请输入要查询的项目名称"
+						onSearch={onSearch}
+						enterButton
+					/>
+					<Button type="primary">新建项目</Button>
+				</Space>
 			</Flex>
 			<RowItem
 				gutter={[24, 16]}
