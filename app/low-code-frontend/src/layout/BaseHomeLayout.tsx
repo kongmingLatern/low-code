@@ -1,4 +1,11 @@
-import { Col, Layout, Menu, Row, theme } from 'antd'
+import {
+	Col,
+	Layout,
+	Menu,
+	Row,
+	message,
+	theme,
+} from 'antd'
 import { Outlet, useNavigate } from 'react-router-dom'
 import React, {
 	createContext,
@@ -25,14 +32,15 @@ const App: React.FC<{
 	layoutCfg: Record<string, any>
 }> = props => {
 	const { menuCfg } = props.layoutCfg
-	const [selectedMenu, setSelectedMenu] = useState('')
-	const navigate = useNavigate()
-	const [cardList, setCardList] = useState<any[]>([])
-
-	const [collapsed, setCollapsed] = useState(false)
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
+
+	const [selectedMenu, setSelectedMenu] = useState('')
+	const [cardList, setCardList] = useState<any[]>([])
+	const [collapsed, setCollapsed] = useState(false)
+
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		const key = localStorage.getItem('menu_key')
@@ -51,6 +59,16 @@ const App: React.FC<{
 		}
 		getData()
 	}, [])
+
+	function getContent() {
+		const nickname = localStorage.getItem('nickname')
+		if (!nickname) {
+			message.error('您没有登陆态,请登陆')
+			navigate('/login')
+			return
+		}
+		return nickname
+	}
 
 	return (
 		<Layout>
@@ -92,7 +110,7 @@ const App: React.FC<{
 									width: '30',
 									height: '30',
 								}}
-								content="用户名A"
+								content={getContent()}
 							/>
 						</Col>
 					</Row>

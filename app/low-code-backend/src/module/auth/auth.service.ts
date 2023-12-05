@@ -46,6 +46,7 @@ export class AuthService {
       return {
         token,
         uid: foundUser.uid,
+        nickname: foundUser.nickname,
         message: '登陆成功',
       };
     }
