@@ -30,6 +30,7 @@ export class ProjectService {
     const { createBy } = createProjectDto;
     const project: CreateProjectDto = {
       ...createProjectDto,
+      project_status: '未开始',
       project_id: v4(),
       project_code: String(Math.floor(Math.random() * 100000 + 1000)),
     };
