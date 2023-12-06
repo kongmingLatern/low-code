@@ -19,3 +19,4 @@ export const handlers = {
 export * from './auth'
 export * from './project'
 export * from './canvas'
+export * from './types'
