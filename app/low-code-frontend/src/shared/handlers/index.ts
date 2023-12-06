@@ -10,6 +10,7 @@ export const handlers = {
 	getAllProjectByUid: projectHandler['uid'],
 	getProjectById: projectHandler['project_id'],
 	createProject: projectHandler['create'],
+	joinProject: projectHandler['join'],
 
 	createCanvas: canvasHandler['create'],
 }
