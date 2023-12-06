@@ -1,5 +1,5 @@
+import { Flex, Space, Tag } from 'antd'
 import { InfoType, formatYMD, handlers } from '@/shared'
-import { Space, Tag } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 
 import { ColumnsType } from 'antd/es/table'
@@ -136,12 +136,49 @@ export default function Person() {
 	]
 
 	return (
-		list?.users && (
-			<DataTable
-				primaryKey="uid"
-				columns={columns}
-				dataSource={list.users}
-			/>
-		)
+		<>
+			<Flex justify="end" className="p-1rem">
+				<ModalButton
+					title={'邀请人员'}
+					form
+					formItem={[
+						{
+							type: 'input',
+							props: {
+								label: '用户ID',
+								name: 'uid',
+								rules: [
+									{
+										required: true,
+										message: '请输入用户ID',
+									},
+								],
+							},
+						},
+					]}
+					onOk={async e => {
+						// TODO: 邀请人员 => 这里先直接拉进,还未考虑是否同意
+						const values = {
+							...e,
+							project_id: searchParams.get('project_id'),
+						}
+						await handlers.joinProject(values)
+						setTimeout(async () => {
+							await getData()
+						}, 1000)
+					}}
+					footer={null}
+				>
+					邀请人员
+				</ModalButton>
+			</Flex>
+			{list?.users && (
+				<DataTable
+					primaryKey="uid"
+					columns={columns}
+					dataSource={list.users}
+				/>
+			)}
+		</>
 	)
 }

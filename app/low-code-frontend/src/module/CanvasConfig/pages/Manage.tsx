@@ -4,18 +4,11 @@ import {
 	Divider,
 	Typography,
 } from 'antd'
-import {
-	InfoType,
-	formatYMDHHmmss,
-	handlers,
-} from '@/shared'
+import { InfoType, formatYMDHHmmss } from '@/shared'
 import React, { useContext } from 'react'
 
 import type { DescriptionsProps } from 'antd'
-import Flex from '@/components/common/Flex'
 import { InfoContext } from '@/layout/CanvasHomeLayout'
-import ModalButton from '@/components/common/ModalButton'
-import { useSearchParams } from 'react-router-dom'
 
 const { Paragraph } = Typography
 
@@ -101,46 +94,8 @@ const items: (
 }
 
 const App: React.FC = () => {
-	const [searchParams] = useSearchParams()
-	const { getData } = useContext(InfoContext)
 	return (
 		<>
-			<Flex justify="start" className="p-1rem pb-0">
-				<ModalButton
-					title={'邀请人员'}
-					form
-					formItem={[
-						{
-							type: 'input',
-							props: {
-								label: '用户ID',
-								name: 'uid',
-								rules: [
-									{
-										required: true,
-										message: '请输入用户ID',
-									},
-								],
-							},
-						},
-					]}
-					onOk={async e => {
-						// TODO: 邀请人员 => 这里先直接拉进,还未考虑是否同意
-						const values = {
-							...e,
-							project_id: searchParams.get('project_id'),
-						}
-						await handlers.joinProject(values)
-						setTimeout(async () => {
-							await getData()
-						}, 1000)
-					}}
-					footer={null}
-				>
-					邀请人员
-				</ModalButton>
-			</Flex>
-			<Divider />
 			<Descriptions
 				className="p-1.5rem"
 				title="项目信息"
