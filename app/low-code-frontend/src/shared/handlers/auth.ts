@@ -1,16 +1,15 @@
-import { handlePostRequest, post, urls } from '@/api'
+import {
+	ReturnType,
+	handlePostRequest,
+	post,
+	urls,
+} from '@/api'
 
 import { message } from 'antd'
 
-interface LoginType {
-	code: number
-	data: Record<string, any>
-	message: string
-}
-
 export const loginHandler = async values => {
-	return await post<LoginType>(urls.auth.login, values)
-		.then((res: LoginType) => {
+	return await post<ReturnType>(urls.auth.login, values)
+		.then((res: ReturnType) => {
 			if (res.code === 201) {
 				localStorage.setItem('token', res.data.token)
 				localStorage.setItem('uid', res.data.uid)

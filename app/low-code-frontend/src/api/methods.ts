@@ -50,3 +50,20 @@ export const deleteAPI = async <T>(
 		params,
 	})
 }
+
+export const handleDeleteRequest = async (
+	url: string,
+	values: any,
+	successMessage: string = '删除成功'
+) => {
+	try {
+		const res = await deleteAPI<ReturnType>(url, values)
+		if (res.code === 200) {
+			message.success(successMessage)
+		}
+		return res
+	} catch (e: any) {
+		message.error(e.response?.data?.data)
+		return Promise.reject(e.response?.data?.data)
+	}
+}
