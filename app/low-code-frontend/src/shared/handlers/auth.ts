@@ -1,4 +1,4 @@
-import { post, urls } from '@/api'
+import { handlePostRequest, post, urls } from '@/api'
 
 import { message } from 'antd'
 
@@ -27,17 +27,9 @@ export const loginHandler = async values => {
 }
 
 export const registerHandle = async values => {
-	return await post<LoginType>(urls.auth.register, values)
-		.then(res => {
-			console.log('res', res)
-			if (res.code === 201) {
-				message.success('注册成功')
-				return
-			}
-			return Promise.reject('注册失败')
-		})
-		.catch(e => {
-			message.error(e.response.data.data)
-			return Promise.reject(e.response.data.data)
-		})
+	return await handlePostRequest(
+		urls.auth.register,
+		values,
+		'注册成功'
+	)
 }

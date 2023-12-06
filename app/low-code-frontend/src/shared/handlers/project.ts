@@ -1,7 +1,4 @@
-import { get, post, urls } from '@/api'
-
-import { ReturnType } from './types/returnType'
-import { message } from 'antd'
+import { get, handlePostRequest, urls } from '@/api'
 
 interface ProjectUidType {
 	code: number
@@ -76,28 +73,25 @@ const projectIdHandler = async project_id => {
 	)
 }
 
-const createProject = async (
-	values: CreateProjectDto
-): Promise<ReturnType> => {
-	return await post<ReturnType>(
+const createProject = async (values: CreateProjectDto) => {
+	return await handlePostRequest(
 		urls.project.createProject,
-		values
+		values,
+		'创建成功'
 	)
-		.then((res: ReturnType) => {
-			if (res.code === 201) {
-				message.success('创建成功')
-				return res
-			}
-			return res
-		})
-		.catch(e => {
-			message.error(e.response.data.data)
-			return Promise.reject(e.response.data.data)
-		})
+}
+
+const joinProject = async values => {
+	return await handlePostRequest(
+		urls.project.joinProject,
+		values,
+		'邀请成功'
+	)
 }
 
 export const projectHandler = {
 	uid: projectUidHandler,
 	project_id: projectIdHandler,
 	create: createProject,
+	join: joinProject,
 }

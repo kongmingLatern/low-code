@@ -12,6 +12,7 @@ export const urls = {
 		getAllProjectByUid: `${modules.project}/getAllProject`,
 		getProjectById: `${modules.project}/getProject`,
 		createProject: `${modules.project}/create`,
+		joinProject: `${modules.project}/join`,
 	},
 	canvas: {
 		createCanvas: `${modules.canvas}/create`,

@@ -1,7 +1,4 @@
-import { post, urls } from '@/api'
-
-import { ReturnType } from './types/returnType'
-import { message } from 'antd'
+import { handlePostRequest, urls } from '@/api'
 
 export const enum Status {
 	FINISH = '已完成',
@@ -19,26 +16,16 @@ interface CreateCanvasType {
 	update_time: Date
 }
 
-export const createCanvasHander = async (
+export const createCanvasHandler = async (
 	values: CreateCanvasType
 ) => {
-	return await post<ReturnType>(
+	return await handlePostRequest(
 		urls.canvas.createCanvas,
-		values
+		values,
+		'创建成功'
 	)
-		.then((res: ReturnType) => {
-			if (res.code === 201) {
-				message.success('创建成功')
-				return res
-			}
-			return res
-		})
-		.catch(e => {
-			message.error(e.response.data.data)
-			return Promise.reject(e.response.data.data)
-		})
 }
 
 export const canvasHandler = {
-	create: createCanvasHander,
+	create: createCanvasHandler,
 }
