@@ -8,6 +8,7 @@ import { Project } from './entities/project.entity';
 import { ROLE } from 'src/utils/const';
 import { RoleService } from '../role/role.service';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UserCanvasProjectService } from 'src/joinTable/user_canvas_project/user_canvas_project.service';
 import { UserProjectRole } from 'src/joinTable/user_project_role/entities/user_project_role.entity';
 import { UserProjectRoleService } from 'src/joinTable/user_project_role/user_project_role.service';
 import { UserService } from '../user/user.service';
@@ -25,6 +26,8 @@ export class ProjectService {
   private userProjectRoleService: UserProjectRoleService;
   @Inject(forwardRef(() => CanvasService))
   private canvasService: CanvasService;
+  @Inject()
+  private userCanvasProjectService: UserCanvasProjectService;
 
   async create(createProjectDto: CreateProjectDto) {
     const { createBy } = createProjectDto;
@@ -227,5 +230,9 @@ export class ProjectService {
       throw new HttpException('删除失败', e);
     }
     return '删除成功';
+  }
+
+  async deleteUser(uid: string, project_id: string) {
+    return await this.userCanvasProjectService.deleteUserByUid(uid, project_id);
   }
 }

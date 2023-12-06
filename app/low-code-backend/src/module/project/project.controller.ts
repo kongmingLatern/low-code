@@ -62,4 +62,12 @@ export class ProjectController {
   remove(@Param('project_id') project_id: string) {
     return this.projectService.remove(project_id);
   }
+
+  @Delete('/deleteUser/:uid')
+  deleteUser(
+    @Param('uid') uid: string,
+    @Query('project_id') project_id: string,
+  ) {
+    return this.projectService.deleteUser(uid, project_id);
+  }
 }

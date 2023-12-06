@@ -1,4 +1,12 @@
-import { get, handlePostRequest, urls } from '@/api'
+import {
+	ReturnType,
+	deleteAPI,
+	get,
+	handlePostRequest,
+	urls,
+} from '@/api'
+
+import { message } from 'antd'
 
 interface ProjectUidType {
 	code: number
@@ -89,9 +97,29 @@ const joinProject = async values => {
 	)
 }
 
+const deleteUserByUid = async values => {
+	return await deleteAPI<ReturnType>(
+		urls.project.deleteUser + `/${values.uid}`,
+		{
+			project_id: values.project_id,
+		}
+	)
+		.then(res => {
+			if (res.code === 200) {
+				message.success('删除成功')
+			}
+			return '删除成功'
+		})
+		.catch(e => {
+			message.error(e.response?.data?.data)
+			return Promise.reject(e.response?.data?.data)
+		})
+}
+
 export const projectHandler = {
 	uid: projectUidHandler,
 	project_id: projectIdHandler,
 	create: createProject,
 	join: joinProject,
+	deleteUser: deleteUserByUid,
 }

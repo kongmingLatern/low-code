@@ -78,4 +78,14 @@ export class UserCanvasProjectService {
       });
     }
   }
+
+  async deleteUserByUid(uid: string, project_id: string) {
+    return await Promise.all([
+      await this.userCanvasProjectRepository.delete(UserCanvasProject, {
+        uid,
+        project_id,
+      }),
+      await this.userProjectRoleService.deleteById({ uid, project_id }),
+    ]);
+  }
 }

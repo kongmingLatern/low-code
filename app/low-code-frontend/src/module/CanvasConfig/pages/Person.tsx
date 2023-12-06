@@ -1,4 +1,4 @@
-import { InfoType, formatYMD } from '@/shared'
+import { InfoType, formatYMD, handlers } from '@/shared'
 import { Space, Tag } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 
@@ -7,10 +7,14 @@ import DataTable from '@/components/common/DataTable'
 import DeleteButton from '@/components/common/DeleteButton'
 import { InfoContext } from '@/layout/CanvasHomeLayout'
 import ModalButton from '@/components/common/ModalButton'
+import { useSearchParams } from 'react-router-dom'
 
 export default function Person() {
-	const info = useContext(InfoContext).info.refMap
+	const context = useContext(InfoContext)
+	const info = context.info.refMap
+	const { getData } = context
 	const [list, setList] = useState(info)
+	const [searchParams] = useSearchParams()
 
 	useEffect(() => {
 		setList(info)
@@ -109,10 +113,19 @@ export default function Person() {
 						修改信息
 					</ModalButton>
 					{/* NOTE: 排除 项目管理员 删除自己,以及把删除权限控制给管理员 */}
-					{role_id === 1 &&
-						uid !== localStorage.getItem('uid') && (
-							<DeleteButton />
-						)}
+					{role_id === 1 ||
+						(uid !== localStorage.getItem('uid') && (
+							<DeleteButton
+								onConfirm={async () => {
+									await handlers.deleteUserByUid({
+										uid,
+										project_id:
+											searchParams.get('project_id'),
+									})
+									await getData()
+								}}
+							/>
+						))}
 				</Space>
 			),
 		},

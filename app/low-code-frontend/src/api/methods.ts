@@ -39,3 +39,14 @@ export const handlePostRequest = async (
 		return Promise.reject(e.response?.data?.data)
 	}
 }
+
+export const deleteAPI = async <T>(
+	url,
+	params
+): Promise<T> => {
+	console.log(url, params)
+
+	return await http.delete(url, {
+		params,
+	})
+}

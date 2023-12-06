@@ -13,6 +13,7 @@ export const urls = {
 		getProjectById: `${modules.project}/getProject`,
 		createProject: `${modules.project}/create`,
 		joinProject: `${modules.project}/join`,
+		deleteUser: `${modules.project}/deleteUser`,
 	},
 	canvas: {
 		createCanvas: `${modules.canvas}/create`,
