@@ -26,12 +26,14 @@ export async function post<T>(
 export const handlePostRequest = async (
 	apiEndpoint: string,
 	values: any,
-	successMessage: string
+	successMessage: string,
+	callback: (res: any) => void = () => {}
 ): Promise<ReturnType> => {
 	try {
 		const res = await post<ReturnType>(apiEndpoint, values)
 		if (res.code === 201) {
 			message.success(successMessage)
+			callback(res)
 		}
 		return res
 	} catch (e: any) {

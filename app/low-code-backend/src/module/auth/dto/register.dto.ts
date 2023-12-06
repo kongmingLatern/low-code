@@ -9,4 +9,7 @@ export class RegisterDto {
   @IsNotEmpty()
   @Length(6, 30, { message: '请输入6-30位密码' })
   password: string;
+
+  @IsString()
+  nickname: string;
 }

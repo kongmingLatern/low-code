@@ -62,7 +62,7 @@ export class AuthService {
       );
     }
     const newUser = new User();
-    newUser.username = username;
+    Object.assign(newUser, user);
     newUser.password = md5(password);
     try {
       await this.userRepository.save(newUser);

@@ -40,15 +40,8 @@ const App: React.FC = () => {
 	const navigate = useNavigate()
 
 	const onFinish = async (values: any) => {
-		const { username, password, email, gender } = values
-		const res = {
-			username,
-			password,
-			email,
-			gender,
-		}
 		await handlers
-			.register(res)
+			.register(values)
 			.then(() => navigate('/login'))
 	}
 
@@ -79,7 +72,20 @@ const App: React.FC = () => {
 			<Form.Item
 				name="username"
 				label={<span className="color-white">用户名</span>}
-				// tooltip="如何称呼你"
+				rules={[
+					{
+						required: true,
+						message: '请输入你的用户名',
+						whitespace: true,
+					},
+				]}
+			>
+				<Input />
+			</Form.Item>
+
+			<Form.Item
+				name="nickname"
+				label={<span className="color-white">昵称</span>}
 				rules={[
 					{
 						required: true,
@@ -90,7 +96,6 @@ const App: React.FC = () => {
 			>
 				<Input />
 			</Form.Item>
-
 			<Form.Item
 				name="email"
 				label={<span className="color-white">邮箱</span>}
