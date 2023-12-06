@@ -75,32 +75,32 @@ export default function Person() {
 			render: (_, { role_id, uid }) => (
 				<Space size="middle">
 					<ModalButton
-						title="修改"
+						title="分配画布"
 						form
 						formItem={[
 							{
-								type: 'input',
+								type: 'select',
 								props: {
-									label: '用户名',
-									name: 'username',
+									label: '选择画布',
+									name: 'canvas_id',
 									rules: [
 										{
 											required: true,
-											message:
-												'Please input your username!',
+											message: '请选择画布',
 										},
 									],
 								},
-							},
-							{
-								type: 'input',
-								props: {
-									label: '密码',
-									name: 'password',
-									rules: [
+								inject: {
+									mode: 'multiple',
+									// TODO: 这里要去根据project_id获取所有画布
+									options: [
 										{
-											required: true,
-											message: '请输入密码',
+											value: 'canvas_id1',
+											label: 'canvas_name1',
+										},
+										{
+											value: 'canvas_id2',
+											label: 'canvas_name2',
 										},
 									],
 								},
@@ -114,7 +114,7 @@ export default function Person() {
 						}}
 						footer={null}
 					>
-						修改信息
+						分配画布
 					</ModalButton>
 					{/* NOTE: 排除 项目管理员 删除自己,以及把删除权限控制给管理员 */}
 					{role_id === 1 ||

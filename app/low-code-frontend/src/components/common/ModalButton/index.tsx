@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
 import {
 	Button,
 	Form,
 	Input,
 	Modal,
 	ModalProps,
+	Select,
 } from 'antd'
+import React, { useState } from 'react'
+
 import { BaseButtonProps } from 'antd/es/button/button'
 
 interface ModalButtonType {
@@ -52,12 +54,17 @@ const App: React.FC<
 		setIsModalOpen(false)
 	}
 
-	const handleTypeInput = (type = 'input') => {
+	const handleTypeInput = (
+		type = 'input',
+		options = {}
+	) => {
 		switch (type) {
 			case 'input':
-				return <Input />
+				return <Input {...options} />
+			case 'select':
+				return <Select {...options} />
 			default:
-				return <Input />
+				return <Input {...options} />
 		}
 	}
 
@@ -83,7 +90,7 @@ const App: React.FC<
 					>
 						{formItem.map((i, index) => (
 							<Form.Item {...i.props} key={index}>
-								{handleTypeInput(i.type)}
+								{handleTypeInput(i.type, i?.inject)}
 							</Form.Item>
 						))}
 
