@@ -158,6 +158,7 @@ export class ProjectService {
     const userList = (await this.userProjectRoleService.findByOptions({
       project_id: params.project_id,
     })) as UserProjectRole[];
+    console.log('userList', userList);
 
     const user = await Promise.all(
       userList.map(async (i) => {
@@ -170,11 +171,14 @@ export class ProjectService {
         const r2 = await this.roleService.find(i.role_id);
 
         const r3 = await this.canvasService.getCanvasByUid(
-          params.uid,
+          i.uid,
           params.project_id,
         );
+        console.log('r33------', r3);
         const canvasIdList = r3.reduce((prev, cur) => {
-          prev.push(cur.canvas_name);
+          if (cur.isEditable !== 0) {
+            prev.push(cur.canvas_name);
+          }
           return prev;
         }, []);
         return {
