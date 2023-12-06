@@ -1,9 +1,4 @@
-import {
-	Badge,
-	Descriptions,
-	Divider,
-	Typography,
-} from 'antd'
+import { Badge, Descriptions, Typography } from 'antd'
 import { InfoType, formatYMDHHmmss } from '@/shared'
 import React, { useContext } from 'react'
 
