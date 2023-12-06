@@ -64,7 +64,7 @@ export default function Person() {
 			title: '操作',
 			key: 'action',
 			align: 'center',
-			render: () => (
+			render: (_, { role_id, uid }) => (
 				<Space size="middle">
 					<ModalButton
 						title="修改"
@@ -108,7 +108,11 @@ export default function Person() {
 					>
 						修改信息
 					</ModalButton>
-					<DeleteButton />
+					{/* NOTE: 排除 项目管理员 删除自己,以及把删除权限控制给管理员 */}
+					{role_id === 1 &&
+						uid !== localStorage.getItem('uid') && (
+							<DeleteButton />
+						)}
 				</Space>
 			),
 		},
