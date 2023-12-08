@@ -19,7 +19,16 @@ export const getCanvasByProjectId = async project_id => {
 	)
 }
 
+export const assignCanvas = async values => {
+	return await handlePostRequest(
+		urls.canvas.multAllocation,
+		values,
+		'分配成功'
+	)
+}
+
 export const canvasHandler = {
 	create: createCanvasHandler,
 	getCanvasByProjectId,
+	assignCanvas,
 }

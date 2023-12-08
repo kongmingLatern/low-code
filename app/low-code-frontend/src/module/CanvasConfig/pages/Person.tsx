@@ -120,13 +120,17 @@ export default function Person() {
 								},
 								inject: {
 									mode: 'multiple',
-									// TODO: 这里要去根据project_id获取所有画布
 									options: canvasList,
 								},
 							},
 						]}
-						onOk={e => {
-							console.log('ok', e)
+						onOk={async e => {
+							await handlers.assignCanvas({
+								...e,
+								project_id: searchParams.get('project_id'),
+								uid,
+							})
+							await getData()
 						}}
 						onCancel={e => {
 							console.log('cancel', e)
