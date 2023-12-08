@@ -1,5 +1,6 @@
 import {
 	get,
+	handleDeleteRequest,
 	handlePostRequest,
 	handlePutRequest,
 	urls,
@@ -39,9 +40,17 @@ export const updateCanvas = async values => {
 	)
 }
 
+export const deleteCanvas = async canvas_id => {
+	return await handleDeleteRequest(
+		urls.canvas.deleteCanvas + `/${canvas_id}`,
+		{}
+	)
+}
+
 export const canvasHandler = {
 	create: createCanvasHandler,
 	getCanvasByProjectId,
 	assignCanvas,
 	updateCanvas,
+	deleteCanvas,
 }

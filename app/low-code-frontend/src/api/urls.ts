@@ -20,5 +20,6 @@ export const urls = {
 		getCanvasByProjectId: `${modules.canvas}/getCanvas`,
 		multAllocation: `${modules.canvas}/multAllocation`,
 		updateCanvas: `${modules.canvas}/updateCanvas`,
+		deleteCanvas: `${modules.canvas}/deleteCanvas`,
 	},
 }

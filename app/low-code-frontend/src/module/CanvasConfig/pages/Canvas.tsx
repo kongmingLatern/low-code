@@ -190,7 +190,12 @@ export default function Canvas() {
 					>
 						修改
 					</ModalButton>
-					<DeleteButton />
+					<DeleteButton
+						onConfirm={async () => {
+							await handlers.deleteCanvas(record.canvas_id)
+							await getData()
+						}}
+					/>
 				</Space>
 			),
 		},

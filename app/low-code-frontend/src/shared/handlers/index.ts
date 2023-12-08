@@ -18,6 +18,7 @@ export const handlers = {
 		canvasHandler['getCanvasByProjectId'],
 	assignCanvas: canvasHandler['assignCanvas'],
 	updateCanvas: canvasHandler['updateCanvas'],
+	deleteCanvas: canvasHandler['deleteCanvas'],
 }
 
 export * from './auth'
