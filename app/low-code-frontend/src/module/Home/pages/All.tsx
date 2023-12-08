@@ -14,6 +14,7 @@ import ModalButton from '@/components/common/ModalButton'
 import RowItem from '@/components/common/RowItem'
 import { SearchProps } from 'antd/es/input'
 import StatusTag from '@/components/common/StatusTag'
+import { searchProjectByName } from '../shared'
 import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
@@ -37,7 +38,6 @@ const All: FunctionComponent<AllProps> = () => {
 	const navigate = useNavigate()
 	const { cardList, getData } = useContext(CardContext)
 	const [list, setList] = useState(cardList)
-	console.log('context', cardList)
 
 	const CardList = list.map((c: CardProps) => {
 		return (
@@ -85,20 +85,7 @@ const All: FunctionComponent<AllProps> = () => {
 	})
 
 	const onSearch: SearchProps['onSearch'] = val => {
-		const value = val.trim()
-		if (value) {
-			const res = cardList.filter(i =>
-				i.project_name
-					.toLowerCase()
-					.includes(value.toLowerCase())
-			)
-			if (!Object.is(cardList, res)) {
-				// 如果过滤的结果和原来相同,无需重新设置
-				setList(res)
-			}
-		} else {
-			setList(cardList)
-		}
+		searchProjectByName(val, cardList, setList)
 	}
 	return (
 		<>
