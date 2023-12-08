@@ -17,6 +17,7 @@ export const handlers = {
 	getCanvasByProjectId:
 		canvasHandler['getCanvasByProjectId'],
 	assignCanvas: canvasHandler['assignCanvas'],
+	updateCanvas: canvasHandler['updateCanvas'],
 }
 
 export * from './auth'

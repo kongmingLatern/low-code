@@ -16,6 +16,7 @@ interface ModalButtonType {
 	title?: string
 	form?: boolean
 	formItem?: Array<Record<string, any>>
+	initialValues?: Record<string, any>
 	content?: React.ReactNode
 	children?: React.ReactNode
 	onOk?: (...args) => void
@@ -35,6 +36,7 @@ const App: React.FC<
 		title,
 		form = false,
 		formItem,
+		initialValues = {},
 		onOk,
 		onCancel,
 		...rest
@@ -87,6 +89,7 @@ const App: React.FC<
 						onFinish={handleOk}
 						onFinishFailed={handleCancel}
 						autoComplete="off"
+						initialValues={initialValues}
 					>
 						{formItem.map((i, index) => (
 							<Form.Item {...i.props} key={index}>

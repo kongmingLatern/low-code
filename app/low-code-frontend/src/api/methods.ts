@@ -23,6 +23,24 @@ export async function post<T>(
 	return await http.post(path, body)
 }
 
+export async function put<T>(
+	path: string,
+	body?: Record<string, any>
+): Promise<T> {
+	return await http.put(path, body)
+}
+
+export const deleteAPI = async <T>(
+	url,
+	params
+): Promise<T> => {
+	console.log(url, params)
+
+	return await http.delete(url, {
+		params,
+	})
+}
+
 export const handlePostRequest = async (
 	apiEndpoint: string,
 	values: any,
@@ -42,17 +60,6 @@ export const handlePostRequest = async (
 	}
 }
 
-export const deleteAPI = async <T>(
-	url,
-	params
-): Promise<T> => {
-	console.log(url, params)
-
-	return await http.delete(url, {
-		params,
-	})
-}
-
 export const handleDeleteRequest = async (
 	url: string,
 	values: any,
@@ -62,6 +69,24 @@ export const handleDeleteRequest = async (
 		const res = await deleteAPI<ReturnType>(url, values)
 		if (res.code === 200) {
 			message.success(successMessage)
+		}
+		return res
+	} catch (e: any) {
+		message.error(e.response?.data?.data)
+		return Promise.reject(e.response?.data?.data)
+	}
+}
+export const handlePutRequest = async (
+	apiEndpoint: string,
+	values: any,
+	successMessage: string = '更新成功',
+	callback: (res: any) => void = () => {}
+): Promise<ReturnType> => {
+	try {
+		const res = await put<ReturnType>(apiEndpoint, values)
+		if (res.code === 200) {
+			message.success(successMessage)
+			callback(res)
 		}
 		return res
 	} catch (e: any) {

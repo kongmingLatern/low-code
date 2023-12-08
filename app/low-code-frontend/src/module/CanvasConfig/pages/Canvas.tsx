@@ -1,5 +1,9 @@
 import { Button, Input, Space } from 'antd'
-import { InfoType, formatYMD, handlers } from '@/shared'
+import {
+	InfoType,
+	formatYMDHHmmss,
+	handlers,
+} from '@/shared'
 import { useContext, useEffect, useState } from 'react'
 import {
 	useNavigate,
@@ -69,7 +73,15 @@ export default function Canvas() {
 			key: 'create_time',
 			align: 'center',
 			render: (_, { create_time }) =>
-				formatYMD(new Date(create_time)),
+				formatYMDHHmmss(new Date(create_time)),
+		},
+		{
+			title: '更新时间',
+			dataIndex: 'update_time',
+			key: 'update_time',
+			align: 'center',
+			render: (_, { update_time }) =>
+				formatYMDHHmmss(new Date(update_time)),
 		},
 		{
 			title: '画布状态',
@@ -102,17 +114,21 @@ export default function Canvas() {
 					<ModalButton
 						title="画布修改"
 						form
+						initialValues={{
+							canvas_name: record.canvas_name,
+							canvas_description: record.canvas_description,
+							canvas_status: record.canvas_status,
+						}}
 						formItem={[
 							{
 								type: 'input',
 								props: {
-									label: 'Username',
-									name: 'username',
+									label: '画布名称',
+									name: 'canvas_name',
 									rules: [
 										{
 											required: true,
-											message:
-												'Please input your username!',
+											message: '请输入画布名称',
 										},
 									],
 								},
@@ -120,19 +136,52 @@ export default function Canvas() {
 							{
 								type: 'input',
 								props: {
-									label: '密码',
-									name: 'password',
+									label: '画布描述',
+									name: 'canvas_description',
 									rules: [
 										{
 											required: true,
-											message: '请输入密码',
+											message: '请输入对画布的描述信息',
+										},
+									],
+								},
+							},
+							{
+								type: 'select',
+								props: {
+									label: '画布状态',
+									name: 'canvas_status',
+									rules: [
+										{
+											required: true,
+											message: '请选择画布状态',
+										},
+									],
+								},
+								inject: {
+									options: [
+										{
+											value: '未开始',
+											label: '未开始',
+										},
+										{
+											value: '进行中',
+											label: '进行中',
+										},
+										{
+											value: '已完成',
+											label: '已完成',
 										},
 									],
 								},
 							},
 						]}
-						onOk={e => {
-							console.log('ok', e)
+						onOk={async e => {
+							await handlers.updateCanvas({
+								...e,
+								canvas_id: record.canvas_id,
+							})
+							await getData()
 						}}
 						onCancel={e => {
 							console.log('cancel', e)

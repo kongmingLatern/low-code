@@ -1,4 +1,9 @@
-import { get, handlePostRequest, urls } from '@/api'
+import {
+	get,
+	handlePostRequest,
+	handlePutRequest,
+	urls,
+} from '@/api'
 
 import { CreateCanvasType } from './types'
 
@@ -27,8 +32,16 @@ export const assignCanvas = async values => {
 	)
 }
 
+export const updateCanvas = async values => {
+	return await handlePutRequest(
+		urls.canvas.updateCanvas,
+		values
+	)
+}
+
 export const canvasHandler = {
 	create: createCanvasHandler,
 	getCanvasByProjectId,
 	assignCanvas,
+	updateCanvas,
 }
