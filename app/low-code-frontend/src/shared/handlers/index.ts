@@ -14,6 +14,8 @@ export const handlers = {
 	deleteUserByUid: projectHandler['deleteUser'],
 
 	createCanvas: canvasHandler['create'],
+	getCanvasByProjectId:
+		canvasHandler['getCanvasByProjectId'],
 }
 
 export * from './auth'

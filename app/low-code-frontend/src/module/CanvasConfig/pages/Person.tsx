@@ -1,6 +1,11 @@
 import { Flex, Space, Tag } from 'antd'
 import { InfoType, formatYMD, handlers } from '@/shared'
-import { useContext, useEffect, useState } from 'react'
+import {
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from 'react'
 
 import { ColumnsType } from 'antd/es/table'
 import DataTable from '@/components/common/DataTable'
@@ -15,10 +20,33 @@ export default function Person() {
 	const { getData } = context
 	const [list, setList] = useState(info)
 	const [searchParams] = useSearchParams()
+	const [canvasList, setCanvasList] = useState<[]>([])
+
+	const getCanvasByProjectId = useCallback(async () => {
+		const project_id = searchParams.get('project_id')
+		console.log('project_id', project_id)
+		if (project_id) {
+			const res: any = await handlers.getCanvasByProjectId(
+				project_id
+			)
+			const canvas = res.data.canvas
+			const result = canvas.map(c => {
+				return {
+					value: c.canvas_id,
+					label: c.canvas_name,
+				}
+			})
+			setCanvasList(result)
+		}
+	}, [searchParams])
 
 	useEffect(() => {
 		setList(info)
 	}, [info])
+
+	useEffect(() => {
+		getCanvasByProjectId()
+	}, [getCanvasByProjectId])
 
 	const columns: ColumnsType<
 		InfoType['refMap']['users'][number]
@@ -93,16 +121,7 @@ export default function Person() {
 								inject: {
 									mode: 'multiple',
 									// TODO: 这里要去根据project_id获取所有画布
-									options: [
-										{
-											value: 'canvas_id1',
-											label: 'canvas_name1',
-										},
-										{
-											value: 'canvas_id2',
-											label: 'canvas_name2',
-										},
-									],
+									options: canvasList,
 								},
 							},
 						]}
