@@ -1,6 +1,7 @@
 import {
 	FunctionComponent,
 	useContext,
+	useEffect,
 	useState,
 } from 'react'
 import { Input, Space, Typography } from 'antd'
@@ -38,6 +39,10 @@ const All: FunctionComponent<AllProps> = () => {
 	const navigate = useNavigate()
 	const { cardList, getData } = useContext(CardContext)
 	const [list, setList] = useState(cardList)
+
+	useEffect(() => {
+		setList(cardList)
+	}, [cardList])
 
 	const CardList = list.map((c: CardProps) => {
 		return (

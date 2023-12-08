@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd'
 
+import EmptyData from '../EmptyData'
 import { FunctionComponent } from 'react'
 import { Gutter } from 'antd/es/grid/row'
 
@@ -19,7 +20,6 @@ declare const RowJustify: readonly [
 ]
 
 interface RowItemProps {
-	// gutter: number | number[]
 	gutter: Gutter | [Gutter, Gutter]
 	count: number
 	list: any[]
@@ -39,7 +39,7 @@ const RowItem: FunctionComponent<
 		align = 'middle',
 	} = props
 
-	return (
+	return list!.length > 0 ? (
 		<Row gutter={gutter} justify={justify} align={align}>
 			{list?.map((i, index) => {
 				return (
@@ -49,6 +49,8 @@ const RowItem: FunctionComponent<
 				)
 			})}
 		</Row>
+	) : (
+		<EmptyData />
 	)
 }
 

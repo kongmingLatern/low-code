@@ -1,6 +1,7 @@
 import {
 	FunctionComponent,
 	useContext,
+	useEffect,
 	useState,
 } from 'react'
 import { Input, Typography } from 'antd'
@@ -28,6 +29,12 @@ const Finish: FunctionComponent<FinishProps> = () => {
 	const [list, setList] = useState(
 		cardList.filter(i => i.project_status === '已完成')
 	)
+	useEffect(() => {
+		setList(
+			cardList.filter(i => i.project_status === '已完成')
+		)
+	}, [cardList])
+
 	const CardList = list.map((c: CardProps) => {
 		return (
 			<Card
@@ -74,7 +81,11 @@ const Finish: FunctionComponent<FinishProps> = () => {
 	})
 
 	const onSearch: SearchProps['onSearch'] = value =>
-		searchProjectByName(value, cardList, setList)
+		searchProjectByName(
+			value,
+			cardList.filter(i => i.project_status === '已完成'),
+			setList
+		)
 	return (
 		<>
 			<Flex justify="end">

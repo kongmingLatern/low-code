@@ -1,6 +1,7 @@
 import {
 	FunctionComponent,
 	useContext,
+	useEffect,
 	useState,
 } from 'react'
 import { Input, Typography } from 'antd'
@@ -25,9 +26,15 @@ interface WillProps {}
 const Will: FunctionComponent<WillProps> = () => {
 	const { cardList } = useContext(CardContext)
 	const navigate = useNavigate()
-	const [list, setList] = useState(
-		cardList.filter(i => i.project_status === '进行中')
+	const data = cardList.filter(
+		i => i.project_status === '未开始'
 	)
+	const [list, setList] = useState(data)
+	useEffect(() => {
+		setList(
+			cardList.filter(i => i.project_status === '未开始')
+		)
+	}, [cardList])
 	const CardList = list.map((c: CardProps) => {
 		return (
 			<Card
@@ -74,7 +81,11 @@ const Will: FunctionComponent<WillProps> = () => {
 	})
 
 	const onSearch: SearchProps['onSearch'] = value =>
-		searchProjectByName(value, cardList, setList)
+		searchProjectByName(
+			value,
+			cardList.filter(i => i.project_status === '未开始'),
+			setList
+		)
 	return (
 		<>
 			<Flex justify="end">
