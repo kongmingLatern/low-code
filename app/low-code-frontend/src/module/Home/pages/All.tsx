@@ -1,4 +1,8 @@
-import { FunctionComponent, useContext } from 'react'
+import {
+	FunctionComponent,
+	useContext,
+	useState,
+} from 'react'
 import { Input, Space, Typography } from 'antd'
 import { formatYMDHHmmss, handlers } from '@/shared'
 
@@ -32,9 +36,10 @@ export interface CardProps {
 const All: FunctionComponent<AllProps> = () => {
 	const navigate = useNavigate()
 	const { cardList, getData } = useContext(CardContext)
+	const [list, setList] = useState(cardList)
 	console.log('context', cardList)
 
-	const CardList = cardList.map((c: CardProps) => {
+	const CardList = list.map((c: CardProps) => {
 		return (
 			<Card
 				hoverable
@@ -79,11 +84,22 @@ const All: FunctionComponent<AllProps> = () => {
 		)
 	})
 
-	const onSearch: SearchProps['onSearch'] = (
-		value,
-		_e,
-		info
-	) => console.log(info?.source, value)
+	const onSearch: SearchProps['onSearch'] = val => {
+		const value = val.trim()
+		if (value) {
+			const res = cardList.filter(i =>
+				i.project_name
+					.toLowerCase()
+					.includes(value.toLowerCase())
+			)
+			if (!Object.is(cardList, res)) {
+				// 如果过滤的结果和原来相同,无需重新设置
+				setList(res)
+			}
+		} else {
+			setList(cardList)
+		}
+	}
 	return (
 		<>
 			<Flex justify="end">
