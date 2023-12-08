@@ -27,11 +27,20 @@ export default function Canvas() {
 
 	const { Search } = Input
 
-	const onSearch: SearchProps['onSearch'] = (
-		value,
-		_e,
-		info
-	) => console.log(info?.source, value)
+	const onSearch: SearchProps['onSearch'] = val => {
+		const value = val.trim()
+		if (value) {
+			const canvasList = list.canvas.find(
+				i => i.canvas_name === value
+			)
+			setList({
+				...list,
+				canvas: [canvasList!] ?? list.canvas,
+			})
+		} else {
+			setList(info.refMap)
+		}
+	}
 
 	const columns: ColumnsType<
 		InfoType['refMap']['canvas'][number]
