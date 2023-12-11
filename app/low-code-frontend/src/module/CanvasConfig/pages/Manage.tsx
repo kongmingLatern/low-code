@@ -1,9 +1,16 @@
 import { Badge, Descriptions, Typography } from 'antd'
-import { InfoType, formatYMDHHmmss } from '@/shared'
+import {
+	InfoType,
+	formatYMDHHmmss,
+	handlers,
+} from '@/shared'
 import React, { useContext } from 'react'
 
 import type { DescriptionsProps } from 'antd'
+import Flex from '@/components/common/Flex'
 import { InfoContext } from '@/layout/CanvasHomeLayout'
+import ModalButton from '@/components/common/ModalButton'
+import { useSearchParams } from 'react-router-dom'
 
 const { Paragraph } = Typography
 
@@ -89,8 +96,72 @@ const items: (
 }
 
 const App: React.FC = () => {
+	const { info, getData } = useContext(InfoContext)
+	const [searchParams] = useSearchParams()
 	return (
 		<>
+			<Flex justify="end" className="p-1rem">
+				<ModalButton
+					title={'邀请人员'}
+					form
+					initialValues={info}
+					formItem={[
+						{
+							type: 'input',
+							props: {
+								label: '项目名称',
+								name: 'project_name',
+								rules: [
+									{
+										required: true,
+										message: '请输入项目名称',
+									},
+								],
+							},
+						},
+						{
+							type: 'select',
+							props: {
+								label: '项目状态',
+								name: 'project_status',
+								rules: [
+									{
+										required: true,
+										message: '请选择项目状态',
+									},
+								],
+							},
+							inject: {
+								options: [
+									{
+										value: '未开始',
+										label: '未开始',
+									},
+									{
+										value: '进行中',
+										label: '进行中',
+									},
+									{
+										value: '已完成',
+										label: '已完成',
+									},
+								],
+							},
+						},
+					]}
+					onOk={async e => {
+						const values = {
+							...e,
+							project_id: searchParams.get('project_id'),
+						}
+						await handlers.updateProject(values)
+						await getData()
+					}}
+					footer={null}
+				>
+					维护项目信息
+				</ModalButton>
+			</Flex>
 			<Descriptions
 				className="p-1.5rem"
 				title="项目信息"

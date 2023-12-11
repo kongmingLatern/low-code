@@ -7,6 +7,7 @@ import {
 	get,
 	handleDeleteRequest,
 	handlePostRequest,
+	handlePutRequest,
 	urls,
 } from '@/api'
 
@@ -45,10 +46,18 @@ const deleteUserByUid = async values => {
 	)
 }
 
+const updateProject = async values => {
+	return await handlePutRequest(
+		urls.project.updateProject,
+		values
+	)
+}
+
 export const projectHandler = {
 	uid: projectUidHandler,
 	project_id: projectIdHandler,
 	create: createProject,
 	join: joinProject,
 	deleteUser: deleteUserByUid,
+	updateProject,
 }

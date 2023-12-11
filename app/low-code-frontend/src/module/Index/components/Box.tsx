@@ -1,6 +1,6 @@
+import { CSSProperties, FunctionComponent } from 'react'
 import { Dropdown, MenuProps } from 'antd'
 
-import { FunctionComponent } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 
 interface BoxProps {
@@ -16,6 +16,7 @@ interface BoxProps {
 	isDropdown?: boolean
 	dropProps?: MenuProps
 	color?: string
+	style?: CSSProperties
 }
 
 const Box: FunctionComponent<
@@ -39,6 +40,7 @@ const Box: FunctionComponent<
 				fontSize: fontSize || '16px',
 				color,
 				...style,
+				...rest,
 			}}
 		>
 			{content ? content : '用户名'}
@@ -48,7 +50,7 @@ const Box: FunctionComponent<
 	const items = dropProps?.['items'] || undefined
 
 	return (
-		<span className="flex-center" {...rest}>
+		<span className="flex-center">
 			{showIcon && (
 				<Icon
 					icon={icon?.src || 'fad:logo-fl'}

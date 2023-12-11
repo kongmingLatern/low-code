@@ -76,7 +76,7 @@ const App: React.FC<LayoutProps> = props => {
 						content="多智协创平台"
 						fontSize="24px"
 						color="white"
-						whitSpace="nowrap"
+						whiteSpace="nowrap"
 						marginRight="1rem"
 					/>
 					<Menu
