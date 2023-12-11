@@ -1,5 +1,5 @@
+import { Button, Layout, Menu, Space, theme } from 'antd'
 import { InfoType, handlers } from '@/shared'
-import { Layout, Menu, Space, theme } from 'antd'
 import {
 	Outlet,
 	useNavigate,
@@ -31,6 +31,7 @@ const App: React.FC<LayoutProps> = props => {
 	const { layoutCfg } = props
 	const { menuCfg } = layoutCfg
 	const [selectedMenu, setSelectedMenu] = useState('')
+
 	const [info, setInfo] = useState<InfoType>({} as InfoType)
 	const [searchParams] = useSearchParams()
 	const {
@@ -46,6 +47,11 @@ const App: React.FC<LayoutProps> = props => {
 	}, [searchParams])
 
 	useEffect(() => {
+		const pathname = window.location.pathname
+		localStorage.setItem(
+			'canvas_menu_key',
+			pathname.split('/')[2]
+		)
 		const key = localStorage.getItem('canvas_menu_key')
 
 		if (key) {
@@ -56,7 +62,8 @@ const App: React.FC<LayoutProps> = props => {
 				)}`
 			)
 		}
-	}, [navigate, searchParams])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [navigate, searchParams, window.location.pathname])
 
 	useEffect(() => {
 		getData()
@@ -68,6 +75,14 @@ const App: React.FC<LayoutProps> = props => {
 				style={{ display: 'flex', alignItems: 'center' }}
 			>
 				<Space>
+					<Button
+						type="primary"
+						onClick={() => {
+							navigate(-1)
+						}}
+					>
+						{'<'}
+					</Button>
 					<Box
 						icon={{
 							src: 'fad:logo-fl',

@@ -100,7 +100,11 @@ const App: React.FC = () => {
 	const [searchParams] = useSearchParams()
 	return (
 		<>
-			<Flex justify="end" className="p-1rem">
+			<Flex
+				justify="end"
+				className="p-1rem pb-0"
+				marginBottom="0"
+			>
 				<ModalButton
 					title={'邀请人员'}
 					form
