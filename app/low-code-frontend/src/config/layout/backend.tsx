@@ -1,54 +1,44 @@
-import All from '@/module/Home/pages/All'
-import Doing from '@/module/Home/pages/Doing'
-import Finish from '@/module/Home/pages/Finish'
+import AdminCanvas from '@/module/Admin/AdminCanvas'
+import AdminProject from '@/module/Admin/AdminProject'
+import AdminUser from '@/module/Admin/AdminUser'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { LayoutProps } from '@packages/types/menu'
-import Will from '@/module/Home/pages/Will'
 
 export const backendLayoutCfg: LayoutProps = {
 	menuCfg: {
 		itemList: [
 			{
-				key: 'all',
+				key: 'user',
 				icon: <Icon icon={'mdi:user'} />,
-				label: '全部',
+				label: '用户管理',
 			},
 			{
-				key: 'finish',
+				key: 'project',
 				icon: <Icon icon={'fa:ellipsis-h'} />,
-				label: '已完成',
+				label: '项目管理',
 			},
 			{
-				key: 'doing',
+				key: 'canvas',
 				icon: <Icon icon={'quill:todo'} />,
-				label: '进行中',
-			},
-			{
-				key: 'will',
-				icon: <Icon icon={'ri:calendar-todo-fill'} />,
-				label: '未开始',
+				label: '画布管理',
 			},
 		],
 		handleClick: e => {
-			return `/home/${e.key}`
+			return `/admin/${e.key}`
 		},
 	},
 	children: [
 		{
-			path: 'all',
-			element: <All />,
+			path: 'user',
+			element: <AdminUser />,
 		},
 		{
-			path: 'finish',
-			element: <Finish />,
+			path: 'project',
+			element: <AdminProject />,
 		},
 		{
-			path: 'doing',
-			element: <Doing />,
-		},
-		{
-			path: 'will',
-			element: <Will />,
+			path: 'canvas',
+			element: <AdminCanvas />,
 		},
 	],
 }

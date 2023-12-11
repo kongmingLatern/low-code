@@ -30,7 +30,7 @@ const App: React.FC<{
 
 	useEffect(() => {
 		const key =
-			localStorage.getItem('admin_menu_key') || 'all'
+			localStorage.getItem('admin_menu_key') || 'user'
 		if (key) {
 			setSelectedMenu(key)
 			navigate(`/admin/${key}`)
