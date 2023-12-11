@@ -45,17 +45,19 @@ export const handlePostRequest = async (
 	apiEndpoint: string,
 	values: any,
 	successMessage: string,
-	callback: (res: any) => void = () => {}
+	successCallback: (res: any) => void = () => {},
+	failCallback: (res: any) => void = () => {}
 ): Promise<ReturnType> => {
 	try {
 		const res = await post<ReturnType>(apiEndpoint, values)
 		if (res.code === 201) {
 			message.success(successMessage)
-			callback(res)
+			successCallback(res)
+		} else {
+			failCallback(res)
 		}
 		return res
 	} catch (e: any) {
-		message.error(e.response?.data?.data)
 		return Promise.reject(e.response?.data?.data)
 	}
 }

@@ -9,6 +9,9 @@ export const loginHandler = async values => {
 			localStorage.setItem('token', res.data.token)
 			localStorage.setItem('uid', res.data.uid)
 			localStorage.setItem('nickname', res.data.nickname)
+		},
+		res => {
+			throw new Error(res.data)
 		}
 	)
 }

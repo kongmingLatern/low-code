@@ -4,24 +4,20 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { Input, Space, Typography } from 'antd'
-import { formatYMDHHmmss, handlers } from '@/shared'
+import { Input, Space } from 'antd'
 
-import Box from '@/module/Index/components/Box'
-import Card from '../components/Card'
 import { CardContext } from '@/layout/BaseHomeLayout'
+import { CardItem } from '../components/CardItem'
 import Flex from '@/components/common/Flex'
 import ModalButton from '@/components/common/ModalButton'
 import RowItem from '@/components/common/RowItem'
 import { SearchProps } from 'antd/es/input'
-import StatusTag from '@/components/common/StatusTag'
+import { handlers } from '@/shared'
 import { searchProjectByName } from '../shared'
-import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
 
 interface AllProps {}
-const { Title, Text } = Typography
 
 export interface CardProps {
 	project_name: string
@@ -36,7 +32,6 @@ export interface CardProps {
 }
 
 const All: FunctionComponent<AllProps> = () => {
-	const navigate = useNavigate()
 	const { cardList, getData } = useContext(CardContext)
 	const [list, setList] = useState(cardList)
 
@@ -44,50 +39,9 @@ const All: FunctionComponent<AllProps> = () => {
 		setList(cardList)
 	}, [cardList])
 
-	const CardList = list.map((c: CardProps) => {
-		return (
-			<Card
-				hoverable
-				cover={
-					<img
-						alt="example"
-						src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-					/>
-				}
-				cardContent={
-					<>
-						<Title
-							level={4}
-							className="items-center flex justify-between"
-						>
-							{c.project_name}
-							<StatusTag status={c.project_status}>
-								{c.project_status}
-							</StatusTag>
-						</Title>
-						<Flex
-							className="text-14px font-semibold"
-							justify="end"
-						>
-							<Box
-								showIcon={false}
-								content={`更新时间:${formatYMDHHmmss(
-									new Date(c.update_time)
-								)}`}
-								fontSize={12}
-							/>
-						</Flex>
-						<Text>{c.project_description}</Text>
-					</>
-				}
-				onClick={() => {
-					navigate(
-						`/canvasConfig/manage?project_id=${c.project_id}`
-					)
-				}}
-			/>
-		)
-	})
+	const CardList = list.map((c: CardProps) => (
+		<CardItem c={c} />
+	))
 
 	const onSearch: SearchProps['onSearch'] = val => {
 		searchProjectByName(val, cardList, setList)
@@ -140,7 +94,6 @@ const All: FunctionComponent<AllProps> = () => {
 							}
 							await handlers.createProject(values)
 							await getData()
-							// console.log('res', res)
 						}}
 						onCancel={e => {
 							console.log('cancel', e)

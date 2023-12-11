@@ -4,28 +4,22 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { Input, Typography } from 'antd'
 
-import Box from '@/components/Box'
-import Card from '../components/Card'
 import { CardContext } from '@/layout/BaseHomeLayout'
+import { CardItem } from '../components/CardItem'
 import { CardProps } from './All'
 import Flex from '@/components/common/Flex'
+import { Input } from 'antd'
 import RowItem from '@/components/common/RowItem'
 import { SearchProps } from 'antd/es/input'
-import StatusTag from '@/components/common/StatusTag'
-import { formatYMDHHmmss } from '@/shared'
 import { searchProjectByName } from '../shared'
-import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
-const { Title, Text } = Typography
 
 interface FinishProps {}
 
 const Finish: FunctionComponent<FinishProps> = () => {
 	const { cardList } = useContext(CardContext)
-	const navigate = useNavigate()
 	const [list, setList] = useState(
 		cardList.filter(i => i.project_status === '已完成')
 	)
@@ -35,50 +29,9 @@ const Finish: FunctionComponent<FinishProps> = () => {
 		)
 	}, [cardList])
 
-	const CardList = list.map((c: CardProps) => {
-		return (
-			<Card
-				hoverable
-				cover={
-					<img
-						alt="example"
-						src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-					/>
-				}
-				cardContent={
-					<>
-						<Title
-							level={4}
-							className="items-center flex justify-between"
-						>
-							{c.project_name}
-							<StatusTag status={c.project_status}>
-								{c.project_status}
-							</StatusTag>
-						</Title>
-						<Flex
-							className="text-14px font-semibold"
-							justify="end"
-						>
-							<Box
-								showIcon={false}
-								content={`更新时间:${formatYMDHHmmss(
-									new Date(c.update_time)
-								)}`}
-								fontSize={12}
-							/>
-						</Flex>
-						<Text>{c.project_description}</Text>
-					</>
-				}
-				onClick={() => {
-					navigate(
-						`/canvasConfig/manage?project_id=${c.project_id}`
-					)
-				}}
-			/>
-		)
-	})
+	const CardList = list.map((c: CardProps) => (
+		<CardItem c={c} />
+	))
 
 	const onSearch: SearchProps['onSearch'] = value =>
 		searchProjectByName(
