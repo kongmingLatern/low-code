@@ -35,15 +35,13 @@ export default function BaseContentLayout(
 ) {
 	const { config } = props
 
-	console.log('----config', config)
-
 	const onSearch = value => {
 		console.log('onSearch', value)
 	}
 
 	return (
 		<>
-			<Flex justify="end" marginBottom="0" align="center">
+			<Flex justify="end" align="center">
 				<Space>
 					<Search
 						className="w-250px"
@@ -68,6 +66,9 @@ export default function BaseContentLayout(
 			</Flex>
 
 			<DataTable
+				loading={
+					config?.dataCfg && !config.dataCfg.dataSource
+				}
 				primaryKey={
 					(config?.dataCfg && config.dataCfg.primaryKey) ||
 					'id'

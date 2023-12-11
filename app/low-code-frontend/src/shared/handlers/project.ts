@@ -4,6 +4,7 @@ import {
 	ProjectUidType,
 } from './types'
 import {
+	ReturnType,
 	get,
 	handleDeleteRequest,
 	handlePostRequest,
@@ -12,7 +13,9 @@ import {
 } from '@/api'
 
 const getAllProject = async () => {
-	return await get(urls.project.getAllProject)
+	return await get<ReturnType<CreateProjectDto>>(
+		urls.project.getAllProject
+	)
 }
 
 const projectUidHandler = async (uid: string) => {
