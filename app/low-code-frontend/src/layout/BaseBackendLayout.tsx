@@ -55,7 +55,9 @@ const App: React.FC<{
 				collapsed={collapsed}
 				onCollapse={value => setCollapsed(value)}
 			>
-				<div className="demo-logo-vertical" />
+				<Header className="text-18px color-white font-semibold text-nowrap">
+					低代码管理后台
+				</Header>
 				<Menu
 					theme="dark"
 					mode="inline"
@@ -77,10 +79,8 @@ const App: React.FC<{
 					}}
 				>
 					<Row>
-						<Col span={8} className="text-18px">
-							全部
-						</Col>
-						<Col span={8} offset={8}>
+						<Col span={8} className="text-18px"></Col>
+						<Col span={8} push={12}>
 							<Space>
 								<Box
 									isDropdown
