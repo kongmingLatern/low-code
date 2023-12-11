@@ -4,7 +4,7 @@ import BaseContentLayout, {
 import { UserReturnType, handlers } from '@/shared'
 import { useEffect, useState } from 'react'
 
-export default function User() {
+export default function AdminUser() {
 	const [data, setData] = useState<UserReturnType[]>([])
 
 	const config: CfgProps = {

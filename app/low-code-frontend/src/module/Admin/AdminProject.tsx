@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 
 import StatusTag from '@/components/common/StatusTag'
 
-export default function Project() {
+export default function AdminProject() {
 	const [data, setData] = useState<UserReturnType[]>([])
 
 	const config: CfgProps = {

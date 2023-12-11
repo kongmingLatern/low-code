@@ -1,4 +1,5 @@
 import {
+	ReturnType,
 	get,
 	handleDeleteRequest,
 	handlePostRequest,
@@ -9,7 +10,9 @@ import {
 import { CreateCanvasType } from './types'
 
 export const getAllCanvas = async () => {
-	return await get(urls.canvas.getAllCanvas)
+	return await get<ReturnType<CreateCanvasType>>(
+		urls.canvas.getAllCanvas
+	)
 }
 
 export const createCanvasHandler = async (
