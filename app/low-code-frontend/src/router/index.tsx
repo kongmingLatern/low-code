@@ -1,5 +1,6 @@
 import { canvasLayoutCfg, homeLayoutCfg } from '@/config'
 
+import BaseBackendLayout from '@/layout/BaseBackendLayout'
 import BaseCanvasLayout from '@/layout/BaseCanvasLayout'
 import BaseHomeLayout from '@/layout/BaseHomeLayout'
 import CanvasHomeLayout from '@/layout/CanvasHomeLayout'
@@ -7,6 +8,7 @@ import Home from '@/module/Index/pages/Home'
 import Login from '@/module/Login/pages/Login'
 import LoginCover from '@/components/common/Cover'
 import Register from '@/module/Login/pages/Register'
+import { backendLayoutCfg } from '@/config/layout/backend'
 import { createBrowserRouter } from 'react-router-dom'
 
 export const router = createBrowserRouter([
@@ -29,6 +31,13 @@ export const router = createBrowserRouter([
 	{
 		path: '/canvas/:id',
 		element: <BaseCanvasLayout />,
+	},
+	{
+		path: '/admin',
+		element: (
+			<BaseBackendLayout layoutCfg={backendLayoutCfg} />
+		),
+		children: backendLayoutCfg.children,
 	},
 	{
 		path: '/login',
