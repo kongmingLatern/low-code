@@ -3,6 +3,7 @@ import {
 	Layout,
 	Menu,
 	Row,
+	Space,
 	message,
 	theme,
 } from 'antd'
@@ -12,10 +13,10 @@ import React, {
 	useEffect,
 	useState,
 } from 'react'
+import { exitLogin, handlers } from '@/shared'
 
 import Box from '@/module/Index/components/Box'
 import { CardProps } from '@/module/Home/pages/All'
-import { handlers } from '@/shared'
 
 const { Header, Sider, Content } = Layout
 
@@ -52,7 +53,7 @@ const App: React.FC<{
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		const key = localStorage.getItem('menu_key')
+		const key = localStorage.getItem('menu_key') || 'all'
 		if (key) {
 			setSelectedMenu(key)
 			navigate(`/home/${key}`)
@@ -114,14 +115,28 @@ const App: React.FC<{
 							全部
 						</Col>
 						<Col span={8} offset={8}>
-							<Box
-								icon={{
-									src: 'mdi:user',
-									width: '30',
-									height: '30',
-								}}
-								content={getContent()}
-							/>
+							<Space>
+								<Box
+									isDropdown
+									dropProps={{
+										items: [
+											{
+												key: '1',
+												label: '退出登陆',
+												onClick: () => {
+													exitLogin(navigate)
+												},
+											},
+										],
+									}}
+									icon={{
+										src: 'mdi:user',
+										width: '30',
+										height: '30',
+									}}
+									content={getContent()}
+								/>
+							</Space>
 						</Col>
 					</Row>
 				</Header>

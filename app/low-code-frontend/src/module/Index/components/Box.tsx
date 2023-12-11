@@ -1,5 +1,7 @@
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Dropdown, MenuProps } from 'antd'
+
 import { FunctionComponent } from 'react'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 interface BoxProps {
 	showIcon?: boolean
@@ -11,6 +13,8 @@ interface BoxProps {
 	}
 	content?: any
 	fontSize?: string | number
+	isDropdown?: boolean
+	dropProps?: MenuProps
 	color?: string
 }
 
@@ -23,10 +27,28 @@ const Box: FunctionComponent<
 		content,
 		fontSize,
 		color = 'black',
-		...style
+		isDropdown = false,
+		style,
+		dropProps,
+		...rest
 	} = props
+
+	const getName = (
+		<span
+			style={{
+				fontSize: fontSize || '16px',
+				color,
+				...style,
+			}}
+		>
+			{content ? content : '用户名'}
+		</span>
+	)
+
+	const items = dropProps?.['items'] || undefined
+
 	return (
-		<span className="flex-center">
+		<span className="flex-center" {...rest}>
 			{showIcon && (
 				<Icon
 					icon={icon?.src || 'fad:logo-fl'}
@@ -35,15 +57,11 @@ const Box: FunctionComponent<
 					color={icon?.color || 'black'}
 				/>
 			)}
-			<span
-				style={{
-					fontSize: fontSize || '16px',
-					color,
-					...style,
-				}}
-			>
-				{content ? content : '用户名'}
-			</span>
+			{isDropdown ? (
+				<Dropdown menu={{ items }}>{getName}</Dropdown>
+			) : (
+				getName
+			)}
 		</span>
 	)
 }

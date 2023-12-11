@@ -2,3 +2,4 @@
 export * from './enum'
 export * from './date'
 export * from './handlers'
+export * from './localStorage'
