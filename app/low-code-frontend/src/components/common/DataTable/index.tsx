@@ -2,7 +2,7 @@ import { Table, TableProps } from 'antd'
 
 import React from 'react'
 
-interface TableEnhanceProps extends TableProps<any> {
+export interface TableEnhanceProps extends TableProps<any> {
 	primaryKey?: string
 }
 

@@ -11,6 +11,10 @@ import {
 	urls,
 } from '@/api'
 
+const getAllProject = async () => {
+	return await get(urls.project.getAllProject)
+}
+
 const projectUidHandler = async (uid: string) => {
 	return await get<ProjectUidType>(
 		urls.project.getAllProjectByUid + `/${uid}`
@@ -54,6 +58,7 @@ const updateProject = async values => {
 }
 
 export const projectHandler = {
+	getAllProject,
 	uid: projectUidHandler,
 	project_id: projectIdHandler,
 	create: createProject,

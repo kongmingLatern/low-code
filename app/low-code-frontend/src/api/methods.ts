@@ -1,9 +1,9 @@
 import { http } from '.'
 import { message } from 'antd'
 
-export interface ReturnType {
+export interface ReturnType<T = Record<string, any>> {
 	code: number
-	data: Record<string, any>
+	data: T
 	message: string
 }
 

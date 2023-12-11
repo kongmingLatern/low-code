@@ -8,6 +8,10 @@ import {
 
 import { CreateCanvasType } from './types'
 
+export const getAllCanvas = async () => {
+	return await get(urls.canvas.getAllCanvas)
+}
+
 export const createCanvasHandler = async (
 	values: CreateCanvasType
 ) => {
@@ -48,6 +52,7 @@ export const deleteCanvas = async canvas_id => {
 }
 
 export const canvasHandler = {
+	getAllCanvas,
 	create: createCanvasHandler,
 	getCanvasByProjectId,
 	assignCanvas,
