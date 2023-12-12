@@ -125,6 +125,8 @@ export class CanvasService {
       prev.push(cur.canvas_id);
       return prev;
     }, []);
-    return await this.canvasRepository.delete(Canvas, records);
+    if (records.length !== 0) {
+      return await this.canvasRepository.delete(Canvas, records);
+    }
   }
 }

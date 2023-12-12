@@ -39,8 +39,9 @@ export class UserProjectRoleService {
         project_id,
       },
     });
+
     return await Promise.all(
-      res.map(
+      res?.map(
         async (i) =>
           await this.userProjectRoleRepository.delete(UserProjectRole, {
             uid: i.uid,
