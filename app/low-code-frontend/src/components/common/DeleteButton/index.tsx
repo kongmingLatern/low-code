@@ -1,7 +1,8 @@
-import React from 'react'
 import { Button, Popconfirm } from 'antd'
 
-interface DeleteButtonProps {
+import React from 'react'
+
+export interface DeleteButtonProps {
 	title: string
 	description: string
 	children: any

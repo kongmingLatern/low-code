@@ -2,9 +2,9 @@ import { Button, Space } from 'antd'
 import DataTable, {
 	TableEnhanceProps,
 } from '@/components/common/DataTable'
+import DeleteButton, { DeleteButtonProps } from '@/components/common/DeleteButton'
 
 import { BaseButtonProps } from 'antd/es/button/button'
-import DeleteButton from '@/components/common/DeleteButton'
 import Flex from '@/components/common/Flex'
 import ModalButton from '@/components/common/ModalButton'
 import Search from 'antd/es/input/Search'
@@ -26,6 +26,19 @@ export interface CfgProps {
 		restProps?: Record<string, any>
 	}
 	dataCfg?: TableEnhanceProps
+
+	actionCfg?: {
+		formCfg: {
+			title: string
+			form: boolean
+			formItem?: Array<Record<string, any>>
+			initialValues?: Record<string, any>
+			onOk: (value) => void
+			onCancel?: (value) => void
+			footer?: boolean | null
+		}
+		deleteButtonCfg?: Partial<DeleteButtonProps>
+	}
 }
 
 export interface ContentLayoutProps {
@@ -62,8 +75,8 @@ export default function BaseContentLayout(
 						enterButton
 					/>
 					{config?.toolCfg?.button &&
-						config.toolCfg.button.map(i => (
-							<Button onClick={i.onClick} {...i.restProps}>
+						config.toolCfg.button.map((i, index) => (
+							<Button key={i.children! + index} onClick={i.onClick} {...i.restProps}>
 								{i.children}
 							</Button>
 						))}
@@ -83,10 +96,16 @@ export default function BaseContentLayout(
 							dataIndex: 'action',
 							key: 'action',
 							align: 'center',
-							render: () => (
+							render: (_, record) => (
 								<Space>
-									<ModalButton>修改</ModalButton>
-									<DeleteButton>删除</DeleteButton>
+									<ModalButton
+										initialValues={record}
+										{...config.actionCfg?.formCfg}
+									>修改</ModalButton>
+									<DeleteButton
+										{...config.actionCfg?.deleteButtonCfg}
+										onConfirm={() => config.actionCfg?.deleteButtonCfg?.onConfirm!(record[config!.dataCfg!.primaryKey!])}
+									>删除</DeleteButton>
 								</Space>
 							),
 						},

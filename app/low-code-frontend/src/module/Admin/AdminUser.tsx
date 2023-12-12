@@ -54,6 +54,46 @@ export default function AdminUser() {
 			],
 			dataSource: data,
 		},
+		actionCfg: {
+			formCfg: {
+				title: '修改用户信息',
+				form: true,
+				formItem: [{
+					type: 'input',
+					props: {
+						label: '用户名',
+						name: 'username',
+						rules: [
+							{
+								required: true,
+								message: '请输入用户名',
+							},
+						]
+					}
+				}, {
+					type: 'input',
+					props: {
+						label: '昵称',
+						name: 'nickname',
+						rules: [
+							{
+								required: true,
+								message: '请输入昵称',
+							},
+						],
+					},
+				}],
+				footer: null,
+				onOk: (value) => {
+					console.log('onOkokok', value);
+				},
+			},
+			deleteButtonCfg: {
+				onConfirm: (primaryKey) => {
+					console.log('uid', primaryKey);
+				},
+			}
+		}
 	}
 
 	useEffect(() => {
