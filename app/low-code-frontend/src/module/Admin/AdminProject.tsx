@@ -148,13 +148,13 @@ export default function AdminProject() {
 					},
 				],
 				footer: null,
-				onOk: value => {
-					console.log('onOkokok', value)
+				onOk: async value => {
+					await handlers.updateProject(value)
 				},
 			},
 			deleteButtonCfg: {
-				onConfirm: primaryKey => {
-					console.log('project_id', primaryKey)
+				onConfirm: async primaryKey => {
+					await handlers.deleteProject(primaryKey)
 				},
 			},
 		},
