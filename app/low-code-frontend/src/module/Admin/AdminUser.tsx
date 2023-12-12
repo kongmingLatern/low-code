@@ -1,15 +1,12 @@
 import BaseContentLayout, {
 	CfgProps,
 } from '@/layout/BaseContentLayout'
-import { UserReturnType, handlers } from '@/shared'
-import { useEffect, useState } from 'react'
+
+import { handlers } from '@/shared'
 
 export default function AdminUser() {
-	const [data, setData] = useState<UserReturnType[]>([])
-
 	async function getData() {
-		const res = await handlers.getAllUser()
-		setData(res.data as any)
+		return await handlers.getAllUser()
 	}
 
 	const config: CfgProps = {
@@ -57,7 +54,6 @@ export default function AdminUser() {
 					align: 'center',
 				},
 			],
-			dataSource: data,
 		},
 		actionCfg: {
 			formCfg: {
@@ -104,11 +100,10 @@ export default function AdminUser() {
 		},
 	}
 
-	useEffect(() => {
-		getData()
-	}, [])
-
 	return (
-		<BaseContentLayout config={config}></BaseContentLayout>
+		<BaseContentLayout
+			config={config}
+			getData={getData}
+		></BaseContentLayout>
 	)
 }

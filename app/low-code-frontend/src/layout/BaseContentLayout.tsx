@@ -2,11 +2,15 @@ import { Button, Space } from 'antd'
 import DataTable, {
 	TableEnhanceProps,
 } from '@/components/common/DataTable'
-import DeleteButton, { DeleteButtonProps } from '@/components/common/DeleteButton'
+import DeleteButton, {
+	DeleteButtonProps,
+} from '@/components/common/DeleteButton'
+import { useEffect, useState } from 'react'
 
 import { BaseButtonProps } from 'antd/es/button/button'
 import Flex from '@/components/common/Flex'
 import ModalButton from '@/components/common/ModalButton'
+import { ReturnType } from '@/api'
 import Search from 'antd/es/input/Search'
 
 export interface CfgProps {
@@ -43,12 +47,24 @@ export interface CfgProps {
 
 export interface ContentLayoutProps {
 	config?: CfgProps
+	getData: () => Promise<ReturnType<any>>
 }
 
 export default function BaseContentLayout(
 	props: ContentLayoutProps
 ) {
-	const { config } = props
+	const { config, getData } = props
+
+	const [dataSource, setDataSource] = useState<any[]>([])
+
+	useEffect(() => {
+		async function getDataSource() {
+			const res = await getData()
+			setDataSource(res.data)
+		}
+		getDataSource()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const onSearch = value => {
 		console.log('onSearch', value)
@@ -76,7 +92,11 @@ export default function BaseContentLayout(
 					/>
 					{config?.toolCfg?.button &&
 						config.toolCfg.button.map((i, index) => (
-							<Button key={i.children! + index} onClick={i.onClick} {...i.restProps}>
+							<Button
+								key={i.children! + index}
+								onClick={i.onClick}
+								{...i.restProps}
+							>
 								{i.children}
 							</Button>
 						))}
@@ -101,21 +121,27 @@ export default function BaseContentLayout(
 									<ModalButton
 										initialValues={record}
 										{...config.actionCfg?.formCfg}
-									>修改</ModalButton>
+									>
+										修改
+									</ModalButton>
 									<DeleteButton
 										{...config.actionCfg?.deleteButtonCfg}
-										onConfirm={() => config.actionCfg?.deleteButtonCfg?.onConfirm!(record[config!.dataCfg!.primaryKey!])}
-									>删除</DeleteButton>
+										onConfirm={() =>
+											config.actionCfg?.deleteButtonCfg
+												?.onConfirm!(
+												record[config!.dataCfg!.primaryKey!]
+											)
+										}
+									>
+										删除
+									</DeleteButton>
 								</Space>
 							),
 						},
 					]) ||
 					[]
 				}
-				dataSource={
-					(config?.dataCfg && config.dataCfg.dataSource) ||
-					[]
-				}
+				dataSource={dataSource}
 			/>
 		</>
 	)

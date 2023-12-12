@@ -1,17 +1,13 @@
 import BaseContentLayout, {
 	CfgProps,
 } from '@/layout/BaseContentLayout'
-import { UserReturnType, handlers } from '@/shared'
-import { useEffect, useState } from 'react'
 
 import StatusTag from '@/components/common/StatusTag'
+import { handlers } from '@/shared'
 
 export default function AdminCanvas() {
-	const [data, setData] = useState<UserReturnType[]>([])
-
 	async function getData() {
-		const res = await handlers.getAllCanvas()
-		setData(res.data as any)
+		return await handlers.getAllCanvas()
 	}
 
 	const config: CfgProps = {
@@ -54,7 +50,6 @@ export default function AdminCanvas() {
 					),
 				},
 			],
-			dataSource: data,
 		},
 		actionCfg: {
 			formCfg: {
@@ -118,23 +113,22 @@ export default function AdminCanvas() {
 					},
 				],
 				footer: null,
-				onOk: (value) => {
-					console.log('onOk', value);
-				}
+				onOk: value => {
+					console.log('onOk', value)
+				},
 			},
 			deleteButtonCfg: {
-				onConfirm: (canvas_id) => {
-					console.log('canvas_id', canvas_id);
-				}
-			}
-		}
+				onConfirm: canvas_id => {
+					console.log('canvas_id', canvas_id)
+				},
+			},
+		},
 	}
 
-	useEffect(() => {
-		getData()
-	}, [])
-
 	return (
-		<BaseContentLayout config={config}></BaseContentLayout>
+		<BaseContentLayout
+			config={config}
+			getData={getData}
+		></BaseContentLayout>
 	)
 }

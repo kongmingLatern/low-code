@@ -1,21 +1,13 @@
 import BaseContentLayout, {
 	CfgProps,
 } from '@/layout/BaseContentLayout'
-import {
-	UserReturnType,
-	formatYMDHHmmss,
-	handlers,
-} from '@/shared'
-import { useEffect, useState } from 'react'
+import { formatYMDHHmmss, handlers } from '@/shared'
 
 import StatusTag from '@/components/common/StatusTag'
 
 export default function AdminProject() {
-	const [data, setData] = useState<UserReturnType[]>([])
-
 	async function getData() {
-		const res = await handlers.getAllProject()
-		setData(res.data as any)
+		return await handlers.getAllProject()
 	}
 
 	const config: CfgProps = {
@@ -80,7 +72,6 @@ export default function AdminProject() {
 						formatYMDHHmmss(new Date(update_time)),
 				},
 			],
-			dataSource: data,
 		},
 		actionCfg: {
 			formCfg: {
@@ -169,11 +160,10 @@ export default function AdminProject() {
 		},
 	}
 
-	useEffect(() => {
-		getData()
-	}, [])
-
 	return (
-		<BaseContentLayout config={config}></BaseContentLayout>
+		<BaseContentLayout
+			config={config}
+			getData={getData}
+		></BaseContentLayout>
 	)
 }
