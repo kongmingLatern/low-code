@@ -17,6 +17,7 @@ export const handlers = {
 	joinProject: projectHandler['join'],
 	updateProject: projectHandler['updateProject'],
 	deleteUserByUid: projectHandler['deleteUser'],
+	deleteProject: projectHandler['deleteProject'],
 
 	getAllCanvas: canvasHandler['getAllCanvas'],
 	createCanvas: canvasHandler['create'],

@@ -60,6 +60,13 @@ const updateProject = async values => {
 	)
 }
 
+const deleteProject = async project_id => {
+	return await handleDeleteRequest(
+		urls.project.deleteProject + `/${project_id}`,
+		{}
+	)
+}
+
 export const projectHandler = {
 	getAllProject,
 	uid: projectUidHandler,
@@ -68,4 +75,5 @@ export const projectHandler = {
 	join: joinProject,
 	deleteUser: deleteUserByUid,
 	updateProject,
+	deleteProject,
 }
