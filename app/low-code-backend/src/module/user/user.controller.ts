@@ -30,12 +30,12 @@ export class UserController {
     return await this.userService.findOne(uid);
   }
 
-  @Put(':uid')
+  @Put('/updateUser/:uid')
   update(@Param('uid') uid: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(uid, updateUserDto);
   }
 
-  @Delete(':uid')
+  @Delete('/deleteUser/:uid')
   remove(@Param('uid') uid: string) {
     return this.userService.delete(uid);
   }

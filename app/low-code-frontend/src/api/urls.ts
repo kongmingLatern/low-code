@@ -7,6 +7,8 @@ const modules = {
 export const urls = {
 	user: {
 		getAllUser: `${modules.user}`,
+		updateUser: `${modules.user}/updateUser`,
+		deleteUser: `${modules.user}/deleteUser`,
 	},
 	auth: {
 		login: `${modules.auth}/login`,

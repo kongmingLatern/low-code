@@ -88,13 +88,13 @@ export default function AdminUser() {
 					},
 				],
 				footer: null,
-				onOk: value => {
-					console.log('onOkokok', value)
+				onOk: async value => {
+					await handlers.updateUser(value)
 				},
 			},
 			deleteButtonCfg: {
-				onConfirm: primaryKey => {
-					console.log('uid', primaryKey)
+				onConfirm: async primaryKey => {
+					await handlers.deleteUser(primaryKey)
 				},
 			},
 		},

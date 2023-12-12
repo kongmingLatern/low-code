@@ -9,6 +9,8 @@ export const handlers = {
 	register: registerHandle,
 
 	getAllUser: userHandler['getAllUser'],
+	updateUser: userHandler['updateUser'],
+	deleteUser: userHandler['deleteUser'],
 
 	getAllProject: projectHandler['getAllProject'],
 	getAllProjectByUid: projectHandler['uid'],
