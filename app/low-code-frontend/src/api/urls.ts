@@ -35,6 +35,7 @@ export const urls = {
 	},
 	role: {
 		getAllRole: `${modules.role}`,
+		addRole: `${modules.role}/add`,
 		updateRole: `${modules.role}/updateRole`,
 		deleteRole: `${modules.role}/deleteRole`,
 	},

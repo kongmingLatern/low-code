@@ -13,9 +13,55 @@ export default function AdminUser() {
 		toolCfg: {
 			button: [
 				{
+					type: 'modalButton',
+					formItem: [
+						{
+							type: 'input',
+							props: {
+								label: '用户名',
+								name: 'username',
+								rules: [
+									{
+										required: true,
+										message: '请输入用户名',
+									},
+								],
+							},
+						},
+						{
+							type: 'input',
+							props: {
+								label: '昵称',
+								name: 'nickname',
+								rules: [
+									{
+										required: true,
+										message: '请输入昵称',
+									},
+								],
+							},
+						},
+						{
+							type: 'input',
+							props: {
+								label: '密码',
+								name: 'password',
+								rules: [
+									{
+										required: true,
+										message: '请输入密码',
+									},
+								],
+							},
+						},
+					],
 					children: '添加用户',
-					onClick: () => {
-						console.log('onClick')
+					restProps: {
+						title: '添加用户',
+						footer: null,
+						onOk: async value => {
+							await handlers.register(value)
+						},
 					},
 				},
 			],

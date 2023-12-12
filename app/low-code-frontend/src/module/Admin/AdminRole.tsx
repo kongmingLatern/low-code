@@ -13,9 +13,29 @@ export default function AdminRole() {
 		toolCfg: {
 			button: [
 				{
+					type: 'modalButton',
+					formItem: [
+						{
+							type: 'input',
+							props: {
+								label: '角色名称',
+								name: 'name',
+								rules: [
+									{
+										required: true,
+										message: '请输入角色名称',
+									},
+								],
+							},
+						},
+					],
 					children: '添加角色',
-					onClick: () => {
-						console.log('onClick')
+					restProps: {
+						title: '添加角色',
+						footer: null,
+						onOk: async value => {
+							await handlers.addRole(value)
+						},
 					},
 				},
 			],

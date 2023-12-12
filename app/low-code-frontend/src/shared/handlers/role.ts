@@ -2,6 +2,7 @@ import {
 	ReturnType,
 	get,
 	handleDeleteRequest,
+	handlePostRequest,
 	handlePutRequest,
 	urls,
 } from '@/api'
@@ -23,8 +24,17 @@ export const deleteRole = async id => {
 		{}
 	)
 }
+
+export const addRole = async values => {
+	return await handlePostRequest(
+		urls.role.addRole,
+		values,
+		'创建成功'
+	)
+}
 export const roleHandler = {
 	getAllRole,
+	addRole,
 	updateRole,
 	deleteRole,
 }

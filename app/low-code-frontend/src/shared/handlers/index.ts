@@ -31,6 +31,7 @@ export const handlers = {
 	deleteCanvas: canvasHandler['deleteCanvas'],
 
 	getAllRole: roleHandler['getAllRole'],
+	addRole: roleHandler['addRole'],
 	updateRole: roleHandler['updateRole'],
 	deleteRole: roleHandler['deleteRole'],
 }

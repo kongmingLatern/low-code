@@ -1,15 +1,17 @@
-import { Button, Space } from 'antd'
+import { Button, ModalProps, Space } from 'antd'
 import DataTable, {
 	TableEnhanceProps,
 } from '@/components/common/DataTable'
 import DeleteButton, {
 	DeleteButtonProps,
 } from '@/components/common/DeleteButton'
+import ModalButton, {
+	ModalButtonType,
+} from '@/components/common/ModalButton'
 import { useCallback, useEffect, useState } from 'react'
 
 import { BaseButtonProps } from 'antd/es/button/button'
 import Flex from '@/components/common/Flex'
-import ModalButton from '@/components/common/ModalButton'
 import { ReturnType } from '@/api'
 import Search from 'antd/es/input/Search'
 import { filterByKey } from '@/shared'
@@ -18,9 +20,11 @@ export interface CfgProps {
 	toolCfg?: {
 		button?: [
 			{
+				type?: 'modalButton' | 'button'
 				children?: string
+				formItem?: Array<Record<string, any>>
 				onClick?: () => void
-				restProps?: BaseButtonProps
+				restProps?: BaseButtonProps | ModalProps
 			}
 		]
 	}
@@ -33,7 +37,6 @@ export interface CfgProps {
 		restProps?: Record<string, any>
 	}
 	dataCfg?: TableEnhanceProps
-
 	actionCfg?: {
 		formCfg: {
 			title: string
@@ -107,15 +110,36 @@ export default function BaseContentLayout(
 						enterButton
 					/>
 					{config?.toolCfg?.button &&
-						config.toolCfg.button.map((i, index) => (
-							<Button
-								key={i.children! + index}
-								onClick={i.onClick}
-								{...i.restProps}
-							>
-								{i.children}
-							</Button>
-						))}
+						config.toolCfg.button.map((i, index) => {
+							return i.type === 'modalButton' ? (
+								<ModalButton
+									key={i.children! + index}
+									form
+									formItem={i.formItem}
+									{...(i.restProps as (ModalButtonType &
+										ModalProps)[])}
+									onOk={async value => {
+										if (i) {
+											i.restProps &&
+												(await (i.restProps as any).onOk(
+													value
+												))
+											await getDataSource()
+										}
+									}}
+								>
+									{i.children}
+								</ModalButton>
+							) : (
+								<Button
+									key={i.children! + index}
+									onClick={i.onClick}
+									{...(i.restProps as BaseButtonProps[])}
+								>
+									{i.children}
+								</Button>
+							)
+						})}
 				</Space>
 			</Flex>
 

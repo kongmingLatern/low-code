@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 
 import { BaseButtonProps } from 'antd/es/button/button'
 
-interface ModalButtonType {
+export interface ModalButtonType {
 	type?: BaseButtonProps['type']
 	text?: string
 	title?: string
