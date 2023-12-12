@@ -13,6 +13,11 @@ import StatusTag from '@/components/common/StatusTag'
 export default function AdminProject() {
 	const [data, setData] = useState<UserReturnType[]>([])
 
+	async function getData() {
+		const res = await handlers.getAllProject()
+		setData(res.data as any)
+	}
+
 	const config: CfgProps = {
 		searchCfg: {
 			placeholder: '请输入要查询的项目名',
@@ -77,13 +82,94 @@ export default function AdminProject() {
 			],
 			dataSource: data,
 		},
+		actionCfg: {
+			formCfg: {
+				title: '修改用户信息',
+				form: true,
+				formItem: [
+					{
+						type: 'input',
+						props: {
+							label: '项目名称',
+							name: 'project_name',
+							rules: [
+								{
+									required: true,
+									message: '请输入项目名称',
+								},
+							],
+						},
+					},
+					{
+						type: 'input',
+						props: {
+							label: '项目描述',
+							name: 'project_description',
+							rules: [
+								{
+									required: true,
+									message: '请输入项目描述',
+								},
+							],
+						},
+					},
+					{
+						type: 'input',
+						props: {
+							label: '项目邀请码',
+							name: 'project_code',
+							rules: [
+								{
+									required: true,
+									message: '请输入项目邀请码',
+								},
+							],
+						},
+					},
+					{
+						type: 'select',
+						props: {
+							label: '项目状态',
+							name: 'project_status',
+							rules: [
+								{
+									required: true,
+									message: '请选择项目状态',
+								},
+							],
+						},
+						inject: {
+							options: [
+								{
+									value: '未开始',
+									label: '未开始',
+								},
+								{
+									value: '进行中',
+									label: '进行中',
+								},
+								{
+									value: '已完成',
+									label: '已完成',
+								},
+							],
+						},
+					},
+				],
+				footer: null,
+				onOk: value => {
+					console.log('onOkokok', value)
+				},
+			},
+			deleteButtonCfg: {
+				onConfirm: primaryKey => {
+					console.log('project_id', primaryKey)
+				},
+			},
+		},
 	}
 
 	useEffect(() => {
-		async function getData() {
-			const res = await handlers.getAllProject()
-			setData(res.data as any)
-		}
 		getData()
 	}, [])
 
