@@ -5,7 +5,7 @@ import DataTable, {
 import DeleteButton, {
 	DeleteButtonProps,
 } from '@/components/common/DeleteButton'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { BaseButtonProps } from 'antd/es/button/button'
 import Flex from '@/components/common/Flex'
@@ -57,14 +57,14 @@ export default function BaseContentLayout(
 
 	const [dataSource, setDataSource] = useState<any[]>([])
 
+	const getDataSource = useCallback(async () => {
+		const res = await getData()
+		setDataSource(res.data)
+	}, [getData])
+
 	useEffect(() => {
-		async function getDataSource() {
-			const res = await getData()
-			setDataSource(res.data)
-		}
 		getDataSource()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [getDataSource])
 
 	const onSearch = value => {
 		console.log('onSearch', value)
