@@ -122,10 +122,15 @@ export default function BaseContentLayout(
 										initialValues={record}
 										{...config.actionCfg?.formCfg}
 										onOk={async value => {
-											await config.actionCfg?.formCfg.onOk(
-												value
-											)
-											await getData()
+											await config.actionCfg?.formCfg.onOk({
+												...value,
+												[config.dataCfg
+													?.primaryKey as string]:
+													record[
+														config.dataCfg!.primaryKey!
+													],
+											})
+											await getDataSource()
 										}}
 									>
 										修改
@@ -137,7 +142,7 @@ export default function BaseContentLayout(
 												?.deleteButtonCfg?.onConfirm!(
 												record[config!.dataCfg!.primaryKey!]
 											)
-											await getData()
+											await getDataSource()
 										}}
 									>
 										删除

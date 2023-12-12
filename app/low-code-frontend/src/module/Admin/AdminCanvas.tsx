@@ -113,13 +113,13 @@ export default function AdminCanvas() {
 					},
 				],
 				footer: null,
-				onOk: value => {
-					console.log('onOk', value)
+				onOk: async value => {
+					await handlers.updateCanvas(value)
 				},
 			},
 			deleteButtonCfg: {
-				onConfirm: canvas_id => {
-					console.log('canvas_id', canvas_id)
+				onConfirm: async canvas_id => {
+					await handlers.deleteCanvas(canvas_id)
 				},
 			},
 		},
