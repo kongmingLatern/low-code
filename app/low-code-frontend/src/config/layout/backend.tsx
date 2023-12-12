@@ -1,5 +1,6 @@
 import AdminCanvas from '@/module/Admin/AdminCanvas'
 import AdminProject from '@/module/Admin/AdminProject'
+import AdminRole from '@/module/Admin/AdminRole'
 import AdminUser from '@/module/Admin/AdminUser'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { LayoutProps } from '@packages/types/menu'
@@ -22,6 +23,11 @@ export const backendLayoutCfg: LayoutProps = {
 				icon: <Icon icon={'quill:todo'} />,
 				label: '画布管理',
 			},
+			{
+				key: 'role',
+				icon: <Icon icon={'quill:todo'} />,
+				label: '角色管理',
+			},
 		],
 		handleClick: e => {
 			return `/admin/${e.key}`
@@ -39,6 +45,10 @@ export const backendLayoutCfg: LayoutProps = {
 		{
 			path: 'canvas',
 			element: <AdminCanvas />,
+		},
+		{
+			path: 'role',
+			element: <AdminRole />,
 		},
 	],
 }

@@ -3,6 +3,7 @@ const modules = {
 	auth: '/auth',
 	project: '/project',
 	canvas: '/canvas',
+	role: '/role',
 }
 export const urls = {
 	user: {
@@ -31,5 +32,10 @@ export const urls = {
 		multAllocation: `${modules.canvas}/multAllocation`,
 		updateCanvas: `${modules.canvas}/updateCanvas`,
 		deleteCanvas: `${modules.canvas}/deleteCanvas`,
+	},
+	role: {
+		getAllRole: `${modules.role}`,
+		updateRole: `${modules.role}/updateRole`,
+		deleteRole: `${modules.role}/deleteRole`,
 	},
 }

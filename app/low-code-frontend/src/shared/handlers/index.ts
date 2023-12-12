@@ -2,6 +2,7 @@ import { loginHandler, registerHandle } from './auth'
 
 import { canvasHandler } from './canvas'
 import { projectHandler } from './project'
+import { roleHandler } from './role'
 import { userHandler } from './user'
 
 export const handlers = {
@@ -28,10 +29,15 @@ export const handlers = {
 	assignCanvas: canvasHandler['assignCanvas'],
 	updateCanvas: canvasHandler['updateCanvas'],
 	deleteCanvas: canvasHandler['deleteCanvas'],
+
+	getAllRole: roleHandler['getAllRole'],
+	updateRole: roleHandler['updateRole'],
+	deleteRole: roleHandler['deleteRole'],
 }
 
 export * from './auth'
 export * from './user'
 export * from './project'
 export * from './canvas'
+export * from './role'
 export * from './types'
