@@ -121,17 +121,24 @@ export default function BaseContentLayout(
 									<ModalButton
 										initialValues={record}
 										{...config.actionCfg?.formCfg}
+										onOk={async value => {
+											await config.actionCfg?.formCfg.onOk(
+												value
+											)
+											await getData()
+										}}
 									>
 										修改
 									</ModalButton>
 									<DeleteButton
 										{...config.actionCfg?.deleteButtonCfg}
-										onConfirm={() =>
-											config.actionCfg?.deleteButtonCfg
-												?.onConfirm!(
+										onConfirm={async () => {
+											await config.actionCfg
+												?.deleteButtonCfg?.onConfirm!(
 												record[config!.dataCfg!.primaryKey!]
 											)
-										}
+											await getData()
+										}}
 									>
 										删除
 									</DeleteButton>
