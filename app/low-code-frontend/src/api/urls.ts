@@ -20,6 +20,7 @@ export const urls = {
 		joinProject: `${modules.project}/join`,
 		updateProject: `${modules.project}/updateProject`,
 		deleteUser: `${modules.project}/deleteUser`,
+		deleteProject: `${modules.project}/deleteProject`,
 	},
 	canvas: {
 		getAllCanvas: `${modules.canvas}`,
