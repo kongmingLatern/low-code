@@ -12,6 +12,7 @@ import Flex from '@/components/common/Flex'
 import ModalButton from '@/components/common/ModalButton'
 import { ReturnType } from '@/api'
 import Search from 'antd/es/input/Search'
+import { filterByKey } from '@/shared'
 
 export interface CfgProps {
 	toolCfg?: {
@@ -25,6 +26,8 @@ export interface CfgProps {
 	}
 	searchCfg?: {
 		className?: string
+		// NOTE: 这个字段用于表明你想要查询的字段
+		primaryKey?: string
 		placeholder?: string
 		onSearch?: (value: string) => void
 		restProps?: Record<string, any>
@@ -67,6 +70,19 @@ export default function BaseContentLayout(
 	}, [getDataSource])
 
 	const onSearch = value => {
+		if (value === '') {
+			getDataSource()
+			return
+		}
+		if (config?.searchCfg?.primaryKey) {
+			setDataSource(() => {
+				return filterByKey(
+					dataSource,
+					config.searchCfg!.primaryKey!,
+					value.trim()
+				)
+			})
+		}
 		console.log('onSearch', value)
 	}
 

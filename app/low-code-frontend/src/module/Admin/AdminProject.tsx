@@ -13,9 +13,7 @@ export default function AdminProject() {
 	const config: CfgProps = {
 		searchCfg: {
 			placeholder: '请输入要查询的项目名',
-			onSearch: value => {
-				console.log('----onSearch', value)
-			},
+			primaryKey: 'project_name',
 		},
 		dataCfg: {
 			primaryKey: 'project_id',

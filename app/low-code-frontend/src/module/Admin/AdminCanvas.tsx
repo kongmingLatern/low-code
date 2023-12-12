@@ -13,9 +13,7 @@ export default function AdminCanvas() {
 	const config: CfgProps = {
 		searchCfg: {
 			placeholder: '请输入要查询的画布',
-			onSearch: value => {
-				console.log('----onSearch', value)
-			},
+			primaryKey: 'canvas_name',
 		},
 		dataCfg: {
 			primaryKey: 'canvas_id',

@@ -22,9 +22,7 @@ export default function AdminUser() {
 		},
 		searchCfg: {
 			placeholder: '请输入要查询的用户名',
-			onSearch: value => {
-				console.log('----onSearch', value)
-			},
+			primaryKey: 'username',
 		},
 		dataCfg: {
 			primaryKey: 'uid',
