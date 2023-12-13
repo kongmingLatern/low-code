@@ -8,6 +8,6 @@ import { UserProjectRoleService } from './user_project_role.service';
   imports: [TypeOrmModule.forFeature([UserProjectRole])],
   controllers: [UserProjectRoleController],
   providers: [UserProjectRoleService],
-  exports: [UserProjectRoleModule],
+  exports: [UserProjectRoleModule, UserProjectRoleService],
 })
 export class UserProjectRoleModule {}

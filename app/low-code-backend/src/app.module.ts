@@ -1,6 +1,7 @@
 import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthGuard } from './guards/auth.guard';
 import { AuthModule } from './module/auth/auth.module';
 import { CanvasModule } from './module/canvas/canvas.module';
 import { JwtModule } from '@nestjs/jwt';
@@ -49,6 +50,10 @@ import { UserProjectRoleModule } from './joinTable/user_project_role/user_projec
     {
       provide: APP_GUARD,
       useClass: LoginGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
   ],
 })

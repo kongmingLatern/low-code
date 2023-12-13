@@ -13,6 +13,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RequireLogin } from 'src/decorators';
 
 @Controller('user')
+@RequireLogin()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -22,7 +23,6 @@ export class UserController {
   }
 
   @Get()
-  @RequireLogin()
   async findAll() {
     return await this.userService.findAll();
   }
