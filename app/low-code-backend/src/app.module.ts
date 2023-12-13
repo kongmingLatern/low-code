@@ -1,8 +1,10 @@
+import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './module/auth/auth.module';
 import { CanvasModule } from './module/canvas/canvas.module';
 import { JwtModule } from '@nestjs/jwt';
+import { LoginGuard } from './guards/login.guard';
 import { Module } from '@nestjs/common';
 import { PermissionModule } from './module/permission/permission.module';
 import { ProjectModule } from './module/project/project.module';
@@ -42,6 +44,12 @@ import { UserProjectRoleModule } from './joinTable/user_project_role/user_projec
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: LoginGuard,
+    },
+  ],
 })
 export class AppModule {}

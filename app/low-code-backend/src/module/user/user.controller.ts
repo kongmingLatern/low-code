@@ -10,6 +10,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RequireLogin } from 'src/decorators';
 
 @Controller('user')
 export class UserController {
@@ -21,6 +22,7 @@ export class UserController {
   }
 
   @Get()
+  @RequireLogin()
   async findAll() {
     return await this.userService.findAll();
   }
