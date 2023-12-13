@@ -10,7 +10,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { RequireLogin } from 'src/decorators';
+import { RequireLogin, RequireRole } from 'src/decorators';
 
 @Controller('user')
 @RequireLogin()
@@ -23,6 +23,7 @@ export class UserController {
   }
 
   @Get()
+  @RequireRole('项目管理员')
   async findAll() {
     return await this.userService.findAll();
   }
@@ -38,6 +39,7 @@ export class UserController {
   }
 
   @Delete('/deleteUser/:uid')
+  @RequireRole('项目管理员')
   remove(@Param('uid') uid: string) {
     return this.userService.delete(uid);
   }
