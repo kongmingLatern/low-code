@@ -4,6 +4,7 @@ import { AllocatinDto } from 'src/module/canvas/dto/allocation-canvas.dto';
 import { CanvasService } from 'src/module/canvas/canvas.service';
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
+import { ROLE } from 'src/utils/const';
 import { UserCanvasProject } from './entities/user_canvas_project.entity';
 import { UserProjectRole } from '../user_project_role/entities/user_project_role.entity';
 import { UserProjectRoleService } from '../user_project_role/user_project_role.service';
@@ -39,16 +40,19 @@ export class UserCanvasProjectService {
     const { role_id } = user;
 
     // 如果身份是1,说明是创建者,那么无需查此表,直接根据 project_id 查询全部画布即可.
-    if (role_id === 1) {
+    if (role_id === ROLE.PROJECT_MANAGER) {
       // NOTE: 创建者
-      return (
-        await this.canvasService.findByProjectId(project_id, false)
-      ).canvas.map((i) => {
-        return {
-          ...i,
-          isEditable: 1,
-        };
-      });
+      return {
+        role_id,
+        canvas: (
+          await this.canvasService.findByProjectId(project_id, false)
+        ).canvas.map((i) => {
+          return {
+            ...i,
+            isEditable: 1,
+          };
+        }),
+      };
     } else {
       const res = await this.userCanvasProjectRepository.find(
         UserCanvasProject,
@@ -61,21 +65,24 @@ export class UserCanvasProjectService {
         project_id,
         false,
       );
-      return allCanvas.canvas.map((c) => {
-        // 如果不包含在可编辑的范围内,那么就给一个状态
-        // NOTE: isEditable(是否可编辑) 1 是 0 否
-        if (!canvasList.includes(c.canvas_id)) {
-          return {
-            ...c,
-            isEditable: 0,
-          };
-        } else {
-          return {
-            ...c,
-            isEditable: 1,
-          };
-        }
-      });
+      return {
+        role_id,
+        canvas: allCanvas.canvas.map((c) => {
+          // 如果不包含在可编辑的范围内,那么就给一个状态
+          // NOTE: isEditable(是否可编辑) 1 是 0 否
+          if (!canvasList.includes(c.canvas_id)) {
+            return {
+              ...c,
+              isEditable: 0,
+            };
+          } else {
+            return {
+              ...c,
+              isEditable: 1,
+            };
+          }
+        }),
+      };
     }
   }
 
