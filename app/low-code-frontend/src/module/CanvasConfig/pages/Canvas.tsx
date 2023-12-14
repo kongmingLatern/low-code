@@ -3,6 +3,7 @@ import {
 	InfoType,
 	formatYMDHHmmss,
 	handlers,
+	isProjectManager,
 } from '@/shared'
 import { useContext, useEffect, useState } from 'react'
 import {
@@ -49,12 +50,7 @@ export default function Canvas() {
 	const columns: ColumnsType<
 		InfoType['refMap']['canvas'][number]
 	> = [
-			{
-				title: '画布id',
-				dataIndex: 'canvas_id',
-				key: 'canvas_id',
-				align: 'center',
-			},
+
 			{
 				title: '画布名称',
 				dataIndex: 'canvas_name',
@@ -202,6 +198,15 @@ export default function Canvas() {
 				),
 			},
 		]
+
+	if (isProjectManager(canvas.role_id)) {
+		columns.unshift({
+			title: '画布id',
+			dataIndex: 'canvas_id',
+			key: 'canvas_id',
+			align: 'center',
+		},)
+	}
 
 	return (
 		<>
