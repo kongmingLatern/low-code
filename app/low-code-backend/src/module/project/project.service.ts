@@ -178,7 +178,7 @@ export class ProjectService {
           params.project_id,
         );
         console.log('r33------', r3);
-        const canvasIdList = r3.reduce((prev, cur) => {
+        const canvasIdList = r3.canvas.reduce((prev, cur) => {
           if (cur.isEditable !== 0) {
             prev.push(cur.canvas_name);
           }

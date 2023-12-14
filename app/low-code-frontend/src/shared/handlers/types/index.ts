@@ -36,6 +36,11 @@ export interface InfoType {
 	user_num: number
 }
 
+export interface UserCanvasInfo {
+	role_id: number
+	canvas: Array<CreateCanvasType & { isEditable: 0 | 1 }>
+}
+
 export interface ProjectIdType {
 	code: number
 	data: InfoType

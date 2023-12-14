@@ -29,6 +29,7 @@ export const urls = {
 		getAllCanvas: `${modules.canvas}`,
 		createCanvas: `${modules.canvas}/create`,
 		getCanvasByProjectId: `${modules.canvas}/getCanvas`,
+		getCanvasByUid: `${modules.canvas}/getCanvasByUid`,
 		multAllocation: `${modules.canvas}/multAllocation`,
 		updateCanvas: `${modules.canvas}/updateCanvas`,
 		deleteCanvas: `${modules.canvas}/deleteCanvas`,

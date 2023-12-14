@@ -26,6 +26,7 @@ export const handlers = {
 	createCanvas: canvasHandler['create'],
 	getCanvasByProjectId:
 		canvasHandler['getCanvasByProjectId'],
+	getCanvasByUid: canvasHandler['getCanvasByUid'],
 	assignCanvas: canvasHandler['assignCanvas'],
 	updateCanvas: canvasHandler['updateCanvas'],
 	deleteCanvas: canvasHandler['deleteCanvas'],

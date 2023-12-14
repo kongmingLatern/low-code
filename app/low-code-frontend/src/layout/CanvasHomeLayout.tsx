@@ -1,5 +1,5 @@
 import { Button, Layout, Menu, Space, theme } from 'antd'
-import { InfoType, handlers } from '@/shared'
+import { InfoType, UserCanvasInfo, handlers } from '@/shared'
 import {
 	Outlet,
 	useNavigate,
@@ -33,6 +33,7 @@ const App: React.FC<LayoutProps> = props => {
 	const [selectedMenu, setSelectedMenu] = useState('')
 
 	const [info, setInfo] = useState<InfoType>({} as InfoType)
+	const [canvas, setCanvas] = useState<UserCanvasInfo>({} as UserCanvasInfo)
 	const [searchParams] = useSearchParams()
 	const {
 		token: { colorBgContainer },
@@ -43,7 +44,14 @@ const App: React.FC<LayoutProps> = props => {
 		const res = await handlers.getProjectById(
 			searchParams.get('project_id')
 		)
+
+		const rs = await handlers.getCanvasByUid({
+			project_id: searchParams.get('project_id'),
+			uid: localStorage.getItem('uid')
+		})
+
 		setInfo(res.data)
+		setCanvas(rs.data)
 	}, [searchParams])
 
 	useEffect(() => {
@@ -109,7 +117,7 @@ const App: React.FC<LayoutProps> = props => {
 								)}`
 							)
 						}}
-						items={menuCfg.itemList}
+						items={menuCfg.itemList(canvas)}
 					/>
 				</Space>
 			</Header>

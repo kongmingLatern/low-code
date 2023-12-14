@@ -1,3 +1,4 @@
+import { CreateCanvasType, UserCanvasInfo } from './types'
 import {
 	ReturnType,
 	get,
@@ -6,8 +7,6 @@ import {
 	handlePutRequest,
 	urls,
 } from '@/api'
-
-import { CreateCanvasType } from './types'
 
 export const getAllCanvas = async () => {
 	return await get<ReturnType<CreateCanvasType>>(
@@ -54,6 +53,16 @@ export const deleteCanvas = async canvas_id => {
 	)
 }
 
+export const getCanvasByUid = async values => {
+	return await get<ReturnType<UserCanvasInfo>>(
+		urls.canvas.getCanvasByUid,
+		{
+			uid: values.uid,
+			project_id: values.project_id,
+		}
+	)
+}
+
 export const canvasHandler = {
 	getAllCanvas,
 	create: createCanvasHandler,
@@ -61,4 +70,5 @@ export const canvasHandler = {
 	assignCanvas,
 	updateCanvas,
 	deleteCanvas,
+	getCanvasByUid,
 }
