@@ -9,8 +9,11 @@ import {
 import React, { useState } from 'react'
 
 import { BaseButtonProps } from 'antd/es/button/button'
+import { ROLE } from '@/shared'
 
 export interface ModalButtonType {
+	// NOTE: 用于权限区分
+	role?: ROLE
 	type?: BaseButtonProps['type']
 	text?: string
 	title?: string
@@ -29,6 +32,7 @@ const App: React.FC<
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const {
+		role = ROLE.COMMON,
 		type = 'primary',
 		text,
 		content,
@@ -70,44 +74,44 @@ const App: React.FC<
 		}
 	}
 
-	return (
-		<>
-			<Button type={type} onClick={showModal}>
-				{children || text}
-			</Button>
-			<Modal
-				title={title}
-				open={isModalOpen}
-				onOk={handleOk}
-				onCancel={handleCancel}
-				{...rest}
-			>
-				{form && formItem && (
-					<Form
-						className="mt-1.5rem"
-						name="basic"
-						onFinish={handleOk}
-						onFinishFailed={handleCancel}
-						autoComplete="off"
-						initialValues={initialValues}
-					>
-						{formItem.map((i, index) => (
-							<Form.Item {...i.props} key={index}>
-								{handleTypeInput(i.type, i?.inject)}
-							</Form.Item>
-						))}
-
-						<Form.Item className="text-right">
-							<Button type="primary" htmlType="submit">
-								提交
-							</Button>
+	return role === ROLE.PROJECT_MANAGER ? (<>
+		<Button type={type} onClick={showModal}>
+			{children || text}
+		</Button>
+		<Modal
+			title={title}
+			open={isModalOpen}
+			onOk={handleOk}
+			onCancel={handleCancel}
+			{...rest}
+		>
+			{form && formItem && (
+				<Form
+					className="mt-1.5rem"
+					name="basic"
+					onFinish={handleOk}
+					onFinishFailed={handleCancel}
+					autoComplete="off"
+					initialValues={initialValues}
+				>
+					{formItem.map((i, index) => (
+						<Form.Item {...i.props} key={index}>
+							{handleTypeInput(i.type, i?.inject)}
 						</Form.Item>
-					</Form>
-				)}
-				{!form && content}
-			</Modal>
-		</>
-	)
+					))}
+
+					<Form.Item className="text-right">
+						<Button type="primary" htmlType="submit">
+							提交
+						</Button>
+					</Form.Item>
+				</Form>
+			)}
+			{!form && content}
+		</Modal>
+	</>
+	) : null
+
 }
 
 export default App

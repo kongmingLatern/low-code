@@ -4,7 +4,7 @@ import {
 	formatYMDHHmmss,
 	handlers,
 } from '@/shared'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import type { DescriptionsProps } from 'antd'
 import Flex from '@/components/common/Flex'
@@ -96,8 +96,14 @@ const items: (
 }
 
 const App: React.FC = () => {
-	const { info, getData } = useContext(InfoContext)
+	const { info, getData, canvas } = useContext(InfoContext)
 	const [searchParams] = useSearchParams()
+
+	useEffect(() => {
+		console.log('canvas---Manage', canvas);
+	}, [canvas])
+
+
 	return (
 		<>
 			<Flex

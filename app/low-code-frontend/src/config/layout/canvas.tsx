@@ -7,6 +7,7 @@ import { ROLE } from '@/shared'
 export const canvasLayoutCfg = {
 	menuCfg: {
 		itemList: (canvas) => {
+			// TODO: 动态菜单
 			const { role_id } = canvas
 			return [
 				{

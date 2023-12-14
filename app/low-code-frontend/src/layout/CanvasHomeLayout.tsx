@@ -24,6 +24,7 @@ export const InfoContext = createContext(
 	{} as {
 		info: InfoType
 		getData: () => Promise<void>
+		canvas: UserCanvasInfo
 	}
 )
 
@@ -136,7 +137,7 @@ const App: React.FC<LayoutProps> = props => {
 						background: colorBgContainer,
 					}}
 				>
-					<InfoContext.Provider value={{ info, getData }}>
+					<InfoContext.Provider value={{ info, getData, canvas }}>
 						<Outlet />
 					</InfoContext.Provider>
 				</div>

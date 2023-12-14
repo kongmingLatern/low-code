@@ -21,9 +21,13 @@ import StatusTag from '@/components/common/StatusTag'
 
 export default function Canvas() {
 	const navigate = useNavigate()
-	const { info, getData } = useContext(InfoContext)
+	const { info, getData, canvas } = useContext(InfoContext)
 	const [list, setList] = useState(info.refMap)
 	const [searchParams] = useSearchParams()
+
+	useEffect(() => {
+		console.log('canvas---Manage', canvas);
+	}, [canvas])
 
 	useEffect(() => {
 		setList(info.refMap)
@@ -49,157 +53,157 @@ export default function Canvas() {
 	const columns: ColumnsType<
 		InfoType['refMap']['canvas'][number]
 	> = [
-		{
-			title: '画布id',
-			dataIndex: 'canvas_id',
-			key: 'canvas_id',
-			align: 'center',
-		},
-		{
-			title: '画布名称',
-			dataIndex: 'canvas_name',
-			key: 'canvas_name',
-			align: 'center',
-		},
-		{
-			title: '画布描述',
-			dataIndex: 'canvas_description',
-			key: 'canvas_description',
-			align: 'center',
-		},
-		{
-			title: '创建时间',
-			dataIndex: 'create_time',
-			key: 'create_time',
-			align: 'center',
-			render: (_, { create_time }) =>
-				formatYMDHHmmss(new Date(create_time)),
-		},
-		{
-			title: '更新时间',
-			dataIndex: 'update_time',
-			key: 'update_time',
-			align: 'center',
-			render: (_, { update_time }) =>
-				formatYMDHHmmss(new Date(update_time)),
-		},
-		{
-			title: '画布状态',
-			key: 'project_status',
-			dataIndex: 'project_status',
-			align: 'center',
-			render: (_, { canvas_status }) => (
-				<StatusTag status={canvas_status}>
-					{canvas_status}
-				</StatusTag>
-			),
-		},
-		{
-			title: '操作',
-			key: 'action',
-			align: 'center',
-			render: (
-				_,
-				record: InfoType['refMap']['canvas'][number]
-			) => (
-				<Space size="middle">
-					<Button
-						type="link"
-						onClick={() =>
-							navigate('/canvas/' + record.canvas_id)
-						}
-					>
-						进入画布
-					</Button>
-					<ModalButton
-						title="画布修改"
-						form
-						initialValues={{
-							canvas_name: record.canvas_name,
-							canvas_description: record.canvas_description,
-							canvas_status: record.canvas_status,
-						}}
-						formItem={[
-							{
-								type: 'input',
-								props: {
-									label: '画布名称',
-									name: 'canvas_name',
-									rules: [
-										{
-											required: true,
-											message: '请输入画布名称',
-										},
-									],
+			{
+				title: '画布id',
+				dataIndex: 'canvas_id',
+				key: 'canvas_id',
+				align: 'center',
+			},
+			{
+				title: '画布名称',
+				dataIndex: 'canvas_name',
+				key: 'canvas_name',
+				align: 'center',
+			},
+			{
+				title: '画布描述',
+				dataIndex: 'canvas_description',
+				key: 'canvas_description',
+				align: 'center',
+			},
+			{
+				title: '创建时间',
+				dataIndex: 'create_time',
+				key: 'create_time',
+				align: 'center',
+				render: (_, { create_time }) =>
+					formatYMDHHmmss(new Date(create_time)),
+			},
+			{
+				title: '更新时间',
+				dataIndex: 'update_time',
+				key: 'update_time',
+				align: 'center',
+				render: (_, { update_time }) =>
+					formatYMDHHmmss(new Date(update_time)),
+			},
+			{
+				title: '画布状态',
+				key: 'project_status',
+				dataIndex: 'project_status',
+				align: 'center',
+				render: (_, { canvas_status }) => (
+					<StatusTag status={canvas_status}>
+						{canvas_status}
+					</StatusTag>
+				),
+			},
+			{
+				title: '操作',
+				key: 'action',
+				align: 'center',
+				render: (
+					_,
+					record: InfoType['refMap']['canvas'][number]
+				) => (
+					<Space size="middle">
+						<Button
+							type="link"
+							onClick={() =>
+								navigate('/canvas/' + record.canvas_id)
+							}
+						>
+							进入画布
+						</Button>
+						<ModalButton
+							title="画布修改"
+							form
+							initialValues={{
+								canvas_name: record.canvas_name,
+								canvas_description: record.canvas_description,
+								canvas_status: record.canvas_status,
+							}}
+							formItem={[
+								{
+									type: 'input',
+									props: {
+										label: '画布名称',
+										name: 'canvas_name',
+										rules: [
+											{
+												required: true,
+												message: '请输入画布名称',
+											},
+										],
+									},
 								},
-							},
-							{
-								type: 'input',
-								props: {
-									label: '画布描述',
-									name: 'canvas_description',
-									rules: [
-										{
-											required: true,
-											message: '请输入对画布的描述信息',
-										},
-									],
+								{
+									type: 'input',
+									props: {
+										label: '画布描述',
+										name: 'canvas_description',
+										rules: [
+											{
+												required: true,
+												message: '请输入对画布的描述信息',
+											},
+										],
+									},
 								},
-							},
-							{
-								type: 'select',
-								props: {
-									label: '画布状态',
-									name: 'canvas_status',
-									rules: [
-										{
-											required: true,
-											message: '请选择画布状态',
-										},
-									],
+								{
+									type: 'select',
+									props: {
+										label: '画布状态',
+										name: 'canvas_status',
+										rules: [
+											{
+												required: true,
+												message: '请选择画布状态',
+											},
+										],
+									},
+									inject: {
+										options: [
+											{
+												value: '未开始',
+												label: '未开始',
+											},
+											{
+												value: '进行中',
+												label: '进行中',
+											},
+											{
+												value: '已完成',
+												label: '已完成',
+											},
+										],
+									},
 								},
-								inject: {
-									options: [
-										{
-											value: '未开始',
-											label: '未开始',
-										},
-										{
-											value: '进行中',
-											label: '进行中',
-										},
-										{
-											value: '已完成',
-											label: '已完成',
-										},
-									],
-								},
-							},
-						]}
-						onOk={async e => {
-							await handlers.updateCanvas({
-								...e,
-								canvas_id: record.canvas_id,
-							})
-							await getData()
-						}}
-						onCancel={e => {
-							console.log('cancel', e)
-						}}
-						footer={null}
-					>
-						修改
-					</ModalButton>
-					<DeleteButton
-						onConfirm={async () => {
-							await handlers.deleteCanvas(record.canvas_id)
-							await getData()
-						}}
-					/>
-				</Space>
-			),
-		},
-	]
+							]}
+							onOk={async e => {
+								await handlers.updateCanvas({
+									...e,
+									canvas_id: record.canvas_id,
+								})
+								await getData()
+							}}
+							onCancel={e => {
+								console.log('cancel', e)
+							}}
+							footer={null}
+						>
+							修改
+						</ModalButton>
+						<DeleteButton
+							onConfirm={async () => {
+								await handlers.deleteCanvas(record.canvas_id)
+								await getData()
+							}}
+						/>
+					</Space>
+				),
+			},
+		]
 
 	return (
 		<>
