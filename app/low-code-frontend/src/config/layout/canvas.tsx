@@ -12,7 +12,7 @@ export const canvasLayoutCfg = {
 			return [
 				{
 					key: 'manage',
-					role: [ROLE.PROJECT_MANAGER],
+					role: [ROLE.PROJECT_MANAGER, ROLE.COMMON],
 					icon: <Icon icon={'uil:edit'} />,
 					label: '项目管理',
 				},

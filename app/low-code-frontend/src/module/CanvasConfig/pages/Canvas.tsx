@@ -26,10 +26,6 @@ export default function Canvas() {
 	const [searchParams] = useSearchParams()
 
 	useEffect(() => {
-		console.log('canvas---Manage', canvas);
-	}, [canvas])
-
-	useEffect(() => {
 		setList(info.refMap)
 	}, [info])
 
@@ -226,6 +222,7 @@ export default function Canvas() {
 						enterButton
 					/>
 					<ModalButton
+						role={canvas.role_id}
 						title="画布创建"
 						form
 						formItem={[

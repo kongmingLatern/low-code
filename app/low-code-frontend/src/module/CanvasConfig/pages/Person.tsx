@@ -1,5 +1,5 @@
 import { Flex, Space, Tag } from 'antd'
-import { InfoType, formatYMD, handlers } from '@/shared'
+import { InfoType, formatYMD, handlers, isProjectManager } from '@/shared'
 import {
 	useCallback,
 	useContext,
@@ -17,14 +17,13 @@ import { useSearchParams } from 'react-router-dom'
 export default function Person() {
 	const context = useContext(InfoContext)
 	const info = context.info.refMap
-	const { getData } = context
+	const { getData, canvas } = context
 	const [list, setList] = useState(info)
 	const [searchParams] = useSearchParams()
 	const [canvasList, setCanvasList] = useState<[]>([])
 
 	const getCanvasByProjectId = useCallback(async () => {
 		const project_id = searchParams.get('project_id')
-		console.log('project_id', project_id)
 		if (project_id) {
 			const res: any = await handlers.getCanvasByProjectId(
 				project_id
@@ -51,52 +50,56 @@ export default function Person() {
 	const columns: ColumnsType<
 		InfoType['refMap']['users'][number]
 	> = [
-		{
-			title: '协作人员',
-			dataIndex: 'username',
-			key: 'username',
-			align: 'center',
-		},
-		{
-			title: '分配画布',
-			dataIndex: 'canvasList',
-			key: 'canvasList',
-			align: 'center',
-			render: (_, { role_id, canvasList }) => {
-				return canvasList.length > 0 ? (
-					role_id === 1 ? (
+			{
+				title: '协作人员',
+				dataIndex: 'username',
+				key: 'username',
+				align: 'center',
+			},
+			{
+				title: '分配画布',
+				dataIndex: 'canvasList',
+				key: 'canvasList',
+				align: 'center',
+				render: (_, { role_id, canvasList }) => {
+					return canvasList.length > 0 ? (
+						role_id === 1 ? (
+							<Tag color="blue-inverse">管理员无需分配</Tag>
+						) : (
+							canvasList.map(i => {
+								return (
+									<Tag key={i} color={'pink'}>
+										{i}
+									</Tag>
+								)
+							})
+						)
+					) : role_id === 1 ? (
 						<Tag color="blue-inverse">管理员无需分配</Tag>
 					) : (
-						canvasList.map(i => {
-							return (
-								<Tag key={i} color={'pink'}>
-									{i}
-								</Tag>
-							)
-						})
+						<Tag color="#ff0000">暂无分配</Tag>
 					)
-				) : role_id === 1 ? (
-					<Tag color="blue-inverse">管理员无需分配</Tag>
-				) : (
-					<Tag color="#ff0000">暂无分配</Tag>
-				)
+				},
 			},
-		},
-		{
-			title: '权限角色',
-			dataIndex: 'name',
-			key: 'name',
-			align: 'center',
-		},
-		{
-			title: '加入日期',
-			dataIndex: 'create_time',
-			key: 'create_time',
-			align: 'center',
-			render: (_, { create_time }) =>
-				formatYMD(new Date(create_time)),
-		},
-		{
+			{
+				title: '权限角色',
+				dataIndex: 'name',
+				key: 'name',
+				align: 'center',
+			},
+			{
+				title: '加入日期',
+				dataIndex: 'create_time',
+				key: 'create_time',
+				align: 'center',
+				render: (_, { create_time }) =>
+					formatYMD(new Date(create_time)),
+			},
+
+		]
+
+	if (isProjectManager(canvas.role_id)) {
+		columns.push({
 			title: '操作',
 			key: 'action',
 			align: 'center',
@@ -155,13 +158,14 @@ export default function Person() {
 						))}
 				</Space>
 			),
-		},
-	]
+		},)
+	}
 
 	return (
 		<>
 			<Flex justify="end" className="p-1rem">
 				<ModalButton
+					role={canvas.role_id}
 					title={'邀请人员'}
 					form
 					formItem={[
