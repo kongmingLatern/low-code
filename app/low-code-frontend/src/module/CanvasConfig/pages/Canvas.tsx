@@ -116,6 +116,7 @@ export default function Canvas() {
 							进入画布
 						</Button>
 						<ModalButton
+							role={canvas.role_id}
 							title="画布修改"
 							form
 							initialValues={{
@@ -195,6 +196,7 @@ export default function Canvas() {
 							修改
 						</ModalButton>
 						<DeleteButton
+							role={canvas.role_id}
 							onConfirm={async () => {
 								await handlers.deleteCanvas(record.canvas_id)
 								await getData()

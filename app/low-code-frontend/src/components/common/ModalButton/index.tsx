@@ -32,7 +32,7 @@ const App: React.FC<
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const {
-		role = ROLE.COMMON,
+		role = ROLE.PROJECT_MANAGER,
 		type = 'primary',
 		text,
 		content,

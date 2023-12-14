@@ -1,8 +1,10 @@
 import { Button, Popconfirm } from 'antd'
 
+import { ROLE } from '@/shared'
 import React from 'react'
 
 export interface DeleteButtonProps {
+	role?: ROLE
 	title: string
 	description: string
 	children: any
@@ -15,6 +17,7 @@ export interface DeleteButtonProps {
 
 const App: React.FC<Partial<DeleteButtonProps>> = props => {
 	const {
+		role = ROLE.PROJECT_MANAGER,
 		title = '提示',
 		description = '确定要删除吗',
 		text = '删除',
@@ -24,7 +27,7 @@ const App: React.FC<Partial<DeleteButtonProps>> = props => {
 		onConfirm,
 		onCancel,
 	} = props
-	return (
+	return role === ROLE.PROJECT_MANAGER ? (
 		<Popconfirm
 			title={title}
 			description={description}
@@ -35,7 +38,7 @@ const App: React.FC<Partial<DeleteButtonProps>> = props => {
 		>
 			<Button danger>{children || text}</Button>
 		</Popconfirm>
-	)
+	) : null
 }
 
 export default App
