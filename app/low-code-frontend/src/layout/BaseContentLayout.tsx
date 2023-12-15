@@ -144,6 +144,7 @@ export default function BaseContentLayout(
 			</Flex>
 
 			<DataTable
+				{...config?.dataCfg}
 				primaryKey={
 					(config?.dataCfg && config.dataCfg.primaryKey) ||
 					'id'

@@ -46,6 +46,7 @@ export default function AdminRole() {
 		},
 		dataCfg: {
 			primaryKey: 'id',
+			scroll: { x: 'auto' },
 			columns: [
 				{
 					title: '角色ID',
