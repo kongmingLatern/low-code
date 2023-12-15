@@ -47,6 +47,7 @@ export class AuthService {
         token,
         uid: foundUser.uid,
         nickname: foundUser.nickname,
+        isAdmin: foundUser.isAdmin,
         message: '登陆成功',
       };
     }

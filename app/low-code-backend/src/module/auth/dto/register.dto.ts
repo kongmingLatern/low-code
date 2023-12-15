@@ -12,4 +12,6 @@ export class RegisterDto {
 
   @IsString()
   nickname: string;
+
+  isAdmin: number;
 }

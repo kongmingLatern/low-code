@@ -12,7 +12,13 @@ const App: React.FC = () => {
 	const onFinish = async (values: any) => {
 		await handlers
 			.login(values)
-			.then(() => nagivate('/home'))
+			.then((isAdmin) => {
+				if (isAdmin) {
+					nagivate('/admin')
+					return
+				}
+				nagivate('/home')
+			})
 	}
 
 	return (
