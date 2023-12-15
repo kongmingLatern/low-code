@@ -94,14 +94,6 @@ const App: React.FC<LayoutProps> = props => {
 				style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
 			>
 				<Space>
-					{/* <Button
-						type="primary"
-						onClick={() => {
-							navigate(-1)
-						}}
-					>
-						{'<'}
-					</Button> */}
 					<Box
 						icon={{
 							src: 'fad:logo-fl',
@@ -130,8 +122,6 @@ const App: React.FC<LayoutProps> = props => {
 						}}
 						items={menuCfg.itemList(canvas)}
 					/>
-
-
 				</Space>
 
 				<Box
