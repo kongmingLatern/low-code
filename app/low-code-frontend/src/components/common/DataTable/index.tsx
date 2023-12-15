@@ -13,15 +13,25 @@ const App: React.FC<TableEnhanceProps> = props => {
 		dataSource,
 		...rest
 	} = props
+
+	const items = columns?.map(i => {
+		return {
+			...i,
+			ellipsis: true
+		}
+	})
+
 	return (
 		<Table
-			columns={columns}
-			dataSource={dataSource?.map(i => {
-				return {
-					...i,
-					key: i[primaryKey],
-				}
-			})}
+			columns={items}
+			dataSource={
+				dataSource?.map(i => {
+					return {
+						...i,
+						key: i[primaryKey],
+					}
+				})
+			}
 			{...rest}
 		/>
 	)
