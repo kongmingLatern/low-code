@@ -94,6 +94,7 @@ export default function Canvas() {
 				title: '操作',
 				key: 'action',
 				align: 'center',
+				width: 280,
 				render: (
 					_,
 					record: InfoType['refMap']['canvas'][number]

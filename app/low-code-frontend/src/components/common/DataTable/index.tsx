@@ -1,6 +1,6 @@
+import { ColumnType, ColumnsType } from 'antd/es/table'
 import { Table, TableProps } from 'antd'
 
-import { ColumnType } from 'antd/es/table'
 import React from 'react'
 
 export interface TableEnhanceProps extends TableProps<any> {
@@ -35,11 +35,19 @@ const App: React.FC<TableEnhanceProps> = props => {
 
 
 
-	const items = columns?.map(i => {
-		return {
+	const items: ColumnsType<any> = columns!.map(i => {
+		const i1 = {
 			...i,
 			ellipsis: true
 		}
+		if (i.key === 'action') {
+			return {
+				width: 150,
+				...i1,
+				fixed: 'right'
+			}
+		}
+		return i1
 	})
 
 	return (

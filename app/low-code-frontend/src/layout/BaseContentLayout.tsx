@@ -156,6 +156,8 @@ export default function BaseContentLayout(
 							dataIndex: 'action',
 							key: 'action',
 							align: 'center',
+							fixed: 'right',
+							width: 200,
 							render: (_, record) => (
 								<Space>
 									<ModalButton
@@ -167,7 +169,7 @@ export default function BaseContentLayout(
 												[config.dataCfg
 													?.primaryKey as string]:
 													record[
-														config.dataCfg!.primaryKey!
+													config.dataCfg!.primaryKey!
 													],
 											})
 											await getDataSource()
@@ -180,8 +182,8 @@ export default function BaseContentLayout(
 										onConfirm={async () => {
 											await config.actionCfg
 												?.deleteButtonCfg?.onConfirm!(
-												record[config!.dataCfg!.primaryKey!]
-											)
+													record[config!.dataCfg!.primaryKey!]
+												)
 											await getDataSource()
 										}}
 									>
