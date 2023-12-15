@@ -121,7 +121,7 @@ const App: React.FC<{
 									dropProps={{
 										items: [
 											{
-												key: '1',
+												key: 'exit',
 												label: '退出登陆',
 												onClick: () => {
 													exitLogin(navigate)

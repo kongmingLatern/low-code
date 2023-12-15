@@ -1,5 +1,5 @@
-import { Button, Layout, Menu, Space, theme } from 'antd'
-import { InfoType, UserCanvasInfo, handlers } from '@/shared'
+import { InfoType, UserCanvasInfo, exitLogin, handlers } from '@/shared'
+import { Layout, Menu, Space, message, theme } from 'antd'
 import {
 	Outlet,
 	useNavigate,
@@ -74,6 +74,16 @@ const App: React.FC<LayoutProps> = props => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [navigate, searchParams, window.location.pathname])
 
+	function getContent() {
+		const nickname = localStorage.getItem('nickname')
+		if (!nickname) {
+			message.error('您没有登陆态,请登陆')
+			navigate('/login')
+			return
+		}
+		return nickname
+	}
+
 	useEffect(() => {
 		getData()
 	}, [getData])
@@ -81,17 +91,17 @@ const App: React.FC<LayoutProps> = props => {
 	return (
 		<Layout className="layout">
 			<Header
-				style={{ display: 'flex', alignItems: 'center' }}
+				style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
 			>
 				<Space>
-					<Button
+					{/* <Button
 						type="primary"
 						onClick={() => {
 							navigate(-1)
 						}}
 					>
 						{'<'}
-					</Button>
+					</Button> */}
 					<Box
 						icon={{
 							src: 'fad:logo-fl',
@@ -120,15 +130,48 @@ const App: React.FC<LayoutProps> = props => {
 						}}
 						items={menuCfg.itemList(canvas)}
 					/>
+
+
 				</Space>
+
+				<Box
+					isDropdown
+					color='white'
+					dropProps={{
+						items: [
+							{
+								key: 'back',
+								label: '返回首页',
+								onClick: () => {
+									navigate('/home/all')
+								},
+							},
+							{
+								key: 'exit',
+								label: '退出登陆',
+								onClick: () => {
+									exitLogin(navigate)
+								},
+							},
+						],
+					}}
+					icon={{
+						src: 'mdi:user',
+						width: '30',
+						height: '30',
+						color: 'white'
+					}}
+					content={getContent()}
+				/>
 			</Header>
 			<Content
 				style={{ padding: '0 50px', minHeight: '800px' }}
 			>
 				{/* <Breadcrumb style={{ margin: '16px 0' }}>
-					<Breadcrumb.Item>Home</Breadcrumb.Item>
-					<Breadcrumb.Item>List</Breadcrumb.Item>
-					<Breadcrumb.Item>App</Breadcrumb.Item>
+					<Breadcrumb.Item>
+						<Link to={'/home/all'}>我的项目</Link>
+					</Breadcrumb.Item>
+					<Breadcrumb.Item>项目管理</Breadcrumb.Item>
 				</Breadcrumb> */}
 				<div
 					className="site-layout-content"
