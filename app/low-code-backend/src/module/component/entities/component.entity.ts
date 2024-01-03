@@ -1,17 +1,20 @@
-import { Library } from 'src/module/library/entities/library.entity';
 import {
-  BaseEntity,
   Column,
   Entity,
-  JoinTable,
-  ManyToOne,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { Library } from 'src/module/library/entities/library.entity';
+
 @Entity()
-export class Component extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  component_id: string;
+export class Component {
+  @PrimaryGeneratedColumn('increment')
+  component_id: number;
+
+  @Column()
+  component_type: string;
 
   @Column()
   component_tag: string;
@@ -19,7 +22,10 @@ export class Component extends BaseEntity {
   @Column()
   component_name: string;
 
-  @JoinTable()
-  @ManyToOne(() => Library, (lib) => lib.library_id)
-  library_id: string[];
+  @Column()
+  component_props: string;
+
+  @OneToOne(() => Library, (lib) => lib.library_id)
+  @JoinColumn()
+  library: Library;
 }

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+} from '@nestjs/common';
 import { ComponentService } from './component.service';
 import { CreateComponentDto } from './dto/create-component.dto';
 import { UpdateComponentDto } from './dto/update-component.dto';
@@ -7,28 +16,33 @@ import { UpdateComponentDto } from './dto/update-component.dto';
 export class ComponentController {
   constructor(private readonly componentService: ComponentService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createComponentDto: CreateComponentDto) {
     return this.componentService.create(createComponentDto);
   }
 
-  @Get()
-  findAll() {
+  @Get('get')
+  findAll(@Query('component_id') component_id: number) {
+    if (component_id) {
+      return this.findOne(component_id);
+    }
     return this.componentService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.componentService.findOne(+id);
+  findOne(component_id: number) {
+    return this.componentService.findOne(component_id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateComponentDto: UpdateComponentDto) {
-    return this.componentService.update(+id, updateComponentDto);
+  @Put('update/:component_id')
+  update(@Body() updateComponentDto: UpdateComponentDto) {
+    return this.componentService.update(
+      updateComponentDto.component_id,
+      updateComponentDto,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.componentService.remove(+id);
+  @Delete('delete/:component_id')
+  remove(@Param('component_id') component_id: number) {
+    return this.componentService.remove(component_id);
   }
 }
