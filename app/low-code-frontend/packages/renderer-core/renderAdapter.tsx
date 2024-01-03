@@ -66,9 +66,18 @@ export class RenderAdapter {
 					<Card
 						// className="min-w-[400px] min-h-[200px]"
 						// style={this.props}
-						title={this.props.props?.title || 'Default size card'}
+
 						{...this.props}
 						{...this.props?.props}
+						title={this.props.props?.title || 'Default size card'}
+						cover={
+							this.props?.props?.cover && <Image alt="example" src={this.props?.props?.cover}
+								onClick={(e) => {
+									console.log('click');
+									e.stopPropagation()
+								}}
+							/>
+						}
 						{...options}
 					>
 						{

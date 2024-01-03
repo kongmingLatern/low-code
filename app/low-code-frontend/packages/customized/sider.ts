@@ -96,6 +96,7 @@ export function getContent(key: string) {
 					value: 'card default value',
 					props: {
 						title: 'Default Card Title',
+						hoverable: true,
 					},
 					style: {
 						top: 0,

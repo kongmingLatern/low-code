@@ -9,7 +9,7 @@ interface FormItem {
 	label: string
 	placeholder?: string
 	options?: {
-		value: string
+		value: any
 		label: string
 	}[]
 }
@@ -104,6 +104,72 @@ export default function EditorElement({ element }) {
 					type: 'value',
 					name: 'value',
 					label: '卡片内容'
+				},
+				{
+					type: 'number',
+					name: 'width',
+					label: '卡片宽度(px)',
+					placeholder: '请输入卡片宽度(px)',
+				},
+				{
+					type: 'number',
+					name: 'height',
+					label: '卡片宽度(px)',
+					placeholder: '请输入卡片高度(px)',
+				},
+				{
+					type: 'text',
+					name: 'cover',
+					label: '卡片封面',
+					placeholder: '请输入封面链接',
+				},
+				{
+					type: 'select',
+					name: 'hoverable',
+					label: '是否开启选中效果',
+					placeholder: '请选择是否',
+					options: [
+						{
+							value: true,
+							label: '是'
+						},
+						{
+							value: false,
+							label: '否',
+						},
+					],
+				},
+				{
+					type: 'select',
+					name: 'bordered',
+					label: '是否需要边框',
+					placeholder: '请选择是否',
+					options: [
+						{
+							value: true,
+							label: '是'
+						},
+						{
+							value: false,
+							label: '否',
+						},
+					],
+				},
+				{
+					type: 'select',
+					name: 'size',
+					label: '卡片大小',
+					placeholder: '请选择卡片大小',
+					options: [
+						{
+							value: 'default',
+							label: '默认'
+						},
+						{
+							value: 'small',
+							label: '小',
+						},
+					],
 				},
 			]
 			break
