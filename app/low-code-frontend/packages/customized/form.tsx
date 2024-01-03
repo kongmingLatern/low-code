@@ -1,4 +1,3 @@
-import { useCanvasContext } from '@/hooks'
 import {
 	ColorPicker,
 	Form,
@@ -7,6 +6,8 @@ import {
 	Select,
 } from 'antd'
 import { useEffect, useState } from 'react'
+
+import { useCanvasContext } from '@/hooks'
 
 export default function FormRender(
 	props: Partial<{
@@ -21,7 +22,7 @@ export default function FormRender(
 		)
 	}
 	const initialValues = (data?) => {
-		const { style } = data || elementData
+		const { style, props } = data || elementData
 		const result = {}
 
 		for (const key in style) {
@@ -29,6 +30,14 @@ export default function FormRender(
 				Object.prototype.hasOwnProperty.call(style, key)
 			) {
 				const value = style[key]
+				result[key] = value
+			}
+		}
+		for (const key in props) {
+			if (
+				Object.prototype.hasOwnProperty.call(props, key)
+			) {
+				const value = props[key]
 				result[key] = value
 			}
 		}
@@ -75,6 +84,19 @@ export default function FormRender(
 	const renderItem = item => {
 		switch (item.type) {
 			case 'text':
+				return (
+					<Input
+						className="w-full"
+						placeholder={item.placeholder}
+						onChange={e =>
+							handleChange(
+								item.name,
+								e.target.value,
+							)
+						}
+					/>
+				)
+			case 'value':
 				return (
 					<Input
 						className="w-full"

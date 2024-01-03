@@ -1,5 +1,6 @@
+import { Card, Image, Typography } from 'antd'
+
 import { ELEMENT_TYPE } from '@/shared'
-import { Image, Typography } from 'antd'
 
 type ComponentType = 'Antd'
 
@@ -57,14 +58,37 @@ export class RenderAdapter {
 		}
 	}
 
+	private cardHandler(options = {} as any) {
+		const { componentType } = this
+		switch (componentType) {
+			case 'Antd':
+				return (
+					<Card
+						// className="min-w-[400px] min-h-[200px]"
+						// style={this.props}
+						title={this.props.props?.title || 'Default size card'}
+						{...this.props}
+						{...this.props?.props}
+						{...options}
+					>
+						{
+							this.value
+						}
+					</Card>
+				)
+		}
+	}
+
 	// 对外暴露一个接口,该接口即对type做对应的适配
 	handler(
 		options = {
 			text: {},
 			img: {},
+			card: {}
 		} as Partial<{
 			text: Record<string, any>
 			img: Record<string, any>
+			card: Record<string, any>
 		}>
 	) {
 		switch (this.type) {
@@ -72,6 +96,8 @@ export class RenderAdapter {
 				return this.textHandler(options.text)
 			case ELEMENT_TYPE.IMAGE:
 				return this.imgHandler(options.img)
+			case ELEMENT_TYPE.CARD:
+				return this.cardHandler(options.card)
 			default:
 				throw new Error('未处理的类型' + this.type)
 		}

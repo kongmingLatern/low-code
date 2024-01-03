@@ -138,6 +138,10 @@ export class Canvas {
 		Object.assign(
 			this.canvas.element[this.selectedIndex || 0],
 			{
+				props: {
+					...(selectedElement.props || {}),
+					...newStyle
+				},
 				style: {
 					...(selectedElement.style || {}),
 					...newStyle,
@@ -160,9 +164,9 @@ export class Canvas {
 	subscribe(listener) {
 		this.listeners.push(listener)
 		return () =>
-			(this.listeners = this.listeners.filter(
-				i => i !== listener
-			))
+		(this.listeners = this.listeners.filter(
+			i => i !== listener
+		))
 	}
 
 	getPublic() {

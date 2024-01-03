@@ -1,7 +1,8 @@
 import { ELEMENT_TYPE, TABKEY } from '@/shared'
+
 import { v4 as uuid } from 'uuid'
 
-export const LeftSiderTab = ['文本', '图片', '视频']
+export const LeftSiderTab = ['文本', '图片', '卡片', '视频']
 
 export const SiderConfig = {
 	LeftWidth: 400,
@@ -83,6 +84,27 @@ export function getContent(key: string) {
 						left: 0,
 						width: 200,
 						height: 100,
+					},
+					editorBy: [],
+				},
+			]
+		case TABKEY.CARD:
+			return [
+				{
+					key: uuid(),
+					type: ELEMENT_TYPE.CARD,
+					value: 'card default value',
+					props: {
+						title: 'Default Card Title',
+					},
+					style: {
+						top: 0,
+						left: 0,
+						width: 'auto',
+						height: 'auto',
+						fontWeight: '400',
+						fontSize: 20,
+						color: 'black',
 					},
 					editorBy: [],
 				},

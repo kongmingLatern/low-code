@@ -80,6 +80,11 @@ export default function Canvas() {
 					'application/json'
 				)
 
+				const props = e!.dataTransfer.getData(
+					'props'
+				)
+
+
 				const { width, height } = JSON.parse(obj)
 
 				const { top, left } =
@@ -94,19 +99,20 @@ export default function Canvas() {
 						left: endX - left,
 						width:
 							typeof width === 'string' &&
-							!width.includes('%') &&
-							!width.includes('auto')
+								!width.includes('%') &&
+								!width.includes('auto')
 								? Number(width)
 								: width,
 						height:
 							typeof height === 'string' &&
-							!width.includes('%') &&
-							!height.includes('auto')
+								!width.includes('%') &&
+								!height.includes('auto')
 								? Number(height)
 								: height,
 					},
 					// TODO: 这里的 editorBy 需要传递 uid
 					editorBy: JSON.parse(editorBy),
+					props: { ...JSON.parse(props).props || {} }
 				})
 			}
 		},

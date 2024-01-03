@@ -1,9 +1,9 @@
+import { RenderAdapter } from '@packages/renderer-core'
 import classNames from 'classnames'
 import styled from './box.module.scss'
-import { RenderAdapter } from '@packages/renderer-core'
-import { useRef } from 'react'
-import { useDrag } from 'ahooks'
 import { useCanvasContext } from '@/hooks'
+import { useDrag } from 'ahooks'
+import { useRef } from 'react'
 
 export default function Box(props) {
 	const { type, value, data, style, editorBy, ...rest } =
@@ -25,14 +25,14 @@ export default function Box(props) {
 			e.dataTransfer.setData(
 				'text',
 				startX +
-					',' +
-					startY +
-					',' +
-					type +
-					',' +
-					value +
-					',' +
-					JSON.stringify(editorBy)
+				',' +
+				startY +
+				',' +
+				type +
+				',' +
+				value +
+				',' +
+				JSON.stringify(editorBy)
 			)
 			e.dataTransfer.setData(
 				'array',
@@ -42,6 +42,11 @@ export default function Box(props) {
 			e.dataTransfer.setData(
 				'application/json',
 				JSON.stringify(style)
+			)
+
+			e.dataTransfer.setData(
+				'props',
+				JSON.stringify(rest)
 			)
 		},
 	})

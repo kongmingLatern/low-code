@@ -1,11 +1,13 @@
 export const enum TABKEY {
 	TEXT = '文本',
 	IMAGE = '图片',
+	CARD = '卡片',
 }
 
 export const enum ELEMENT_TYPE {
 	TEXT = 'text',
 	IMAGE = 'img',
+	CARD = 'card',
 }
 
 export const enum ROLE {

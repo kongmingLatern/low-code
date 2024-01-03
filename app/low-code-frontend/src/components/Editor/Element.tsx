@@ -1,7 +1,7 @@
 import { ELEMENT_TYPE } from '@/shared'
 import FormRender from '@packages/customized/form'
 
-type FormItemType = 'text' | 'number' | 'select' | 'color'
+type FormItemType = 'text' | 'number' | 'select' | 'color' | 'value'
 
 interface FormItem {
 	type: FormItemType
@@ -21,7 +21,7 @@ export default function EditorElement({ element }) {
 		case ELEMENT_TYPE.TEXT:
 			formItems = [
 				{
-					type: 'text',
+					type: 'value',
 					name: 'value',
 					label: '文本内容',
 				},
@@ -74,7 +74,7 @@ export default function EditorElement({ element }) {
 		case ELEMENT_TYPE.IMAGE:
 			formItems = [
 				{
-					type: 'text',
+					type: 'value',
 					name: 'value',
 					label: '图片链接',
 				},
@@ -89,6 +89,21 @@ export default function EditorElement({ element }) {
 					name: 'height',
 					label: '图片高度(px)',
 					placeholder: '请输入图片高度(px)',
+				},
+			]
+			break
+
+		case ELEMENT_TYPE.CARD:
+			formItems = [
+				{
+					type: 'text',
+					name: 'title',
+					label: '卡片标题'
+				},
+				{
+					type: 'value',
+					name: 'value',
+					label: '卡片内容'
 				},
 			]
 			break
