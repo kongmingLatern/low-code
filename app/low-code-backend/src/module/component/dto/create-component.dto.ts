@@ -3,5 +3,5 @@ export class CreateComponentDto {
   component_tag: string;
   component_props: string;
   component_name: string;
-  library_id: string;
+  library_id: number;
 }

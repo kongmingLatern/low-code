@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { LibraryService } from './library.service';
+import { Library } from './entities/library.entity';
 import { LibraryController } from './library.controller';
+import { LibraryService } from './library.service';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LibraryRepository } from './repository/library.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([LibraryRepository])],
+  imports: [TypeOrmModule.forFeature([Library])],
   controllers: [LibraryController],
   providers: [LibraryService],
 })

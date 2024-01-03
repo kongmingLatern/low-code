@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Library {
-  @PrimaryGeneratedColumn('uuid')
-  library_id: string;
+  @PrimaryGeneratedColumn('increment')
+  library_id: number;
 
   @Column()
   library_name: string;

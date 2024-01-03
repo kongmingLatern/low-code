@@ -4,7 +4,9 @@ import { AppService } from './app.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthModule } from './module/auth/auth.module';
 import { CanvasModule } from './module/canvas/canvas.module';
+import { ComponentModule } from './module/component/component.module';
 import { JwtModule } from '@nestjs/jwt';
+import { LibraryModule } from './module/library/library.module';
 import { LoginGuard } from './guards/login.guard';
 import { Module } from '@nestjs/common';
 import { PermissionModule } from './module/permission/permission.module';
@@ -20,11 +22,13 @@ import { UserProjectRoleModule } from './joinTable/user_project_role/user_projec
   imports: [
     UserModule,
     ProjectModule,
+    LibraryModule,
     CanvasModule,
     RedisModule,
     AuthModule,
     RoleModule,
     PermissionModule,
+    ComponentModule,
     UserProjectRoleModule,
     UserCanvasProjectModule,
     TypeOrmModule.forRoot({
