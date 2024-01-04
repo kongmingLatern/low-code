@@ -61,7 +61,7 @@ export default function Canvas() {
 				if (selectedElement && selectedElement.style) {
 					const { top, left } = selectedElement.style
 
-					canvas.updateSelectedElement({
+					canvas.updateSelectedElementStyle({
 						top: top + disY,
 						left: left + disX,
 					})

@@ -42,6 +42,7 @@ export default function Element(props) {
 		})
 	) as React.ReactElement<any>
 
+
 	const ElementChildren = () =>
 		React.cloneElement(child, {
 			...child.props,
@@ -53,9 +54,10 @@ export default function Element(props) {
 			onClick: e => {
 				setSelected(e)
 			},
+			style: {}
 			// style: { ...child.props.style, position: 'absolute' },
-			style: { ...child.props.style },
-			...child.props,
+			// style: { ...child.props.style },
+			// ...child.props,
 		})
 
 	function setSelected(e) {
@@ -102,7 +104,7 @@ export default function Element(props) {
 			className="absolute"
 			style={{ ...child.props.style }}
 			ref={dragRef}
-			// onClick={setSelected}
+		// onClick={setSelected}
 		>
 			<ElementChildren />
 			{editorBy.length > 0 ? (

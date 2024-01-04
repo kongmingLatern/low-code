@@ -5,6 +5,7 @@ import {
 	SiderConfig,
 } from '@packages/customized'
 import { useEffect, useReducer } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import Box from '@/module/Index/components/Box'
 import Canvas from '@/components/Canvas'
@@ -16,7 +17,6 @@ import html2canvas from 'html2canvas'
 import { sendJoinMessage } from '@packages/server'
 import styled from './index.module.scss'
 import { useCanvas } from '@/hooks/useCanvas'
-import { useParams } from 'react-router-dom'
 
 const headerStyle: React.CSSProperties = {
 	color: 'white',
@@ -42,6 +42,8 @@ export default function HomeLayout() {
 	const canvas = useCanvas()
 
 	const params = useParams()
+
+	const navigate = useNavigate()
 
 	const [, forceUpdate] = useReducer(x => x + 1, 0)
 
@@ -132,6 +134,16 @@ export default function HomeLayout() {
 							}}
 							content={<Button type='primary'>导出</Button>}
 						/>
+
+
+					</Space>
+
+					<Space>
+						<Button type='primary' className='text-14px' onClick={() => {
+							navigate('/preview', {
+								state: canvas.getCanvas().element
+							})
+						}}>预览</Button>
 					</Space>
 				</Header>
 				<Layout className={classNames(styled.siderHeight)}>

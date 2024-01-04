@@ -16,7 +16,7 @@ const RenderTemplate: FunctionComponent<RenderTemplateProps> = (props) => {
   const { element } = props
 
   return <div className="relative">
-    {element.map((i, index) => {
+    {element?.map((i, index) => {
       const adapter = new RenderAdapter(i.type, i.value, {
         props: i.props,
         style: {

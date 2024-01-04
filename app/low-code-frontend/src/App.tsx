@@ -1,18 +1,11 @@
-import { get, post } from '@/api'
-
-import { Button } from 'antd'
+import RenderTemplate from '@packages/renderer-core/renderTemplate'
+import { useLocation } from 'react-router-dom'
+import { useState } from 'react';
 
 function App() {
-	return (
-		<>
-			<Button onClick={() => get('/', { a: 123 })}>
-				123
-			</Button>
-			<button onClick={() => post('/', { a: 1 })}>
-				123
-			</button>
-		</>
-	)
-}
+	const [state] = useState(useLocation().state)
 
+	return <RenderTemplate element={state}></RenderTemplate>
+
+}
 export default App

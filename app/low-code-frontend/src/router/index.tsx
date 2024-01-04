@@ -1,5 +1,6 @@
 import { canvasLayoutCfg, homeLayoutCfg } from '@/config'
 
+import App from '@/App'
 import BaseBackendLayout from '@/layout/BaseBackendLayout'
 import BaseCanvasLayout from '@/layout/BaseCanvasLayout'
 import BaseHomeLayout from '@/layout/BaseHomeLayout'
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Home />,
+	},
+	{
+		path: '/preview',
+		element: <App />,
 	},
 	{
 		path: '/home',
