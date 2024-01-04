@@ -51,10 +51,6 @@ export class Canvas {
 	}
 
 	setEditorToSelctedElement(editor) {
-		console.log(
-			'--',
-			this.canvas.element[this.selectedIndex!]
-		)
 		this.canvas.element[this.selectedIndex!].editorBy.push(
 			editor
 		)
@@ -137,11 +133,53 @@ export class Canvas {
 
 		Object.assign(
 			this.canvas.element[this.selectedIndex || 0],
+			// TODO: 有重复属性,需要区分props和style
 			{
 				props: {
 					...(selectedElement.props || {}),
 					...newStyle
 				},
+				style: {
+					...(selectedElement.style || {}),
+					...newStyle,
+				},
+				value,
+			}
+		)
+
+		this.update()
+	}
+
+	updateSelectedElementProps(
+		newProps = {},
+		value = this.getSelectedElement().value
+	) {
+		const selectedElement = this.getSelectedElement()
+
+		Object.assign(
+			this.canvas.element[this.selectedIndex || 0],
+			{
+				props: {
+					...(selectedElement.props || {}),
+					...newProps
+				},
+				value,
+			}
+		)
+
+		this.update()
+	}
+
+
+	updateSelectedElementStyle(
+		newStyle = {},
+		value = this.getSelectedElement().value
+	) {
+		const selectedElement = this.getSelectedElement()
+
+		Object.assign(
+			this.canvas.element[this.selectedIndex || 0],
+			{
 				style: {
 					...(selectedElement.style || {}),
 					...newStyle,
@@ -187,6 +225,8 @@ export class Canvas {
 			update: this.update,
 			clearCanvas: this.clearCanvas,
 			updateSelectedElement: this.updateSelectedElement,
+			updateSelectedElementStyle: this.updateSelectedElementStyle,
+			updateSelectedElementProps: this.updateSelectedElementProps,
 			updateCanvasStyle: this.updateCanvasStyle,
 		}
 		return obj
