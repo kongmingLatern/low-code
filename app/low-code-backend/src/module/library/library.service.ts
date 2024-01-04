@@ -1,17 +1,12 @@
-import { Component } from '../component/entities/component.entity';
 import { CreateLibraryDto } from './dto/create-library.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Library } from './entities/library.entity';
 import { Repository } from 'typeorm';
-import { UpdateComponentDto } from '../component/dto/update-component.dto';
 import { UpdateLibraryDto } from './dto/update-library.dto';
 
 @Injectable()
 export class LibraryService {
-  @InjectRepository(Component)
-  private componentRepository: Repository<Component>;
-
   @InjectRepository(Library)
   private libraryRepository: Repository<Library>;
 
