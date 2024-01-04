@@ -140,6 +140,7 @@ export default function HomeLayout() {
 						width={SiderConfig.LeftWidth}
 						className={classNames('color-black', 'mr-2rem')}
 						style={{
+							minHeight: 'calc(100vh - 80px)',
 							backgroundColor:
 								LayoutColor.leftSiderBackground,
 						}}
@@ -181,9 +182,9 @@ export default function HomeLayout() {
 						<RightSider />
 					</Sider>
 				</Layout>
-				<Footer className="p-0" style={footerStyle}>
+				{/* <Footer className="p-0" style={footerStyle}>
 					Footer
-				</Footer>
+				</Footer> */}
 			</Layout>
 		</CanvasContext.Provider>
 	)
