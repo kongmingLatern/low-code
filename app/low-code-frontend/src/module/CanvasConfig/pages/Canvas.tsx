@@ -97,7 +97,8 @@ export default function Canvas() {
 				width: 280,
 				render: (
 					_,
-					record: InfoType['refMap']['canvas'][number]
+					record: InfoType['refMap']['canvas'][number],
+					index
 				) => (
 					<Space size="middle">
 						<Button
@@ -105,6 +106,7 @@ export default function Canvas() {
 							onClick={() =>
 								navigate('/canvas/' + record.canvas_id)
 							}
+							disabled={canvas.canvas[index].isEditable === 0}
 						>
 							进入画布
 						</Button>
@@ -195,7 +197,7 @@ export default function Canvas() {
 								await getData()
 							}}
 						/>
-					</Space>
+					</Space >
 				),
 			},
 		]
