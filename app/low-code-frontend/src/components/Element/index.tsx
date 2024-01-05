@@ -16,6 +16,7 @@ export default function Element(props) {
 	const dragRef = useRef(null)
 	const canvas = useCanvasContext()
 	const currentIndex = useRef(null)
+	const nickname = localStorage.getItem('nickname')
 
 	useDrag({}, dragRef, {
 		onDragStart: e => {
@@ -63,7 +64,7 @@ export default function Element(props) {
 	function setSelected(e) {
 		e.stopPropagation()
 		// 清空当前画布上所有 编辑者为 333 的
-		canvas.removeAllEditor(333)
+		canvas.removeAllEditor(nickname)
 		canvas.setSelectedIndex(index)
 		const element = canvas.getSelectedElement()
 
@@ -78,10 +79,10 @@ export default function Element(props) {
 			// 2. 获取当前画布信息
 			// 3. 发送 emit 信息
 			// 4. canvas/index.tsx 中需要接收消息,广播给其他用户
-			canvas.setEditorToSelctedElement(333)
+			canvas.setEditorToSelctedElement(nickname)
 			currentIndex.current = index
 		} else {
-			if (element.editorBy.includes(333)) {
+			if (element.editorBy.includes(nickname)) {
 				// 用户选中元素后,可能会直接拖动,这里可以直接放行
 				return
 			}
@@ -89,7 +90,7 @@ export default function Element(props) {
 			message.error(
 				`当前元素正在由 ${editorBy.join(',')} 进行修改`
 			)
-			// canvas.removeEditorToSelctedElement(333)
+			// canvas.removeEditorToSelctedElement(nickname)
 			// 不允许选中
 			canvas.setSelectedIndex(-1)
 		}
@@ -108,8 +109,9 @@ export default function Element(props) {
 		>
 			<ElementChildren />
 			{editorBy.length > 0 ? (
-				<i className="absolute top-[-100%] left-0 text-14px color-white bg-blue-400 p-1 text-truncate">
-					{editorBy.join(', ') + '正在编辑'}
+				<i className="absolute top-[-26px] left-0 text-14px color-white bg-blue-400 p-1 text-truncate">
+					<span style={{ color: 'chartreuse' }}>{editorBy.join(', ')}</span>
+					正在编辑
 				</i>
 			) : null}
 			{isSelected && <CircleList canvas={canvas} />}
