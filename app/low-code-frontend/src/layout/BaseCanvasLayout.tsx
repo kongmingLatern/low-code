@@ -3,7 +3,9 @@ import {
 	ColorTheme,
 	LayoutColor,
 	SiderConfig,
+	codeTemplate,
 } from '@packages/customized'
+import { downFile, getFile, getShareImgBase64 } from '@/shared'
 import { useEffect, useReducer } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -13,7 +15,6 @@ import { CanvasContext } from '@/store/context'
 import LeftSider from '@/components/Sider/Left'
 import RightSider from '@/components/Sider/Right'
 import classNames from 'classnames'
-import html2canvas from 'html2canvas'
 import { sendJoinMessage } from '@packages/server'
 import styled from './index.module.scss'
 import { useCanvas } from '@/hooks/useCanvas'
@@ -27,17 +28,11 @@ const headerStyle: React.CSSProperties = {
 	display: 'flex',
 	justifyContent: 'space-between'
 }
-const footerStyle: React.CSSProperties = {
-	textAlign: 'center',
-	color: 'white',
-	height: '80px',
-	lineHeight: '80px',
-	backgroundColor: ColorTheme.black,
-}
-const { Header, Sider, Content, Footer } = Layout
+
+const { Header, Sider, Content } = Layout
 
 export default function HomeLayout() {
-	// TODO: 获取 canvas_id => 可以通过获取路由的参数 => /canvas/123123123
+	// TODO: 获取 canvas_id => 可以通过获取路由的参数 => /canvas/12312312
 
 	const canvas = useCanvas()
 
@@ -59,22 +54,6 @@ export default function HomeLayout() {
 		sendJoinMessage(params.id)
 	}, [params.id])
 
-	function getShareImgBase64() {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				// #capture 就是我们要获取截图对应的 DOM 元素选择器
-				html2canvas(document.querySelector('#canvas')!, {
-					logging: false,
-					useCORS: true, // 【重要】开启跨域配置
-					scale: window.devicePixelRatio < 3 ? window.devicePixelRatio : 2,
-					allowTaint: true, // 允许跨域图片
-				}).then((canvas) => {
-					const imgData = canvas.toDataURL('image/jpeg', 1.0);
-					resolve(imgData);
-				});
-			}, 300); // 这里加上 300ms 的延迟是为了让 DOM 元素完全渲染完成后再进行图片的生成
-		});
-	}
 
 	return (
 		<CanvasContext.Provider value={canvas!}>
@@ -105,28 +84,43 @@ export default function HomeLayout() {
 									{
 										key: 'png',
 										label: (
-											<Button
-												type='text'
+											<a
+												href='#'
 												onClick={() => {
 													getShareImgBase64().then((imgData: any) => {
-														const downLoadLink = document.createElement('a')
-														downLoadLink.href = imgData
-														downLoadLink.download = 'saveCanvas.png'
-														document.body.appendChild(downLoadLink)
-														downLoadLink.click()
-														document.body.removeChild(downLoadLink)
+														downFile(imgData, 'saveCanvas.png')
 													})
 												}}
 											>
-												Jpeg
-											</Button>
+												Jpeg 图片
+											</a>
 										),
 									},
 									{
-										key: 'vue_code',
+										key: 'json',
 										label: (
-											<a href='#'>
-												Vue文件
+											<a
+												href='#'
+												type='text'
+												onClick={() => {
+													getFile(canvas.getCanvas().element, 'data.json')
+												}}
+											>
+												JSON 文件
+											</a>
+										),
+									},
+									{
+										key: 'tsx-code',
+										label: (
+											<a
+												href='#'
+												type='text'
+												onClick={() => {
+													downFile(`data:text/plain;charset=utf-8,${encodeURIComponent(codeTemplate(canvas.getCanvas().element))}`, 'page.tsx')
+												}}
+											>
+												TSX 文件
 											</a>
 										),
 									}
@@ -139,7 +133,7 @@ export default function HomeLayout() {
 					</Space>
 
 					<Space>
-						<Button type='primary' className='text-14px' onClick={() => {
+						<Button type='link' className='text-14px' onClick={() => {
 							navigate('/preview', {
 								state: canvas.getCanvas().element
 							})
@@ -168,15 +162,6 @@ export default function HomeLayout() {
 							'mt-1rem'
 						)}
 					>
-						{/* <Header
-							className={classNames(
-								'w-full',
-								'bg-white',
-								'mb-1rem'
-							)}
-						> */}
-						{/* <ContentHeader /> */}
-						{/* </Header> */}
 						<Canvas />
 					</Content>
 					{/* 右侧操作栏 */}
