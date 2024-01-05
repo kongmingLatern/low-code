@@ -118,7 +118,7 @@ export default function Element(props) {
 		</div>
 	)
 }
-function CircleList(props): React.ReactNode {
+function CircleList(props) {
 	const { canvas } = props
 
 	const handleMouseDown = e => {
