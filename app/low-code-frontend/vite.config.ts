@@ -1,7 +1,9 @@
 import { defaultExclude, defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
+
 import UnoCSS from 'unocss/vite'
+import dts from 'vite-plugin-dts'
 import path from 'node:path'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
 	test: {
@@ -13,7 +15,30 @@ export default defineConfig({
 		UnoCSS({
 			configFile: './unocss.config.ts',
 		}),
+		dts({
+			outDir: './dist/types',
+			insertTypesEntry: true, // 插入TS 入口
+			copyDtsFiles: true, // 是否将源码里的 .d.ts 文件复制到 outputDir
+		}),
 	],
+	build: {
+		minify: 'esbuild',
+		lib: {
+			entry: 'packages/renderer-core/index.ts',
+			formats: ['es', 'umd', 'iife'],
+			name: 'Renderer',
+			fileName: format => `index.${format}.js`,
+		},
+		rollupOptions: {
+			external: ['react', 'react-dom'],
+			output: {
+				globals: {
+					react: 'React',
+					'react-dom': 'ReactDOM',
+				},
+			},
+		},
+	},
 	server: {
 		port: 5173,
 		origin: 'http://localhost:5173',
