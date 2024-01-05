@@ -1,6 +1,6 @@
 import { Card, Image, Typography } from 'antd'
 
-import { ELEMENT_TYPE } from '@/shared'
+import { ELEMENT_TYPE } from '@/shared/enum'
 
 type ComponentType = 'Antd'
 
@@ -47,8 +47,6 @@ export class RenderAdapter {
 				return (
 					<Image
 						src={this.value}
-						// className="min-w-[400px] min-h-[200px]"
-						// style={this.props}
 						{...this.props}
 						{...options}
 					/>

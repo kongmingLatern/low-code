@@ -1,11 +1,10 @@
 import { Fragment, FunctionComponent } from "react";
 
-import { ELEMENT_TYPE } from "@/shared";
 import { RenderAdapter } from "./renderAdapter";
 
 interface RenderTemplateProps {
   element: {
-    type: ELEMENT_TYPE
+    type: any
     props: Record<string, any>
     style: Record<string, any>
     value: string
@@ -29,4 +28,6 @@ const RenderTemplate: FunctionComponent<RenderTemplateProps> = (props) => {
   </div>;
 }
 
-export default RenderTemplate;
+export {
+  RenderTemplate
+};
