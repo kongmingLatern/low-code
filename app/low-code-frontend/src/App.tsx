@@ -1,4 +1,4 @@
-import RenderTemplate from '@packages/renderer-core/renderTemplate'
+import { RenderTemplate } from '@packages/renderer-core/renderTemplate'
 import { useLocation } from 'react-router-dom'
 import { useState } from 'react';
 
