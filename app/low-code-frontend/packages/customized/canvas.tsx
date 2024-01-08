@@ -37,6 +37,11 @@ export class Canvas {
 		this.update()
 	}
 
+	removeElement(targetElement) {
+		this.canvas.element = this.canvas.element.filter(i => i !== targetElement)
+		this.update()
+	}
+
 	getCanvas() {
 		// 更新画布
 		return { ...this.canvas }
@@ -210,6 +215,7 @@ export class Canvas {
 	getPublic() {
 		const obj = {
 			addElement: this.addElement,
+			removeElement: this.removeElement,
 			getCanvas: this.getCanvas,
 			getSelectedIndex: this.getSelectedIndex,
 			setSelectedIndex: this.setSelectedIndex,
