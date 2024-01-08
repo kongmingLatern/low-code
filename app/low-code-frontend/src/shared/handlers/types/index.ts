@@ -73,6 +73,15 @@ export interface CreateCanvasType {
 	update_time: Date
 }
 
+export interface CreateComponentType {
+	component_id: number
+	component_name: string
+	component_tag: string
+	component_type: string
+	component_props: string
+	library?: string
+}
+
 export interface ProjectUidType {
 	code: number
 	data: Record<'projects', Array<Record<string, any>>>
