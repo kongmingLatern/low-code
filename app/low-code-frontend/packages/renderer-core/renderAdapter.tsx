@@ -31,7 +31,7 @@ export class RenderAdapter {
 		switch (componentType) {
 			case 'Antd':
 				return (
-					<Typography.Text {...options} {...this.props}>
+					<Typography.Text style={this.props.style} {...options} {...this.props?.props} >
 						{this.value}
 					</Typography.Text>
 				)
@@ -47,7 +47,8 @@ export class RenderAdapter {
 				return (
 					<Image
 						src={this.value}
-						{...this.props}
+						{...this.props?.props}
+						style={this.props.style}
 						{...options}
 					/>
 				)
@@ -58,18 +59,22 @@ export class RenderAdapter {
 
 	private cardHandler(options = {} as any) {
 		const { componentType } = this
+		let elseProps: any = {}
+		if ('component_props' in this.props) {
+			elseProps = JSON.parse(this.props.component_props)
+		}
 		switch (componentType) {
 			case 'Antd':
 				return (
 					<Card
-						// className="min-w-[400px] min-h-[200px]"
-						// style={this.props}
-
-						{...this.props}
+						{
+						...(elseProps?.props)
+						}
 						{...this.props?.props}
-						title={this.props.props?.title || 'Default size card'}
+						title={elseProps?.props?.title || this.props.props?.title || '默认标题'}
+						style={this.props?.style}
 						cover={
-							this.props?.props?.cover && <Image alt="example" src={this.props?.props?.cover}
+							this.props.props?.cover && <Image alt="example" src={this.props.props?.cover}
 								onClick={(e) => {
 									console.log('click');
 									e.stopPropagation()
