@@ -1,6 +1,6 @@
 import { Dropdown, MenuProps, message } from 'antd'
+import React, { useState } from 'react'
 
-import React from 'react'
 import { RenderAdapter } from '@packages/renderer-core'
 import classNames from 'classnames'
 import { copyToClipboard } from '@/shared'
@@ -10,33 +10,15 @@ import { useCanvasContext } from '@/hooks'
 import { useDrag } from 'ahooks'
 import { useRef } from 'react'
 
-const items: MenuProps['items'] = [
-	{
-		label: '复制',
-		key: 'copy',
-	},
-	{
-		label: '上移一层',
-		key: 'up',
-	},
-	{
-		label: '下移一层',
-		key: 'down',
-	},
-	{
-		label: '至于顶层',
-		key: 'above'
-	},
-	{
-		label: '至于底层',
-		key: 'below'
-	},
-];
-
+const enum ZINDEX {
+	MAX = 1049,
+	MIN = 0
+}
 
 export default function Element(props) {
 	const { key, type, value, style, editorBy, ...rest } =
 		props.element
+	const [zIndex, setZIndex] = useState(ZINDEX.MIN)
 
 	const { index, isSelected } = props
 	const dragRef = useRef(null)
@@ -56,6 +38,34 @@ export default function Element(props) {
 		style,
 		...rest,
 	})
+	const items: MenuProps['items'] = [
+		{
+			label: '复制',
+			key: 'copy',
+		},
+		{
+			label: '上移一层',
+			key: 'up',
+			disabled: zIndex === ZINDEX.MAX
+		},
+		{
+			label: '下移一层',
+			key: 'down',
+			disabled: zIndex === ZINDEX.MIN
+		},
+		{
+			label: '至于顶层',
+			key: 'above',
+			disabled: zIndex === ZINDEX.MAX
+		},
+		{
+			label: '至于底层',
+			key: 'below',
+			disabled: zIndex === ZINDEX.MIN
+		},
+	];
+
+
 
 	const child = React.Children.only(
 		renderAdapter.handler({
@@ -71,24 +81,27 @@ export default function Element(props) {
 
 	const handleClick: MenuProps['onClick'] = (e) => {
 		e.domEvent.stopPropagation()
+		console.log(e);
 		switch (e.key) {
 			case 'copy':
 				copyToClipboard(JSON.stringify(props.element))
 				message.success('复制成功')
 				break;
 			case 'up':
-
+				if (zIndex <= ZINDEX.MAX - 1) {
+					setZIndex(zIndex + 1)
+				}
 				break;
 			case 'down':
-
+				if (zIndex >= ZINDEX.MIN + 1) {
+					setZIndex(zIndex - 1)
+				}
 				break;
-
 			case 'above':
-
+				setZIndex(ZINDEX.MAX)
 				break;
-
 			case 'below':
-
+				setZIndex(ZINDEX.MIN)
 				break;
 			default:
 				break;
@@ -156,7 +169,7 @@ export default function Element(props) {
 	return (
 		<div
 			className="absolute"
-			style={{ ...child.props.style }}
+			style={{ ...child.props.style, zIndex }}
 			ref={dragRef}
 		// onClick={setSelected}
 		>

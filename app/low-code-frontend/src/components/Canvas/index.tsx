@@ -29,10 +29,7 @@ export default function Canvas() {
 
 		function handleDelete(event) {
 			if (event.keyCode === 46 || event.key === "Delete") {
-				// 删除键被按下
-				console.log(canvas.getSelectedElement());
 				canvas.removeElement(canvas.getSelectedElement())
-				// 执行相应的操作
 			}
 		}
 
