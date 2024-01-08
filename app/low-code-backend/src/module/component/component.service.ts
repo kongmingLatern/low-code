@@ -43,7 +43,18 @@ export class ComponentService {
     return await this.componentRepository.find();
   }
 
-  async findOne(component_id: number) {
+  async findOne(component_type: string) {
+    return await this.componentRepository.find({
+      relations: {
+        library: true,
+      },
+      where: {
+        component_type,
+      },
+    });
+  }
+
+  async findOneById(component_id: number) {
     return await this.componentRepository.findOne({
       relations: {
         library: true,
@@ -62,7 +73,7 @@ export class ComponentService {
       component_type,
       component_props,
     } = updateComponentDto;
-    const component = await this.findOne(component_id);
+    const component = await this.findOneById(component_id);
     const library = await this.libraryRepository.findOne({
       where: {
         library_id,

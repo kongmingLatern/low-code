@@ -22,18 +22,18 @@ export class ComponentController {
   }
 
   @Get('get')
-  findAll(@Query('component_id') component_id: number) {
-    if (component_id) {
-      return this.findOne(component_id);
+  findAll(@Query('component_type') component_type: string) {
+    if (component_type) {
+      return this.findOne(component_type);
     }
     return this.componentService.findAll();
   }
 
-  findOne(component_id: number) {
-    return this.componentService.findOne(component_id);
+  findOne(component_type: string) {
+    return this.componentService.findOne(component_type);
   }
 
-  @Put('update/:component_id')
+  @Put('update')
   update(@Body() updateComponentDto: UpdateComponentDto) {
     return this.componentService.update(
       updateComponentDto.component_id,
