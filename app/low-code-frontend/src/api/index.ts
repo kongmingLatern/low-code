@@ -18,7 +18,6 @@ instance.interceptors.request.use(config => {
 })
 
 instance.interceptors.response.use(response => {
-	console.log('response', response)
 	if (
 		response.data.code !== 200 &&
 		response.data.code !== 201

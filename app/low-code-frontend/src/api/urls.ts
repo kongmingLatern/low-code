@@ -3,6 +3,7 @@ const modules = {
 	auth: '/auth',
 	project: '/project',
 	canvas: '/canvas',
+	component: '/component',
 	role: '/role',
 }
 export const urls = {
@@ -33,6 +34,12 @@ export const urls = {
 		multAllocation: `${modules.canvas}/multAllocation`,
 		updateCanvas: `${modules.canvas}/updateCanvas`,
 		deleteCanvas: `${modules.canvas}/deleteCanvas`,
+	},
+	component: {
+		getAllComponents: `${modules.component}/get`,
+		createComponent: `${modules.component}/create`,
+		updateComponent: `${modules.component}/update`,
+		deleteComponent: `${modules.component}/delete`,
 	},
 	role: {
 		getAllRole: `${modules.role}`,
