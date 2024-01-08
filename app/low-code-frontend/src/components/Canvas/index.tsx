@@ -16,6 +16,35 @@ export default function Canvas() {
 	const canvas = useCanvasContext()
 	const [id, setId] = useState('')
 
+	useEffect(() => {
+		function handlePaste(e) {
+			const clipboardData = e.clipboardData;
+			if (!(clipboardData && clipboardData.items)) { //剪切版中是否有内容
+				return;
+			}
+			const content = e.clipboardData.getData('text/plain');
+			canvas.addElement(JSON.parse(content))
+			return content
+		}
+
+		function handleDelete(event) {
+			if (event.keyCode === 46 || event.key === "Delete") {
+				// 删除键被按下
+				console.log(canvas.getSelectedElement());
+				canvas.removeElement(canvas.getSelectedElement())
+				// 执行相应的操作
+			}
+		}
+
+		window.addEventListener('paste', handlePaste)
+		window.addEventListener('keydown', handleDelete);
+
+		return () => {
+			window.removeEventListener('paste', handlePaste)
+			window.removeEventListener('keydown', handleDelete)
+		}
+	}, [canvas])
+
 	// const [parent] = useAutoAnimate()
 
 	useDrop(dropRef, {
@@ -116,6 +145,7 @@ export default function Canvas() {
 			}
 		},
 	})
+
 
 	useEffect(() => {
 		socket.on('join', data => {
