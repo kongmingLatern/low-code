@@ -84,7 +84,6 @@ export default function Canvas() {
 					'props'
 				)
 
-
 				const { width, height } = JSON.parse(obj)
 
 				const { top, left } =
@@ -112,7 +111,7 @@ export default function Canvas() {
 					},
 					// TODO: 这里的 editorBy 需要传递 uid
 					editorBy: JSON.parse(editorBy),
-					props: { ...JSON.parse(props).props || {} }
+					props: { ...JSON.parse(JSON.parse(props).component_props).props || {} }
 				})
 			}
 		},

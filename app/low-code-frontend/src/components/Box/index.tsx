@@ -74,7 +74,7 @@ export default function Box(props) {
 				addToCanvas()
 			}}
 		>
-			<span className="overflow-hidden text-20px font-semibold h-80px lh-80px">
+			<span className="text-20px font-semibold lh-80px">
 				{/* 这里最好做一个适配层,能够兼容各种组件库 */}
 				{renderAdapter.handler({
 					img: {
