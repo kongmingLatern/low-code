@@ -1,12 +1,38 @@
+import { Dropdown, MenuProps, message } from 'antd'
+
 import React from 'react'
 import { RenderAdapter } from '@packages/renderer-core'
 import classNames from 'classnames'
-import { message } from 'antd'
+import { copyToClipboard } from '@/shared'
 import { sendActiveElementInfo } from '@packages/server'
 import styled from './element.module.scss'
 import { useCanvasContext } from '@/hooks'
 import { useDrag } from 'ahooks'
 import { useRef } from 'react'
+
+const items: MenuProps['items'] = [
+	{
+		label: '复制',
+		key: 'copy',
+	},
+	{
+		label: '上移一层',
+		key: 'up',
+	},
+	{
+		label: '下移一层',
+		key: 'down',
+	},
+	{
+		label: '至于顶层',
+		key: 'above'
+	},
+	{
+		label: '至于底层',
+		key: 'below'
+	},
+];
+
 
 export default function Element(props) {
 	const { key, type, value, style, editorBy, ...rest } =
@@ -42,6 +68,33 @@ export default function Element(props) {
 			},
 		})
 	) as React.ReactElement<any>
+
+	const handleClick: MenuProps['onClick'] = (e) => {
+		e.domEvent.stopPropagation()
+		switch (e.key) {
+			case 'copy':
+				copyToClipboard(JSON.stringify(props.element))
+				message.success('复制成功')
+				break;
+			case 'up':
+
+				break;
+			case 'down':
+
+				break;
+
+			case 'above':
+
+				break;
+
+			case 'below':
+
+				break;
+			default:
+				break;
+		}
+		console.log(e);
+	}
 
 
 	const ElementChildren = () =>
@@ -95,7 +148,7 @@ export default function Element(props) {
 			canvas.setSelectedIndex(-1)
 		}
 
-		// TODO: 向ws服务端发起锁的通知
+		// NOTE: 向ws服务端发起锁的通知
 		sendActiveElementInfo(canvas.getCanvas().canvasId)
 		// sendActiveElementInfo(dragRef.current)
 	}
@@ -107,14 +160,18 @@ export default function Element(props) {
 			ref={dragRef}
 		// onClick={setSelected}
 		>
-			<ElementChildren />
-			{editorBy.length > 0 ? (
-				<i className="absolute top-[-26px] left-0 text-14px color-white bg-blue-400 p-1 text-truncate">
-					<span style={{ color: 'chartreuse' }}>{editorBy.join(', ')}</span>
-					正在编辑
-				</i>
-			) : null}
-			{isSelected && <CircleList canvas={canvas} />}
+			<Dropdown menu={{ items, onClick: handleClick }} trigger={['contextMenu']}>
+				<div>
+					<ElementChildren />
+					{editorBy.length > 0 ? (
+						<i className="absolute top-[-26px] left-0 text-14px color-white bg-blue-400 p-1 text-truncate">
+							<span style={{ color: 'chartreuse' }}>{editorBy.join(', ')}</span>
+							正在编辑
+						</i>
+					) : null}
+					{isSelected && <CircleList canvas={canvas} />}
+				</div>
+			</Dropdown>
 		</div>
 	)
 }

@@ -12,7 +12,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 export default function LeftSider() {
 	const [isExpanded] = useState(true)
 	const [activeKey, setActiveKey] = useState<string>(
-		TABKEY.TEXT as string
+		TABKEY.ALL as string
 	)
 	const [data, setData] = useState<CreateComponentType[]>([])
 	const [parent] = useAutoAnimate()
@@ -64,7 +64,7 @@ export default function LeftSider() {
 		<>
 			<Tabs
 				className="mt-1rem"
-				defaultActiveKey={TABKEY.TEXT}
+				defaultActiveKey={TABKEY.ALL}
 				tabPosition={'left'}
 				style={{ height: '100%' }}
 				// style={{ height: 'calc(100vh - 80px)' }}

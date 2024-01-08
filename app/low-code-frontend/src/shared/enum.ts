@@ -1,7 +1,9 @@
 export const enum TABKEY {
+	ALL = '所有',
 	TEXT = '文本',
 	IMAGE = '图片',
 	CARD = '卡片',
+	VIDEO = '视频',
 }
 
 export const enum ELEMENT_TYPE {
