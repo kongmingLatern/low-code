@@ -71,10 +71,12 @@ export class Canvas {
 				this.selectedIndex!
 			]?.editorBy?.filter(i => i !== editor)
 
-			this.canvas.element[this.selectedIndex!].editorBy =
-				editorBy
+			if (this.canvas.element[this.selectedIndex]) {
+				this.canvas.element[this.selectedIndex!].editorBy =
+					editorBy
+				this.update()
+			}
 
-			this.update()
 		}
 	}
 
