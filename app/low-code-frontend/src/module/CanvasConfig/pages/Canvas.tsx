@@ -106,7 +106,7 @@ export default function Canvas() {
 							onClick={() =>
 								navigate('/canvas/' + record.canvas_id)
 							}
-							disabled={canvas.canvas[index].isEditable === 0}
+							disabled={canvas.canvas[index]?.isEditable === 0}
 						>
 							进入画布
 						</Button>
