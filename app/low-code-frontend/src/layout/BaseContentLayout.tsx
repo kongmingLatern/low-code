@@ -162,6 +162,7 @@ export default function BaseContentLayout(
 							render: (_, record) => (
 								<Space>
 									<ModalButton
+										showJson
 										initialValues={record}
 										{...config.actionCfg?.formCfg}
 										onOk={async value => {
