@@ -147,7 +147,7 @@ export default function HomeLayout() {
 					<Affix offsetTop={top}>
 						<Sider
 							width={SiderConfig.LeftWidth}
-							className={classNames('color-black', 'mr-2rem')}
+							className={classNames('mr-2rem')}
 							style={{
 								minHeight: 'calc(100vh)',
 								backgroundColor:
