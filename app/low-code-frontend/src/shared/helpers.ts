@@ -68,3 +68,21 @@ export function downFile(
 	downLoadLink.click()
 	document.body.removeChild(downLoadLink)
 }
+
+export function formatJsonToObject(
+	json: Record<string, any>
+) {
+	const result: Record<string, any> = {}
+	for (const key in json) {
+		if (Object.prototype.hasOwnProperty.call(json, key)) {
+			const value = json[key]
+			try {
+				result[key] = JSON.parse(value)
+			} catch (e) {
+				result[key] = value
+			}
+		}
+	}
+	console.log(result)
+	return result
+}
