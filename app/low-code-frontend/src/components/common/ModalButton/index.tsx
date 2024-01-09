@@ -152,9 +152,9 @@ const App: React.FC<
 					{
 						showJson && <Form.Item noStyle shouldUpdate>
 							{() => (
-								<Typography>
+								<Typography.Text>
 									预览:<pre>{JSON.stringify(formatJsonToObject(formRef.getFieldsValue()), null, 2)}</pre>
-								</Typography>
+								</Typography.Text>
 							)}
 						</Form.Item>
 					}

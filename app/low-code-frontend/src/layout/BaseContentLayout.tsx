@@ -87,11 +87,7 @@ export default function BaseContentLayout(
 				)
 			})
 		}
-		console.log('onSearch', value)
 	}
-
-	const columns = config?.dataCfg?.columns
-	console.log('columns', columns)
 
 	return (
 		<>

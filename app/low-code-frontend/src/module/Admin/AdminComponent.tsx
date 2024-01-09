@@ -2,6 +2,7 @@ import BaseContentLayout, {
   CfgProps,
 } from '@/layout/BaseContentLayout'
 
+import { Tag } from 'antd'
 import { handlers } from '@/shared'
 
 export default function AdminComponent() {
@@ -180,10 +181,26 @@ export default function AdminComponent() {
           align: 'center',
         },
         {
+          title: '组件标签',
+          dataIndex: 'component_tag',
+          key: 'component_tag',
+          align: 'center',
+        },
+        {
           title: '组件类别',
           dataIndex: 'component_type',
           key: 'component_type',
           align: 'center',
+          render: (value) => {
+            switch (value) {
+              case 'img':
+                return <Tag color='blue-inverse'>图片</Tag>
+              case 'text':
+                return <Tag color='geekblue'>文本</Tag>
+              case 'card':
+                return <Tag color='cyan-inverse'>卡片</Tag>
+            }
+          }
         },
         {
           title: '组件属性',
@@ -197,7 +214,6 @@ export default function AdminComponent() {
       formCfg: {
         title: '修改组件信息',
         form: true,
-
         formItem: [
           {
             type: 'input',
@@ -240,6 +256,19 @@ export default function AdminComponent() {
                 }
               ]
             }
+          },
+          {
+            type: 'input',
+            props: {
+              label: '组件标签',
+              name: 'component_tag',
+              rules: [
+                {
+                  required: true,
+                  message: '请输入组件标签',
+                },
+              ],
+            },
           },
           {
             type: 'input',
