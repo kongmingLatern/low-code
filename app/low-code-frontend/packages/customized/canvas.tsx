@@ -92,7 +92,6 @@ export class Canvas {
 					}
 				}
 			)
-			console.log(this.canvas.element)
 			this.update()
 		}
 	}

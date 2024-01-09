@@ -4,6 +4,8 @@ import { ELEMENT_TYPE } from '@/shared/enum'
 
 type ComponentType = 'Antd'
 
+const { Text } = Typography
+
 // 适配层, 通过 type 对 value 进行处理
 export class RenderAdapter {
 	private type: ELEMENT_TYPE = ELEMENT_TYPE.TEXT
@@ -27,13 +29,16 @@ export class RenderAdapter {
 
 	private textHandler(options = {}) {
 		const { componentType } = this
-
+		let elseProps: any = {}
+		if ('component_props' in this.props) {
+			elseProps = JSON.parse(this.props.component_props)
+		}
 		switch (componentType) {
 			case 'Antd':
 				return (
-					<Typography.Text style={this.props.style} {...options} {...this.props?.props} >
+					<Text style={this.props.style} {...options} {...(elseProps?.props)} {...this.props?.props}  >
 						{this.value}
-					</Typography.Text>
+					</Text>
 				)
 			default:
 				return <span>{this.value}</span>
