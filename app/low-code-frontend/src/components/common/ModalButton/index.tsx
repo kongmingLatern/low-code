@@ -5,11 +5,14 @@ import {
 	Modal,
 	ModalProps,
 	Select,
+	Space,
+	Typography,
 } from 'antd'
+import { ROLE, formatJsonToObject } from '@/shared'
 import React, { useState } from 'react'
 
 import { BaseButtonProps } from 'antd/es/button/button'
-import { ROLE } from '@/shared'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export interface ModalButtonType {
 	// NOTE: 用于权限区分
@@ -19,6 +22,7 @@ export interface ModalButtonType {
 	title?: string
 	form?: boolean
 	formItem?: Array<Record<string, any>>
+	showJson?: boolean
 	initialValues?: Record<string, any>
 	content?: React.ReactNode
 	children?: React.ReactNode
@@ -26,10 +30,12 @@ export interface ModalButtonType {
 	onCancel?: (...args) => void
 }
 
+
 const App: React.FC<
 	ModalButtonType & ModalProps
 > = props => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [formRef] = Form.useForm();
 
 	const {
 		role = ROLE.PROJECT_MANAGER,
@@ -40,6 +46,7 @@ const App: React.FC<
 		title,
 		form = false,
 		formItem,
+		showJson = false,
 		initialValues = {},
 		onOk,
 		onCancel,
@@ -87,6 +94,7 @@ const App: React.FC<
 		>
 			{form && formItem && (
 				<Form
+					form={formRef}
 					className="mt-1.5rem"
 					name="basic"
 					onFinish={handleOk}
@@ -94,11 +102,61 @@ const App: React.FC<
 					autoComplete="off"
 					initialValues={initialValues}
 				>
-					{formItem.map((i, index) => (
-						<Form.Item {...i.props} key={index}>
-							{handleTypeInput(i.type, i?.inject)}
+					{formItem.map((i, index) => {
+
+						if (i.type === 'dynamic') {
+							return (
+								<Form.List name={i.props.name || 'props'} key={index}>
+									{(fields, { add, remove }) => (
+										<>
+											{fields.map(({ key, name, ...restField }) => (
+												<Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+													<Form.Item
+														{...restField}
+														label={i.props.name}
+														name={[name, 'key']}
+														rules={[{ required: true, message: '值不能为空' }]}
+													>
+														<Input placeholder={`请输入key值`} />
+													</Form.Item>
+													<Form.Item
+														{...restField}
+														name={[name, 'value']}
+														rules={[{ required: true, message: '值不能为空' }]}
+													>
+														<Input placeholder={`请输入key对应的value值`} />
+													</Form.Item>
+													<Icon icon="ic:baseline-minus" onClick={() => remove(name)} />
+												</Space>
+											))}
+											<Form.Item>
+												<Button type="dashed" onClick={() => add()} block icon={<Icon icon="ic:baseline-plus" />}>
+													新增{i.props.name}属性
+												</Button>
+											</Form.Item>
+										</>
+									)}
+								</Form.List>
+							)
+						}
+
+						return (
+							(
+								<Form.Item {...i.props} key={index}>
+									{handleTypeInput(i.type, i?.inject)}
+								</Form.Item>
+							)
+						)
+					})}
+					{
+						showJson && <Form.Item noStyle shouldUpdate>
+							{() => (
+								<Typography>
+									预览:<pre>{JSON.stringify(formatJsonToObject(formRef.getFieldsValue()), null, 2)}</pre>
+								</Typography>
+							)}
 						</Form.Item>
-					))}
+					}
 
 					<Form.Item className="text-right">
 						<Button type="primary" htmlType="submit">
