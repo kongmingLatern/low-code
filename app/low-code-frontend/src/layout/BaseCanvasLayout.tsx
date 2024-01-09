@@ -1,4 +1,4 @@
-import { Button, Layout, Space } from 'antd'
+import { Affix, Button, Layout, Space } from 'antd'
 import {
 	ColorTheme,
 	LayoutColor,
@@ -6,7 +6,7 @@ import {
 	codeTemplate,
 } from '@packages/customized'
 import { downFile, getFile, getShareImgBase64 } from '@/shared'
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import Box from '@/module/Index/components/Box'
@@ -41,6 +41,8 @@ export default function HomeLayout() {
 	const navigate = useNavigate()
 
 	const [, forceUpdate] = useReducer(x => x + 1, 0)
+
+	const [top] = useState(0)
 
 	useEffect(() => {
 		const unsubscribe = canvas.subscribe(() => {
@@ -142,17 +144,19 @@ export default function HomeLayout() {
 				</Header>
 				<Layout className={classNames(styled.siderHeight)}>
 					{/* 左侧操作栏 */}
-					<Sider
-						width={SiderConfig.LeftWidth}
-						className={classNames('color-black', 'mr-2rem')}
-						style={{
-							minHeight: 'calc(100vh - 80px)',
-							backgroundColor:
-								LayoutColor.leftSiderBackground,
-						}}
-					>
-						<LeftSider />
-					</Sider>
+					<Affix offsetTop={top}>
+						<Sider
+							width={SiderConfig.LeftWidth}
+							className={classNames('color-black', 'mr-2rem')}
+							style={{
+								minHeight: 'calc(100vh)',
+								backgroundColor:
+									LayoutColor.leftSiderBackground,
+							}}
+						>
+							<LeftSider />
+						</Sider>
+					</Affix>
 					{/* 画布区 */}
 					<Content
 						className={classNames(
@@ -165,19 +169,22 @@ export default function HomeLayout() {
 						<Canvas />
 					</Content>
 					{/* 右侧操作栏 */}
-					<Sider
-						width={SiderConfig.RightWidth}
-						className={classNames('color-black', 'ml-2rem')}
-						style={{
-							backgroundColor:
-								LayoutColor.rightSiderBackground,
-						}}
-					>
-						<Header className="color-white text-center font-20px bg-blue-500 font-semibold">
-							编辑区
-						</Header>
-						<RightSider />
-					</Sider>
+					<Affix offsetTop={top}>
+						<Sider
+							width={SiderConfig.RightWidth}
+							className={classNames('color-black', 'ml-2rem')}
+							style={{
+								backgroundColor:
+									LayoutColor.rightSiderBackground,
+								minHeight: 'calc(100vh)'
+							}}
+						>
+							<Header className="color-white text-center font-20px bg-blue-500 font-semibold">
+								编辑区
+							</Header>
+							<RightSider />
+						</Sider>
+					</Affix>
 				</Layout>
 				{/* <Footer className="p-0" style={footerStyle}>
 					Footer

@@ -1,8 +1,6 @@
 import {
-	Col,
 	Layout,
 	Menu,
-	Row,
 	Space,
 	message,
 	theme,
@@ -73,38 +71,33 @@ const App: React.FC<{
 			</Sider>
 			<Layout>
 				<Header
+					className='flex justify-end pr-2rem'
 					style={{
-						padding: '0 24px',
 						background: colorBgContainer,
 					}}
 				>
-					<Row>
-						<Col span={8} className="text-18px"></Col>
-						<Col span={8} push={12}>
-							<Space>
-								<Box
-									isDropdown
-									dropProps={{
-										items: [
-											{
-												key: '1',
-												label: '退出登陆',
-												onClick: () => {
-													exitLogin(navigate)
-												},
-											},
-										],
-									}}
-									icon={{
-										src: 'mdi:user',
-										width: '30',
-										height: '30',
-									}}
-									content={getContent()}
-								/>
-							</Space>
-						</Col>
-					</Row>
+					<Space className='pr-1rem'>
+						<Box
+							isDropdown
+							dropProps={{
+								items: [
+									{
+										key: '1',
+										label: '退出登陆',
+										onClick: () => {
+											exitLogin(navigate)
+										},
+									},
+								],
+							}}
+							icon={{
+								src: 'mdi:user',
+								width: '30',
+								height: '30',
+							}}
+							content={getContent()}
+						/>
+					</Space>
 				</Header>
 				<Content
 					style={{

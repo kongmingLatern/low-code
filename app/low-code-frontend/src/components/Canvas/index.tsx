@@ -178,8 +178,6 @@ export default function Canvas() {
 	}, [canvas, id])
 
 	function removeSelected() {
-		// NOTE: 这里的333要替换成当前的uid
-		console.log('remove')
 		canvas.removeEditorToSelctedElement(localStorage.getItem('nickname'))
 		canvas.setSelectedIndex(-1)
 	}
