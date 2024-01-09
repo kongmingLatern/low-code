@@ -53,6 +53,7 @@ const App: React.FC<
 		...rest
 	} = props
 
+
 	const showModal = () => {
 		setIsModalOpen(true)
 	}

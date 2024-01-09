@@ -23,6 +23,7 @@ export interface CfgProps {
 				type?: 'modalButton' | 'button'
 				children?: string
 				formItem?: Array<Record<string, any>>
+				initialValues: Record<string, any>,
 				onClick?: () => void
 				restProps?: BaseButtonProps | ModalProps
 			}
@@ -116,6 +117,7 @@ export default function BaseContentLayout(
 									key={i.children! + index}
 									form
 									formItem={i.formItem}
+									initialValues={i.initialValues}
 									{...(i.restProps as (ModalButtonType &
 										ModalProps)[])}
 									onOk={async value => {
@@ -163,7 +165,7 @@ export default function BaseContentLayout(
 								<Space>
 									<ModalButton
 										showJson
-										initialValues={record}
+										initialValues={Object.assign(config.actionCfg?.formCfg?.initialValues || {}, record)}
 										{...config.actionCfg?.formCfg}
 										onOk={async value => {
 											await config.actionCfg?.formCfg.onOk({

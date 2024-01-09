@@ -73,8 +73,21 @@ export default function AdminComponent() {
             {
               type: 'input',
               props: {
+                label: '工具栏展示文本',
+                name: 'value',
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入文本信息',
+                  },
+                ],
+              },
+            },
+            {
+              type: 'dynamic',
+              props: {
                 label: '组件属性',
-                name: 'component_props',
+                name: 'props',
                 rules: [
                   {
                     required: true,
@@ -83,12 +96,64 @@ export default function AdminComponent() {
                 ],
               },
             },
+            {
+              type: 'dynamic',
+              props: {
+                label: '组件样式',
+                name: 'style',
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入组件样式',
+                  },
+                ],
+              },
+            },
           ],
+          initialValues: {
+            style: [
+              {
+                key: 'top',
+                value: 0
+              },
+              {
+                key: 'left',
+                value: 0,
+              },
+              {
+                key: 'width',
+                value: 'auto'
+              },
+              {
+                key: 'fontWeight',
+                value: 400
+              },
+              {
+                key: 'fontSize',
+                value: 20
+              }
+            ]
+          },
           children: '添加组件',
           restProps: {
             title: '添加组件',
             footer: null,
-            onOk: async value => {
+            onOk: async (value: any) => {
+              const result: Record<string, any> = {
+                props: {},
+                style: {}
+              }
+              value?.props?.forEach(i => {
+                result['props'][i.key] = i.value
+              })
+              value?.style?.forEach(i => {
+                result['style'][i.key] = i.value
+              })
+              result['value'] = value.value
+              Object.assign(value, {
+                component_props: JSON.stringify(result)
+              })
+
               await handlers.createComponent(value as any)
             },
           },
@@ -132,6 +197,7 @@ export default function AdminComponent() {
       formCfg: {
         title: '修改组件信息',
         form: true,
+
         formItem: [
           {
             type: 'input',
