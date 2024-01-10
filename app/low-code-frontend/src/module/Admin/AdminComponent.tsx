@@ -271,7 +271,7 @@ export default function AdminComponent() {
             },
           },
           {
-            type: 'input',
+            type: 'textarea',
             props: {
               label: '组件属性',
               name: 'component_props',
