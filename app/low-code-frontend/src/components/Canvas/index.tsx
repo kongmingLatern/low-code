@@ -120,7 +120,7 @@ export default function Canvas() {
 					value,
 					style: {
 						...JSON.parse(obj),
-						top: endY - top,
+						top: endY - top - window.scrollY,
 						left: endX - left,
 						width:
 							typeof width === 'string' &&
