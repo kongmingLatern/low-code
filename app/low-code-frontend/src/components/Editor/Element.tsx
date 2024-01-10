@@ -174,7 +174,138 @@ export default function EditorElement({ element }) {
 			]
 			break
 
+		case ELEMENT_TYPE.BUTTON:
+			formItems = [
+				{
+					type: 'value',
+					name: 'value',
+					label: '文本内容',
+				},
+				{
+					type: 'select',
+					name: 'type',
+					label: '按扭类型',
+					placeholder: '请选择按扭类型',
+					options: [
+						{
+							value: 'primary',
+							label: '主要按扭'
+						},
+						{
+							value: 'default',
+							label: '默认按扭'
+						},
+						{
+							value: 'text',
+							label: '文本按扭'
+						},
+						{
+							value: 'dashed',
+							label: '虚线按扭'
+						},
+						{
+							value: 'link',
+							label: '链接按扭'
+						}
+					]
+				},
+				{
+					type: 'number',
+					name: 'width',
+					label: '元素宽度(px)',
+					placeholder: '请输入元素宽度(px)',
+				},
+				{
+					type: 'number',
+					name: 'height',
+					label: '元素高度(px)',
+					placeholder: '请输入元素高度(px)',
+				},
+				{
+					type: 'number',
+					name: 'fontSize',
+					label: '字体大小(px)',
+					placeholder: '请输入元素大小',
+				},
+				{
+					type: 'select',
+					name: 'fontWeight',
+					label: '元素粗细',
+					placeholder: '请选择元素粗细',
+					options: [
+						{
+							value: '700',
+							label: '粗',
+						},
+						{
+							value: '500',
+							label: '中等',
+						},
+						{
+							value: '200',
+							label: '细',
+						},
+					],
+				},
+				{
+					type: 'color',
+					name: 'color',
+					label: '文字颜色',
+				},
+			]
+			break
+
 		default:
+			formItems = [
+				{
+					type: 'value',
+					name: 'value',
+					label: '文本内容',
+				},
+				{
+					type: 'number',
+					name: 'width',
+					label: '元素宽度(px)',
+					placeholder: '请输入元素宽度(px)',
+				},
+				{
+					type: 'number',
+					name: 'height',
+					label: '元素高度(px)',
+					placeholder: '请输入元素高度(px)',
+				},
+				{
+					type: 'number',
+					name: 'fontSize',
+					label: '字体大小(px)',
+					placeholder: '请输入元素大小',
+				},
+				{
+					type: 'select',
+					name: 'fontWeight',
+					label: '元素粗细',
+					placeholder: '请选择元素粗细',
+					options: [
+						{
+							value: '700',
+							label: '粗',
+						},
+						{
+							value: '500',
+							label: '中等',
+						},
+						{
+							value: '200',
+							label: '细',
+						},
+					],
+				},
+				{
+					type: 'color',
+					name: 'color',
+					label: '文字颜色',
+				},
+			]
 			break
 	}
 

@@ -10,6 +10,7 @@ export const enum ELEMENT_TYPE {
 	TEXT = 'text',
 	IMAGE = 'img',
 	CARD = 'card',
+	BUTTON = 'button',
 }
 
 export const enum ROLE {

@@ -1,4 +1,4 @@
-import { Card, Image, Typography } from 'antd'
+import { Button, Card, Image, Typography } from 'antd'
 
 import { ELEMENT_TYPE } from '@/shared/enum'
 
@@ -61,6 +61,34 @@ export class RenderAdapter {
 				return <img src={this.value} />
 		}
 	}
+	private buttonHandler(options = {} as any) {
+		const { componentType } = this
+		let elseProps: any = {}
+		if ('component_props' in this.props) {
+			elseProps = JSON.parse(this.props.component_props)
+		}
+		switch (componentType) {
+			case 'Antd':
+				return (
+					<Button
+						{
+						...(elseProps?.props)
+						}
+						style={this.props.style}
+						{...this.props?.props}
+						{...options}
+					>
+						{
+							this.value
+						}
+					</Button>
+				)
+			default:
+				return <Button {...options} />
+		}
+	}
+
+
 
 	private cardHandler(options = {} as any) {
 		const { componentType } = this
@@ -101,11 +129,13 @@ export class RenderAdapter {
 		options = {
 			text: {},
 			img: {},
-			card: {}
+			card: {},
+			button: {}
 		} as Partial<{
 			text: Record<string, any>
 			img: Record<string, any>
 			card: Record<string, any>
+			button: Record<string, any>
 		}>
 	) {
 		switch (this.type) {
@@ -115,6 +145,8 @@ export class RenderAdapter {
 				return this.imgHandler(options.img)
 			case ELEMENT_TYPE.CARD:
 				return this.cardHandler(options.card)
+			case ELEMENT_TYPE.BUTTON:
+				return this.buttonHandler(options.button)
 			default:
 				throw new Error('未处理的类型' + this.type)
 		}

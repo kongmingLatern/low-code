@@ -18,8 +18,8 @@ export const LeftSiderTab = [
 		key: 'card',
 	},
 	{
-		label: '视频',
-		key: 'video',
+		label: '按扭',
+		key: 'button',
 	},
 ]
 
