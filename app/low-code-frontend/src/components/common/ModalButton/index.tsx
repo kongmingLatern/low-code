@@ -13,6 +13,7 @@ import React, { useState } from 'react'
 
 import { BaseButtonProps } from 'antd/es/button/button'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import TextArea from 'antd/es/input/TextArea'
 
 export interface ModalButtonType {
 	// NOTE: 用于权限区分
@@ -75,6 +76,8 @@ const App: React.FC<
 		switch (type) {
 			case 'input':
 				return <Input {...options} />
+			case 'textarea':
+				return <TextArea {...options} />
 			case 'select':
 				return <Select {...options} />
 			default:
