@@ -1,5 +1,4 @@
 import { Col, Row, Tabs } from 'antd'
-import { CreateComponentType, TABKEY } from '@/shared'
 import {
 	LeftSiderTab,
 	getContent,
@@ -7,12 +6,13 @@ import {
 import { useEffect, useState } from 'react'
 
 import Box from '@/components/Box'
+import { CreateComponentType } from '@/shared'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function LeftSider() {
 	const [isExpanded] = useState(true)
 	const [activeKey, setActiveKey] = useState<string>(
-		TABKEY.ALL as string
+		'all'
 	)
 	const [data, setData] = useState<CreateComponentType[]>([])
 	const [parent] = useAutoAnimate()
@@ -54,8 +54,8 @@ export default function LeftSider() {
 
 	const items = LeftSiderTab.map(i => {
 		return {
-			label: i,
-			key: i,
+			label: i.label,
+			key: i.key,
 			children: getChildrenByKey(),
 		}
 	})
@@ -64,7 +64,7 @@ export default function LeftSider() {
 		<>
 			<Tabs
 				className="mt-1rem"
-				defaultActiveKey={TABKEY.ALL}
+				defaultActiveKey={'all'}
 				tabPosition={'left'}
 				style={{ height: '100%' }}
 				// style={{ height: 'calc(100vh - 80px)' }}

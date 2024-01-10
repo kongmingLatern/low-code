@@ -1,11 +1,26 @@
-import { TABKEY, handlers } from '@/shared'
+import { handlers } from '@/shared'
 
 export const LeftSiderTab = [
-	'所有',
-	'文本',
-	'图片',
-	'卡片',
-	'视频',
+	{
+		label: '所有',
+		key: 'all',
+	},
+	{
+		label: '文本',
+		key: 'text',
+	},
+	{
+		label: '图片',
+		key: 'img',
+	},
+	{
+		label: '卡片',
+		key: 'card',
+	},
+	{
+		label: '视频',
+		key: 'video',
+	},
 ]
 
 export const SiderConfig = {
@@ -14,23 +29,7 @@ export const SiderConfig = {
 }
 
 export async function getContent(key: string) {
-	let type
-
-	switch (key) {
-		case TABKEY.TEXT:
-			type = 'text'
-			break
-
-		case TABKEY.IMAGE:
-			type = 'img'
-			break
-
-		case TABKEY.CARD:
-			type = 'card'
-			break
-	}
-
-	const res = (await handlers.getAllComponent(type)).data
+	const res = (await handlers.getAllComponent(key)).data
 	return res
 	// switch (key) {
 	// 	case TABKEY.TEXT:

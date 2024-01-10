@@ -44,6 +44,9 @@ export class ComponentService {
   }
 
   async findOne(component_type: string) {
+    if (component_type === 'all') {
+      return await this.findAll();
+    }
     return await this.componentRepository.find({
       relations: {
         library: true,
