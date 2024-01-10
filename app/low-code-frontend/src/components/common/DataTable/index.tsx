@@ -25,7 +25,8 @@ const App: React.FC<TableEnhanceProps> = props => {
 			align: 'center',
 			render: (_, __, i) => <span>{i + 1}</span>,
 			width: 60,
-			ellipsis: true
+			ellipsis: true,
+			fixed: 'left'
 		}
 
 		if (columns?.every(i => i.key !== index.key)) {
