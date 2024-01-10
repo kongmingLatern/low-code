@@ -37,6 +37,12 @@ export default function AdminProject() {
 					align: 'center',
 				},
 				{
+					title: '项目创建者id',
+					dataIndex: 'createBy',
+					key: 'createBy',
+					align: 'center',
+				},
+				{
 					title: '项目邀请码',
 					dataIndex: 'project_code',
 					key: 'project_code',
