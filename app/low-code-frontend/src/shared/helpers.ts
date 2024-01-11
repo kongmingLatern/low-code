@@ -38,6 +38,17 @@ export function getShareImgBase64() {
 	})
 }
 
+export function formatToExport(data) {
+	return data.map(i => {
+		return {
+			props: i.props,
+			style: i.style,
+			type: i.type,
+			value: i.value,
+		}
+	})
+}
+
 export function getFile(
 	data,
 	filename,

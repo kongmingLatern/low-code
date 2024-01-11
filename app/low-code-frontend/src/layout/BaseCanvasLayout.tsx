@@ -5,7 +5,7 @@ import {
 	SiderConfig,
 	codeTemplate,
 } from '@packages/customized'
-import { downFile, getFile, getShareImgBase64 } from '@/shared'
+import { downFile, formatToExport, getFile, getShareImgBase64 } from '@/shared'
 import { useEffect, useReducer, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -119,7 +119,7 @@ export default function HomeLayout() {
 												href='#'
 												type='text'
 												onClick={() => {
-													downFile(`data:text/plain;charset=utf-8,${encodeURIComponent(codeTemplate(canvas.getCanvas().element))}`, 'page.tsx')
+													downFile(`data:text/plain;charset=utf-8,${encodeURIComponent(codeTemplate(formatToExport(canvas.getCanvas().element)))}`, 'page.tsx')
 												}}
 											>
 												TSX 文件
