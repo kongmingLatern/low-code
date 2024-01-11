@@ -23,7 +23,7 @@ export interface CfgProps {
 				type?: 'modalButton' | 'button'
 				children?: string
 				formItem?: Array<Record<string, any>>
-				initialValues: Record<string, any>,
+				initialValues?: Record<string, any>,
 				onClick?: () => void
 				restProps?: BaseButtonProps | ModalProps
 			}
