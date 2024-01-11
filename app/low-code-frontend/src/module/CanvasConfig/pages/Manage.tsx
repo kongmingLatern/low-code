@@ -113,7 +113,7 @@ const App: React.FC = () => {
 			>
 				<ModalButton
 					role={canvas.role_id}
-					title={'邀请人员'}
+					title={'项目管理'}
 					form
 					initialValues={info}
 					formItem={[
