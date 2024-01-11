@@ -103,6 +103,7 @@ export default function Person() {
 			title: '操作',
 			key: 'action',
 			align: 'center',
+			width: 250,
 			render: (_, { role_id, uid }) => (
 				<Space size="middle">
 					<ModalButton
