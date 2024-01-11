@@ -98,12 +98,6 @@ const items: (
 const App: React.FC = () => {
 	const { info, getData, canvas } = useContext(InfoContext)
 	const [searchParams] = useSearchParams()
-
-	useEffect(() => {
-		console.log('canvas---Manage', canvas);
-	}, [canvas])
-
-
 	return (
 		<>
 			<Flex
