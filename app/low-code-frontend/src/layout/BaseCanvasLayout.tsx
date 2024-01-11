@@ -105,7 +105,7 @@ export default function HomeLayout() {
 												href='#'
 												type='text'
 												onClick={() => {
-													getFile(canvas.getCanvas().element, 'data.json')
+													getFile(formatToExport(canvas.getCanvas().element), 'data.json')
 												}}
 											>
 												JSON 文件
