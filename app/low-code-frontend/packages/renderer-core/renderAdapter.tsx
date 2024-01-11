@@ -47,10 +47,15 @@ export class RenderAdapter {
 
 	private imgHandler(options = {} as any) {
 		const { componentType } = this
+		let elseProps: any = {}
+		if ('component_props' in this.props) {
+			elseProps = JSON.parse(this.props.component_props)
+		}
 		switch (componentType) {
 			case 'Antd':
 				return (
 					<Image
+						{...(elseProps?.props)}
 						src={this.value}
 						{...this.props?.props}
 						style={this.props.style}

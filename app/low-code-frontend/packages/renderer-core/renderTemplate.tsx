@@ -1,6 +1,7 @@
-import { Fragment, FunctionComponent } from "react";
-
+import { FunctionComponent } from "react";
+import React from "react";
 import { RenderAdapter } from "./renderAdapter";
+import classNames from "classnames";
 
 interface RenderTemplateProps {
   element: {
@@ -16,14 +17,35 @@ const RenderTemplate: FunctionComponent<RenderTemplateProps> = (props) => {
 
   return <div className="relative">
     {element?.map((i, index) => {
-      const adapter = new RenderAdapter(i.type, i.value, {
+      const renderAdapter = new RenderAdapter(i.type, i.value, {
         props: i.props,
         style: {
           ...i.style,
           position: 'absolute',
         }
       })
-      return <Fragment key={index}>{adapter.handler()}</Fragment>
+      const child = React.Children.only(
+        renderAdapter.handler({
+          img: {
+            preview: true,
+            onClick: e => {
+              e.stopPropagation()
+            },
+          },
+        })
+      ) as React.ReactElement<any>
+
+      const ElementChildren = () =>
+        React.cloneElement(child, {
+          ...child.props,
+          className: classNames(
+            child.props.className,
+          ),
+          style: {}
+        })
+      return <div className="absolute" style={child.props.style} key={index}>
+        <ElementChildren />
+      </div>
     })}
   </div>;
 }
