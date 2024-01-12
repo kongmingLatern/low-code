@@ -33,6 +33,11 @@ export class ComponentController {
     return this.componentService.findOne(component_type);
   }
 
+  @Get('getType')
+  findAllType() {
+    return this.componentService.findAllType();
+  }
+
   @Put('update')
   update(@Body() updateComponentDto: UpdateComponentDto) {
     return this.componentService.update(

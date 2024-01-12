@@ -43,6 +43,18 @@ export class ComponentService {
     return await this.componentRepository.find();
   }
 
+  async findAllType() {
+    return new Set(
+      Array.from(
+        await this.componentRepository.find({
+          select: {
+            component_type: true,
+          },
+        }),
+      ),
+    );
+  }
+
   async findOne(component_type: string) {
     if (component_type === 'all') {
       return await this.findAll();
