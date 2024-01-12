@@ -40,6 +40,14 @@ export class RedisService {
     return await this.redisClient.del(key);
   }
 
+  async getRedis(name: string, key: string) {
+    return await this.redisClient.hGet(name, key);
+  }
+
+  async setRedis(name, key, value) {
+    await this.redisClient.hSet(name, key, value);
+  }
+
   async setCanvas(obj) {
     const { canvasId, element, style } = obj;
     console.log('setCanvas', obj);
