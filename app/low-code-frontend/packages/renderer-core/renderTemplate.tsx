@@ -33,7 +33,7 @@ const RenderTemplate: FunctionComponent<RenderTemplateProps> = (props) => {
             },
           },
         })
-      ) as React.ReactElement<any>
+      )
 
       const ElementChildren = () =>
         React.cloneElement(child, {
