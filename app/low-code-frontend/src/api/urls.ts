@@ -37,6 +37,7 @@ export const urls = {
 	},
 	component: {
 		getAllComponents: `${modules.component}/get`,
+		getAllType: `${modules.component}/getType`,
 		createComponent: `${modules.component}/create`,
 		updateComponent: `${modules.component}/update`,
 		deleteComponent: `${modules.component}/delete`,

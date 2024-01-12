@@ -33,6 +33,7 @@ export const handlers = {
 	deleteCanvas: canvasHandler['deleteCanvas'],
 
 	getAllComponent: componentHandler['getAllComponent'],
+	getAllType: componentHandler['getAllType'],
 	createComponent: componentHandler['create'],
 	updateComponent: componentHandler['updateComponent'],
 	deleteComponent: componentHandler['deleteComponent'],

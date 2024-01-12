@@ -54,6 +54,22 @@ export default function AdminComponent() {
                   {
                     label: "卡片",
                     value: 'card'
+                  },
+                  {
+                    label: '按扭',
+                    value: 'button'
+                  },
+                  {
+                    label: '图标',
+                    value: 'icon'
+                  },
+                  {
+                    label: '水平线',
+                    value: 'divider'
+                  },
+                  {
+                    label: '表单',
+                    value: 'form'
                   }
                 ]
               }
@@ -199,6 +215,10 @@ export default function AdminComponent() {
                 return <Tag color='geekblue'>文本</Tag>
               case 'card':
                 return <Tag color='cyan-inverse'>卡片</Tag>
+              case 'button':
+                return <Tag color='gold-inverse'>按扭</Tag>
+              default:
+                return <Tag color='green-inverse'>按扭</Tag>
             }
           }
         },
