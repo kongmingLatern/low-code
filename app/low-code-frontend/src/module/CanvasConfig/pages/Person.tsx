@@ -12,6 +12,7 @@ import DataTable from '@/components/common/DataTable'
 import DeleteButton from '@/components/common/DeleteButton'
 import { InfoContext } from '@/layout/CanvasHomeLayout'
 import ModalButton from '@/components/common/ModalButton'
+import { sendInvite } from '@packages/server'
 import { useSearchParams } from 'react-router-dom'
 
 export default function Person() {
@@ -190,10 +191,11 @@ export default function Person() {
 							...e,
 							project_id: searchParams.get('project_id'),
 						}
-						await handlers.joinProject(values)
-						setTimeout(async () => {
-							await getData()
-						}, 1000)
+						sendInvite(values)
+						// await handlers.joinProject(values)
+						// setTimeout(async () => {
+						// 	await getData()
+						// }, 1000)
 					}}
 					footer={null}
 				>

@@ -1,5 +1,5 @@
+import { Badge, Layout, Menu, Space, message, theme } from 'antd'
 import { InfoType, UserCanvasInfo, exitLogin, handlers } from '@/shared'
-import { Layout, Menu, Space, message, theme } from 'antd'
 import {
 	Outlet,
 	useNavigate,
@@ -35,6 +35,7 @@ const App: React.FC<LayoutProps> = props => {
 
 	const [info, setInfo] = useState<InfoType>({} as InfoType)
 	const [canvas, setCanvas] = useState<UserCanvasInfo>({} as UserCanvasInfo)
+	const [num] = useState(JSON.parse(localStorage.getItem('invite_list') || '')?.length || 0)
 	const [searchParams] = useSearchParams()
 	const {
 		token: { colorBgContainer },
@@ -129,6 +130,18 @@ const App: React.FC<LayoutProps> = props => {
 					color='white'
 					dropProps={{
 						items: [
+							{
+								key: 'message',
+								label: (
+									<Space>
+										<Badge count={num} showZero />
+										通知信息
+									</Space>
+								),
+								onClick: () => {
+									exitLogin(navigate)
+								},
+							},
 							{
 								key: 'back',
 								label: '返回首页',

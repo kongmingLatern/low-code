@@ -1,4 +1,5 @@
 import {
+	Badge,
 	Col,
 	Layout,
 	Menu,
@@ -49,6 +50,8 @@ const App: React.FC<{
 	const [selectedMenu, setSelectedMenu] = useState('')
 	const [cardList, setCardList] = useState<any[]>([])
 	const [collapsed, setCollapsed] = useState(false)
+
+	const [num] = useState(JSON.parse(localStorage.getItem('invite_list') || '')?.length || 0)
 
 	const navigate = useNavigate()
 
@@ -120,6 +123,18 @@ const App: React.FC<{
 									isDropdown
 									dropProps={{
 										items: [
+											{
+												key: 'message',
+												label: (
+													<Space>
+														<Badge count={num} showZero />
+														通知信息
+													</Space>
+												),
+												onClick: () => {
+													exitLogin(navigate)
+												},
+											},
 											{
 												key: 'exit',
 												label: '退出登陆',

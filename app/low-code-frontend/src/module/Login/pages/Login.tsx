@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import React from 'react'
 import { handlers } from '@/shared'
+import { sendOnline } from '@packages/server'
 
 const { Title } = Typography
 
@@ -13,6 +14,7 @@ const App: React.FC = () => {
 		await handlers
 			.login(values)
 			.then((isAdmin) => {
+				sendOnline(localStorage.getItem('uid'))
 				if (isAdmin) {
 					nagivate('/admin')
 					return

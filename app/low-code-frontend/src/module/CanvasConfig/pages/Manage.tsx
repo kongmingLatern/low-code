@@ -4,7 +4,7 @@ import {
 	formatYMDHHmmss,
 	handlers,
 } from '@/shared'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import type { DescriptionsProps } from 'antd'
 import Flex from '@/components/common/Flex'
