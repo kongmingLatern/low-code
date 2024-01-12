@@ -8,7 +8,7 @@ import {
 	message,
 	theme,
 } from 'antd'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import React, {
 	createContext,
 	useEffect,
@@ -51,7 +51,7 @@ const App: React.FC<{
 	const [cardList, setCardList] = useState<any[]>([])
 	const [collapsed, setCollapsed] = useState(false)
 
-	const [num] = useState(JSON.parse(localStorage.getItem('invite_list') || '')?.length || 0)
+	const [num] = useState(JSON.parse(localStorage.getItem('invite_list') as any)?.length || 0)
 
 	const navigate = useNavigate()
 
@@ -128,12 +128,10 @@ const App: React.FC<{
 												label: (
 													<Space>
 														<Badge count={num} showZero />
-														通知信息
+														<Link to={'/notice'}>通知信息</Link>
 													</Space>
 												),
-												onClick: () => {
-													exitLogin(navigate)
-												},
+
 											},
 											{
 												key: 'exit',

@@ -39,7 +39,7 @@ export interface CfgProps {
 	}
 	dataCfg?: TableEnhanceProps
 	actionCfg?: {
-		formCfg: {
+		formCfg?: {
 			title: string
 			form: boolean
 			formItem?: Array<Record<string, any>>
@@ -54,7 +54,7 @@ export interface CfgProps {
 
 export interface ContentLayoutProps {
 	config?: CfgProps
-	getData: () => Promise<ReturnType<any>>
+	getData: () => Promise<ReturnType<any>> | any
 }
 
 export default function BaseContentLayout(
@@ -150,7 +150,7 @@ export default function BaseContentLayout(
 				columns={
 					(config?.dataCfg && [
 						...config.dataCfg.columns!,
-						{
+						...config.dataCfg.operationColumns || {
 							title: '操作',
 							dataIndex: 'action',
 							key: 'action',
@@ -159,24 +159,29 @@ export default function BaseContentLayout(
 							width: 200,
 							render: (_, record) => (
 								<Space>
-									<ModalButton
-										showJson
-										initialValues={Object.assign(config.actionCfg?.formCfg?.initialValues || {}, record)}
-										{...config.actionCfg?.formCfg}
-										onOk={async value => {
-											await config.actionCfg?.formCfg.onOk({
-												...value,
-												[config.dataCfg
-													?.primaryKey as string]:
-													record[
-													config.dataCfg!.primaryKey!
-													],
-											})
-											await getDataSource()
-										}}
-									>
-										修改
-									</ModalButton>
+									{
+										config.actionCfg?.formCfg &&
+										(
+											<ModalButton
+												showJson
+												initialValues={Object.assign(config.actionCfg?.formCfg?.initialValues || {}, record)}
+												{...config.actionCfg?.formCfg}
+												onOk={async value => {
+													await config.actionCfg?.formCfg!.onOk({
+														...value,
+														[config.dataCfg
+															?.primaryKey as string]:
+															record[
+															config.dataCfg!.primaryKey!
+															],
+													})
+													await getDataSource()
+												}}
+											>
+												修改
+											</ModalButton>
+										)
+									}
 									<DeleteButton
 										{...config.actionCfg?.deleteButtonCfg}
 										onConfirm={async () => {
@@ -192,6 +197,7 @@ export default function BaseContentLayout(
 								</Space>
 							),
 						},
+						// ...config.dataCfg.operationColumns,
 					]) ||
 					[]
 				}

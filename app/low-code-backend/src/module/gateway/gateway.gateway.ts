@@ -12,6 +12,7 @@ import { RedisService } from '../redis/redis.service';
 import { Project } from '../project/entities/project.entity';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
+import { User } from '../user/entities/user.entity';
 
 @WebSocketGateway({
   cors: {
@@ -106,12 +107,92 @@ export class GatewayGateway {
     @MessageBody() body: any,
     @ConnectedSocket() client: Socket,
   ) {
+    console.log(`${body.uid}_list`);
     client.join(`${body.uid}_list`);
     client
       .to(`${body.uid}_list`)
       .emit(
-        'message',
+        'search',
         await this.redisService.getRedis(`${body.uid}_list`, 'project'),
       );
+  }
+
+  @SubscribeMessage('onAgree')
+  async handleAgreeProject(
+    @MessageBody() body: any,
+    @ConnectedSocket() client: Socket,
+  ) {
+    const list: any[] =
+      JSON.parse(
+        await this.redisService.getRedis(`${body.uid}_list`, 'project'),
+      ) || [];
+    const res = list.filter((i) => i.project_id !== body.project_id);
+    await this.redisService.setRedis(
+      `${body.uid}_list`,
+      'project',
+      JSON.stringify(res),
+    );
+    client.to(`${body.createBy}_list`).emit('agreeProject', {
+      nickname: (
+        await this.projectRepository.findOne(User, {
+          select: {
+            nickname: true,
+          },
+          where: {
+            uid: body.uid,
+          },
+        })
+      ).nickname,
+      project_name: (
+        await this.projectRepository.findOne(Project, {
+          select: {
+            project_name: true,
+          },
+          where: {
+            project_id: body.project_id,
+          },
+        })
+      ).project_name,
+    });
+  }
+
+  @SubscribeMessage('onReuse')
+  async handleReuseProject(
+    @MessageBody() body: any,
+    @ConnectedSocket() client: Socket,
+  ) {
+    const list: any[] =
+      JSON.parse(
+        await this.redisService.getRedis(`${body.uid}_list`, 'project'),
+      ) || [];
+    const res = list.filter((i) => i.project_id !== body.project_id);
+    console.log('reuse', res);
+    await this.redisService.setRedis(
+      `${body.uid}_list`,
+      'project',
+      JSON.stringify(res),
+    );
+    client.to(`${body.createBy}_list`).emit('reuseProject', {
+      nickname: (
+        await this.projectRepository.findOne(User, {
+          select: {
+            nickname: true,
+          },
+          where: {
+            uid: body.uid,
+          },
+        })
+      ).nickname,
+      project_name: (
+        await this.projectRepository.findOne(Project, {
+          select: {
+            project_name: true,
+          },
+          where: {
+            project_id: body.project_id,
+          },
+        })
+      ).project_name,
+    });
   }
 }

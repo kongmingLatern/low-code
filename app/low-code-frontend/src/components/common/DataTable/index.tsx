@@ -4,6 +4,7 @@ import { Table, TableProps } from 'antd'
 import React from 'react'
 
 export interface TableEnhanceProps extends TableProps<any> {
+	operationColumns?: any
 	primaryKey?: string
 	showIndex?: boolean
 }

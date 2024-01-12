@@ -8,6 +8,7 @@ import CanvasHomeLayout from '@/layout/CanvasHomeLayout'
 import Home from '@/module/Index/pages/Home'
 import Login from '@/module/Login/pages/Login'
 import LoginCover from '@/components/common/Cover'
+import { Notice } from '@/module/Personal/pages/Notice'
 import Register from '@/module/Login/pages/Register'
 import { backendLayoutCfg } from '@/config/layout/backend'
 import { createBrowserRouter } from 'react-router-dom'
@@ -43,6 +44,12 @@ export const router = createBrowserRouter([
 			<BaseBackendLayout layoutCfg={backendLayoutCfg} />
 		),
 		children: backendLayoutCfg.children,
+	},
+	{
+		path: 'notice',
+		element: (
+			<Notice />
+		)
 	},
 	{
 		path: '/login',

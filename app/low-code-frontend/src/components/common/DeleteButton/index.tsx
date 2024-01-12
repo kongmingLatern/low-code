@@ -13,6 +13,7 @@ export interface DeleteButtonProps {
 	cancelText: string
 	onConfirm: (...args) => void
 	onCancel: (...args) => void
+	buttonProps: any
 }
 
 const App: React.FC<Partial<DeleteButtonProps>> = props => {
@@ -26,6 +27,7 @@ const App: React.FC<Partial<DeleteButtonProps>> = props => {
 		cancelText = '取消',
 		onConfirm,
 		onCancel,
+		buttonProps,
 	} = props
 	return role === ROLE.PROJECT_MANAGER ? (
 		<Popconfirm
@@ -36,7 +38,7 @@ const App: React.FC<Partial<DeleteButtonProps>> = props => {
 			onConfirm={onConfirm}
 			onCancel={onCancel}
 		>
-			<Button danger>{children || text}</Button>
+			<Button danger {...buttonProps}>{children || text}</Button>
 		</Popconfirm>
 	) : null
 }

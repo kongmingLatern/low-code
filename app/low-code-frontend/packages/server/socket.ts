@@ -16,8 +16,8 @@ export function connect() {
 	socket.on('connect', () => {
 		sendOnline(localStorage.getItem('uid') || '')
 		console.log(
-			'open',
-			JSON.parse(localStorage.getItem('invite_list') || '')
+			'open'
+			// JSON.parse(localStorage.getItem('invite_list'))
 		)
 	})
 
@@ -26,12 +26,31 @@ export function connect() {
 		console.log('userActiveElement', data)
 	})
 
+	socket.on('search', message => {
+		localStorage.setItem('invite_list', message)
+	})
+
+	socket.on('reuseProject', data => {
+		const { nickname, project_name } = data
+		notification.error({
+			message: '通知信息',
+			description: `用户${nickname}拒绝参加项目:${project_name}!`,
+		})
+	})
+	socket.on('agreeProject', data => {
+		const { nickname, project_name } = data
+		notification.success({
+			message: '通知信息',
+			description: `用户${nickname}同意参加项目:${project_name}!`,
+		})
+	})
+
 	socket.on('message', message => {
-		notification.open({
+		notification.info({
 			message: '新项目邀请',
 			description: '您有一则新项目的邀请信息,请查收',
 			onClick: () => {
-				console.log('Notification Clicked!')
+				window.location.href = '/notice'
 			},
 		})
 
@@ -90,5 +109,20 @@ export function sendOnline(uid) {
 	console.log('上线', uid)
 	socket.emit('onLine', {
 		uid,
+	})
+}
+export function sendReuse({ uid, project_id, createBy }) {
+	socket.emit('onReuse', {
+		uid,
+		createBy,
+		project_id,
+	})
+}
+
+export function sendAgree({ uid, project_id, createBy }) {
+	socket.emit('onAgree', {
+		uid,
+		createBy,
+		project_id,
 	})
 }
