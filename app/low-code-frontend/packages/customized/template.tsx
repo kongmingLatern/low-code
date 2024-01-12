@@ -3,7 +3,7 @@ import { RenderTemplate } from 'low-code-renderer'
 
 const MyComponent = () => {
   return (
-     <RenderTemplate element={${JSON.stringify(elementData)}} />
+     <RenderTemplate element={${JSON.stringify(elementData, null, 2)}} />
   );
 };
 
