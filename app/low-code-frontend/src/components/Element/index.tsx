@@ -89,18 +89,32 @@ export default function Element(props) {
 				break;
 			case 'up':
 				if (zIndex <= ZINDEX.MAX - 1) {
+					// console.log(canvas.getSelectedElement());
+					canvas.updateSelectedElementStyle({
+						zIndex: zIndex + 1
+					})
 					setZIndex(zIndex + 1)
 				}
 				break;
 			case 'down':
 				if (zIndex >= ZINDEX.MIN + 1) {
+					canvas.updateSelectedElementStyle({
+						zIndex: zIndex - 1
+					})
 					setZIndex(zIndex - 1)
 				}
 				break;
 			case 'above':
+
+				canvas.updateSelectedElementStyle({
+					zIndex: ZINDEX.MAX
+				})
 				setZIndex(ZINDEX.MAX)
 				break;
 			case 'below':
+				canvas.updateSelectedElementStyle({
+					zIndex: ZINDEX.MIN
+				})
 				setZIndex(ZINDEX.MIN)
 				break;
 			default:
@@ -169,7 +183,7 @@ export default function Element(props) {
 	return (
 		<div
 			className="absolute"
-			style={{ ...child.props.style, zIndex }}
+			style={{ ...child.props.style }}
 			ref={dragRef}
 		// onClick={setSelected}
 		>
