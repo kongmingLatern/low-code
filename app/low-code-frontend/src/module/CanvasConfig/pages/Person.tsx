@@ -190,7 +190,10 @@ export default function Person() {
 							...e,
 							project_id: searchParams.get('project_id'),
 						}
-						sendInvite(values)
+						sendInvite({
+							...values,
+							createBy: localStorage.getItem('uid')
+						})
 						// await handlers.joinProject(values)
 						// setTimeout(async () => {
 						// 	await getData()

@@ -1,4 +1,10 @@
-import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  forwardRef,
+} from '@nestjs/common';
 
 import { CanvasService } from './../canvas/canvas.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -63,7 +69,7 @@ export class ProjectService {
     });
     if (found) {
       // 如果找到,说明已经参加了该项目
-      return '加入失败';
+      throw new HttpException('该用户已经加入该项目', HttpStatus.BAD_REQUEST);
     }
 
     if (isUsingProjectCode()) {
