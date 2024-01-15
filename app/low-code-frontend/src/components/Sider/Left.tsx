@@ -32,7 +32,7 @@ export default function LeftSider() {
 	const getChildrenByKey = () => {
 
 		return (
-			<div ref={parent} className="mt-1rem pr-24px">
+			<div ref={parent} className="mt-1rem pr-24px" style={{ height: '940px' }}>
 				{isExpanded && (
 					<Row gutter={[16, 16]}>
 						{data.map(i => (
@@ -67,7 +67,6 @@ export default function LeftSider() {
 				defaultActiveKey={'all'}
 				tabPosition={'left'}
 				style={{ height: '100%' }}
-				// style={{ height: 'calc(100vh - 80px)' }}
 				items={items}
 				onChange={onChange}
 			/>
