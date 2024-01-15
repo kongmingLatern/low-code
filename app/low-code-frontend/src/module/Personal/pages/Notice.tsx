@@ -1,15 +1,19 @@
 import BaseContentLayout, { CfgProps } from "@/layout/BaseContentLayout"
-import { formatYMDHHmmss, handlers } from "@/shared"
+import { Content, Header } from "antd/es/layout/layout"
+import { Layout, Space, message } from "antd"
+import { exitLogin, formatYMDHHmmss, handlers } from "@/shared"
 import { sendAgree, sendReuse } from "@packages/server"
 
+import Box from "@/module/Index/components/Box"
 import DeleteButton from "@/components/common/DeleteButton"
-import { Space } from "antd"
 import StatusTag from "@/components/common/StatusTag"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 export function Notice() {
 
   const [list, setList] = useState(JSON.parse(localStorage.getItem('invite_list') as any))
+  const navigate = useNavigate()
 
   function getData() {
     return {
@@ -136,10 +140,60 @@ export function Notice() {
     },
   }
 
+  function getContent() {
+    const nickname = localStorage.getItem('nickname')
+    if (!nickname) {
+      message.error('您没有登陆态,请登陆')
+      navigate('/login')
+      return
+    }
+    return nickname
+  }
+
   return (
-    <BaseContentLayout
-      config={config}
-      getData={getData}
-    ></BaseContentLayout>
+    <Layout >
+      <Header className='flex justify-between pr-2rem'>
+        <h3 color="white" className="text-20px">
+          消息通知
+        </h3>
+        <Space className='pr-1rem'>
+          <Box
+            isDropdown
+            dropProps={{
+              items: [
+                {
+                  key: 'back',
+                  label: '返回上级',
+                  onClick: () => {
+                    navigate(-1)
+                  },
+                },
+                {
+                  key: '1',
+                  label: '退出登陆',
+                  onClick: () => {
+                    exitLogin(navigate)
+                  },
+                },
+              ],
+            }}
+            icon={{
+              src: 'mdi:user',
+              width: '30',
+              height: '30',
+              color: 'white'
+            }}
+            content={getContent()}
+            color="white"
+          />
+        </Space>
+      </Header>
+      <Content className="mt-1rem">
+        <BaseContentLayout
+          config={config}
+          getData={getData}
+        ></BaseContentLayout>
+      </Content>
+    </Layout>
   )
 }
