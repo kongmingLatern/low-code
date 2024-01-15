@@ -53,8 +53,8 @@ export default function Person() {
 	> = [
 			{
 				title: '协作人员',
-				dataIndex: 'username',
-				key: 'username',
+				dataIndex: 'nickname',
+				key: 'nickname',
 				align: 'center',
 			},
 			{
@@ -186,7 +186,6 @@ export default function Person() {
 						},
 					]}
 					onOk={async e => {
-						// TODO: 邀请人员 => 这里先直接拉进,还未考虑是否同意
 						const values = {
 							...e,
 							project_id: searchParams.get('project_id'),
