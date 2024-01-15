@@ -131,7 +131,9 @@ const App: React.FC<{
 														<Link to={'/notice'}>通知信息</Link>
 													</Space>
 												),
-
+												onClick: () => {
+													navigate('/notice')
+												}
 											},
 											{
 												key: 'exit',
