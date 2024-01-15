@@ -42,7 +42,7 @@ const joinProject = async values => {
 	return await handlePostRequest(
 		urls.project.joinProject,
 		values,
-		'邀请成功'
+		'加入成功'
 	)
 }
 
