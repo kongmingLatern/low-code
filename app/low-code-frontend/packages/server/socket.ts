@@ -15,10 +15,7 @@ export function connect() {
 
 	socket.on('connect', () => {
 		sendOnline(localStorage.getItem('uid') || '')
-		console.log(
-			'open'
-			// JSON.parse(localStorage.getItem('invite_list'))
-		)
+		console.log('open')
 	})
 
 	socket.on('active', data => {
@@ -43,6 +40,10 @@ export function connect() {
 			message: '通知信息',
 			description: `用户${nickname}同意参加项目:${project_name}!`,
 		})
+	})
+
+	socket.on('error', msg => {
+		message.error(msg)
 	})
 
 	socket.on('message', message => {
@@ -100,9 +101,11 @@ export function sendLeaveRoom(canvasId: string) {
 }
 export function sendInvite(body) {
 	console.log(body)
+
 	socket.emit('onInvite', {
 		uid: body.uid,
 		project_id: body.project_id,
+		createBy: body.createBy,
 	})
 }
 export function sendOnline(uid) {

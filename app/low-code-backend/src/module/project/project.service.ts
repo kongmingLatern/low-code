@@ -56,6 +56,15 @@ export class ProjectService {
 
   async joinProject(body: Record<string, any>) {
     const { uid, project_id, project_code } = body;
+    const found = await this.userProjectRoleService.findByOptions({
+      methods: 'one',
+      uid,
+      project_id,
+    });
+    if (found) {
+      // 如果找到,说明已经参加了该项目
+      return '加入失败';
+    }
 
     if (isUsingProjectCode()) {
       // 通过项目的邀请码进入的
@@ -169,6 +178,7 @@ export class ProjectService {
           select: {
             uid: true,
             username: true,
+            nickname: true,
           },
         });
         const r2 = await this.roleService.find(i.role_id);
@@ -177,7 +187,6 @@ export class ProjectService {
           i.uid,
           params.project_id,
         );
-        console.log('r33------', r3);
         const canvasIdList = r3.canvas.reduce((prev, cur) => {
           if (cur.isEditable !== 0) {
             prev.push(cur.canvas_name);

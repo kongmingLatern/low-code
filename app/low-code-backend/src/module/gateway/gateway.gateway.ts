@@ -13,6 +13,7 @@ import { Project } from '../project/entities/project.entity';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { User } from '../user/entities/user.entity';
+import { UserProjectRole } from 'src/joinTable/user_project_role/entities/user_project_role.entity';
 
 @WebSocketGateway({
   cors: {
@@ -25,7 +26,7 @@ export class GatewayGateway {
     private readonly gatewayService: GatewayService,
     private readonly redisService: RedisService,
     @InjectEntityManager()
-    private projectRepository: EntityManager,
+    private entityManager: EntityManager,
   ) {}
 
   @SubscribeMessage('onJoin')
@@ -78,12 +79,25 @@ export class GatewayGateway {
     @MessageBody() body: any,
     @ConnectedSocket() client: Socket,
   ) {
+    const found = await this.entityManager.findOne(UserProjectRole, {
+      where: {
+        uid: body.uid,
+        project_id: body.project_id,
+      },
+    });
+    if (found) {
+      // 如果找到,说明该用户已加入本项目
+      client
+        .to(`${body.createBy}_list`)
+        .emit('error', '该用户已经加入该项目,无法再次邀请');
+      return;
+    }
     const list: any[] =
       JSON.parse(
         await this.redisService.getRedis(`${body.uid}_list`, 'project'),
       ) || [];
 
-    const project = await this.projectRepository.findOne(Project, {
+    const project = await this.entityManager.findOne(Project, {
       where: {
         project_id: body.project_id,
       },
@@ -134,7 +148,7 @@ export class GatewayGateway {
     );
     client.to(`${body.createBy}_list`).emit('agreeProject', {
       nickname: (
-        await this.projectRepository.findOne(User, {
+        await this.entityManager.findOne(User, {
           select: {
             nickname: true,
           },
@@ -144,7 +158,7 @@ export class GatewayGateway {
         })
       ).nickname,
       project_name: (
-        await this.projectRepository.findOne(Project, {
+        await this.entityManager.findOne(Project, {
           select: {
             project_name: true,
           },
@@ -174,7 +188,7 @@ export class GatewayGateway {
     );
     client.to(`${body.createBy}_list`).emit('reuseProject', {
       nickname: (
-        await this.projectRepository.findOne(User, {
+        await this.entityManager.findOne(User, {
           select: {
             nickname: true,
           },
@@ -184,7 +198,7 @@ export class GatewayGateway {
         })
       ).nickname,
       project_name: (
-        await this.projectRepository.findOne(Project, {
+        await this.entityManager.findOne(Project, {
           select: {
             project_name: true,
           },
