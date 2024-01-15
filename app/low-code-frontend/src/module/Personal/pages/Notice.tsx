@@ -99,19 +99,24 @@ export function Notice() {
             <Space>
               <DeleteButton description={'你确定要同意参加该项目吗?'} buttonProps={{ type: 'primary', danger: false }}
                 onConfirm={async () => {
-                  // TODO: 同意
                   sendAgree({
                     createBy: record.createBy,
                     uid: localStorage.getItem('uid'),
                     project_id: record.project_id
                   })
-                  await handlers.joinProject({
-                    uid: localStorage.getItem('uid'),
-                    project_id: record.project_id
-                  })
-                  let res = [...list]
-                  res = res.filter(i => i.project_id !== record.project_id)
-                  setList(res)
+                  try {
+                    await handlers.joinProject({
+                      uid: localStorage.getItem('uid'),
+                      project_id: record.project_id
+                    })
+                  } catch (e: any) {
+                    message.error(e)
+                  } finally {
+                    let res = [...list]
+                    res = res.filter(i => i.project_id !== record.project_id)
+                    localStorage.setItem('invite_list', JSON.stringify(res))
+                    setList(res)
+                  }
                 }}
               >
                 同意
