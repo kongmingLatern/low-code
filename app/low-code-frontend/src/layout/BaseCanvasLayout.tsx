@@ -119,7 +119,7 @@ export default function HomeLayout() {
 												href='#'
 												type='text'
 												onClick={() => {
-													downFile(`data:text/plain;charset=utf-8,${encodeURIComponent(codeTemplate(formatToExport(canvas.getCanvas().element)))}`, 'page.tsx')
+													downFile(`data:text/plain;charset=utf-8,${encodeURIComponent(codeTemplate(formatToExport(canvas.getCanvas().element)))}`, 'index.tsx')
 												}}
 											>
 												TSX 文件
