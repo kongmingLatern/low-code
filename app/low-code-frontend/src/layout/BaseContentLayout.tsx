@@ -62,6 +62,56 @@ export default function BaseContentLayout(
 ) {
 	const { config, getData } = props
 
+	const [operationColumn] = useState(config!.dataCfg?.operationColumns ?? [
+		{
+			title: '操作',
+			dataIndex: 'action',
+			key: 'action',
+			align: 'center',
+			fixed: 'right',
+			width: 200,
+			render: (_, record) => (
+				<Space>
+					{
+						config!.actionCfg?.formCfg &&
+						(
+							<ModalButton
+								showJson
+								initialValues={Object.assign(config!.actionCfg?.formCfg?.initialValues || {}, record)}
+								{...config!.actionCfg?.formCfg}
+								onOk={async value => {
+									await config!.actionCfg?.formCfg!.onOk({
+										...value,
+										[config!.dataCfg
+											?.primaryKey as string]:
+											record[
+											config!.dataCfg!.primaryKey!
+											],
+									})
+									await getDataSource()
+								}}
+							>
+								修改
+							</ModalButton>
+						)
+					}
+					<DeleteButton
+						{...config!.actionCfg?.deleteButtonCfg}
+						onConfirm={async () => {
+							await config!.actionCfg
+								?.deleteButtonCfg?.onConfirm!(
+									record[config!.dataCfg!.primaryKey!]
+								)
+							await getDataSource()
+						}}
+					>
+						删除
+					</DeleteButton>
+				</Space>
+			)
+		}
+	])
+
 	const [dataSource, setDataSource] = useState<any[]>([])
 
 	const getDataSource = useCallback(async () => {
@@ -150,54 +200,7 @@ export default function BaseContentLayout(
 				columns={
 					(config?.dataCfg && [
 						...config.dataCfg.columns!,
-						...config.dataCfg.operationColumns || {
-							title: '操作',
-							dataIndex: 'action',
-							key: 'action',
-							align: 'center',
-							fixed: 'right',
-							width: 200,
-							render: (_, record) => (
-								<Space>
-									{
-										config.actionCfg?.formCfg &&
-										(
-											<ModalButton
-												showJson
-												initialValues={Object.assign(config.actionCfg?.formCfg?.initialValues || {}, record)}
-												{...config.actionCfg?.formCfg}
-												onOk={async value => {
-													await config.actionCfg?.formCfg!.onOk({
-														...value,
-														[config.dataCfg
-															?.primaryKey as string]:
-															record[
-															config.dataCfg!.primaryKey!
-															],
-													})
-													await getDataSource()
-												}}
-											>
-												修改
-											</ModalButton>
-										)
-									}
-									<DeleteButton
-										{...config.actionCfg?.deleteButtonCfg}
-										onConfirm={async () => {
-											await config.actionCfg
-												?.deleteButtonCfg?.onConfirm!(
-													record[config!.dataCfg!.primaryKey!]
-												)
-											await getDataSource()
-										}}
-									>
-										删除
-									</DeleteButton>
-								</Space>
-							),
-						},
-						// ...config.dataCfg.operationColumns,
+						...operationColumn
 					]) ||
 					[]
 				}
