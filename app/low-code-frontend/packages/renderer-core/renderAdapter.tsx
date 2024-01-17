@@ -2,20 +2,20 @@ import { Button, Card, Image, Typography } from 'antd'
 
 import { ELEMENT_TYPE } from '@/shared/enum'
 
-type ComponentType = 'Antd'
+type ComponentType = 'Antd' | 'ElementUI'
 
 const { Text } = Typography
 
 // 适配层, 通过 type 对 value 进行处理
 export class RenderAdapter {
-	private type: ELEMENT_TYPE = ELEMENT_TYPE.TEXT
+	private type: string = ELEMENT_TYPE.TEXT
 	private value: any
 	private props: Record<string, any> = {}
 	// NOTE: 组件库类型,默认为 antd
 	private componentType: ComponentType = 'Antd'
 
 	constructor(
-		type?: ELEMENT_TYPE,
+		type?: string,
 		value?: any,
 		props?: Record<string, any>,
 		componentType?: ComponentType
@@ -126,8 +126,32 @@ export class RenderAdapter {
 						}
 					</Card>
 				)
+			default:
+				return (
+					<Card
+						{
+						...(elseProps?.props)
+						}
+						{...this.props?.props}
+						title={elseProps?.props?.title || this.props.props?.title || '默认标题'}
+						style={this.props?.style}
+						cover={
+							this.props.props?.cover && <Image alt="example" src={this.props.props?.cover}
+								onClick={(e) => {
+									e.stopPropagation()
+								}}
+							/>
+						}
+						{...options}
+					>
+						{
+							this.value
+						}
+					</Card>
+				)
 		}
 	}
+
 
 	// 对外暴露一个接口,该接口即对type做对应的适配
 	handler(
@@ -142,7 +166,7 @@ export class RenderAdapter {
 			card: Record<string, any>
 			button: Record<string, any>
 		}>
-	) {
+	): JSX.Element {
 		switch (this.type) {
 			case ELEMENT_TYPE.TEXT:
 				return this.textHandler(options.text)

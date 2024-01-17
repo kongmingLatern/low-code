@@ -24,6 +24,7 @@ const RenderTemplate: FunctionComponent<RenderTemplateProps> = (props) => {
           position: 'absolute',
         }
       })
+
       const child = React.Children.only(
         renderAdapter.handler({
           img: {
