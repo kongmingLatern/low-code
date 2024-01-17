@@ -14,7 +14,7 @@ import React, {
 	useEffect,
 	useState,
 } from 'react'
-import { exitLogin, handlers } from '@/shared'
+import { copyToClipboard, exitLogin, handlers } from '@/shared'
 
 import Box from '@/module/Index/components/Box'
 import { CardProps } from '@/module/Home/pages/All'
@@ -133,6 +133,13 @@ const App: React.FC<{
 												),
 												onClick: () => {
 													navigate('/notice')
+												}
+											},
+											{
+												key: 'getUid',
+												label: '复制Uid',
+												onClick: () => {
+													copyToClipboard(localStorage.getItem('uid'))
 												}
 											},
 											{

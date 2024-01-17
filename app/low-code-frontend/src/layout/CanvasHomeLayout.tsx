@@ -1,5 +1,5 @@
 import { Badge, Layout, Menu, Space, message, theme } from 'antd'
-import { InfoType, UserCanvasInfo, exitLogin, handlers } from '@/shared'
+import { InfoType, UserCanvasInfo, copyToClipboard, exitLogin, handlers } from '@/shared'
 import {
 	Link,
 	Outlet,
@@ -139,6 +139,13 @@ const App: React.FC<LayoutProps> = props => {
 										<Link to={'/notice'}>通知信息</Link>
 									</Space>
 								),
+							},
+							{
+								key: 'getUid',
+								label: '复制Uid',
+								onClick: () => {
+									copyToClipboard(localStorage.getItem('uid'))
+								}
 							},
 							{
 								key: 'back',
