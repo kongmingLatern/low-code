@@ -108,7 +108,7 @@ const App: React.FC<LayoutProps> = props => {
 						marginRight="1rem"
 					/>
 					<Menu
-						className="w-full"
+						className="min-w-600px"
 						theme="dark"
 						mode="horizontal"
 						selectedKeys={[selectedMenu]}
