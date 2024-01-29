@@ -32,7 +32,7 @@ export default function LeftSider() {
 	const getChildrenByKey = () => {
 
 		return (
-			<div ref={parent} className="mt-1rem pr-24px" style={{ height: '940px' }}>
+			<div ref={parent} className="mt-1rem pr-24px" style={{ height: '90vh', overflow: 'auto' }}>
 				{isExpanded && (
 					<Row gutter={[16, 16]}>
 						{data.map(i => (
