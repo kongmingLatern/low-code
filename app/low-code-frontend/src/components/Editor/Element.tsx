@@ -255,6 +255,75 @@ export default function EditorElement({ element }) {
 			]
 			break
 
+
+		case ELEMENT_TYPE.TAG:
+			formItems = [
+				{
+					type: 'value',
+					name: 'value',
+					label: '文本内容',
+				},
+				{
+					type: 'color',
+					name: 'color',
+					label: '标签颜色'
+				},
+				{
+					type: 'select',
+					name: 'closeIcon',
+					label: '自定义关闭图标',
+					options: [
+						{
+							value: true,
+							label: '开启'
+						},
+						{
+							value: false,
+							label: '关闭'
+						}
+					]
+				},
+				{
+					type: 'number',
+					name: 'width',
+					label: '元素宽度(px)',
+					placeholder: '请输入元素宽度(px)',
+				},
+				{
+					type: 'number',
+					name: 'height',
+					label: '元素高度(px)',
+					placeholder: '请输入元素高度(px)',
+				},
+				{
+					type: 'number',
+					name: 'fontSize',
+					label: '字体大小(px)',
+					placeholder: '请输入元素大小',
+				},
+				{
+					type: 'select',
+					name: 'fontWeight',
+					label: '元素粗细',
+					placeholder: '请选择元素粗细',
+					options: [
+						{
+							value: '700',
+							label: '粗',
+						},
+						{
+							value: '500',
+							label: '中等',
+						},
+						{
+							value: '200',
+							label: '细',
+						},
+					],
+				},
+			]
+			break
+
 		default:
 			formItems = [
 				{
