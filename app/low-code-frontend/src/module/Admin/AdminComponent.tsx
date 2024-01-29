@@ -68,6 +68,10 @@ export default function AdminComponent() {
                     value: 'divider'
                   },
                   {
+                    label: '标签',
+                    value: 'tag'
+                  },
+                  {
                     label: '表单',
                     value: 'form'
                   }
@@ -168,7 +172,7 @@ export default function AdminComponent() {
               })
               result['value'] = value.value
               Object.assign(value, {
-                component_props: JSON.stringify(result)
+                component_props: JSON.stringify(result, null, 2)
               })
 
               await handlers.createComponent(value as any)
@@ -218,7 +222,7 @@ export default function AdminComponent() {
               case 'button':
                 return <Tag color='gold-inverse'>按扭</Tag>
               default:
-                return <Tag color='green-inverse'>按扭</Tag>
+                return <Tag color='green-inverse'>{value}</Tag>
             }
           }
         },
@@ -273,6 +277,26 @@ export default function AdminComponent() {
                 {
                   label: "卡片",
                   value: 'card'
+                },
+                {
+                  label: '按扭',
+                  value: 'button'
+                },
+                {
+                  label: '图标',
+                  value: 'icon'
+                },
+                {
+                  label: '水平线',
+                  value: 'divider'
+                },
+                {
+                  label: '标签',
+                  value: 'tag'
+                },
+                {
+                  label: '表单',
+                  value: 'form'
                 }
               ]
             }
@@ -302,6 +326,11 @@ export default function AdminComponent() {
                 },
               ],
             },
+            inject: {
+              style: {
+                height: '300px'
+              }
+            }
           },
         ],
         footer: null,
