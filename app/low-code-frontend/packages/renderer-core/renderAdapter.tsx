@@ -6,6 +6,7 @@ type ComponentType = 'Antd' | 'ElementUI'
 
 const { Text } = Typography
 
+
 // 适配层, 通过 type 对 value 进行处理
 export class RenderAdapter {
 	private type: string = ELEMENT_TYPE.TEXT
@@ -29,20 +30,26 @@ export class RenderAdapter {
 
 	private textHandler(options = {}) {
 		const { componentType } = this
-		let elseProps: any = {}
-		if ('component_props' in this.props) {
-			elseProps = JSON.parse(this.props.component_props)
-		}
+		const elseProps: any = this.getElseProps()
+
 		switch (componentType) {
 			case 'Antd':
 				return (
-					<Text style={this.props.style} {...options} {...(elseProps?.props)} {...this.props?.props}  >
+					<Text {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style}>
 						{this.value}
 					</Text>
 				)
 			default:
 				return <span>{this.value}</span>
 		}
+	}
+
+	private getElseProps() {
+		let elseProps: any = {}
+		if ('component_props' in this.props) {
+			elseProps = JSON.parse(this.props.component_props)
+		}
+		return elseProps
 	}
 
 	private imgHandler(options = {} as any) {
@@ -68,10 +75,7 @@ export class RenderAdapter {
 	}
 	private buttonHandler(options = {} as any) {
 		const { componentType } = this
-		let elseProps: any = {}
-		if ('component_props' in this.props) {
-			elseProps = JSON.parse(this.props.component_props)
-		}
+		const elseProps: any = this.getElseProps()
 		switch (componentType) {
 			case 'Antd':
 				return (
@@ -97,10 +101,7 @@ export class RenderAdapter {
 
 	private cardHandler(options = {} as any) {
 		const { componentType } = this
-		let elseProps: any = {}
-		if ('component_props' in this.props) {
-			elseProps = JSON.parse(this.props.component_props)
-		}
+		const elseProps: any = this.getElseProps()
 		switch (componentType) {
 			case 'Antd':
 				return (
