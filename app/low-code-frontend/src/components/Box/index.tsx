@@ -19,6 +19,7 @@ export default function Box(props) {
 
 	useDrag(data, dragRef, {
 		onDragStart: e => {
+			e.dataTransfer.effectAllowed = 'move'
 			const startX = e.pageX
 			const startY = e.pageY
 

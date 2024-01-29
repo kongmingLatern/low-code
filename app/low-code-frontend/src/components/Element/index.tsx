@@ -28,6 +28,7 @@ export default function Element(props) {
 
 	useDrag({}, dragRef, {
 		onDragStart: e => {
+			e.dataTransfer.effectAllowed = 'move'
 			setSelected(e)
 			const startX = e.pageX
 			const startY = e.pageY
