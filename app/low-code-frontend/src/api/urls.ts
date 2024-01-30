@@ -4,6 +4,7 @@ const modules = {
 	project: '/project',
 	canvas: '/canvas',
 	component: '/component',
+	componentConfig: '/component-config',
 	role: '/role',
 }
 export const urls = {
@@ -41,6 +42,12 @@ export const urls = {
 		createComponent: `${modules.component}/create`,
 		updateComponent: `${modules.component}/update`,
 		deleteComponent: `${modules.component}/delete`,
+	},
+	componentConfig: {
+		getAllComponentConfig: `${modules.componentConfig}/get`,
+		createComponentConfig: `${modules.componentConfig}/create`,
+		updateComponentConfig: `${modules.componentConfig}/update`,
+		deleteComponentConfig: `${modules.componentConfig}/delete`,
 	},
 	role: {
 		getAllRole: `${modules.role}`,
