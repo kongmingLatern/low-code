@@ -125,8 +125,10 @@ export default function Element(props) {
 	}
 
 
-	const ElementChildren = () =>
-		React.cloneElement(child, {
+	const ElementChildren = () => {
+		// console.log(child);
+
+		return React.cloneElement(child, {
 			...child.props,
 			className: classNames(
 				child.props.className,
@@ -141,6 +143,8 @@ export default function Element(props) {
 			// style: { ...child.props.style },
 			// ...child.props,
 		})
+	}
+
 
 	function setSelected(e) {
 		e.stopPropagation()

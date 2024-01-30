@@ -79,6 +79,7 @@ export default function FormRender(
 	}
 	useEffect(() => {
 		form.setFieldsValue(initialValues(elementData))
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form, elementData, elementData.style])
 
 	const renderItem = item => {

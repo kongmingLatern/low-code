@@ -52,7 +52,8 @@ export default function LeftSider() {
 		)
 	}
 
-	const items = LeftSiderTab.map(i => {
+
+	const items = LeftSiderTab.map((i: any) => {
 		return {
 			label: i.label,
 			key: i.key,
