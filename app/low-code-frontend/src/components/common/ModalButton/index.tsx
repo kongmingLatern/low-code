@@ -118,14 +118,14 @@ const App: React.FC<
 													<Form.Item
 														{...restField}
 														label={i.props.name}
-														name={[name, 'key']}
+														name={[name, i.inject?.targetKey[0] || 'key']}
 														rules={[{ required: true, message: '值不能为空' }]}
 													>
-														<Input placeholder={`请输入key值`} />
+														<Input placeholder={`请输入${i.inject?.targetKey[0] || 'key'}值`} />
 													</Form.Item>
 													<Form.Item
 														{...restField}
-														name={[name, 'value']}
+														name={[name, i.inject?.targetKey[1] || 'value']}
 														rules={[{ required: true, message: '值不能为空' }]}
 													>
 														<Input placeholder={`请输入key对应的value值`} />
