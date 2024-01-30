@@ -15,6 +15,9 @@ export class ComponentConfig {
   component_tag: string;
 
   @Column()
+  label: string;
+
+  @Column()
   placeholder: string;
 
   @Column({

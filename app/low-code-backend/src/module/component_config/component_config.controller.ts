@@ -31,6 +31,11 @@ export class ComponentConfigController {
     return this.componentConfigService.findAll();
   }
 
+  @Get('getTag')
+  findOneByTag(@Query('component_tag') tag: string) {
+    return this.componentConfigService.findOneByTag(tag);
+  }
+
   findOne(@Param('id') id: number) {
     return this.componentConfigService.findOne(+id);
   }

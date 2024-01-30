@@ -28,6 +28,31 @@ export class ComponentConfigService {
     });
   }
 
+  async findOneByTag(tag: string) {
+    const res = await this.componentConfigRepository.find({
+      select: {
+        component_name: true,
+        component_tag: true,
+        component_type: true,
+        label: true,
+        options: true,
+        placeholder: true,
+      },
+      where: {
+        component_tag: tag,
+      },
+    });
+    return res.map((i) => {
+      return {
+        type: i.component_type,
+        name: i.component_name,
+        label: i.label,
+        placeholder: i.placeholder,
+        options: JSON.parse(i.options || null),
+      };
+    });
+  }
+
   async update(id: number, updateComponentConfigDto: UpdateComponentConfigDto) {
     const config = await this.findOne(id);
 
