@@ -1,4 +1,4 @@
-import { Button, Card, Image, Typography } from 'antd'
+import { Button, Card, Image, Tag, Typography } from 'antd'
 
 import { ELEMENT_TYPE } from '@/shared/enum'
 
@@ -96,9 +96,6 @@ export class RenderAdapter {
 				return <Button {...options} />
 		}
 	}
-
-
-
 	private cardHandler(options = {} as any) {
 		const { componentType } = this
 		const elseProps: any = this.getElseProps()
@@ -153,6 +150,18 @@ export class RenderAdapter {
 		}
 	}
 
+	private tagHandler(options = {} as any) {
+		const { componentType } = this
+		const elseProps = this.getElseProps()
+		switch (componentType) {
+			case 'Antd':
+				return <Tag {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style}>{this.value}</Tag>
+
+			default:
+				return <Tag {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style}>{this.value}</Tag>
+		}
+	}
+
 
 	// 对外暴露一个接口,该接口即对type做对应的适配
 	handler(
@@ -160,12 +169,14 @@ export class RenderAdapter {
 			text: {},
 			img: {},
 			card: {},
-			button: {}
+			button: {},
+			tag: {}
 		} as Partial<{
 			text: Record<string, any>
 			img: Record<string, any>
 			card: Record<string, any>
 			button: Record<string, any>
+			tag: Record<string, any>
 		}>
 	): JSX.Element {
 		switch (this.type) {
@@ -177,6 +188,8 @@ export class RenderAdapter {
 				return this.cardHandler(options.card)
 			case ELEMENT_TYPE.BUTTON:
 				return this.buttonHandler(options.button)
+			case ELEMENT_TYPE.TAG:
+				return this.tagHandler(options.tag)
 			default:
 				throw new Error('未处理的类型' + this.type)
 		}
