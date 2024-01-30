@@ -40,6 +40,7 @@ export const handlers = {
 	deleteComponent: componentHandler['deleteComponent'],
 
 	getAllComponentConfig: componentConfigHandler['get'],
+	getComponentConfig: componentConfigHandler['getTag'],
 	createComponentConfig: componentConfigHandler['create'],
 	updateComponentConfig: componentConfigHandler['update'],
 	deleteComponentConfig: componentConfigHandler['delete'],

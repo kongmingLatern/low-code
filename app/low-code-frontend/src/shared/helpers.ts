@@ -94,6 +94,5 @@ export function formatJsonToObject(
 			}
 		}
 	}
-	console.log(result)
 	return result
 }

@@ -85,7 +85,7 @@ export default function Element(props) {
 		console.log(e);
 		switch (e.key) {
 			case 'copy':
-				copyToClipboard(JSON.stringify(props.element))
+				copyToClipboard(JSON.stringify(props.element, null, 2))
 				message.success('复制成功')
 				break;
 			case 'up':

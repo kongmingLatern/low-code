@@ -17,6 +17,16 @@ export const getAllComponentConfig = async (id?) => {
 		}
 	)
 }
+
+export const getConfigByTag = async tag => {
+	return await get<ReturnType<CreateComponentConfigType>>(
+		urls.componentConfig.getConfigByTag,
+		{
+			component_tag: tag,
+		}
+	)
+}
+
 export const createComponentConfigHandler = async (
 	values: CreateComponentConfigType
 ) => {
@@ -44,6 +54,7 @@ export const deleteComponentConfig = async canvas_id => {
 
 export const componentConfigHandler = {
 	get: getAllComponentConfig,
+	getTag: getConfigByTag,
 	create: createComponentConfigHandler,
 	update: updateComponentConfig,
 	delete: deleteComponentConfig,

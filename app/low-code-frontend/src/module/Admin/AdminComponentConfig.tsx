@@ -32,7 +32,20 @@ export default function AdminComponentConfig() {
             {
               type: 'input',
               props: {
-                label: '配置项名称',
+                label: '配置项属性名称',
+                name: 'label',
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入属性名称',
+                  },
+                ],
+              },
+            },
+            {
+              type: 'input',
+              props: {
+                label: '配置项属性名',
                 name: 'component_name',
                 rules: [
                   {
@@ -79,7 +92,6 @@ export default function AdminComponentConfig() {
                 ]
               }
             },
-
             {
               type: 'input',
               props: {
@@ -129,7 +141,7 @@ export default function AdminComponentConfig() {
     },
     searchCfg: {
       placeholder: '请输入要查询的组件类型',
-      primaryKey: 'component_type',
+      primaryKey: 'component_tag',
     },
     dataCfg: {
       primaryKey: 'id',
@@ -143,6 +155,12 @@ export default function AdminComponentConfig() {
         },
         {
           title: '配置项名称',
+          dataIndex: 'label',
+          key: 'label',
+          align: 'center',
+        },
+        {
+          title: '配置项属性名称',
           dataIndex: 'component_name',
           key: 'component_name',
           align: 'center',
@@ -182,6 +200,19 @@ export default function AdminComponentConfig() {
                 {
                   required: true,
                   message: '请输入配置项名称',
+                },
+              ],
+            },
+          },
+          {
+            type: 'input',
+            props: {
+              label: '配置项属性名称',
+              name: 'label',
+              rules: [
+                {
+                  required: true,
+                  message: '请输入属性名称',
                 },
               ],
             },
@@ -257,7 +288,7 @@ export default function AdminComponentConfig() {
               name: 'options',
               rules: [
                 {
-                  required: true,
+                  required: false,
                   message: '请输入组件属性',
                 },
               ],

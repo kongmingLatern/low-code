@@ -45,6 +45,7 @@ export const urls = {
 	},
 	componentConfig: {
 		getAllComponentConfig: `${modules.componentConfig}/get`,
+		getConfigByTag: `${modules.componentConfig}/getTag`,
 		createComponentConfig: `${modules.componentConfig}/create`,
 		updateComponentConfig: `${modules.componentConfig}/update`,
 		deleteComponentConfig: `${modules.componentConfig}/delete`,
