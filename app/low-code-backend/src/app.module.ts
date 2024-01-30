@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthModule } from './module/auth/auth.module';
 import { CanvasModule } from './module/canvas/canvas.module';
+import { ComponentConfigModule } from './module/component_config/component_config.module';
 import { ComponentModule } from './module/component/component.module';
 import { JwtModule } from '@nestjs/jwt';
 import { LibraryModule } from './module/library/library.module';
@@ -47,6 +48,7 @@ import { UserProjectRoleModule } from './joinTable/user_project_role/user_projec
       secret: 'mowind',
       signOptions: { expiresIn: '7d' },
     }),
+    ComponentConfigModule,
   ],
   controllers: [AppController],
   providers: [
