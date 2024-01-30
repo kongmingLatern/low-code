@@ -82,6 +82,14 @@ export interface CreateComponentType {
 	library?: string
 }
 
+export interface CreateComponentConfigType {
+	id: number
+	component_name: string
+	component_type: string
+	placeholder: string
+	options: string
+}
+
 export interface ProjectUidType {
 	code: number
 	data: Record<'projects', Array<Record<string, any>>>

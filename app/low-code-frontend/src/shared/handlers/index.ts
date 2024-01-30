@@ -1,6 +1,7 @@
 import { loginHandler, registerHandle } from './auth'
 
 import { canvasHandler } from './canvas'
+import { componentConfigHandler } from './componentConfig'
 import { componentHandler } from './component'
 import { projectHandler } from './project'
 import { roleHandler } from './role'
@@ -38,6 +39,11 @@ export const handlers = {
 	updateComponent: componentHandler['updateComponent'],
 	deleteComponent: componentHandler['deleteComponent'],
 
+	getAllComponentConfig: componentConfigHandler['get'],
+	createComponentConfig: componentConfigHandler['create'],
+	updateComponentConfig: componentConfigHandler['update'],
+	deleteComponentConfig: componentConfigHandler['delete'],
+
 	getAllRole: roleHandler['getAllRole'],
 	addRole: roleHandler['addRole'],
 	updateRole: roleHandler['updateRole'],
@@ -49,5 +55,6 @@ export * from './user'
 export * from './project'
 export * from './canvas'
 export * from './component'
+export * from './componentConfig'
 export * from './role'
 export * from './types'
