@@ -1,4 +1,4 @@
-import { Button, Card, Image, Tag, Typography } from 'antd'
+import { Button, Card, Divider, Image, Input, Tag, Typography } from 'antd'
 
 import { ELEMENT_TYPE } from '@/shared/enum'
 
@@ -162,6 +162,30 @@ export class RenderAdapter {
 		}
 	}
 
+	private dividerHandler(options = {} as any) {
+		const { componentType } = this
+		const elseProps = this.getElseProps()
+		switch (componentType) {
+			case 'Antd':
+				return <Divider {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style}>{this.value}</Divider>
+
+			default:
+				return <Divider {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style}>{this.value}</Divider>
+		}
+	}
+
+	private inputHandler(options = {} as any) {
+		const { componentType } = this
+		const elseProps = this.getElseProps()
+		switch (componentType) {
+			case 'Antd':
+				return <Input {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style} />
+
+			default:
+				return <Input {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style} />
+		}
+	}
+
 
 	// 对外暴露一个接口,该接口即对type做对应的适配
 	handler(
@@ -170,13 +194,17 @@ export class RenderAdapter {
 			img: {},
 			card: {},
 			button: {},
-			tag: {}
+			tag: {},
+			divider: {},
+			input: {}
 		} as Partial<{
 			text: Record<string, any>
 			img: Record<string, any>
 			card: Record<string, any>
 			button: Record<string, any>
-			tag: Record<string, any>
+			tag: Record<string, any>,
+			divider: Record<string, any>
+			input: Record<string, any>
 		}>
 	): JSX.Element {
 		switch (this.type) {
@@ -190,6 +218,10 @@ export class RenderAdapter {
 				return this.buttonHandler(options.button)
 			case ELEMENT_TYPE.TAG:
 				return this.tagHandler(options.tag)
+			case ELEMENT_TYPE.DIVIDER:
+				return this.dividerHandler(options.divider)
+			case ELEMENT_TYPE.INPUT:
+				return this.inputHandler(options.input)
 			default:
 				throw new Error('未处理的类型' + this.type)
 		}
