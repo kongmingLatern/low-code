@@ -32,12 +32,12 @@ export default function AdminComponentConfig() {
             {
               type: 'input',
               props: {
-                label: '配置项属性名称',
+                label: '配置项名称(中文)',
                 name: 'label',
                 rules: [
                   {
                     required: true,
-                    message: '请输入属性名称',
+                    message: '请输入配置项名称(中文)',
                   },
                 ],
               },
@@ -45,12 +45,12 @@ export default function AdminComponentConfig() {
             {
               type: 'input',
               props: {
-                label: '配置项属性名',
+                label: '配置项属性名(英文)',
                 name: 'component_name',
                 rules: [
                   {
                     required: true,
-                    message: '请输入配置项名称',
+                    message: '请输入配置项名称(英文)',
                   },
                 ],
               },
@@ -166,7 +166,7 @@ export default function AdminComponentConfig() {
           align: 'center',
         },
         {
-          title: '配置类型',
+          title: '配置属性类型',
           dataIndex: 'component_type',
           key: 'component_type',
           align: 'center',
@@ -194,8 +194,21 @@ export default function AdminComponentConfig() {
           {
             type: 'input',
             props: {
-              label: '配置项名称',
+              label: '配置项属性名称',
               name: 'component_name',
+              rules: [
+                {
+                  required: true,
+                  message: '请输入配置项属性名称',
+                },
+              ],
+            },
+          },
+          {
+            type: 'input',
+            props: {
+              label: '配置项名称',
+              name: 'label',
               rules: [
                 {
                   required: true,
@@ -205,20 +218,7 @@ export default function AdminComponentConfig() {
             },
           },
           {
-            type: 'input',
-            props: {
-              label: '配置项属性名称',
-              name: 'label',
-              rules: [
-                {
-                  required: true,
-                  message: '请输入属性名称',
-                },
-              ],
-            },
-          },
-          {
-            type: 'input',
+            type: 'select',
             props: {
               label: '配置项文本框类型',
               name: 'component_type',
@@ -226,19 +226,6 @@ export default function AdminComponentConfig() {
                 {
                   required: true,
                   message: '请输入配置项文本框类型',
-                },
-              ],
-            },
-          },
-          {
-            type: 'select',
-            props: {
-              label: '组件类型',
-              name: 'component_tag',
-              rules: [
-                {
-                  required: true,
-                  message: '请输入组件类型',
                 },
               ],
             },
@@ -271,6 +258,20 @@ export default function AdminComponentConfig() {
           {
             type: 'input',
             props: {
+              label: '组件类型',
+              name: 'component_tag',
+              rules: [
+                {
+                  required: true,
+                  message: '请输入组件类型',
+                },
+              ],
+            },
+
+          },
+          {
+            type: 'input',
+            props: {
               label: '组件占位符',
               name: 'placeholder',
               rules: [
@@ -284,7 +285,7 @@ export default function AdminComponentConfig() {
           {
             type: 'textarea',
             props: {
-              label: '下拉选项',
+              label: '可选类型',
               name: 'options',
               rules: [
                 {

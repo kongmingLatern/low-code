@@ -2,7 +2,6 @@ import BaseContentLayout, {
   CfgProps,
 } from '@/layout/BaseContentLayout'
 
-import { Tag } from 'antd'
 import { handlers } from '@/shared'
 
 export default function AdminComponent() {
@@ -30,7 +29,7 @@ export default function AdminComponent() {
               },
             },
             {
-              type: 'select',
+              type: 'input',
               props: {
                 label: '组件类别',
                 name: 'component_type',
@@ -41,42 +40,6 @@ export default function AdminComponent() {
                   },
                 ],
               },
-              inject: {
-                options: [
-                  {
-                    label: "文本",
-                    value: 'text'
-                  },
-                  {
-                    label: "图片",
-                    value: 'img'
-                  },
-                  {
-                    label: "卡片",
-                    value: 'card'
-                  },
-                  {
-                    label: '按扭',
-                    value: 'button'
-                  },
-                  {
-                    label: '图标',
-                    value: 'icon'
-                  },
-                  {
-                    label: '水平线',
-                    value: 'divider'
-                  },
-                  {
-                    label: '标签',
-                    value: 'tag'
-                  },
-                  {
-                    label: '表单',
-                    value: 'form'
-                  }
-                ]
-              }
             },
             {
               type: 'input',
@@ -211,20 +174,6 @@ export default function AdminComponent() {
           dataIndex: 'component_type',
           key: 'component_type',
           align: 'center',
-          render: (value) => {
-            switch (value) {
-              case 'img':
-                return <Tag color='blue-inverse'>图片</Tag>
-              case 'text':
-                return <Tag color='geekblue'>文本</Tag>
-              case 'card':
-                return <Tag color='cyan-inverse'>卡片</Tag>
-              case 'button':
-                return <Tag color='gold-inverse'>按扭</Tag>
-              default:
-                return <Tag color='green-inverse'>{value}</Tag>
-            }
-          }
         },
         {
           title: '组件属性',
@@ -264,42 +213,6 @@ export default function AdminComponent() {
                 },
               ],
             },
-            inject: {
-              options: [
-                {
-                  label: "文本",
-                  value: 'text'
-                },
-                {
-                  label: "图片",
-                  value: 'img'
-                },
-                {
-                  label: "卡片",
-                  value: 'card'
-                },
-                {
-                  label: '按扭',
-                  value: 'button'
-                },
-                {
-                  label: '图标',
-                  value: 'icon'
-                },
-                {
-                  label: '水平线',
-                  value: 'divider'
-                },
-                {
-                  label: '标签',
-                  value: 'tag'
-                },
-                {
-                  label: '表单',
-                  value: 'form'
-                }
-              ]
-            }
           },
           {
             type: 'input',
