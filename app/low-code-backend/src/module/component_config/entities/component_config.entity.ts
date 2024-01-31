@@ -21,7 +21,8 @@ export class ComponentConfig {
   placeholder: string;
 
   @Column({
-    default: '',
+    type: 'text',
+    default: null,
   })
   options: string;
 }
