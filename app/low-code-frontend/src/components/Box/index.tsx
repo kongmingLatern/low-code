@@ -66,6 +66,7 @@ export default function Box(props) {
 	return (
 		<div
 			className={classNames(
+				'overflow-hidden',
 				'flex-center',
 				'select-none',
 				styled.border
