@@ -14,6 +14,7 @@ export const enum ELEMENT_TYPE {
 	TAG = 'tag',
 	DIVIDER = 'divider',
 	INPUT = 'input',
+	TABLE = 'table',
 }
 
 export const enum ROLE {

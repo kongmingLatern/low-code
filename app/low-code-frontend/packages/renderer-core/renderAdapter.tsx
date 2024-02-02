@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Image, Input, Tag, Typography } from 'antd'
+import { Button, Card, Divider, Image, Input, Table, Tag, Typography } from 'antd'
 
 import { ELEMENT_TYPE } from '@/shared/enum'
 
@@ -28,6 +28,14 @@ export class RenderAdapter {
 			this.componentType = componentType
 	}
 
+	private getElseProps() {
+		let elseProps: any = {}
+		if ('component_props' in this.props) {
+			elseProps = JSON.parse(this.props.component_props)
+		}
+		return elseProps
+	}
+
 	private textHandler(options = {}) {
 		const { componentType } = this
 		const elseProps: any = this.getElseProps()
@@ -43,15 +51,6 @@ export class RenderAdapter {
 				return <span>{this.value}</span>
 		}
 	}
-
-	private getElseProps() {
-		let elseProps: any = {}
-		if ('component_props' in this.props) {
-			elseProps = JSON.parse(this.props.component_props)
-		}
-		return elseProps
-	}
-
 	private imgHandler(options = {} as any) {
 		const { componentType } = this
 		let elseProps: any = {}
@@ -149,7 +148,6 @@ export class RenderAdapter {
 				)
 		}
 	}
-
 	private tagHandler(options = {} as any) {
 		const { componentType } = this
 		const elseProps = this.getElseProps()
@@ -161,7 +159,6 @@ export class RenderAdapter {
 				return <Tag {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style}>{this.value}</Tag>
 		}
 	}
-
 	private dividerHandler(options = {} as any) {
 		const { componentType } = this
 		const elseProps = this.getElseProps()
@@ -173,16 +170,28 @@ export class RenderAdapter {
 				return <Divider {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style}>{this.value}</Divider>
 		}
 	}
-
 	private inputHandler(options = {} as any) {
 		const { componentType } = this
 		const elseProps = this.getElseProps()
+
 		switch (componentType) {
 			case 'Antd':
 				return <Input {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style} />
 
 			default:
 				return <Input {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style} />
+		}
+	}
+	private tableHandler(options = {} as any) {
+		const { componentType } = this
+		const elseProps = this.getElseProps()
+
+		switch (componentType) {
+			case 'Antd':
+				return <Table {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style} />
+
+			default:
+				return <Table {...options} {...(elseProps?.props)} {...this.props?.props} style={this.props.style} />
 		}
 	}
 
@@ -196,7 +205,8 @@ export class RenderAdapter {
 			button: {},
 			tag: {},
 			divider: {},
-			input: {}
+			input: {},
+			table: {}
 		} as Partial<{
 			text: Record<string, any>
 			img: Record<string, any>
@@ -205,6 +215,7 @@ export class RenderAdapter {
 			tag: Record<string, any>,
 			divider: Record<string, any>
 			input: Record<string, any>
+			table: Record<string, any>
 		}>
 	): JSX.Element {
 		switch (this.type) {
@@ -222,6 +233,8 @@ export class RenderAdapter {
 				return this.dividerHandler(options.divider)
 			case ELEMENT_TYPE.INPUT:
 				return this.inputHandler(options.input)
+			case ELEMENT_TYPE.TABLE:
+				return this.tableHandler(options.table)
 			default:
 				throw new Error('未处理的类型' + this.type)
 		}
