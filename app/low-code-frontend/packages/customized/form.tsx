@@ -4,6 +4,7 @@ import {
 	Input,
 	InputNumber,
 	Select,
+	Typography,
 } from 'antd'
 import { useEffect, useState } from 'react'
 
@@ -97,6 +98,23 @@ export default function FormRender(
 						}
 					/>
 				)
+
+			case 'textarea':
+				return initialValues()[item.name]?.map((i, index) => {
+					return <Typography.Text key={index} editable={{
+						autoSize: true, onChange(value) {
+							elementData.props[item.name].forEach(element => {
+								if (element.title === i.title) {
+									Object.assign(element, {
+										title: value
+									})
+									canvas.update()
+								}
+							});
+						},
+					}}>{i.title}</Typography.Text>
+				})
+
 			case 'value':
 				return (
 					<Input

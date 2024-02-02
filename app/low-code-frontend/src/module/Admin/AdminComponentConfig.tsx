@@ -74,6 +74,10 @@ export default function AdminComponentConfig() {
                     label: '普通文本'
                   },
                   {
+                    value: 'textarea',
+                    label: '文本域'
+                  },
+                  {
                     value: 'number',
                     label: '数字'
                   },
@@ -234,6 +238,10 @@ export default function AdminComponentConfig() {
                 {
                   value: 'text',
                   label: '普通文本'
+                },
+                {
+                  value: 'textarea',
+                  label: '文本域'
                 },
                 {
                   value: 'number',
