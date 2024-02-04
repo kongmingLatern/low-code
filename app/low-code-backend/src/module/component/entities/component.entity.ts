@@ -22,7 +22,10 @@ export class Component {
   @Column()
   component_name: string;
 
-  @Column()
+  @Column({
+    type: 'text',
+    default: null,
+  })
   component_props: string;
 
   @OneToOne(() => Library, (lib) => lib.library_id)
