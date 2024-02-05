@@ -3,6 +3,7 @@ import { loginHandler, registerHandle } from './auth'
 import { canvasHandler } from './canvas'
 import { componentConfigHandler } from './componentConfig'
 import { componentHandler } from './component'
+import { libraryHandler } from './library'
 import { projectHandler } from './project'
 import { roleHandler } from './role'
 import { userHandler } from './user'
@@ -49,6 +50,11 @@ export const handlers = {
 	addRole: roleHandler['addRole'],
 	updateRole: roleHandler['updateRole'],
 	deleteRole: roleHandler['deleteRole'],
+
+	getAllLibrary: libraryHandler['getAllLibrary'],
+	addLibrary: libraryHandler['addLibrary'],
+	updateLibrary: libraryHandler['updateLibrary'],
+	deleteLibrary: libraryHandler['deleteLibrary'],
 }
 
 export * from './auth'
@@ -57,5 +63,6 @@ export * from './project'
 export * from './canvas'
 export * from './component'
 export * from './componentConfig'
+export * from './library'
 export * from './role'
 export * from './types'
