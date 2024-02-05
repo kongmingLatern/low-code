@@ -6,6 +6,7 @@ const modules = {
 	component: '/component',
 	componentConfig: '/component-config',
 	role: '/role',
+	library: '/library',
 }
 export const urls = {
 	user: {
@@ -55,5 +56,11 @@ export const urls = {
 		addRole: `${modules.role}/add`,
 		updateRole: `${modules.role}/updateRole`,
 		deleteRole: `${modules.role}/deleteRole`,
+	},
+	library: {
+		getAllLibraries: `${modules.library}/get`,
+		addLibrary: `${modules.library}/create`,
+		updateLibrary: `${modules.library}/update`,
+		deleteLibrary: `${modules.library}/delete`,
 	},
 }
