@@ -1,6 +1,7 @@
 import AdminCanvas from '@/module/Admin/AdminCanvas'
 import AdminComponent from '@/module/Admin/AdminComponent'
 import AdminComponentConfig from '@/module/Admin/AdminComponentConfig'
+import AdminLibrary from '@/module/Admin/AdminLibrary'
 import AdminProject from '@/module/Admin/AdminProject'
 import AdminRole from '@/module/Admin/AdminRole'
 import AdminUser from '@/module/Admin/AdminUser'
@@ -40,6 +41,11 @@ export const backendLayoutCfg: LayoutProps = {
 				icon: <Icon icon={'quill:todo'} />,
 				label: '组件配置项管理',
 			},
+			{
+				key: 'library',
+				icon: <Icon icon={'quill:todo'} />,
+				label: '组件库管理',
+			},
 		],
 		handleClick: e => {
 			return `/admin/${e.key}`
@@ -69,6 +75,10 @@ export const backendLayoutCfg: LayoutProps = {
 		{
 			path: 'component_config',
 			element: <AdminComponentConfig />
+		},
+		{
+			path: 'library',
+			element: <AdminLibrary />
 		}
 	],
 }
