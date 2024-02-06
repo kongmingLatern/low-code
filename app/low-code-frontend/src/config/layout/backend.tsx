@@ -23,27 +23,27 @@ export const backendLayoutCfg: LayoutProps = {
 			},
 			{
 				key: 'canvas',
-				icon: <Icon icon={'quill:todo'} />,
+				icon: <Icon icon={'mdi:paper'} />,
 				label: '画布管理',
 			},
 			{
 				key: 'role',
-				icon: <Icon icon={'quill:todo'} />,
+				icon: <Icon icon={'heroicons-solid:user-group'} />,
 				label: '角色管理',
 			},
 			{
 				key: 'component',
-				icon: <Icon icon={'quill:todo'} />,
+				icon: <Icon icon={'vscode-icons:file-type-ng-component-ts2'} />,
 				label: '组件管理',
 			},
 			{
 				key: 'component_config',
-				icon: <Icon icon={'quill:todo'} />,
+				icon: <Icon icon={'icon-park:config'} />,
 				label: '组件配置项管理',
 			},
 			{
 				key: 'library',
-				icon: <Icon icon={'quill:todo'} />,
+				icon: <Icon icon={'simple-icons:librarything'} />,
 				label: '组件库管理',
 			},
 		],
