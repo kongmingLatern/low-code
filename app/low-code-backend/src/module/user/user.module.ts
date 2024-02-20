@@ -1,6 +1,4 @@
-import { APP_GUARD } from '@nestjs/core';
 import { CanvasService } from '../canvas/canvas.service';
-import { LoginGuard } from 'src/guards/login.guard';
 import { Module } from '@nestjs/common';
 import { ProjectService } from '../project/project.service';
 import { RoleService } from '../role/role.service';
