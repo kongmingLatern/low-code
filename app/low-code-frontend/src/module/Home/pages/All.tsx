@@ -17,7 +17,7 @@ import { searchProjectByName } from '../shared'
 
 const { Search } = Input
 
-interface AllProps {}
+interface AllProps { }
 
 export interface CardProps {
 	project_name: string
@@ -107,7 +107,7 @@ const All: FunctionComponent<AllProps> = () => {
 			<RowItem
 				gutter={[24, 16]}
 				list={CardList}
-				justify="center"
+				count={4}
 			></RowItem>
 		</>
 	)

@@ -16,7 +16,7 @@ import { searchProjectByName } from '../shared'
 
 const { Search } = Input
 
-interface WillProps {}
+interface WillProps { }
 
 const Will: FunctionComponent<WillProps> = () => {
 	const { cardList } = useContext(CardContext)
@@ -50,7 +50,7 @@ const Will: FunctionComponent<WillProps> = () => {
 					enterButton
 				/>
 			</Flex>
-			<RowItem gutter={16} list={CardList}></RowItem>
+			<RowItem count={4} gutter={16} list={CardList}></RowItem>
 		</>
 	)
 }
