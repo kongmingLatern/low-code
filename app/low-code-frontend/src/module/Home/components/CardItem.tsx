@@ -2,6 +2,7 @@ import { Flex, Tag, Typography } from 'antd'
 
 import Box from '@/module/Index/components/Box'
 import Card from './Card'
+import Cover from '@/assets/cover.jpeg'
 import StatusTag from '@/components/common/StatusTag'
 import { formatYMDHHmmss } from '@/shared'
 import { useNavigate } from 'react-router-dom'
@@ -16,10 +17,12 @@ export const CardItem = props => {
 		<Card
 			hoverable
 			cover={
-				<div className="relative">
+				<div className="relative overflow-hidden">
 					<img
 						alt="example"
-						src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+						src={Cover}
+						width={'100%'}
+						height={'20%'}
 					/>
 					<Tag
 						className="absolute right-0 top-0 z-10"

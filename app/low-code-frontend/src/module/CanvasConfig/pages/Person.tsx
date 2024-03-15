@@ -107,43 +107,47 @@ export default function Person() {
 			width: 250,
 			render: (_, { role_id, uid }) => (
 				<Space size="middle">
-					<ModalButton
-						title="分配画布"
-						form
-						formItem={[
-							{
-								type: 'select',
-								props: {
-									label: '选择画布',
-									name: 'canvas_id',
-									rules: [
-										{
-											required: true,
-											message: '请选择画布',
+					{
+						role_id !== 1 ? (
+							<ModalButton
+								title="分配画布"
+								form
+								formItem={[
+									{
+										type: 'select',
+										props: {
+											label: '选择画布',
+											name: 'canvas_id',
+											rules: [
+												{
+													required: true,
+													message: '请选择画布',
+												},
+											],
 										},
-									],
-								},
-								inject: {
-									mode: 'multiple',
-									options: canvasList,
-								},
-							},
-						]}
-						onOk={async e => {
-							await handlers.assignCanvas({
-								...e,
-								project_id: searchParams.get('project_id'),
-								uid,
-							})
-							await getData()
-						}}
-						onCancel={e => {
-							console.log('cancel', e)
-						}}
-						footer={null}
-					>
-						分配画布
-					</ModalButton>
+										inject: {
+											mode: 'multiple',
+											options: canvasList,
+										},
+									},
+								]}
+								onOk={async e => {
+									await handlers.assignCanvas({
+										...e,
+										project_id: searchParams.get('project_id'),
+										uid,
+									})
+									await getData()
+								}}
+								onCancel={e => {
+									console.log('cancel', e)
+								}}
+								footer={null}
+							>
+								分配画布
+							</ModalButton>
+						) : <Tag color='red-inverse'>管理员无需分配</Tag>
+					}
 					{/* NOTE: 排除 项目管理员 删除自己,以及把删除权限控制给管理员 */}
 					{role_id === 1 ||
 						(uid !== localStorage.getItem('uid') && (
