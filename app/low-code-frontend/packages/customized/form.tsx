@@ -4,6 +4,7 @@ import {
 	Input,
 	InputNumber,
 	Select,
+	Switch,
 	Typography,
 } from 'antd'
 import { useEffect, useState } from 'react'
@@ -142,6 +143,13 @@ export default function FormRender(
 					<Select
 						onChange={e => handleChange(item.name, e)}
 						options={item.options}
+					/>
+				)
+
+			case 'switch':
+				return (
+					<Switch
+						onChange={e => handleChange(item.name, e)}
 					/>
 				)
 			case 'color':
