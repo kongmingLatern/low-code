@@ -92,6 +92,10 @@ export default function AdminComponentConfig() {
                   {
                     value: 'color',
                     label: '着色器'
+                  },
+                  {
+                    value: 'switch',
+                    label: '开关'
                   }
                 ]
               }
