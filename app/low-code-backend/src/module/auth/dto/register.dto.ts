@@ -2,7 +2,7 @@ import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class RegisterDto {
   @IsNotEmpty()
-  @Length(6, 30, { message: '请输入长度为6-30的用户名' })
+  @Length(5, 30, { message: '请输入长度为5-30的用户名' })
   username: string;
 
   @IsString()
